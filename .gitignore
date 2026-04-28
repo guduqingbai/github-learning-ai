@@ -34,3 +34,9 @@ htmlcov/
 *.tmp
 *.temp
 *.bak
+
+# 自动化脚本
+browser_automation.py
+simple_browser_automation.py
+push_to_github.py
+publish_project.py
