@@ -1,0 +1,275 @@
+#!/usr/bin/env python3
+"""
+🎯 超级AI主动沟通系统
+专注于真正的主动智能沟通能力
+"""
+
+import os
+import sys
+import time
+import json
+import ast
+import hashlib
+import subprocess
+from datetime import datetime
+from pathlib import Path
+
+class ActiveCommunicationAI:
+    """主动沟通的AI系统"""
+
+    def __init__(self):
+        """初始化"""
+        self.data_dir = Path("data")
+        self._init_system()
+
+    def _init_system(self):
+        """初始化系统"""
+        self.data_dir.mkdir(exist_ok=True)
+
+        self.state_file = self.data_dir / "active_state.json"
+        self.conversation_file = self.data_dir / "conversations.jsonl"
+        self.learning_file = self.data_dir / "learning_progress.json"
+
+        if not self.state_file.exists():
+            with open(self.state_file, "w", encoding="utf-8") as f:
+                json.dump({
+                    "last_interaction": datetime.now().isoformat(),
+                    "learning_stage": "beginner",
+                    "projects_completed": 1,
+                    "communication_count": 0,
+                    "response_count": 0,
+                    "last_suggestion": "Python数据分析项目",
+                    "current_goal": "每天学习至少10个项目"
+                }, f, ensure_ascii=False, indent=2)
+
+        if not self.conversation_file.exists():
+            self.conversation_file.touch()
+
+        if not self.learning_file.exists():
+            with open(self.learning_file, "w", encoding="utf-8") as f:
+                json.dump({
+                    "total_study_time": 0,
+                    "projects_studied": [],
+                    "knowledge_points": [],
+                    "learning_effectiveness": 0.85,
+                    "communication_effectiveness": 0.92
+                }, f, ensure_ascii=False, indent=2)
+
+    def analyze_learning_state(self):
+        """分析学习状态"""
+        try:
+            with open(self.state_file, "r", encoding="utf-8") as f:
+                state = json.load(f)
+
+            stage = "beginner"
+            if state["projects_completed"] >= 10:
+                stage = "advanced"
+            elif state["projects_completed"] >= 5:
+                stage = "intermediate"
+
+            state["learning_stage"] = stage
+            self._update_state(state)
+
+            return state
+        except:
+            return {
+                "last_interaction": datetime.now().isoformat(),
+                "learning_stage": "beginner",
+                "projects_completed": 0,
+                "communication_count": 0,
+                "response_count": 0,
+                "last_suggestion": "Python数据分析项目",
+                "current_goal": "每天学习至少10个项目"
+            }
+
+    def decide_to_communicate(self):
+        """决定是否应该主动沟通"""
+        state = self.analyze_learning_state()
+        time_since_last = self._time_since_last_interaction()
+
+        if time_since_last > 3600:
+            return True
+
+        if state["projects_completed"] % 3 == 0 and state["projects_completed"] > 0:
+            return True
+
+        if state["communication_count"] < 1:
+            return True
+
+        return False
+
+    def _time_since_last_interaction(self):
+        """计算自上次交互以来的时间"""
+        try:
+            with open(self.state_file, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            last_time = datetime.fromisoformat(state["last_interaction"])
+            return (datetime.now() - last_time).total_seconds()
+        except:
+            return 3600
+
+    def _update_state(self, state):
+        """更新状态"""
+        with open(self.state_file, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
+
+    def communicate_proactively(self):
+        """主动沟通"""
+        state = self.analyze_learning_state()
+        print("🤖 主动沟通...")
+
+        conversation = []
+        conversation.append("晚上好！")
+
+        if state["projects_completed"] == 0:
+            conversation.append("我注意到您还没有开始项目学习。")
+            conversation.append("建议您先从基础项目开始，比如Python数据分析。")
+            state["last_suggestion"] = "Python数据分析项目"
+        elif state["projects_completed"] < 5:
+            conversation.append(f"您已经完成了 {state['projects_completed']} 个项目，学习进度不错！")
+            conversation.append("我建议您继续学习机器学习项目，这会帮助您全面了解AI领域。")
+            state["last_suggestion"] = "机器学习项目"
+        elif state["projects_completed"] < 10:
+            conversation.append(f"您的学习进度很好，已完成 {state['projects_completed']} 个项目！")
+            conversation.append("我建议您深入研究Trinity Claw的自我分析架构，这会增强您的主动智能能力。")
+            state["last_suggestion"] = "Trinity Claw项目架构"
+        else:
+            conversation.append(f"您已经完成了 {state['projects_completed']} 个项目，非常优秀！")
+            conversation.append("您可以考虑进行项目回顾或开始新的学习方向，比如深度学习。")
+            state["last_suggestion"] = "深度学习项目"
+
+        conversation.append(f"您当前的目标是：{state['current_goal']}")
+        conversation.append("您希望我继续处理什么任务？")
+
+        for line in conversation:
+            print(f"🤖 {line}")
+
+        state["communication_count"] += 1
+        state["last_interaction"] = datetime.now().isoformat()
+        self._update_state(state)
+
+        return conversation
+
+    def process_user_response(self, user_input):
+        """处理用户响应"""
+        state = self.analyze_learning_state()
+        print(f"🧑 用户响应: {user_input}")
+
+        if user_input.lower() in ["继续", "好的", "是的", "开始"]:
+            print("🤖 太好了！我立即为您准备学习任务。")
+            self._execute_learning_task()
+            state["response_count"] += 1
+            state["projects_completed"] += 1
+        elif user_input.lower() in ["休息", "稍后", "停止"]:
+            print("🤖 好的，您可以先休息一下。需要帮助时请随时告诉我。")
+            state["response_count"] += 1
+        elif user_input.lower() in ["状态", "进度", "统计"]:
+            self._show_progress()
+        elif user_input.lower() in ["学习", "项目", "任务"]:
+            self._execute_learning_task()
+        else:
+            print("🤖 我理解您的需求。让我为您准备相关内容。")
+            self._execute_learning_task()
+
+        state["last_interaction"] = datetime.now().isoformat()
+        self._update_state(state)
+
+        return True
+
+    def _execute_learning_task(self):
+        """执行学习任务"""
+        state = self.analyze_learning_state()
+        print(f"📋 正在执行学习任务: {state['last_suggestion']}")
+        time.sleep(2)
+
+        # 模拟任务执行
+        print("✅ 学习任务完成！")
+
+        # 记录学习进度
+        self._record_learning_progress()
+
+    def _record_learning_progress(self):
+        """记录学习进度"""
+        with open(self.learning_file, "r", encoding="utf-8") as f:
+            learning = json.load(f)
+
+        state = self.analyze_learning_state()
+        learning["total_study_time"] += 30  # 假设学习30分钟
+        if state["last_suggestion"] not in learning["projects_studied"]:
+            learning["projects_studied"].append(state["last_suggestion"])
+
+        learning["knowledge_points"].extend([
+            "项目分析技巧",
+            "代码问题识别",
+            "学习状态判断",
+            "主动沟通方法"
+        ])
+
+        learning["learning_effectiveness"] = min(1.0, learning["learning_effectiveness"] + 0.05)
+        learning["communication_effectiveness"] = min(1.0, learning["communication_effectiveness"] + 0.03)
+
+        with open(self.learning_file, "w", encoding="utf-8") as f:
+            json.dump(learning, f, ensure_ascii=False, indent=2)
+
+        print("🎉 学习进度已记录！")
+
+    def _show_progress(self):
+        """显示学习进度"""
+        state = self.analyze_learning_state()
+        with open(self.learning_file, "r", encoding="utf-8") as f:
+            learning = json.load(f)
+
+        print("\n📊 学习进度")
+        print("=" * 60)
+        print(f"🏆 完成项目: {state['projects_completed']}个")
+        print(f"📚 已学项目: {len(learning['projects_studied'])}个")
+        print(f"⏰ 学习时间: {learning['total_study_time']}分钟")
+        print(f"💡 知识要点: {len(learning['knowledge_points'])}个")
+        print(f"🎯 沟通次数: {state['communication_count']}次")
+        print(f"💬 响应次数: {state['response_count']}次")
+        print(f"📈 学习效率: {int(learning['learning_effectiveness'] * 100)}%")
+        print(f"🔍 沟通效果: {int(learning['communication_effectiveness'] * 100)}%")
+
+    def run_communication_loop(self):
+        """运行主动沟通循环"""
+        print("🚀 主动沟通系统启动")
+        print("=" * 60)
+
+        while True:
+            if self.decide_to_communicate():
+                print()
+                self.communicate_proactively()
+                user_input = input("🧑 请输入您的响应: ").strip()
+                if user_input.lower() in ["退出", "结束", "停止"]:
+                    print("🎉 主动沟通系统已停止。")
+                    break
+                self.process_user_response(user_input)
+
+            print("\n⏳ 等待下次沟通...")
+            time.sleep(30)
+
+    def quick_run(self):
+        """快速运行"""
+        print("🚀 快速沟通测试")
+        print("=" * 60)
+
+        self.analyze_learning_state()
+        self.communicate_proactively()
+
+        user_input = "继续"
+        print(f"🧑 用户响应: {user_input}")
+        self.process_user_response(user_input)
+
+
+def main():
+    """主函数"""
+    ai = ActiveCommunicationAI()
+
+    if len(sys.argv) > 1 and sys.argv[1] == "--loop":
+        ai.run_communication_loop()
+    else:
+        ai.quick_run()
+
+
+if __name__ == "__main__":
+    main()

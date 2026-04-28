@@ -1,0 +1,266 @@
+# 🎯 自适应AI项目分析报告
+
+**搜索时间**: 2026-04-28 18:52:44
+**项目总数**: 29
+
+## 📊 项目特性分布
+
+### M.I.L.E.S
+- **Stars**: 232
+- **Forks**: 29
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/small-cactus/M.I.L.E.S
+- **描述**: M.I.L.E.S, a GPT-4-Turbo voice assistant, self-adapts its prompts and AI model, can play any Spotify song, adjusts system and Spotify volume, performs calculations, browses the web and internet, searches global weather, delivers date and time, autonomously chooses and retains long-term memories. Available for macOS and Windows.
+
+### A-Self-Adaptive-Improved-Slime-Mold-Algorithm-for-Multi-UAV-Path-Planning
+- **Stars**: 5
+- **Forks**: 0
+- **语言**: Python
+- **功能**: 自适应
+- **链接**: https://github.com/yuelin-mmm/A-Self-Adaptive-Improved-Slime-Mold-Algorithm-for-Multi-UAV-Path-Planning
+- **描述**: (AI-SMA) A Self-Adaptive Improved Slime Mold Algorithm for Multi-UAV Path Planning Source Code
+
+### AiPath
+- **Stars**: 2
+- **Forks**: 0
+- **语言**: Python
+- **功能**: 自适应
+- **链接**: https://github.com/yutomiwana/AiPath
+- **描述**: Self-Adaptive Neural Networks orchestrate Dynamic-Route-Learning across Scalable, Intelligent Edge Clusters, forming a Distributed Cognitive Engine.
+
+### AGiXT
+- **Stars**: 3,180
+- **Forks**: 440
+- **语言**: Python
+- **功能**: 自适应
+- **链接**: https://github.com/Josh-XT/AGiXT
+- **描述**: AGiXT is a dynamic AI Agent Automation Platform that seamlessly orchestrates instruction management and complex task execution across diverse AI providers. Combining adaptive memory, smart features, and a versatile plugin system, AGiXT delivers efficient and comprehensive AI solutions.
+
+### AI-Investigator
+- **Stars**: 713
+- **Forks**: 81
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/muratcankoylan/AI-Investigator
+- **描述**: An automated AI system (Python framework) designed to analyze any type of website content and generate structured reports using Claude 3.5 Sonnet API and Firecrawl. While currently configured for enterprise AI case studies, the architecture can be adapted for various content analysis needs.
+
+### kweaver-core
+- **Stars**: 622
+- **Forks**: 78
+- **语言**: Go
+- **功能**: 未知
+- **链接**: https://github.com/kweaver-ai/kweaver-core
+- **描述**: KWeaver Core is a harness-first foundation for enterprise decision agents. It turns fragmented data, knowledge, tools, and policies into governed context, safe execution, and verifiable feedback loops. With semantic modeling, real-time access, runtime control, and TraceAI, it helps AI systems reason, adapt, and act reliable in complex enterprises.
+
+### RuVector
+- **Stars**: 3,857
+- **Forks**: 473
+- **语言**: Rust
+- **功能**: 自我学习
+- **链接**: https://github.com/ruvnet/RuVector
+- **描述**: RuVector is a High Performance, Real-Time, Self-Learning Ai, Vector GNN, Memory DB built in Rust.
+
+### skid-homework
+- **Stars**: 1,515
+- **Forks**: 307
+- **语言**: TypeScript
+- **功能**: 未知
+- **链接**: https://github.com/cubewhy/skid-homework
+- **描述**: Ergonomically designed, AI-powered homework solver. | 符合人体工程学设计、人工智能驱动的作业助手 | 平庸者的苦工到此为止，这是来自外星的效率补丁 (by Gemini)
+
+### ghost-os
+- **Stars**: 1,419
+- **Forks**: 129
+- **语言**: Swift
+- **功能**: 自我学习
+- **链接**: https://github.com/ghostwright/ghost-os
+- **描述**: Full computer-use for AI agents. Self-learning workflows. Native macOS. No screenshots required.
+
+### letta
+- **Stars**: 22,347
+- **Forks**: 2,372
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/letta-ai/letta
+- **描述**: Letta is the platform for building stateful agents: AI with advanced memory that can learn and self-improve over time.
+
+### SerpentAI
+- **Stars**: 6,985
+- **Forks**: 801
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/SerpentAI/SerpentAI
+- **描述**: Game Agent Framework. Helping you create AIs / Bots that learn to play any game you own!
+
+### llm-zoomcamp
+- **Stars**: 4,847
+- **Forks**: 886
+- **语言**: Jupyter Notebook
+- **功能**: 未知
+- **链接**: https://github.com/DataTalksClub/llm-zoomcamp
+- **描述**: LLM Zoomcamp - a free online course about real-life applications of LLMs. In 10 weeks you will learn how to build an AI system that answers questions about your knowledge base.
+
+### hive
+- **Stars**: 10,162
+- **Forks**: 5,637
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/aden-hive/hive
+- **描述**: Multi-Agent Harness for Production AI
+
+### atlas-gic
+- **Stars**: 1,470
+- **Forks**: 270
+- **语言**: Python
+- **功能**: 自我学习
+- **链接**: https://github.com/chrisworsey55/atlas-gic
+- **描述**: ATLAS by General Intelligence Capital — Self-improving AI trading agents using Karpathy-style autoresearch
+
+### 6S191_MIT_DeepLearning
+- **Stars**: 246
+- **Forks**: 79
+- **语言**: Jupyter Notebook
+- **功能**: 未知
+- **链接**: https://github.com/abusufyanvu/6S191_MIT_DeepLearning
+- **描述**: MIT Introduction to Deep Learning (6.S191) Instructors: Alexander Amini and Ava Soleimany Course Information Summary Prerequisites Schedule Lectures Labs, Final Projects, Grading, and Prizes Software labs Gather.Town lab + Office Hour sessions Final project Paper Review Project Proposal Presentation Project Proposal Grading Rubric Past Project Proposal Ideas Awards + Categories Important Links and Emails Course Information Summary MIT's introductory course on deep learning methods with applications to computer vision, natural language processing, biology, and more! Students will gain foundational knowledge of deep learning algorithms and get practical experience in building neural networks in TensorFlow. Course concludes with a project proposal competition with feedback from staff and a panel of industry sponsors.  Prerequisites  We expect basic knowledge of calculus (e.g., taking derivatives), linear algebra (e.g., matrix multiplication), and probability (e.g., Bayes theorem) -- we'll try to explain everything else along the way! Experience in Python is helpful but not necessary. This class is taught during MIT's IAP term by current MIT PhD researchers. Listeners are welcome! Schedule Monday Jan 18, 2021 Lecture: Introduction to Deep Learning and NNs Lab: Lab 1A Tensorflow and building NNs from scratch Tuesday Jan 19, 2021 Lecture: Deep Sequence Modelling Lab: Lab 1B Music Generation using RNNs Wednesday Jan 20, 2021 Lecture: Deep Computer Vision Lab: Lab 2A Image classification and detection Thursday Jan 21, 2021 Lecture: Deep Generative Modelling Lab: Lab 2B Debiasing facial recognition systems Friday Jan 22, 2021 Lecture: Deep Reinforcement Learning Lab: Lab 3 pixel-to-control planning Monday Jan 25, 2021 Lecture: Limitations and New Frontiers Lab: Lab 3 continued Tuesday Jan 26, 2021 Lecture (part 1): Evidential Deep Learning Lecture (part 2): Bias and Fairness Lab: Work on final assignments Lab competition entries due at 11:59pm ET on Canvas! Lab 1, Lab 2, and Lab 3 Wednesday Jan 27, 2021 Lecture (part 1): Nigel Duffy, Ernst & Young Lecture (part 2): Kate Saenko, Boston University and MIT-IBM Watson AI Lab Lab: Work on final assignments Assignments due: Sign up for Final Project Competition Thursday Jan 28, 2021 Lecture (part 1): Sanja Fidler, U. Toronto, Vector Institute, and NVIDIA Lecture (part 2): Katherine Chou, Google Lab: Work on final assignments Assignments due: 1 page paper review (if applicable) Friday Jan 29, 2021 Lecture: Student project pitch competition Lab: Awards ceremony and prize giveaway Assignments due: Project proposals (if applicable) Lectures Lectures will be held starting at 1:00pm ET from Jan 18 - Jan 29 2021, Monday through Friday, virtually through Zoom. Current MIT students, faculty, postdocs, researchers, staff, etc. will be able to access the lectures during this two week period, synchronously or asynchronously, via the MIT Canvas course webpage (MIT internal only). Lecture recordings will be uploaded to the Canvas as soon as possible; students are not required to attend any lectures synchronously. Please see the Canvas for details on Zoom links.  The public edition of the course will only be made available after completion of the MIT course. Labs, Final Projects, Grading, and Prizes Course will be graded during MIT IAP for 6 units under P/D/F grading. Receiving a passing grade requires completion of each software lab project (through honor code, with submission required to enter lab competitions), a final project proposal/presentation or written review of a deep learning paper (submission required), and attendance/lecture viewing (through honor code). Submission of a written report or presentation of a project proposal will ensure a passing grade.  MIT students will be eligible for prizes and awards as part of the class competitions. There will be two parts to the competitions: (1) software labs and (2) final projects. More information is provided below. Winners will be announced on the last day of class, with thousands of dollars of prizes being given away!  Software labs There are three TensorFlow software lab exercises for the course, designed as iPython notebooks hosted in Google Colab. Software labs can be found on GitHub: https://github.com/aamini/introtodeeplearning. These are self-paced exercises and are designed to help you gain practical experience implementing neural networks in TensorFlow.  For registered MIT students, submission of lab materials is not necessary to get credit for the course or to pass the course.  At the end of each software lab there will be task-associated materials to submit (along with instructions) for entry into the competitions, open to MIT students and affiliates during the IAP offering. This includes MIT students/affiliates who are taking the class as listeners -- you are eligible!  These instructions are provided at the end of each of the labs. Completing these tasks and submitting your materials to Canvas will enter you into a per-lab competition. MIT students and affiliates will be eligible for prizes during the IAP offering; at the end of the course, prize-winners will be awarded with their prizes.  All competition submissions are due on January 26 at 11:59pm ET to Canvas.  For the software lab competitions, submissions will be judged on the basis of the following criteria: Strength and quality of final results (lab dependent) Soundness of implementation and approach Thoroughness and quality of provided descriptions and figures Gather.Town lab + Office Hour sessions After each day’s lecture, there will be open Office Hours in the class GatherTown, up until 3pm ET. An MIT email is required to log in and join the GatherTown. During these sessions, there will not be a walk through or dictation of the labs; the labs are designed to be self-paced and to be worked on on your own time.  The GatherTown sessions will be hosted by course staff and are held so you can: Ask questions on course lectures, labs, logistics, project, or anything else; Work on the labs in the presence of classmates/TAs/instructors; Meet classmates to find groups for the final project; Group work time for the final project; Bring the class community together. Final project To satisfy the final project requirement for this course, students will have two options: (1) write a 1 page paper review (single-spaced) on a recent deep learning paper of your choice or (2) participate and present in the project proposal pitch competition. The 1 page paper review option is straightforward, we propose some papers within this document to help you get started, and you can satisfy a passing grade with this option -- you will not be eligible for the grand prizes. On the other hand, participation in the project proposal pitch competition will equivalently satisfy your course requirements but additionally make you eligible for the grand prizes. See the section below for more details and requirements for each of these options. Paper Review Students may satisfy the final project requirement by reading and reviewing a recent deep learning paper of their choosing. In the written review, students should provide both: 1) a description of the problem, technical approach, and results of the paper; 2) critical analysis and exposition of the limitations of the work and opportunities for future work. Reviews should be submitted on Canvas by Thursday Jan 28, 2021, 11:59:59pm Eastern Time (ET).  Just a few paper options to consider...  https://papers.nips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf https://papers.nips.cc/paper/2018/file/69386f6bb1dfed68692a24c8686939b9-Paper.pdf https://papers.nips.cc/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf https://science.sciencemag.org/content/362/6419/1140 https://papers.nips.cc/paper/2018/file/0e64a7b00c83e3d22ce6b3acf2c582b6-Paper.pdf https://arxiv.org/pdf/1906.11829.pdf https://www.nature.com/articles/s42256-020-00237-3 https://pubmed.ncbi.nlm.nih.gov/32084340/ Project Proposal Presentation Keyword: proposal  This is a 2 week course so we do not require results or working implementations! However, to win the top prizes, nice, clear results and implementations will demonstrate feasibility of your proposal which is something we look for!  Logistics -- please read!  You must sign up to present before 11:59:59pm Eastern Time (ET) on Wednesday Jan 27, 2021 Slides must be in a Google Slide before 11:59:59pm Eastern Time (ET) on Thursday Jan 28, 2021 Project groups can be between 1 and 5 people Listeners welcome To be eligible for a prize you must have at least 1 registered MIT student in your group Each participant will only be allowed to be in one group and present one project pitch Synchronous attendance on 1/29/21 is required to make the project pitch! 3 min presentation on your idea (we will be very strict with the time limits) Prizes! (see below)  Sign up to Present here: by 11:59pm ET on Wednesday Jan 27  Once you sign up, make your slide in the following Google Slides; submit by midnight on Thursday Jan 28. Please specify the project group # on your slides!!!  Things to Consider This doesn’t have to be a new deep learning method.  It can just be an interesting application that you apply some existing deep learning method to. What problem are you solving?  Are there use cases/applications?   Why do you think deep learning methods might be suited to this task?  How have people done it before? Is it a new task? If so, what are similar tasks that people have worked on?  In what aspects have they succeeded or failed?   What is your method of solving this problem? What type of model + architecture would you use?  Why?  What is the data for this task? Do you need to make a dataset or is there one publicly available? What are the characteristics of the data?  Is it sparse, messy, imbalanced?  How would you deal with that? Project Proposal Grading Rubric Project proposals will be evaluated by a panel of judges on the basis of the following three criteria: 1) novelty and impact; 2) technical soundness, feasibility, and organization, including quality of any presented results; 3) clarity and presentation. Each judge will award a score from 1 (lowest) to 5 (highest) for each of the criteria; the average score from each judge across these criteria will then be averaged with that of the other judges to provide the final score. The proposals with the highest final scores will be selected for prizes.   Here are the guidelines for the criteria:  Novelty and impact: encompasses the potential impact of the project idea, its novelty with respect to existing approaches. Why does the proposed work matter? What problem(s) does it solve? Why are these problems important? Technical soundness, feasibility, and organization: encompasses all technical aspects of the proposal. Do the proposed methodology and architecture make sense? Is the architecture the best suited for the proposed problem? Is deep learning the best approach for the problem? How realistic is it to implement the idea? Was there any implementation of the method? If results and data are presented, we will evaluate the strength of the results/data. Clarity and presentation: encompasses the delivery and quality of the presentation itself. Is the talk well organized? Are the slides aesthetically compelling? Is there a clear, well-delivered narrative? Are the problem and proposed method clearly presented?   Past Project Proposal Ideas Recipe Generation with RNNs Can we compress videos with CNN + RNN? Music Generation with RNNs Style Transfer Applied to X GAN’s on a new modality Summarizing text/news articles Combining news articles about similar events  Code or spec generation Multimodal speech → handwriting Generate handwriting based on keywords (i.e. cursive, slanted, neat) Predicting stock market trends Show language learners articles or videos at their level  Transfer of writing style Chemical Synthesis with Recurrent Neural networks Transfer learning to learn something in a domain for which it’s hard or risky to gather data or do training RNNs to model some type of time series data Computer vision to coach sports players Computer vision system for safety brakes or warnings  Use IBM Watson API to get the sentiment of your Facebook newsfeed Deep learning webcam to give wifi-access to friends or improve video chat in some way Domain-specific chatbot to help you perform a specific task Detect whether a signature is fraudulent Awards + Categories Final Project Awards: 1x NVIDIA RTX 3080 4x Google Home Max 3x Display Monitors  Software Lab Awards: Bose headphones (Lab 1) Display monitor (Lab 2) Bebop drone (Lab 3) Important Links and Emails Course website: http://introtodeeplearning.com Course staff: introtodeeplearning-staff@mit.edu Piazza forum (MIT only): https://piazza.com/mit/spring2021/6s191 Canvas (MIT only): https://canvas.mit.edu/courses/8291 Software lab repository: https://github.com/aamini/introtodeeplearning Lab/office hour sessions (MIT only): https://gather.town/app/56toTnlBrsKCyFgj/MITDeepLearning
+
+### trinity-claw
+- **Stars**: 9
+- **Forks**: 1
+- **语言**: Python
+- **功能**: 沟通能力
+- **链接**: https://github.com/TrinityClaw/trinity-claw
+- **描述**: A self-hosted AI agent that thinks, acts, and improves itself – all running privately on your own machine. Browses the web, writes and executes code, manages files, sends emails, monitors URLs, builds websites, and learns from every interaction.
+
+### swarm-ai
+- **Stars**: 8
+- **Forks**: 2
+- **语言**: Java
+- **功能**: 未知
+- **链接**: https://github.com/intelliswarm-ai/swarm-ai
+- **描述**: Spring AI framework for Java that plans, executes, and improves itself — agents detect capability gaps at runtime and generate validated skills on the fly.
+
+### HAL2025
+- **Stars**: 2
+- **Forks**: 0
+- **语言**: Python
+- **功能**: 沟通能力
+- **链接**: https://github.com/videofeedback/HAL2025
+- **描述**: Self-Aware Voice-Activated AI Assistant - OneShotTTSprompt v2.0 implementation with multi-LLM providers, WebSocket communication, and local consciousness monitoring
+
+### 02mini
+- **Stars**: 2
+- **Forks**: 0
+- **语言**: TypeScript
+- **功能**: 沟通能力
+- **链接**: https://github.com/0-2studio/02mini
+- **描述**: An AI assistant framework with self-awareness, skill system and scheduling task capabilities. It supports CLI interaction, QQ robot, HTTP API and WebSocket gateway.
+
+### Weak_AI
+- **Stars**: 2
+- **Forks**: 1
+- **语言**: Jupyter Notebook
+- **功能**: 未知
+- **链接**: https://github.com/NeuralNovaAI/Weak_AI
+- **描述**: Weak AI (Narrow AI) refers to artificial intelligence systems designed to perform specific tasks without possessing general intelligence or self-awareness. Unlike Strong AI, which can think and reason like humans, Weak AI is task-oriented and operates within predefined parameters. Examples include virtual assistants Siri and Alexa
+
+### adaptive-federated-learning
+- **Stars**: 294
+- **Forks**: 84
+- **语言**: Python
+- **功能**: 自适应
+- **链接**: https://github.com/IBM/adaptive-federated-learning
+- **描述**: Code for paper "Adaptive Federated Learning in Resource Constrained Edge Computing Systems"
+
+### ATutor
+- **Stars**: 183
+- **Forks**: 176
+- **语言**: PHP
+- **功能**: 自适应
+- **链接**: https://github.com/atutor/ATutor
+- **描述**: NO LONGER USER LEVEL SUPPORTED. CONTRIBUTING DEVELOPERS INTERESTED IN MAINTAINING ATUTOR, SHOULD REQUEST COLLABORATOR ACCESS. : ATutor is an Open Source Web-based Learning Management System (LMS) used to develop and deliver online courses. Administrators can install or update ATutor in minutes, develop custom themes to give ATutor a new look, and easily extend its functionality with feature modules. Educators can quickly assemble, package, and redistribute standardized Web-based instructional content, easily import prepackaged content, and conduct their courses online. Students learn in an accessible, adaptive, social learning environment.
+
+### Health-Care-Chat-Bot
+- **Stars**: 144
+- **Forks**: 65
+- **语言**: Python
+- **功能**: 未知
+- **链接**: https://github.com/aryanveturekar/Health-Care-Chat-Bot
+- **描述**: Through chatbots one can communicate with text or voice interface and get reply through artificial intelligence. Typically, a chat bot will communicate with a real person. Chat bots are used in applications such as ecommerce customer service, call centres and Internet gaming. Chatbots are programs built to automatically engage with received messages. Chatbots can be programmed to respond the same way each time, to respond differently to messages containing certain keywords and even to use machine learning to adapt their responses to fit the situation. A developing number of hospitals, nursing homes, and even private centres, presently utilize online Chatbots for human services on their sites. These bots connect with potential patients visiting the site, helping them discover specialists, booking their appointments, and getting them access to the correct treatment. In any case, the utilization of artificial intelligence in an industry where individuals’ lives could be in question, still starts misgivings in individuals. It brings up issues about whether the task mentioned above ought to be assigned to human staff. This healthcare chatbot system will help hospitals to provide healthcare support online 24 x 7, it answers deep as well as general questions. It also helps to generate leads and automatically delivers the information of leads to sales. By asking the questions in series it helps patients by guiding what exactly he/she is looking for. 
+
+### polysona
+- **Stars**: 87
+- **Forks**: 12
+- **语言**: HTML
+- **功能**: 未知
+- **链接**: https://github.com/LilMGenius/polysona
+- **描述**: Polysona: Polygonal Persona, A Persona Layer for AI Agents. ➰️ Metacognition-driven multi-persona extraction and orchestration system.
+
+### AI_Personality-Prediction-System-Through-CV-Analysis
+- **Stars**: 43
+- **Forks**: 20
+- **语言**: Jupyter Notebook
+- **功能**: 未知
+- **链接**: https://github.com/philkam/AI_Personality-Prediction-System-Through-CV-Analysis
+- **描述**: Job vacancies come with the need to manually go through numerous applications and CVs. We seek an effective way to short-list submitted candidate CVs from a large number of applicants providing a consistent and fair CV ranking policy, which can be legally justified..
+
+### open-her-os
+- **Stars**: 28
+- **Forks**: 4
+- **语言**: Shell
+- **功能**: 情感特性
+- **链接**: https://github.com/kitfoxs/open-her-os
+- **描述**: 💙 The open-source AI Companion Operating System. Persistent memory. Natural voice. Real personality. Your machine. Your data. The movie Her imagined it. We built it.
+
+### Microverse
+- **Stars**: 2,258
+- **Forks**: 389
+- **语言**: GDScript
+- **功能**: 沟通能力
+- **链接**: https://github.com/KsanaDock/Microverse
+- **描述**: A god-simulation sandbox game built on Godot 4 as a multi-agent AI social simulation system. In this virtual world, AI characters possess independent thinking and memory, capable of autonomous social interactions, task completion, and developing complex social relationships through continuous communication.
+
+### go-mcp
+- **Stars**: 670
+- **Forks**: 107
+- **语言**: Go
+- **功能**: 沟通能力
+- **链接**: https://github.com/ThinkInAIXYZ/go-mcp
+- **描述**: Go-MCP is a powerful Go(Golang) version of the MCP SDK that implements the Model Context Protocol (MCP) to facilitate seamless communication between external systems and AI applications. 
+
+### laravel-mcp-server
+- **Stars**: 332
+- **Forks**: 30
+- **语言**: PHP
+- **功能**: 沟通能力
+- **链接**: https://github.com/opgginc/laravel-mcp-server
+- **描述**: A Laravel package for implementing secure Model Context Protocol servers using Streamable HTTP and SSE transport, providing real-time communication and a scalable tool system for enterprise environments.
+
+## 💡 推荐项目
+
+### 1. letta
+- **Stars**: 22,347
+- **描述**: Letta is the platform for building stateful agents: AI with advanced memory that can learn and self-improve over time.
+- **链接**: https://github.com/letta-ai/letta
+
+### 2. hive
+- **Stars**: 10,162
+- **描述**: Multi-Agent Harness for Production AI
+- **链接**: https://github.com/aden-hive/hive
+
+### 3. SerpentAI
+- **Stars**: 6,985
+- **描述**: Game Agent Framework. Helping you create AIs / Bots that learn to play any game you own!
+- **链接**: https://github.com/SerpentAI/SerpentAI
+
+### 4. llm-zoomcamp
+- **Stars**: 4,847
+- **描述**: LLM Zoomcamp - a free online course about real-life applications of LLMs. In 10 weeks you will learn how to build an AI system that answers questions about your knowledge base.
+- **链接**: https://github.com/DataTalksClub/llm-zoomcamp
+
+### 5. RuVector
+- **Stars**: 3,857
+- **描述**: RuVector is a High Performance, Real-Time, Self-Learning Ai, Vector GNN, Memory DB built in Rust.
+- **链接**: https://github.com/ruvnet/RuVector
+

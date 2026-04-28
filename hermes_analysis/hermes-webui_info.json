@@ -1,0 +1,15 @@
+{
+  "name": "hermes-webui",
+  "full_name": "nesquena/hermes-webui",
+  "stargazers_count": 4679,
+  "forks_count": 572,
+  "watchers": 0,
+  "description": "Hermes WebUI: The best way to use Hermes Agent from the web or from your phone!",
+  "html_url": "https://github.com/nesquena/hermes-webui",
+  "languages": [
+    "TypeScript",
+    "JavaScript"
+  ],
+  "contributors": "20+",
+  "readme": true
+}
