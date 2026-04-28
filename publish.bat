@@ -44,8 +44,8 @@ if %ERRORLEVEL% neq 0 (
 :: 推送代码
 echo.
 echo [94m📤 推送到GitHub...[0m
-echo 正在推送到 main 分支...
-git push origin main
+echo 正在推送到 master 分支...
+git push origin master
 if %ERRORLEVEL% neq 0 (
     echo [91m❌ 推送失败，请检查网络连接和GitHub配置[0m
     pause

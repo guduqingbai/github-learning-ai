@@ -37,7 +37,7 @@ git status
 
 ```bash
 # 添加远程仓库
-git remote add origin git@github.com:your-username/github-learning-ai.git
+git remote add origin https://github.com/吴文豪/github-learning-ai.git
 
 # 检查远程仓库
 git remote -v
@@ -61,7 +61,7 @@ git log --oneline
 
 ```bash
 # 第一次推送
-git push -u origin main
+git push -u origin master
 
 # 推送标签
 git push --tags

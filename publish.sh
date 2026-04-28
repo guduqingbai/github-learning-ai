@@ -28,8 +28,8 @@ fi
 
 # 推送代码
 echo -e "\n📤 推送到GitHub..."
-echo "正在推送到 main 分支..."
-git push origin main
+echo "正在推送到 master 分支..."
+git push origin master
 
 # 检查标签
 echo -e "\n🏷️  检查发布标签..."
