@@ -22,7 +22,7 @@ class ProjectPublisher:
         self.gh_username = "吴文豪"
         self.remote_url = f"https://github.com/{self.gh_username}/{self.repo_name}.git"
 
-    def run_command(self, cmd, cwd=None, shell=True):
+    def run_command(self, cmd, cwd=None, shell=True, timeout=300):
         """运行命令并返回结果"""
         cwd = cwd or str(self.project_dir)
         try:
@@ -32,7 +32,7 @@ class ProjectPublisher:
                 shell=shell,
                 capture_output=True,
                 text=True,
-                timeout=300
+                timeout=timeout
             )
             return result.returncode, result.stdout.strip(), result.stderr.strip()
         except subprocess.TimeoutExpired:
