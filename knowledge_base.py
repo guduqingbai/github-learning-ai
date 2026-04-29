@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import time
+from utils import measure_performance
 
 class KnowledgeBase:
     """
@@ -132,6 +133,7 @@ class KnowledgeBase:
             }
         ]
 
+    @measure_performance
     def retrieve_knowledge(self, query: str, keywords: List[str] = None) -> List[Dict[str, Any]]:
         """
         根据查询和关键词检索知识

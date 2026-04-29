@@ -13,6 +13,7 @@ import hashlib
 import subprocess
 from datetime import datetime
 from pathlib import Path
+from utils import measure_performance
 
 class ActiveCommunicationAI:
     """主动沟通的AI系统"""
@@ -82,6 +83,7 @@ class ActiveCommunicationAI:
                 "current_goal": "每天学习至少10个项目"
             }
 
+    @measure_performance
     def decide_to_communicate(self):
         """决定是否应该主动沟通"""
         state = self.analyze_learning_state()

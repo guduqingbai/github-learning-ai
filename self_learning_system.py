@@ -14,6 +14,7 @@ import ast
 import hashlib
 from datetime import datetime
 from pathlib import Path
+from utils import measure_performance
 
 class SelfLearningSystem:
     """自我学习与系统完善系统"""
@@ -203,6 +204,7 @@ class SelfLearningSystem:
         print(f"📈 代码质量分析: 扫描 {files_scanned} 个文件，发现 {issues_count} 个问题")
         return issues_count
 
+    @measure_performance
     def analyze_learning_progress(self):
         """分析学习进度 - 数据驱动的学习分析"""
         print("📊 正在分析学习进度...")

@@ -12,6 +12,7 @@ import requests
 import subprocess
 from datetime import datetime
 from pathlib import Path
+from utils import measure_performance
 
 class BrowserIntegration:
     """浏览器集成类"""
@@ -359,6 +360,7 @@ class BrowserIntegration:
         except Exception as e:
             return False, f"错误: {e}"
 
+    @measure_performance
     def enable_browser_integration(self, browser_name):
         """启用特定浏览器的集成"""
         try:
