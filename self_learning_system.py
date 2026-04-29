@@ -216,16 +216,25 @@ class SelfLearningSystem:
             "progress": min(100, len(learning["knowledge_points"]) * 2)  # 进度计算
         }
 
-        # 学习模式分析
-        if learning["self_study_time"] > 1800:  # 超过30分钟
-            analysis["learning_efficiency"] = "高效"
-        elif learning["self_study_time"] > 600:  # 10-30分钟
-            analysis["learning_efficiency"] = "中等"
+        # 学习效率分析（基于主题数量和学习时间的比值）
+        if analysis["total_topics"] > 0 and learning["self_study_time"] > 0:
+            topics_per_hour = (analysis["total_topics"] / learning["self_study_time"]) * 60
+
+            if topics_per_hour > 0.2:  # 每小时超过0.2个主题
+                analysis["learning_efficiency"] = "高效"
+            elif topics_per_hour > 0.1:  # 每小时0.1-0.2个主题
+                analysis["learning_efficiency"] = "中等"
+            else:
+                analysis["learning_efficiency"] = "需要改进"
+
+            analysis["topics_per_hour"] = round(topics_per_hour, 2)
         else:
-            analysis["learning_efficiency"] = "需要改进"
+            analysis["learning_efficiency"] = "尚未开始"
 
         print(f"📈 学习进度分析: {analysis['total_topics']} 个主题, {analysis['learning_time']} 分钟")
         print(f"🚀 学习效率: {analysis['learning_efficiency']}")
+        if "topics_per_hour" in analysis:
+            print(f"⏱️  学习效率: {analysis['topics_per_hour']} 个主题/小时")
 
         return analysis
 
@@ -263,18 +272,34 @@ class SelfLearningSystem:
         total_topics = len(learning["knowledge_points"])
         learning_time = learning["self_study_time"]
 
-        # 根据学习数据提供优化建议
+        # 学习效率分析和建议
+        if total_topics > 0 and learning_time > 0:
+            topics_per_hour = (total_topics / learning_time) * 60
+
+            if topics_per_hour < 0.1:  # 学习效率过低
+                suggestions.append("建议增加学习时间或提高专注力")
+                suggestions.append("考虑使用番茄工作法提高效率")
+            elif topics_per_hour > 0.3:  # 学习效率过高
+                suggestions.append("学习效率很高，但注意避免疲劳")
+                suggestions.append("建议适当休息，保持学习质量")
+
+        # 根据主题数量和学习时间提供建议
         if total_topics < 5:
-            suggestions.append("建议每天学习1-2个新主题")
+            suggestions.append("建议每天学习1-2个新主题，建立学习习惯")
+            suggestions.append("重点学习基础概念，打牢基础")
         elif total_topics < 15:
-            suggestions.append("建议学习复杂主题和深度理解")
+            suggestions.append("建议学习复杂主题和深度理解，扩展知识面")
+            suggestions.append("考虑进行项目实践，将理论知识应用到实际")
         else:
-            suggestions.append("建议进行知识整理和回顾")
+            suggestions.append("建议进行知识整理和回顾，构建知识体系")
+            suggestions.append("考虑分享知识，加深对概念的理解")
 
         if learning_time < 300:  # 小于5分钟
-            suggestions.append("建议增加单次学习时间")
+            suggestions.append("建议增加单次学习时间，至少学习15-30分钟")
+            suggestions.append("避免碎片化学习，保持专注")
         elif learning_time > 3600:  # 大于60分钟
-            suggestions.append("建议分散学习，提高效率")
+            suggestions.append("学习时间过长，建议分散学习，提高效率")
+            suggestions.append("每隔25-30分钟休息5分钟，保持学习效率")
 
         return suggestions
 

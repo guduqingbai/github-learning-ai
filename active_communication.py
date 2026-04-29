@@ -87,7 +87,8 @@ class ActiveCommunicationAI:
         state = self.analyze_learning_state()
         time_since_last = self._time_since_last_interaction()
 
-        if time_since_last > 3600:
+        # 基本沟通决策逻辑
+        if time_since_last > 3600:  # 超过1小时
             return True
 
         if state["projects_completed"] % 3 == 0 and state["projects_completed"] > 0:
@@ -95,6 +96,20 @@ class ActiveCommunicationAI:
 
         if state["communication_count"] < 1:
             return True
+
+        # 学习进度触发沟通
+        try:
+            with open(self.learning_file, "r", encoding="utf-8") as f:
+                learning = json.load(f)
+
+            if len(learning["projects_studied"]) > 0 and len(learning["projects_studied"]) % 2 == 0:
+                return True
+
+            if learning["learning_effectiveness"] < 0.7:  # 学习效果不佳
+                return True
+
+        except Exception as e:
+            print(f"⚠️  读取学习数据失败: {e}")
 
         return False
 

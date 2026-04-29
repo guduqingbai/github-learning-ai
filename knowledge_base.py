@@ -167,6 +167,10 @@ class KnowledgeBase:
             if "category" in item and query in item["category"].lower():
                 score += 2
 
+            # 知识重要性匹配（根据时间和流行度）
+            if "importance" in item:
+                score += item["importance"] * 2
+
             if score > 0:
                 results.append((score, item))
 

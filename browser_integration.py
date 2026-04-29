@@ -97,13 +97,50 @@ class BrowserIntegration:
             if not browser_config.get("enabled", False):
                 return False
 
-            # 检查API连接
+            # 对于Chrome浏览器，简化检测条件
+            if browser_name == "chrome":
+                import os
+                import platform
+
+                if platform.system() == "Windows":
+                    # 检查Chrome浏览器是否安装
+                    chrome_paths = [
+                        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+                    ]
+                    for path in chrome_paths:
+                        if os.path.exists(path):
+                            return True
+                elif platform.system() == "Darwin":
+                    # macOS系统检查
+                    return os.path.exists("/Applications/Google Chrome.app")
+                else:
+                    # Linux系统检查
+                    try:
+                        import subprocess
+                        result = subprocess.run(
+                            ["which", "chrome"], capture_output=True, text=True
+                        )
+                        return result.returncode == 0
+                    except:
+                        return False
+
+            # 对于其他浏览器，使用API连接检查，并添加重试机制
             if "api_url" in browser_config and browser_config["api_url"]:
-                try:
-                    response = requests.get(browser_config["api_url"], timeout=2)
-                    return response.status_code == 200
-                except Exception:
-                    return False
+                # 最大重试次数
+                max_retries = 3
+                for attempt in range(max_retries):
+                    try:
+                        response = requests.get(browser_config["api_url"], timeout=2)
+                        if response.status_code == 200:
+                            return True
+                    except Exception:
+                        if attempt < max_retries - 1:
+                            import time
+                            time.sleep(0.5)
+                            continue
+                        else:
+                            return False
 
             return False
 
