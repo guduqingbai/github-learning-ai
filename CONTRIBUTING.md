@@ -49,14 +49,9 @@
    git commit -m "功能实现：添加用户状态检测功能"
    ```
 
-### 5. 推送和 PR
+### 5. 打开 Pull Request (PR)
 
-1. 将您的修改推送到您的 GitHub 仓库：
-   ```bash
-   git remote add upstream https://github.com/yourusername/github-learning.git
-   git push -u upstream feature/your-feature-name
-   ```
-
+1. 将您的修改推送到您的 GitHub 仓库
 2. 打开 Pull Request (PR)
 
 ### 6. 审核和合并

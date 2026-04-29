@@ -1,8 +1,2 @@
 requests>=2.30.0
 urllib3>=1.26.0
-pyautogui>=0.9.54
-opencv-python>=4.7.0.72
-pytesseract>=0.3.10
-Pillow>=10.0.0
-selenium>=4.9.0
-webdriver-manager>=4.0.0
