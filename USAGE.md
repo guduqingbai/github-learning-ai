@@ -328,7 +328,7 @@ git commit -m "优化系统功能"
 如果您遇到任何问题，可以通过以下方式联系我们：
 
 1. **GitHub Issues**：在项目仓库创建Issue
-2. **邮件联系**：your@email.com
+2. **邮件联系**：3536778780@qq.com
 3. **社区支持**：加入项目的Discord或Slack频道
 
 ### 功能建议
