@@ -420,7 +420,7 @@ python start_ai_agent.py
 
 ## 📄 许可证
 
-AI Agent集成组件遵循项目的MIT许可证。
+AI Agent集成组件遵循项目的GNU General Public License v3.0 (GPLv3) 许可证。
 
 ---
 

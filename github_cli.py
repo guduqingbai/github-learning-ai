@@ -68,7 +68,7 @@ def create_github_repo(repo_name, repo_desc="", private=False, org=None):
     if org:
         cmd += f' --org {org}'
 
-    cmd += ' --gitignore Python --license MIT --confirm'
+    cmd += ' --gitignore Python --license GPL-3.0 --confirm'
 
     print(f"🚀 创建仓库命令: {cmd}")
 

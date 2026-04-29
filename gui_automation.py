@@ -108,8 +108,8 @@ class GitHubAutomation:
             self.move_and_click(400, 650, "许可证下拉框")
             time.sleep(1)
 
-            # 11. 选择MIT许可证
-            self.move_and_click(450, 750, "MIT许可证")
+            # 11. 选择GPLv3许可证
+            self.move_and_click(450, 750, "GPLv3许可证")
             time.sleep(0.5)
 
             # 12. 创建仓库

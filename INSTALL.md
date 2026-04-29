@@ -215,4 +215,4 @@ python demo.py
 
 **项目版本**: v1.0.0  
 **发布日期**: 2026年4月28日  
-**许可证**: MIT License
+**许可证**: GNU General Public License v3.0 (GPLv3)

@@ -169,7 +169,13 @@ python jarvis_monitor_noninteractive.py
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证，详情请参考 [LICENSE](LICENSE) 文件。
+本项目采用 GNU General Public License v3.0 (GPLv3) 许可证，详情请参考 [LICENSE](LICENSE) 文件。
+
+### 许可证特点
+- **强制开源**：任何使用本项目代码的产品或服务必须开源
+- **专利保护**：提供专利授权，防止专利诉讼
+- **升级保护**：如果有更高版本的GPL许可证，允许自动升级
+- **反锁定条款**：防止硬件制造商锁定软件
 
 ## 📞 联系方式
 
