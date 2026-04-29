@@ -1,0 +1,28 @@
+name: Publish Project
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run tests
+      run: |
+        python -m pytest test_publish.py -v
+    - name: Check Python files
+      run: |
+        python -c "import sys, subprocess, os; [print(f'{f}: OK') for f in os.listdir('.') if f.endswith('.py') and os.path.isfile(f) and subprocess.run([sys.executable, f, '--help'], capture_output=True, text=True).returncode == 0]"
