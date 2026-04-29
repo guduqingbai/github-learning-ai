@@ -28,36 +28,6 @@
 - **知识更新**：每次学习都会获取全球最新AI知识
 - **效果评估**：分析学习效果并提供改进建议
 
-## 技术架构
-
-### 系统架构设计
-```mermaid
-graph TD
-    A[用户交互层] --> B[主动沟通系统]
-    A --> C[学习管理系统]
-    
-    B --> D[状态分析模块]
-    B --> E[响应处理模块]
-    B --> F[个性化推荐模块]
-    
-    C --> G[进度追踪模块]
-    C --> H[项目管理模块]
-    C --> I[效果评估模块]
-    
-    J[自我学习系统] --> K[漏洞扫描]
-    J --> L[代码分析]
-    J --> M[知识获取]
-    J --> N[系统优化]
-```
-
-### 主要功能模块
-
-- **jarvis_monitor_noninteractive.py**：核心主动沟通引擎
-- **self_learning_system.py**：自我学习与系统完善
-- **active_communication.py**：沟通机制实现
-- **knowledge_base.py**：知识库管理
-- **learning_suggestions.py**：学习建议生成
-
 ## 项目结构
 
 ```
@@ -68,11 +38,13 @@ github-learning/
 │   ├── jarvis_monitor_state.json     # 贾维斯系统状态
 │   └── conversations.jsonl           # 沟通历史记录
 ├── 📄 jarvis_monitor_noninteractive.py  # 主动沟通系统
-├── 📄 self_learning_system.py        # 自我学习与系统完善
 ├── 📄 active_communication.py        # 沟通机制实现
+├── 📄 expert_system.py               # 专家系统
+├── 📄 ai_agent_adapter.py            # AI代理适配器
 ├── 📄 knowledge_base.py              # 知识库管理
-├── 📄 learning_suggestions.py        # 学习建议生成
 ├── 📄 README.md                      # 项目说明
+├── 📄 CONTRIBUTING.md                # 贡献指南
+├── 📄 USAGE.md                       # 使用说明
 ├── 📄 requirements.txt               # 依赖包
 └── 📄 LICENSE                        # GPLv3许可证
 ```
@@ -127,10 +99,6 @@ python learning_progress.py --view
 ## 技术栈
 
 - **Python 3.8+**：主要开发语言
-- **PyAutoGUI**：GUI自动化操作
-- **OpenCV**：图像识别和处理
-- **Tesseract**：OCR文字识别
-- **Selenium**：浏览器自动化
 - **JSON**：数据存储格式
 - **Git**：版本控制
 
@@ -149,10 +117,10 @@ python learning_progress.py --view
 
 - **问题反馈**：通过 [GitHub Issues](https://github.com/guduqingbai/github-learning-ai/issues) 报告问题
 - **功能请求**：通过 [GitHub Discussions](https://github.com/guduqingbai/github-learning-ai/discussions) 提出建议
+- **邮件联系**：3536778780@qq.com
 
 ## 项目状态
 
 **项目已完成** - 包含主动沟通、自我学习和专家系统功能
 **许可证变更完成** - 从MIT变更为GPLv3
 **文档完善完成** - 提供专业的项目文档
-**分支问题已解决** - 删除了main分支，避免了无法比较的问题
