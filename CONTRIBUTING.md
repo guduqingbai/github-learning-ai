@@ -176,7 +176,7 @@ python jarvis_monitor_noninteractive.py
 
 如果您有任何问题，可以通过以下方式联系我们：
 
-- **邮件**：3536778780@qq.com
+- **邮件**：github@example.com
 - **GitHub Issues**：在项目仓库创建 Issue
 
 ---

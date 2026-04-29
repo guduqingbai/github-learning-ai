@@ -33,7 +33,25 @@
 - **内容分析**：分析浏览器内容与学习的相关性
 - **浏览器同步**：同步浏览器状态与学习系统
 
-### 3. 系统管理系统
+### 4. 认知架构系统
+- **认知循环**：实现完整的感知→推理→决策→学习循环
+- **感知系统**：类似人类的学习数据和外部信息感知
+- **推理系统**：基于认知科学的情境推理和决策
+- **学习系统**：从经验中学习和优化的能力
+
+### 5. 持续学习系统
+- **自我学习**：自动查找、学习和获取新知识
+- **内容评估**：评估学习内容的价值和重要性
+- **学习优化**：根据学习状态调整学习策略
+- **知识积累**：持续构建和扩展知识库
+
+### 6. 主动沟通系统
+- **情感识别**：根据学习状态判断用户情感（积极/中性/消极）
+- **关系管理**：评估与用户的关系质量并提供优化建议
+- **主动沟通**：自我发现学习机会并主动与用户沟通
+- **响应处理**：智能处理用户的各种响应类型
+
+### 7. 系统管理系统
 - **漏洞扫描**：定期检查系统安全漏洞
 - **代码质量分析**：自动化代码质量检查
 - **系统监控**：实时监控系统运行状态
@@ -116,6 +134,15 @@ python -c "from self_learning_system import SelfLearningSystem; system = SelfLea
 # 运行完整自我学习周期
 python -c "from self_learning_system import SelfLearningSystem; system = SelfLearningSystem(); system.run_self_learning_cycle()"
 
+# 启动持续学习系统（自我学习和知识获取）
+python continuous_learning.py
+
+# 测试认知架构系统
+python -c "from cognitive_architecture import test_cognitive_architecture; test_cognitive_architecture()"
+
+# 测试持续学习系统
+python -c "from continuous_learning import test_continuous_learning; test_continuous_learning()"
+
 # 浏览器集成使用
 python browser_integration.py              # 测试浏览器集成模块
 python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); bi.get_browser_integration_status()"
@@ -148,7 +175,7 @@ python -c "from browser_integration import BrowserIntegration; bi = BrowserInteg
 
 - **问题反馈**：通过 [GitHub Issues](https://github.com/guduqingbai/github-learning-ai/issues) 报告问题
 - **功能请求**：通过 [GitHub Discussions](https://github.com/guduqingbai/github-learning-ai/discussions) 提出建议
-- **邮件联系**：3536778780@qq.com
+- **邮件联系**：github@example.com
 
 ## 项目状态
 

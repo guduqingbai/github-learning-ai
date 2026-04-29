@@ -89,29 +89,101 @@ class ActiveCommunicationAI:
         state = self.analyze_learning_state()
         time_since_last = self._time_since_last_interaction()
 
-        # 基本沟通决策逻辑
-        if time_since_last > 3600:  # 超过1小时
+        # 1. 主动发现学习机会的触发条件
+        if self._has_learning_opportunity():
+            print("🔍 发现学习机会，准备主动沟通")
             return True
 
-        if state["projects_completed"] % 3 == 0 and state["projects_completed"] > 0:
+        # 2. 学习效果触发（效果不佳或特别优秀）
+        if self._should_communicate_about_effectiveness():
+            print("📈 学习效果分析，准备主动沟通")
             return True
 
-        if state["communication_count"] < 1:
+        # 3. 新内容发现触发
+        if self._has_new_content_to_share():
+            print("✨ 发现新学习内容，准备主动沟通")
             return True
 
-        # 学习进度触发沟通
+        # 4. 常规沟通触发
+        if self._should_have_regular_check_in():
+            print("⏰ 常规沟通时间，准备主动沟通")
+            return True
+
+        return False
+
+    def _has_learning_opportunity(self):
+        """判断是否有学习机会"""
+        try:
+            from self_learning_system import SelfLearningSystem
+            from knowledge_base import KnowledgeBase
+
+            # 检查知识库是否有新的高质量学习内容
+            knowledge_base = KnowledgeBase()
+
+            # 检查是否有重要性高的知识未学习
+            results = knowledge_base.retrieve_knowledge(query="机器学习")
+            if results and any(item.get("importance", 0) > 8 for item in results):
+                return True
+
+            # 检查学习系统是否发现新的学习策略
+            learning_system = SelfLearningSystem()
+            suggestions = learning_system.optimize_learning_strategy()
+            if len(suggestions) > 3:
+                return True
+
+            return False
+
+        except Exception as e:
+            print(f"⚠️  学习机会检测失败: {e}")
+            return False
+
+    def _should_communicate_about_effectiveness(self):
+        """判断是否需要沟通学习效果"""
         try:
             with open(self.learning_file, "r", encoding="utf-8") as f:
                 learning = json.load(f)
 
-            if len(learning["projects_studied"]) > 0 and len(learning["projects_studied"]) % 2 == 0:
+            # 学习效果不佳（<0.7）或特别优秀（>0.9）
+            if learning["learning_effectiveness"] < 0.7 or learning["learning_effectiveness"] > 0.9:
                 return True
 
-            if learning["learning_effectiveness"] < 0.7:  # 学习效果不佳
-                return True
+            # 学习效率发生显著变化（>20%差异）
+            if len(learning["projects_studied"]) > 5:
+                # 这里可以添加学习效率变化检测逻辑
+                return False
+
+            return False
 
         except Exception as e:
-            print(f"⚠️  读取学习数据失败: {e}")
+            print(f"⚠️  学习效果分析失败: {e}")
+            return False
+
+    def _has_new_content_to_share(self):
+        """判断是否有新内容可以分享"""
+        try:
+            from browser_integration import BrowserIntegration
+
+            # 检查浏览器是否有学习相关的内容
+            browser_integration = BrowserIntegration()
+            content_analysis = browser_integration.analyze_browser_content()
+
+            if len(content_analysis) > 0:
+                print(f"发现 {len(content_analysis)} 个学习相关内容")
+                return True
+
+            return False
+
+        except Exception as e:
+            print(f"⚠️  内容分析失败: {e}")
+            return False
+
+    def _should_have_regular_check_in(self):
+        """判断是否需要常规沟通"""
+        time_since_last = self._time_since_last_interaction()
+
+        # 超过2小时没有沟通
+        if time_since_last > 7200:
+            return True
 
         return False
 
@@ -131,9 +203,11 @@ class ActiveCommunicationAI:
             json.dump(state, f, ensure_ascii=False, indent=2)
 
     def communicate_proactively(self):
-        """主动沟通"""
-        state = self.analyze_learning_state()
+        """主动沟通 - 发现好的东西然后主动沟通需不需要"""
         print("🤖 主动沟通...")
+
+        # 分析当前状态
+        state = self.analyze_learning_state()
 
         # 情感识别和关系管理
         emotion = self._recognize_emotion()
@@ -150,19 +224,32 @@ class ActiveCommunicationAI:
         elif emotion == "negative":
             conversation.append("我注意到您可能需要一些鼓励，让我们一起克服困难！")
 
-        # 根据学习阶段提供个性化建议
-        if state["learning_stage"] == "beginner":
-            conversation.append("我注意到您还没有开始项目学习。")
-            conversation.append("建议您先从基础项目开始，比如Python数据分析。")
-            state["last_suggestion"] = "Python数据分析项目"
-        elif state["learning_stage"] == "intermediate":
-            conversation.append(f"您已经完成了 {state['projects_completed']} 个项目，学习进度不错！")
-            conversation.append("我建议您继续学习机器学习项目，这会帮助您全面了解AI领域。")
-            state["last_suggestion"] = "机器学习项目"
-        else:
-            conversation.append(f"您的学习进度很好，已完成 {state['projects_completed']} 个项目！")
-            conversation.append("我建议您深入研究Trinity Claw的自我分析架构，这会增强您的主动智能能力。")
-            state["last_suggestion"] = "Trinity Claw项目架构"
+        # 发现并沟通学习机会
+        if self._has_learning_opportunity():
+            self._communicate_learning_opportunity(conversation, state)
+
+        # 沟通学习效果
+        if self._should_communicate_about_effectiveness():
+            self._communicate_learning_effectiveness(conversation, state)
+
+        # 分享新内容
+        if self._has_new_content_to_share():
+            self._communicate_new_content(conversation, state)
+
+        # 常规沟通
+        if not conversation:  # 如果以上都没有内容，显示常规沟通
+            if state["learning_stage"] == "beginner":
+                conversation.append("我注意到您还没有开始项目学习。")
+                conversation.append("建议您先从基础项目开始，比如Python数据分析。")
+                state["last_suggestion"] = "Python数据分析项目"
+            elif state["learning_stage"] == "intermediate":
+                conversation.append(f"您已经完成了 {state['projects_completed']} 个项目，学习进度不错！")
+                conversation.append("我建议您继续学习机器学习项目，这会帮助您全面了解AI领域。")
+                state["last_suggestion"] = "机器学习项目"
+            else:
+                conversation.append(f"您的学习进度很好，已完成 {state['projects_completed']} 个项目！")
+                conversation.append("我建议您深入研究Trinity Claw的自我分析架构，这会增强您的主动智能能力。")
+                state["last_suggestion"] = "Trinity Claw项目架构"
 
         # 提供学习进度分析
         with open(self.learning_file, "r", encoding="utf-8") as f:
@@ -212,6 +299,72 @@ class ActiveCommunicationAI:
                 return "negative"
         except:
             return "neutral"
+
+    def _communicate_learning_opportunity(self, conversation, state):
+        """沟通学习机会"""
+        conversation.append("🎉 我发现了一些很好的学习机会！")
+
+        try:
+            from knowledge_base import KnowledgeBase
+            knowledge_base = KnowledgeBase()
+
+            # 查找重要性高的知识
+            results = knowledge_base.retrieve_knowledge(query="机器学习")
+            important_topics = [item for item in results if item.get("importance", 0) > 8]
+
+            if important_topics:
+                conversation.append(f"我发现了 {len(important_topics)} 个重要性很高的机器学习主题：")
+                for i, topic in enumerate(important_topics[:2], 1):
+                    conversation.append(f"   {i}. {topic['title']} - 重要性: {topic.get('importance', 0)}/10")
+
+                conversation.append("您需要我详细介绍这些学习机会吗？")
+                state["last_suggestion"] = important_topics[0]['title'] if important_topics else "机器学习"
+
+        except Exception as e:
+            print(f"⚠️  学习机会沟通失败: {e}")
+
+    def _communicate_learning_effectiveness(self, conversation, state):
+        """沟通学习效果"""
+        try:
+            with open(self.learning_file, "r", encoding="utf-8") as f:
+                learning = json.load(f)
+
+            conversation.append("📊 您的学习效果分析：")
+            conversation.append(f"   学习效果: {learning['learning_effectiveness']:.0%}")
+
+            if learning["learning_effectiveness"] < 0.8:
+                conversation.append("您的学习效果还有提升空间，建议调整学习策略。")
+                conversation.append("我可以为您分析学习瓶颈并提供优化方案。")
+            elif learning["learning_effectiveness"] > 0.9:
+                conversation.append("您的学习效果非常优秀！建议挑战更难的主题。")
+                conversation.append("我可以为您推荐进阶学习内容。")
+            else:
+                conversation.append("您的学习效果良好，保持这个节奏继续前进！")
+
+        except Exception as e:
+            print(f"⚠️  学习效果沟通失败: {e}")
+
+    def _communicate_new_content(self, conversation, state):
+        """沟通新发现的内容"""
+        conversation.append("✨ 我发现了一些新的学习内容！")
+
+        try:
+            from browser_integration import BrowserIntegration
+            browser_integration = BrowserIntegration()
+            content_analysis = browser_integration.analyze_browser_content()
+
+            if content_analysis:
+                conversation.append(f"我在浏览器中发现了 {len(content_analysis)} 个学习相关内容：")
+
+                for i, analysis in enumerate(content_analysis[:2], 1):
+                    if analysis["analysis"].get("relevant"):
+                        conversation.append(f"   {i}. {analysis['analysis']['title']}")
+                        conversation.append(f"      相关性分析: {'非常相关' if analysis['analysis']['relevance'] > 0.8 else '相关'}")
+
+                conversation.append("您需要我为您整理这些学习内容吗？")
+
+        except Exception as e:
+            print(f"⚠️  内容分析沟通失败: {e}")
 
     def _assess_relationship(self):
         """关系评估"""
