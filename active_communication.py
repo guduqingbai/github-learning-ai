@@ -14,53 +14,31 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 from utils import measure_performance
+from system_state_manager import SystemStateManager
 
 class ActiveCommunicationAI:
-    """主动沟通的AI系统"""
+    """主动沟通的AI系统 - 使用统一系统状态管理"""
 
     def __init__(self):
         """初始化"""
+        print("🎯 初始化主动沟通系统")
+        self.state_manager = SystemStateManager()
         self.data_dir = Path("data")
         self._init_system()
+        print("✅ 主动沟通系统初始化完成")
 
     def _init_system(self):
-        """初始化系统"""
+        """初始化系统（使用统一状态管理）"""
         self.data_dir.mkdir(exist_ok=True)
 
-        self.state_file = self.data_dir / "active_state.json"
         self.conversation_file = self.data_dir / "conversations.jsonl"
-        self.learning_file = self.data_dir / "learning_progress.json"
-
-        if not self.state_file.exists():
-            with open(self.state_file, "w", encoding="utf-8") as f:
-                json.dump({
-                    "last_interaction": datetime.now().isoformat(),
-                    "learning_stage": "beginner",
-                    "projects_completed": 1,
-                    "communication_count": 0,
-                    "response_count": 0,
-                    "last_suggestion": "Python数据分析项目",
-                    "current_goal": "每天学习至少10个项目"
-                }, f, ensure_ascii=False, indent=2)
-
         if not self.conversation_file.exists():
             self.conversation_file.touch()
 
-        if not self.learning_file.exists():
-            with open(self.learning_file, "w", encoding="utf-8") as f:
-                json.dump({
-                    "total_study_time": 0,
-                    "projects_studied": [],
-                    "knowledge_points": [],
-                    "learning_effectiveness": 0.85,
-                    "communication_effectiveness": 0.92
-                }, f, ensure_ascii=False, indent=2)
-
     def analyze_learning_state(self):
-        """分析学习状态"""
+        """分析学习状态（使用统一状态管理）"""
         try:
-            with open(self.state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
+            state = self.state_manager.get_state("active")
 
             stage = "beginner"
             if state["projects_completed"] >= 10:
@@ -69,7 +47,7 @@ class ActiveCommunicationAI:
                 stage = "intermediate"
 
             state["learning_stage"] = stage
-            self._update_state(state)
+            self.state_manager.update_state("active", state)
 
             return state
         except:
@@ -424,11 +402,10 @@ class ActiveCommunicationAI:
         self._record_learning_progress()
 
     def _record_learning_progress(self):
-        """记录学习进度"""
-        with open(self.learning_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
-
+        """记录学习进度（使用统一状态管理）"""
+        learning = self.state_manager.get_state("learning")
         state = self.analyze_learning_state()
+
         learning["total_study_time"] += 30  # 假设学习30分钟
         if state["last_suggestion"] not in learning["projects_studied"]:
             learning["projects_studied"].append(state["last_suggestion"])
@@ -443,8 +420,7 @@ class ActiveCommunicationAI:
         learning["learning_effectiveness"] = min(1.0, learning["learning_effectiveness"] + 0.05)
         learning["communication_effectiveness"] = min(1.0, learning["communication_effectiveness"] + 0.03)
 
-        with open(self.learning_file, "w", encoding="utf-8") as f:
-            json.dump(learning, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("learning", learning)
 
         print("🎉 学习进度已记录！")
 

@@ -2,6 +2,7 @@
 """
 🔄 持续学习系统 - 自我发现学习好的东西的机制
 实现每天不停查找、不停学习的能力
+架构一致性优化：使用统一系统状态管理
 """
 
 import os
@@ -16,18 +17,23 @@ from typing import Dict, Any, List, Optional
 import urllib.request
 import urllib.error
 import ssl
+from system_state_manager import SystemStateManager
+
 
 class ContinuousLearningSystem:
     """
     持续学习系统 - 自我发现学习好的东西的机制
+    使用统一系统状态管理
     """
 
     def __init__(self):
         """初始化持续学习系统"""
-        self.data_dir = Path("data")
-        self.data_dir.mkdir(exist_ok=True)
+        print("🎯 初始化持续学习系统")
 
-        # 先初始化学习属性（避免初始化顺序错误）
+        # 统一系统状态管理
+        self.state_manager = SystemStateManager()
+
+        # 初始化学习属性
         self.learning_interests = [
             "机器学习", "深度学习", "自然语言处理",
             "认知科学", "人工智能伦理", "知识图谱"
@@ -41,80 +47,62 @@ class ContinuousLearningSystem:
             {"name": "TechCrunch新闻", "type": "techcrunch", "importance": 0.5}
         ]
 
-        # 学习状态文件
-        self.learning_state_file = self.data_dir / "continuous_learning_state.json"
-        self._init_learning_state()
-
         # 学习线程
         self.learning_thread = None
         self.is_running = False
 
-        # 学习统计属性
-        self.learning_count = 0
-        self.learning_duration = 0.0
-        self.search_frequency = "high"
+        # 从统一状态管理加载学习属性
+        self._load_learning_state()
+
+        print("✅ 持续学习系统初始化完成")
+
+    def _load_learning_state(self):
+        """加载学习状态（使用统一状态管理）"""
+        try:
+            continuous_state = self.state_manager.get_state("continuous")
+            self.learning_count = continuous_state.get("learning_count", 0)
+            self.learning_duration = continuous_state.get("learning_duration", 0.0)
+            self.search_frequency = continuous_state.get("search_frequency", "high")
+            self.learning_interests = continuous_state.get("interests", self.learning_interests)
+
+            print(f"🔄 学习状态: 学习次数={self.learning_count}, 总时长={self.learning_duration:.0f}分钟")
+
+        except Exception as e:
+            print(f"⚠️  学习状态加载失败: {e}")
+            self._init_learning_state()
 
     def _init_learning_state(self):
-        """初始化学习状态"""
-        # 先初始化默认兴趣和资源（避免属性访问错误）
-        default_interests = [
-            "机器学习", "深度学习", "自然语言处理",
-            "认知科学", "人工智能伦理", "知识图谱"
-        ]
-
-        default_resources = [
-            {"name": "GitHub热门项目", "type": "github", "importance": 0.8},
-            {"name": " arXiv论文", "type": "arxiv", "importance": 0.9},
-            {"name": "Medium技术文章", "type": "medium", "importance": 0.7},
-            {"name": "知乎问答", "type": "zhihu", "importance": 0.6},
-            {"name": "TechCrunch新闻", "type": "techcrunch", "importance": 0.5}
-        ]
-
+        """初始化学习状态（使用统一状态管理）"""
         default_state = {
             "last_learning_time": datetime.now().isoformat(),
             "learning_count": 0,
             "learning_duration": 0.0,
-            "interests": default_interests,
-            "resources": [resource["name"] for resource in default_resources],
+            "interests": self.learning_interests,
+            "resources": [resource["name"] for resource in self.learning_resources],
             "learned_topics": [],
             "learning_effectiveness": 0.85,
             "knowledge_growth": 0.0,
             "search_frequency": "high"
         }
 
-        if not self.learning_state_file.exists():
-            with open(self.learning_state_file, "w", encoding="utf-8") as f:
-                json.dump(default_state, f, ensure_ascii=False, indent=2)
-        else:
-            self._load_learning_state()
+        self.state_manager.update_state("continuous", default_state)
+        self.learning_count = default_state["learning_count"]
+        self.learning_duration = default_state["learning_duration"]
+        self.search_frequency = default_state["search_frequency"]
 
-    def _load_learning_state(self):
-        """加载学习状态"""
-        try:
-            with open(self.learning_state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
-
-            self.learning_interests = state.get("interests", self.learning_interests)
-            self.learning_count = state.get("learning_count", 0)
-            self.learning_duration = state.get("learning_duration", 0.0)
-
-            print(f"🔄 学习状态: 学习次数={self.learning_count}, 总时长={self.learning_duration:.0f}分钟")
-
-        except Exception as e:
-            print(f"⚠️  学习状态加载失败: {e}")
+        print("✅ 学习状态已初始化")
 
     def _save_learning_state(self):
-        """保存学习状态"""
+        """保存学习状态（使用统一状态管理）"""
         try:
-            with open(self.learning_state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
+            continuous_state = self.state_manager.get_state("continuous")
+            continuous_state["last_learning_time"] = datetime.now().isoformat()
+            continuous_state["learning_count"] = self.learning_count
+            continuous_state["learning_duration"] = self.learning_duration
+            continuous_state["search_frequency"] = self.search_frequency
 
-            state["last_learning_time"] = datetime.now().isoformat()
-            state["learning_count"] = self.learning_count
-            state["learning_duration"] = self.learning_duration
-
-            with open(self.learning_state_file, "w", encoding="utf-8") as f:
-                json.dump(state, f, ensure_ascii=False, indent=2)
+            self.state_manager.update_state("continuous", continuous_state)
+            print("📊 学习状态已保存")
 
         except Exception as e:
             print(f"⚠️  学习状态保存失败: {e}")
@@ -292,18 +280,16 @@ class ContinuousLearningSystem:
         print("🛑 持续学习系统已停止")
 
     def get_learning_report(self):
-        """获取学习报告"""
+        """获取学习报告（使用统一状态管理）"""
         try:
-            with open(self.learning_state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
-
+            continuous_state = self.state_manager.get_state("continuous")
             return {
-                "learning_count": state.get("learning_count", 0),
-                "learning_duration": state.get("learning_duration", 0),
-                "knowledge_growth": state.get("knowledge_growth", 0),
-                "interests": state.get("interests", []),
-                "learned_topics": state.get("learned_topics", []),
-                "last_learning": state.get("last_learning_time", "")
+                "learning_count": continuous_state.get("learning_count", 0),
+                "learning_duration": continuous_state.get("learning_duration", 0),
+                "knowledge_growth": continuous_state.get("knowledge_growth", 0),
+                "interests": continuous_state.get("interests", []),
+                "learned_topics": continuous_state.get("learned_topics", []),
+                "last_learning": continuous_state.get("last_learning_time", "")
             }
 
         except Exception as e:
@@ -339,35 +325,42 @@ def test_continuous_learning():
     print("🎯 测试持续学习系统")
     print("=" * 50)
 
-    learning_system = ContinuousLearningSystem()
-
-    # 启动持续学习（测试3次后停止）
-    learning_system.start_continuous_learning()
-
-    print("🚀 持续学习系统启动成功")
-
-    # 测试运行
     try:
-        # 等待3次学习
-        for i in range(3):
-            time.sleep(3)
-            print()
+        learning_system = ContinuousLearningSystem()
 
-    except KeyboardInterrupt:
-        print("\n🛑 用户中断")
+        # 启动持续学习（测试3次后停止）
+        learning_system.start_continuous_learning()
 
-    finally:
-        learning_system.stop_learning()
-        learning_report = learning_system.get_learning_report()
+        print("🚀 持续学习系统启动成功")
 
-        print("\n📊 学习报告:")
-        if learning_report:
-            print(f"学习次数: {learning_report['learning_count']}")
-            print(f"学习时长: {learning_report['learning_duration']:.1f}分钟")
-            print(f"学习兴趣: {', '.join(learning_report['interests'])}")
-            print(f"上次学习: {learning_report['last_learning']}")
+        # 测试运行
+        try:
+            # 等待3次学习
+            for i in range(3):
+                time.sleep(3)
+                print()
 
-        print("✅ 测试完成")
+        except KeyboardInterrupt:
+            print("\n🛑 用户中断")
+
+        finally:
+            learning_system.stop_learning()
+            learning_report = learning_system.get_learning_report()
+
+            print("\n📊 学习报告:")
+            if learning_report:
+                print(f"学习次数: {learning_report['learning_count']}")
+                print(f"学习时长: {learning_report['learning_duration']:.1f}分钟")
+                print(f"学习兴趣: {', '.join(learning_report['interests'])}")
+                print(f"上次学习: {learning_report['last_learning']}")
+
+            print("✅ 测试完成")
+
+        return True
+
+    except Exception as e:
+        print(f"\n❌ 测试失败: {e}")
+        return False
 
 
 if __name__ == "__main__":

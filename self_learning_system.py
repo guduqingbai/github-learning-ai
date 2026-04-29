@@ -15,41 +15,22 @@ import hashlib
 from datetime import datetime
 from pathlib import Path
 from utils import measure_performance
+from system_state_manager import SystemStateManager
 
 class SelfLearningSystem:
-    """自我学习与系统完善系统"""
+    """自我学习与系统完善系统 - 使用统一系统状态管理"""
 
     def __init__(self):
         """初始化系统"""
+        print("🎯 初始化自我学习系统")
+        self.state_manager = SystemStateManager()
         self.data_dir = Path("data")
-        self.self_learning_file = self.data_dir / "self_learning_records.json"
-        self.vulnerability_file = self.data_dir / "vulnerabilities.json"
-        self.learning_progress_file = self.data_dir / "system_learning.json"
-
         self._init_system()
+        print("✅ 自我学习系统初始化完成")
 
     def _init_system(self):
-        """初始化数据文件"""
+        """初始化系统（使用统一状态管理）"""
         self.data_dir.mkdir(exist_ok=True)
-
-        if not self.self_learning_file.exists():
-            with open(self.self_learning_file, "w", encoding="utf-8") as f:
-                json.dump({"records": []}, f, ensure_ascii=False, indent=2)
-
-        if not self.vulnerability_file.exists():
-            with open(self.vulnerability_file, "w", encoding="utf-8") as f:
-                json.dump({"vulnerabilities": [], "fixed_count": 0}, f, ensure_ascii=False, indent=2)
-
-        if not self.learning_progress_file.exists():
-            with open(self.learning_progress_file, "w", encoding="utf-8") as f:
-                json.dump({
-                    "knowledge_points": [],
-                    "tools_learned": [],
-                    "improvements": [],
-                    "vulnerabilities_fixed": 0,
-                    "self_study_time": 0,
-                    "last_learned": None
-                }, f, ensure_ascii=False, indent=2)
 
     def run_self_learning_cycle(self):
         """运行完整的自我学习周期"""
@@ -209,18 +190,17 @@ class SelfLearningSystem:
         """分析学习进度 - 数据驱动的学习分析"""
         print("📊 正在分析学习进度...")
 
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         analysis = {
             "total_topics": len(learning["knowledge_points"]),
-            "learning_time": learning["self_study_time"],
+            "learning_time": learning["total_study_time"],
             "progress": min(100, len(learning["knowledge_points"]) * 2)  # 进度计算
         }
 
         # 学习效率分析（基于主题数量和学习时间的比值）
-        if analysis["total_topics"] > 0 and learning["self_study_time"] > 0:
-            topics_per_hour = (analysis["total_topics"] / learning["self_study_time"]) * 60
+        if analysis["total_topics"] > 0 and learning["total_study_time"] > 0:
+            topics_per_hour = (analysis["total_topics"] / learning["total_study_time"]) * 60
 
             if topics_per_hour > 0.2:  # 每小时超过0.2个主题
                 analysis["learning_efficiency"] = "高效"
@@ -244,12 +224,11 @@ class SelfLearningSystem:
         """学习进度追踪 - 记录学习活动"""
         print("📝 正在追踪学习进度...")
 
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         # 简单的学习进度更新
         progress = []
-        if learning["self_study_time"] < 600:  # 小于10分钟
+        if learning["total_study_time"] < 600:  # 小于10分钟
             progress.append("建议增加学习时间")
         if len(learning["knowledge_points"]) < 10:
             progress.append("建议扩展知识库")
@@ -258,8 +237,7 @@ class SelfLearningSystem:
 
         # 更新学习记录
         learning["last_learned"] = datetime.now().isoformat()
-        with open(self.learning_progress_file, "w", encoding="utf-8") as f:
-            json.dump(learning, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("learning", learning)
 
         return progress
 
@@ -267,12 +245,11 @@ class SelfLearningSystem:
         """优化学习策略 - 基于数据分析的优化建议"""
         print("🎯 正在优化学习策略...")
 
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         suggestions = []
         total_topics = len(learning["knowledge_points"])
-        learning_time = learning["self_study_time"]
+        learning_time = learning["total_study_time"]
 
         # 学习效率分析和建议
         if total_topics > 0 and learning_time > 0:
@@ -310,8 +287,7 @@ class SelfLearningSystem:
         print("🤔 正在进行深度反思学习...")
 
         # 获取现有知识库
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         existing_knowledge = learning["knowledge_points"]
 
@@ -551,8 +527,7 @@ class SelfLearningSystem:
         """系统优化建议"""
         print("🚀 正在分析系统优化建议...")
 
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         # 基于学习进度的优化建议
         new_optimizations = 0
@@ -574,8 +549,7 @@ class SelfLearningSystem:
             new_optimizations += 1
 
         # 记录优化建议
-        with open(self.learning_progress_file, "w", encoding="utf-8") as f:
-            json.dump(learning, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("learning", learning)
 
         print("✅ 系统优化分析完成")
         return new_optimizations
@@ -584,8 +558,7 @@ class SelfLearningSystem:
         """开发新项目 - 基于现有知识创建创新项目"""
         print("🚀 正在分析项目开发机会...")
 
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         existing_knowledge = learning["knowledge_points"]
         projects_developed = []
@@ -622,8 +595,7 @@ class SelfLearningSystem:
             if project not in learning["projects_developed"]:
                 learning["projects_developed"].append(project)
 
-        with open(self.learning_progress_file, "w", encoding="utf-8") as f:
-            json.dump(learning, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("learning", learning)
 
         return projects_developed
 
@@ -809,14 +781,12 @@ class SelfLearningSystem:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
         # 更新系统学习进度
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         learning["vulnerabilities_fixed"] += fixed_count
-        learning["self_study_time"] += 60  # 修复漏洞用时
+        learning["total_study_time"] += 60  # 修复漏洞用时
 
-        with open(self.learning_progress_file, "w", encoding="utf-8") as f:
-            json.dump(learning, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("learning", learning)
 
         print(f"✅ 漏洞修复完成！已修复 {fixed_count} 个漏洞")
         return fixed_count
@@ -844,8 +814,8 @@ class SelfLearningSystem:
 
     def get_optimization_suggestions(self):
         """获取优化建议"""
-        with open(self.learning_progress_file, "r", encoding="utf-8") as f:
-            return json.load(f)["improvements"]
+        learning = self.state_manager.get_state("learning")
+        return learning.get("improvements", [])
 
     def has_docstring(node):
         """检查是否有文档字符串"""

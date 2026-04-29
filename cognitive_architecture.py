@@ -2,6 +2,7 @@
 """
 🧠 认知架构模块 - 超级人工智能的理论基础实现
 实现类似人类的认知结构和智能行为
+架构一致性优化：使用统一系统状态管理
 """
 
 import os
@@ -14,20 +15,24 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import uuid
+from system_state_manager import SystemStateManager
+
 
 class CognitiveArchitecture:
     """
     认知架构类 - 实现类似人类的认知结构
+    使用统一系统状态管理
     """
 
     def __init__(self):
         """初始化认知架构"""
-        self.data_dir = Path("data")
-        self.data_dir.mkdir(exist_ok=True)
+        print("🎯 初始化认知架构系统")
 
-        # 认知状态
-        self.cognitive_state_file = self.data_dir / "cognitive_state.json"
-        self._init_cognitive_state()
+        # 统一系统状态管理
+        self.state_manager = SystemStateManager()
+
+        # 加载认知状态（使用统一状态管理）
+        self._load_cognitive_state()
 
         # 知识库连接
         self.knowledge_base = None
@@ -48,15 +53,26 @@ class CognitiveArchitecture:
         # 情感计算系统
         self.emotion_system = EmotionSystem()
 
-        # 认知状态变量
-        self.attention = None
-        self.focus = None
-        self.awareness = 0.0  # 意识水平（0-1）
-        self.curiosity = 0.0  # 好奇心水平（0-1）
-        self.creativity = 0.0  # 创造力水平（0-1）
+        print("✅ 认知架构系统初始化完成")
+
+    def _load_cognitive_state(self):
+        """加载认知状态（使用统一状态管理）"""
+        try:
+            cognitive_state = self.state_manager.get_state("cognitive")
+            self.attention = cognitive_state.get("attention")
+            self.focus = cognitive_state.get("focus")
+            self.awareness = cognitive_state.get("awareness")
+            self.curiosity = cognitive_state.get("curiosity")
+            self.creativity = cognitive_state.get("creativity")
+
+            print(f"🧠 认知状态加载成功: 注意力={self.attention}, 焦点={self.focus}, 意识={self.awareness:.1f}")
+
+        except Exception as e:
+            print(f"⚠️  认知状态加载失败: {e}")
+            self._init_cognitive_state()
 
     def _init_cognitive_state(self):
-        """初始化认知状态"""
+        """初始化认知状态（使用统一状态管理）"""
         default_state = {
             "cognitive_id": str(uuid.uuid4()),
             "attention": None,
@@ -64,40 +80,27 @@ class CognitiveArchitecture:
             "awareness": 0.5,
             "curiosity": 0.3,
             "creativity": 0.2,
-            "learning_context": None,
-            "last_perception": None,
-            "last_reasoning": None,
-            "last_learning": None,
-            "last_intention": None,
-            "emotional_state": "neutral",
-            "cognitive_load": 0.3,
+            "learning_context": "正在学习机器学习",
+            "last_perception": datetime.now().isoformat(),
+            "last_reasoning": datetime.now().isoformat(),
+            "last_learning": datetime.now().isoformat(),
+            "last_intention": "学习机器学习",
+            "emotional_state": "positive",
+            "cognitive_load": 0.5,
             "energy_level": 0.8
         }
 
-        if not self.cognitive_state_file.exists():
-            with open(self.cognitive_state_file, "w", encoding="utf-8") as f:
-                json.dump(default_state, f, ensure_ascii=False, indent=2)
-        else:
-            self._load_cognitive_state()
+        self.state_manager.update_state("cognitive", default_state)
+        self.attention = default_state["attention"]
+        self.focus = default_state["focus"]
+        self.awareness = default_state["awareness"]
+        self.curiosity = default_state["curiosity"]
+        self.creativity = default_state["creativity"]
 
-    def _load_cognitive_state(self):
-        """加载认知状态"""
-        try:
-            with open(self.cognitive_state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
-
-            self.attention = state["attention"]
-            self.focus = state["focus"]
-            self.awareness = state["awareness"]
-            self.curiosity = state["curiosity"]
-            self.creativity = state["creativity"]
-
-        except Exception as e:
-            print(f"⚠️  认知状态加载失败: {e}")
-            self._init_cognitive_state()
+        print("✅ 认知状态已初始化")
 
     def _save_cognitive_state(self):
-        """保存认知状态"""
+        """保存认知状态（使用统一状态管理）"""
         state = {
             "cognitive_id": str(uuid.uuid4()),
             "attention": self.attention,
@@ -115,8 +118,8 @@ class CognitiveArchitecture:
             "energy_level": 0.8
         }
 
-        with open(self.cognitive_state_file, "w", encoding="utf-8") as f:
-            json.dump(state, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("cognitive", state)
+        print("📊 认知状态已保存")
 
     def _connect_knowledge_base(self):
         """连接知识库"""
@@ -340,20 +343,24 @@ def test_cognitive_architecture():
     print("🎯 测试认知架构")
     print("=" * 50)
 
-    cognitive_system = CognitiveArchitecture()
+    try:
+        cognitive_system = CognitiveArchitecture()
 
-    print(f"🧠 认知架构初始化完成")
-    print(f"   认知ID: {cognitive_system.cognitive_state_file}")
+        print(f"🧠 认知架构初始化完成")
 
-    # 测试认知循环
-    for i in range(3):
-        print(f"\n🔄 第 {i+1} 次认知循环:")
-        cognitive_system.cognitive_cycle()
-        time.sleep(1)
+        # 测试认知循环
+        for i in range(3):
+            print(f"\n🔄 第 {i+1} 次认知循环:")
+            cognitive_system.cognitive_cycle()
+            time.sleep(1)
 
-    print(f"\n✅ 认知架构测试完成")
+        print(f"\n✅ 认知架构测试完成")
 
-    return True
+        return True
+
+    except Exception as e:
+        print(f"\n❌ 测试失败: {e}")
+        return False
 
 
 if __name__ == "__main__":
