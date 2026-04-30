@@ -13,12 +13,21 @@ from datetime import datetime
 from pathlib import Path
 
 class AIAgentAdapter:
-    """AI Agent智能体适配器"""
+    """AI Agent智能体适配器 - 支持多平台集成"""
 
     def __init__(self, platform="default"):
         """初始化AI Agent适配器"""
         self.platform = platform
         self.agent_config = self._load_agent_config()
+        self.claude_code_adapter = None
+
+        # 如果是Claude Code平台，初始化专门的适配器
+        if platform == "claude-code":
+            try:
+                from claude_code_adapter import ClaudeCodeAdapter
+                self.claude_code_adapter = ClaudeCodeAdapter()
+            except ImportError as e:
+                print(f"⚠️  无法加载Claude Code适配器: {e}")
 
     def _load_agent_config(self):
         """加载AI Agent配置"""
@@ -87,6 +96,8 @@ class AIAgentAdapter:
                 return self._send_to_openai(message, context)
             elif self.platform == "claude":
                 return self._send_to_claude(message, context)
+            elif self.platform == "claude-code":
+                return self._send_to_claude_code(message, context)
             elif self.platform == "baidu":
                 return self._send_to_baidu(message, context)
             elif self.platform == "aliyun":
@@ -146,6 +157,28 @@ class AIAgentAdapter:
         response.raise_for_status()
 
         return response.json()["content"][0]["text"]
+
+    def _send_to_claude_code(self, message, context):
+        """发送到Claude Code平台"""
+        if self.claude_code_adapter:
+            # 如果是代码相关任务，使用专门的代码分析方法
+            if any(keyword in message.lower() for keyword in ["代码", "质量", "优化", "分析"]):
+                try:
+                    code_start = message.find("```")
+                    code_end = message.rfind("```")
+                    if code_start != -1 and code_end != -1:
+                        code = message[code_start + 3:code_end].strip()
+                        if len(code) > 50:
+                            quality_report = self.claude_code_adapter.analyze_code_quality(code)
+                            if quality_report:
+                                return json.dumps(quality_report, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    print(f"⚠️  Claude Code代码分析失败: {e}")
+
+            return self.claude_code_adapter.create_code_suggestions(message)
+
+        print("⚠️  Claude Code适配器未初始化")
+        return self._send_to_claude(message, context)
 
     def _send_to_baidu(self, message, context):
         """发送到百度的文心一言模型"""
@@ -228,6 +261,49 @@ class AIAgentAdapter:
 
     def execute_agent_command(self, command_type, params=None):
         """执行AI Agent命令"""
+        # 如果是Claude Code平台，处理代码分析相关命令
+        if self.platform == "claude-code":
+            if command_type == "analyze_code":
+                if params and "code" in params:
+                    return self.claude_code_adapter.analyze_code_quality(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "optimize_code":
+                if params and "code" in params:
+                    return self.claude_code_adapter.optimize_code(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language"),
+                        params.get("optimization_level", "medium")
+                    )
+            elif command_type == "find_issues":
+                if params and "code" in params:
+                    return self.claude_code_adapter.find_code_issues(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "suggest_optimizations":
+                if params and "code" in params:
+                    return self.claude_code_adapter.suggest_optimizations(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "analyze_project":
+                if params and "path" in params:
+                    return self.claude_code_adapter.analyze_project_structure(
+                        params["path"]
+                    )
+            elif command_type == "create_suggestion":
+                if params and "requirements" in params:
+                    return self.claude_code_adapter.create_code_suggestions(
+                        params["requirements"],
+                        params.get("language", "Python")
+                    )
+
         command = self.create_agent_command(command_type, params)
         response = self.get_agent_response(command)
 
