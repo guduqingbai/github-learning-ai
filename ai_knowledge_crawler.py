@@ -47,76 +47,76 @@ class AIKnowledgeCrawler:
             f.write(log_entry + "\n")
 
     def search_github_trending(self) -> List[str]:
-        """搜索GitHub热门AI项目"""
-        self.log_message("🔍 搜索GitHub热门AI项目...")
+        """搜索GitHub上关于自我思考和自我认知的项目"""
+        self.log_message("🔍 搜索GitHub上关于自我思考和自我认知的项目...")
 
         # 模拟搜索结果（实际项目中会使用API）
         github_projects = [
-            "LLM微调框架：支持多种大语言模型的快速微调",
-            "向量数据库：高性能的AI知识存储解决方案",
-            "AI辅助编程：代码生成和修复工具",
-            "计算机视觉库：图像处理和分析工具",
-            "自然语言处理：文本分析和生成工具"
+            "自我认知架构：实现AI自我反思和自我改进的框架",
+            "认知状态管理：跟踪和优化AI认知过程",
+            "自我思考系统：基于认知科学的AI推理模型",
+            "元认知学习：AI自我调节和优化学习策略",
+            "认知架构研究：探索AI自我意识的实现方法"
         ]
 
         return random.sample(github_projects, 3)
 
     def search_arxiv_papers(self) -> List[str]:
-        """搜索arXiv最新AI论文"""
-        self.log_message("🔍 搜索arXiv最新AI论文...")
+        """搜索arXiv上关于自我思考和自我认知的论文"""
+        self.log_message("🔍 搜索arXiv上关于自我思考和自我认知的论文...")
 
         # 模拟搜索结果
         arxiv_papers = [
-            "大语言模型上下文窗口扩展技术研究",
-            "高效注意力机制在AI中的应用",
-            "多模态AI融合方法",
-            "AI模型压缩和加速技术",
-            "联邦学习安全协议"
+            "自我反思机制在AI认知架构中的应用研究",
+            "元认知学习：AI自我调节和优化的理论框架",
+            "认知状态建模：AI自我感知和自我评估方法",
+            "自我思考系统：基于贝叶斯网络的认知推理",
+            "认知架构优化：提升AI自我学习效率的方法"
         ]
 
         return random.sample(arxiv_papers, 2)
 
     def search_tech_blogs(self) -> List[str]:
-        """搜索技术博客AI文章"""
-        self.log_message("🔍 搜索技术博客AI文章...")
+        """搜索技术博客上关于自我思考和自我认知的文章"""
+        self.log_message("🔍 搜索技术博客上关于自我思考和自我认知的文章...")
 
         # 模拟搜索结果
         tech_articles = [
-            "深度解析Transformer架构演进",
-            "AI在医疗领域的应用案例",
-            "如何优化AI模型的推理速度",
-            "AI训练数据的质量控制",
-            "AI部署的最佳实践"
+            "深度解析AI自我思考的认知架构设计",
+            "自我反思如何提升AI学习效率",
+            "AI自我认知的实现方法和挑战",
+            "元认知学习：让AI学会自我调节",
+            "认知状态管理：构建智能的AI自我监控系统"
         ]
 
         return random.sample(tech_articles, 2)
 
     def search_research_papers(self) -> List[str]:
-        """搜索研究机构AI论文"""
-        self.log_message("🔍 搜索研究机构AI论文...")
+        """搜索研究机构关于自我思考和自我认知的研究论文"""
+        self.log_message("🔍 搜索研究机构关于自我思考和自我认知的研究论文...")
 
         # 模拟搜索结果
         research_papers = [
-            "谷歌DeepMind最新研究：AI推理能力提升",
-            "OpenAI研究：多模态AI融合",
-            "Meta AI：模型可解释性研究",
-            "微软：AI在生产力工具中的应用",
-            "IBM：AI伦理和安全研究"
+            "OpenAI研究：大语言模型的自我反思能力提升",
+            "Google DeepMind：自我认知架构的理论基础",
+            "Facebook AI Research：元认知学习在AI中的应用",
+            "Microsoft Research：AI自我调节和优化策略",
+            "IBM Research：认知状态建模的最新进展"
         ]
 
         return random.sample(research_papers, 1)
 
     def search_ai_news(self) -> List[str]:
-        """搜索AI行业新闻"""
-        self.log_message("🔍 搜索AI行业新闻...")
+        """搜索AI行业新闻中关于自我思考和自我认知的内容"""
+        self.log_message("🔍 搜索AI行业新闻中关于自我思考和自我认知的内容...")
 
         # 模拟搜索结果
         ai_news = [
-            "AI芯片市场增长预测",
-            "AI监管政策最新进展",
-            "AI在金融领域的应用",
-            "AI教育平台发展趋势",
-            "AI医疗诊断系统获批"
+            "AI自我思考能力成为研究热点",
+            "自我认知架构推动AI技术发展",
+            "元认知学习提升AI学习效率",
+            "认知状态管理改善AI性能",
+            "自我反思系统在实际应用中的表现"
         ]
 
         return random.sample(ai_news, 1)

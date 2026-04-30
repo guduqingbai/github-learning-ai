@@ -185,24 +185,34 @@ class SelfLearningSystem:
 
     @measure_performance
     def analyze_learning_progress(self):
-        """分析学习进度 - 数据驱动的学习分析"""
+        """分析学习进度 - 优化版本"""
         print("📊 正在分析学习进度...")
 
         learning = self.state_manager.get_state("learning")
 
+        # 计算学习进度
+        total_topics = len(learning["knowledge_points"])
+        learning_time = learning["total_study_time"]
+
+        # 动态计算目标值，根据已完成的主题数量
+        target_topics = max(50, total_topics * 1.5)
+        progress = min(100, int(total_topics / target_topics * 100))
+
         analysis = {
-            "total_topics": len(learning["knowledge_points"]),
-            "learning_time": learning["total_study_time"],
-            "progress": min(100, len(learning["knowledge_points"]) * 2)  # 进度计算
+            "total_topics": total_topics,
+            "learning_time": learning_time,
+            "progress": progress,
+            "target_topics": int(target_topics),
+            "completed_projects": len(learning["projects_studied"])
         }
 
         # 学习效率分析（基于主题数量和学习时间的比值）
-        if analysis["total_topics"] > 0 and learning["total_study_time"] > 0:
-            topics_per_hour = (analysis["total_topics"] / learning["total_study_time"]) * 60
+        if total_topics > 0 and learning_time > 0:
+            topics_per_hour = (total_topics / learning_time) * 60
 
-            if topics_per_hour > 0.2:  # 每小时超过0.2个主题
+            if topics_per_hour > 8:  # 每小时超过8个主题
                 analysis["learning_efficiency"] = "高效"
-            elif topics_per_hour > 0.1:  # 每小时0.1-0.2个主题
+            elif topics_per_hour > 4:  # 每小时4-8个主题
                 analysis["learning_efficiency"] = "中等"
             else:
                 analysis["learning_efficiency"] = "需要改进"
