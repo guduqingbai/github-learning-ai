@@ -300,6 +300,15 @@ class KnowledgeBase:
 
         return statistics
 
+    def get_all_knowledge(self) -> List[Dict[str, Any]]:
+        """
+        获取所有知识条目
+
+        Returns:
+            所有知识条目列表
+        """
+        return list(self.knowledge.values())
+
     def get_category_breakdown(self) -> Dict[str, int]:
         """
         获取知识类别分布

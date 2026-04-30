@@ -20,6 +20,10 @@ class LearningInterface:
         """获取学习状态"""
         return self.state_manager.get_state("learning")
 
+    def get_learning_info(self) -> Dict[str, Any]:
+        """获取学习信息（兼容Web界面）"""
+        return self.get_learning_state()
+
     def update_learning_progress(self, time_seconds: float, knowledge_points: List[str] = None):
         """更新学习进度"""
         learning = self.get_learning_state()

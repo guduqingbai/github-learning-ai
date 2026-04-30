@@ -100,22 +100,29 @@ class BrowserIntegration:
 
             # 对于Chrome浏览器，检查是否可以通过API访问
             if browser_name == "chrome":
-                try:
-                    response = requests.get("http://localhost:9222/json", timeout=3)
-                    if response.status_code == 200:
-                        return True
-                    else:
-                        # Chrome浏览器已安装但未以远程调试模式启动
-                        print("⚠️  Chrome浏览器已安装但未以远程调试模式启动")
-                        return False
-                except requests.exceptions.ConnectTimeout:
-                    print("⚠️  Chrome API连接超时")
+                # 尝试多个可能的Chrome调试端口
+                possible_ports = [9222, 9223, 9224, 9225]
+                for port in possible_ports:
+                    try:
+                        response = requests.get(f"http://localhost:{port}/json", timeout=2)
+                        if response.status_code == 200:
+                            # 更新配置中的API URL
+                            self.set_browser_config(browser_name, {"api_url": f"http://localhost:{port}/json"})
+                            return True
+                    except requests.exceptions.ConnectTimeout:
+                        continue
+                    except requests.exceptions.ConnectionError:
+                        continue
+                    except Exception as e:
+                        print(f"⚠️  Chrome API访问失败: {e}")
+                        continue
+
+                # 尝试通过系统命令检测Chrome是否安装
+                if self._is_chrome_installed():
+                    print("⚠️  Chrome浏览器已安装但未以远程调试模式启动")
                     return False
-                except requests.exceptions.ConnectionError:
-                    print("⚠️  Chrome浏览器未启动或未以远程调试模式运行")
-                    return False
-                except Exception as e:
-                    print(f"⚠️  Chrome API访问失败: {e}")
+                else:
+                    print("⚠️  未检测到Chrome浏览器")
                     return False
 
             # 对于其他浏览器，使用API连接检查，并添加重试机制
@@ -344,6 +351,42 @@ class BrowserIntegration:
                     print(f"⚠️  分析本地内容文件失败: {e}")
 
         return analysis_data
+
+    def _is_chrome_installed(self):
+        """检查Chrome浏览器是否安装"""
+        try:
+            if sys.platform.startswith('win'):
+                import winreg
+                try:
+                    # 检查Chrome浏览器是否在注册表中
+                    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Google\Chrome")
+                    winreg.CloseKey(key)
+                    return True
+                except FileNotFoundError:
+                    try:
+                        # 检查Chrome浏览器的安装路径
+                        chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+                        return os.path.exists(chrome_path)
+                    except:
+                        return False
+            elif sys.platform.startswith('darwin'):
+                # macOS系统检查Chrome是否安装
+                chrome_path = "/Applications/Google Chrome.app"
+                return os.path.exists(chrome_path)
+            else:
+                # Linux系统检查Chrome是否安装
+                try:
+                    result = subprocess.run(["which", "google-chrome"], capture_output=True, text=True)
+                    return result.returncode == 0
+                except:
+                    try:
+                        result = subprocess.run(["which", "chrome"], capture_output=True, text=True)
+                        return result.returncode == 0
+                    except:
+                        return False
+        except Exception as e:
+            print(f"⚠️  检测Chrome浏览器安装状态失败: {e}")
+            return False
 
     def _analyze_content(self, content):
         """分析内容与学习的相关性"""
