@@ -56,6 +56,10 @@ class SystemStateManager:
             "knowledge": {
                 "file": "knowledge_base.json",
                 "default": self._get_knowledge_base_defaults
+            },
+            "vulnerabilities": {
+                "file": "vulnerabilities.json",
+                "default": self._get_vulnerabilities_defaults
             }
         }
 
@@ -381,7 +385,9 @@ class SystemStateManager:
             "projects_studied": [],
             "knowledge_points": [],
             "learning_effectiveness": 0.85,
-            "communication_effectiveness": 0.92
+            "communication_effectiveness": 0.92,
+            "improvements": [],
+            "vulnerabilities_fixed": 0
         }
 
     def _get_system_state_defaults(self) -> Dict[str, Any]:
@@ -397,6 +403,13 @@ class SystemStateManager:
         """获取知识库系统默认状态"""
         from knowledge_base import KnowledgeBase
         return KnowledgeBase()._get_default_knowledge()
+
+    def _get_vulnerabilities_defaults(self) -> Dict[str, Any]:
+        """获取漏洞管理系统默认状态"""
+        return {
+            "vulnerabilities": [],
+            "fixed_count": 0
+        }
 
 
 def test_system_state_manager():

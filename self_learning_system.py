@@ -123,18 +123,16 @@ class SelfLearningSystem:
                 print(f"   ⚠️  无法读取文件 {file}: {e}")
                 continue
 
-        # 更新漏洞记录
-        with open(self.vulnerability_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        # 更新漏洞记录（使用统一状态管理）
+        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
 
         new_vulnerabilities = []
         for vuln in vulnerabilities:
-            if vuln not in data["vulnerabilities"]:
-                data["vulnerabilities"].append(vuln)
+            if vuln not in vulnerabilities_data["vulnerabilities"]:
+                vulnerabilities_data["vulnerabilities"].append(vuln)
                 new_vulnerabilities.append(vuln)
 
-        with open(self.vulnerability_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("vulnerabilities", vulnerabilities_data)
 
         if new_vulnerabilities:
             print(f"⚠️  发现 {len(new_vulnerabilities)} 个新漏洞")
@@ -641,13 +639,10 @@ class SelfLearningSystem:
             }
         }
 
-        with open(self.self_learning_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        data["records"].append(session)
-
-        with open(self.self_learning_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        # 使用统一状态管理保存学习记录
+        self_learning_data = self.state_manager.get_state("self_learning")
+        self_learning_data["records"].append(session)
+        self.state_manager.update_state("self_learning", self_learning_data)
 
         # 打印详细的任务执行时间和结果
         print("\n⏱️  任务执行时间")
@@ -764,21 +759,18 @@ class SelfLearningSystem:
                 fixed_count += 1
                 print(f"      ✅ 漏洞修复成功")
 
-        # 更新漏洞记录
-        with open(self.vulnerability_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        # 更新漏洞记录（使用统一状态管理）
+        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
 
-        data["fixed_count"] += fixed_count
+        vulnerabilities_data["fixed_count"] += fixed_count
         # 移除已修复的漏洞
         remaining_vulnerabilities = []
-        for vuln in data["vulnerabilities"]:
+        for vuln in vulnerabilities_data["vulnerabilities"]:
             if vuln not in vulnerabilities[:fixed_count]:
                 remaining_vulnerabilities.append(vuln)
 
-        data["vulnerabilities"] = remaining_vulnerabilities
-
-        with open(self.vulnerability_file, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        vulnerabilities_data["vulnerabilities"] = remaining_vulnerabilities
+        self.state_manager.update_state("vulnerabilities", vulnerabilities_data)
 
         # 更新系统学习进度
         learning = self.state_manager.get_state("learning")
@@ -792,9 +784,9 @@ class SelfLearningSystem:
         return fixed_count
 
     def get_vulnerabilities(self):
-        """获取漏洞列表"""
-        with open(self.vulnerability_file, "r", encoding="utf-8") as f:
-            return json.load(f)["vulnerabilities"]
+        """获取漏洞列表（使用统一状态管理）"""
+        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
+        return vulnerabilities_data["vulnerabilities"]
 
     def get_total_issues(self):
         """获取总问题数"""

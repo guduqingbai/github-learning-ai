@@ -84,8 +84,8 @@ class JarvisMonitor:
             self._record_communication(conversation)
             return True
         else:
-            print("💤 用户不可用，系统进入自我学习模式...")
-            self._run_self_learning_session()
+            print("💤 用户不可用，启动后台持续学习服务...")
+            self._start_background_learning_service()
             return False
 
     def _record_communication(self, conversation):
@@ -99,17 +99,51 @@ class JarvisMonitor:
         with open(self.state_file, "w", encoding="utf-8") as f:
             json.dump(state, f, ensure_ascii=False, indent=2)
 
-    def _run_self_learning_session(self):
-        """执行自我学习任务"""
+    def _start_background_learning_service(self):
+        """启动后台持续学习服务"""
         try:
-            from self_learning_system import SelfLearningSystem
-            system = SelfLearningSystem()
-            system.run_self_learning_cycle()
+            from background_learning_service import BackgroundLearningService
+            service = BackgroundLearningService()
 
-            print("✅ 自我学习完成！")
+            # 检查是否需要立即学习
+            if service.is_user_offline():
+                print("🚀 启动后台持续学习服务...")
+                service.start()
+
+                # 启动一个线程来管理服务（避免阻塞）
+                import threading
+                threading.Thread(target=self._monitor_learning_service, args=(service,)).start()
+
+            print("✅ 后台持续学习服务启动成功")
 
         except Exception as e:
-            print(f"❌ 自我学习失败: {e}")
+            print(f"❌ 启动后台学习服务失败: {e}")
+            import traceback
+            print(traceback.format_exc())
+
+    def _monitor_learning_service(self, service):
+        """监控学习服务"""
+        """
+        监控学习服务的运行状态，确保服务正常工作
+        """
+        try:
+            while service.is_running and service.is_user_offline():
+                # 检查服务状态
+                status = service.get_service_status()
+                print(f"📊 学习服务状态: {status}")
+
+                # 每5分钟检查一次
+                time.sleep(300)
+
+            print("👤 用户已上线或服务已停止，正在关闭学习服务...")
+            service.stop()
+
+        except Exception as e:
+            print(f"⚠️  监控学习服务失败: {e}")
+            try:
+                service.stop()
+            except:
+                pass
 
     def simulate_interaction(self):
         """模拟用户交互"""
