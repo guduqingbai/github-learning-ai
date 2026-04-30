@@ -98,33 +98,25 @@ class BrowserIntegration:
             if not browser_config.get("enabled", False):
                 return False
 
-            # 对于Chrome浏览器，简化检测条件
+            # 对于Chrome浏览器，检查是否可以通过API访问
             if browser_name == "chrome":
-                import os
-                import platform
-
-                if platform.system() == "Windows":
-                    # 检查Chrome浏览器是否安装
-                    chrome_paths = [
-                        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-                    ]
-                    for path in chrome_paths:
-                        if os.path.exists(path):
-                            return True
-                elif platform.system() == "Darwin":
-                    # macOS系统检查
-                    return os.path.exists("/Applications/Google Chrome.app")
-                else:
-                    # Linux系统检查
-                    try:
-                        import subprocess
-                        result = subprocess.run(
-                            ["which", "chrome"], capture_output=True, text=True
-                        )
-                        return result.returncode == 0
-                    except:
+                try:
+                    response = requests.get("http://localhost:9222/json", timeout=2)
+                    if response.status_code == 200:
+                        return True
+                    else:
+                        # Chrome浏览器已安装但未以远程调试模式启动
+                        print("⚠️  Chrome浏览器已安装但未以远程调试模式启动")
                         return False
+                except requests.exceptions.ConnectTimeout:
+                    print("⚠️  Chrome API连接超时")
+                    return False
+                except requests.exceptions.ConnectionError:
+                    print("⚠️  Chrome浏览器未启动或未以远程调试模式运行")
+                    return False
+                except Exception as e:
+                    print(f"⚠️  Chrome API访问失败: {e}")
+                    return False
 
             # 对于其他浏览器，使用API连接检查，并添加重试机制
             if "api_url" in browser_config and browser_config["api_url"]:

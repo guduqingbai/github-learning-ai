@@ -50,6 +50,10 @@ class CommunicationInterface:
         """获取沟通状态"""
         return self.state_manager.get_state("active")
 
+    def update_communication_state(self, state: Dict[str, Any]):
+        """更新沟通状态"""
+        self.state_manager.update_state("active", state)
+
     def record_interaction(self, user_input: str, ai_response: str):
         """记录交互"""
         active = self.get_communication_state()
@@ -102,6 +106,10 @@ class ContinuousLearningInterface:
     def get_continuous_learning_state(self) -> Dict[str, Any]:
         """获取持续学习状态"""
         return self.state_manager.get_state("continuous")
+
+    def update_learning_state(self, state: Dict[str, Any]):
+        """更新持续学习状态"""
+        self.state_manager.update_state("continuous", state)
 
     def update_learning_count(self, count: int = 1):
         """更新学习次数"""

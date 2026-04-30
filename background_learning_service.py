@@ -97,18 +97,14 @@ class BackgroundLearningService:
             last_learning_time = datetime.fromisoformat(continuous_state["last_learning_time"])
             time_since_last_learning = (datetime.now() - last_learning_time).total_seconds()
 
-            # 如果超过30分钟没有学习，则应该开始学习
-            if time_since_last_learning > 1800:  # 30分钟
-                return True
-
-            # 3. 检查学习频率设置
+            # 只要用户离线且距离上次学习超过设定间隔就应该学习
             search_frequency = continuous_state.get("search_frequency", "high")
             if search_frequency == "high":
-                return time_since_last_learning > 600  # 10分钟
+                return time_since_last_learning > 300  # 5分钟
             elif search_frequency == "medium":
-                return time_since_last_learning > 1800  # 30分钟
+                return time_since_last_learning > 600  # 10分钟
             else:
-                return time_since_last_learning > 3600  # 1小时
+                return time_since_last_learning > 900  # 15分钟
 
         except Exception as e:
             print(f"⚠️  判断学习条件失败: {e}")
@@ -144,6 +140,8 @@ class BackgroundLearningService:
 
             except Exception as e:
                 print(f"⚠️  服务循环错误: {e}")
+                import traceback
+                print(f"错误详情: {traceback.format_exc()}")
                 time.sleep(60)
 
     def _start_learning_session(self):

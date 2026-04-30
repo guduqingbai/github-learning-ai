@@ -92,24 +92,47 @@ def show_system_requirements():
     print("=" * 60)
     print("- Python 3.8+")
     print("- 稳定的网络连接")
-    print("- 足够的存储空间（至少10MB）")
-    print("- 正常的系统权限")
+    print("-" * 60)
 
-if __name__ == "__main__":
+def check_python_version():
+    """检查Python版本"""
+    if sys.version_info < (3, 8):
+        print("❌ Python版本不足，需要3.8或更高版本")
+        return False
+    print(f"✅ Python版本: {sys.version}")
+    return True
+
+def check_network_connectivity():
+    """检查网络连接"""
+    try:
+        import socket
+        socket.create_connection(("8.8.8.8", 53), timeout=2)
+        print("✅ 网络连接正常")
+        return True
+    except Exception:
+        print("⚠️  网络连接检查失败")
+        return False
+
+def main():
+    """主函数"""
     print("🎯 项目运行可行性演示")
     print("=" * 60)
 
     # 检查系统要求
     show_system_requirements()
 
-    # 确认用户准备好
-    user_input = input("\n是否准备好运行演示? (y/N): ").strip().lower()
-    if user_input != 'y':
-        print("❌ 演示已取消")
-        sys.exit(1)
+    if not check_python_version():
+        return False
 
-    # 运行演示
-    success = run_demonstration()
+    check_network_connectivity()
+
+    # 自动运行演示
+    print("\n📦 自动运行项目演示:")
+    return run_demonstration()
+
+if __name__ == "__main__":
+    import sys
+    success = main()
 
     if not success:
         print("\n❌ 演示失败，项目可能需要修复")

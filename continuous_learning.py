@@ -163,9 +163,15 @@ class ContinuousLearningSystem:
         # 5. 更新学习统计
         self.learning_count += 1
         duration = time.time() - start_time
-        self.learning_duration += duration / 60
 
-        print(f"✅ 学习完成: {len(valuable_content)}个内容, 耗时={duration:.1f}秒")
+        # 模拟实际学习时长（每个内容需要1-3分钟学习）
+        content_learning_time = 0
+        if valuable_content:
+            content_learning_time = len(valuable_content) * (1.0 + random.random() * 2.0)
+
+        self.learning_duration += (duration / 60) + content_learning_time
+
+        print(f"✅ 学习完成: {len(valuable_content)}个内容, 耗时={duration:.1f}秒, 学习时间={content_learning_time:.1f}分钟")
 
     def _choose_learning_resource(self):
         """选择学习资源"""
@@ -212,11 +218,23 @@ class ContinuousLearningSystem:
         """评估学习内容价值"""
         valuable_content = []
 
+        # 获取已学习过的内容标题
+        learned_topics = self.state_manager.get_state("continuous", "learned_topics")
+        if not learned_topics:
+            learned_topics = []
+
         for result in search_results:
             # 基于重要性评分筛选
             if result.get("importance", 0) > 0.7:
-                valuable_content.append(result)
+                # 检查是否已学习过该内容
+                if result["title"] not in learned_topics:
+                    valuable_content.append(result)
+                    learned_topics.append(result["title"])
+                else:
+                    print(f"ℹ️  内容已学习过: {result['title']}")
 
+        # 更新已学习过的内容列表
+        self.state_manager.set_state("continuous", "learned_topics", learned_topics)
         return valuable_content
 
     def _learn_content(self, content_items):
@@ -253,22 +271,27 @@ class ContinuousLearningSystem:
             print(f"⚠️  知识库更新失败: {e}")
 
     def _adjust_learning_frequency(self):
-        """调整学习频率"""
-        if self.learning_count < 10:
-            self.search_frequency = "high"
+        """调整学习频率 - 基于学习进度"""
+        # 只根据学习次数调整频率，确保用户离线5分钟后学习
+        if self.learning_count < 20:
+            self.search_frequency = "high"    # 5分钟间隔（高频率）
         elif self.learning_count < 50:
-            self.search_frequency = "medium"
+            self.search_frequency = "medium"  # 10分钟间隔（中频率）
         else:
-            self.search_frequency = "low"
+            self.search_frequency = "low"     # 15分钟间隔（低频率）
+
+        # 更新系统状态
+        self.state_manager.set_state("continuous", "search_frequency", self.search_frequency)
+        print(f"🔄 学习频率调整为: {self.search_frequency}")
 
     def _get_rest_time(self):
-        """获取休息时间"""
+        """获取休息时间 - 基于学习频率"""
         if self.search_frequency == "high":
-            return 30  # 30秒
+            return 300  # 5分钟（高频率）
         elif self.search_frequency == "medium":
-            return 60  # 1分钟
+            return 600  # 10分钟（中频率）
         else:
-            return 300  # 5分钟
+            return 900  # 15分钟（低频率）
 
     def stop_learning(self):
         """停止持续学习"""

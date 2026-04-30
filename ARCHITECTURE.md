@@ -20,6 +20,11 @@
 │  学习数据管理    │  知识管理系统    │  系统优化服务      │
 │ LearningManager │ KnowledgeBase   │ SystemOptimizer    │
 ├─────────────────────────────────────────────────────────┤
+│                    后台服务层                          │
+├─────────────────────────────────────────────────────────┤
+│  后台学习服务    │  多浏览器集成    │  系统状态管理      │
+│ BackgroundLearn │ MultiBrowser   │ SystemStateManager  │
+├─────────────────────────────────────────────────────────┤
 │                    数据存储层                          │
 ├─────────────────────────────────────────────────────────┤
 │  JSON文件存储    │  浏览器集成数据  │  系统状态数据      │
@@ -29,7 +34,63 @@
 
 ## 📦 核心模块架构
 
-### 1. 认知架构系统 (`cognitive_architecture.py`)
+### 1. 后台学习服务 (`background_learning_service.py`)
+
+#### 架构特点：
+- **用户状态检测**：检测用户是否在线，5分钟无交互视为离线
+- **自动学习启动**：用户离线后自动启动持续学习
+- **学习策略管理**：根据学习进度调整学习频率（高/中/低）
+- **服务监控**：监控学习服务运行状态，异常时自动重启
+- **资源管理**：限制单次学习时长，避免资源浪费
+
+#### 架构优化建议：
+```python
+# 现有架构
+class BackgroundLearningService:
+    def __init__(self):
+        self.state_manager = SystemStateManager()
+        self.learning_system = None
+        self.is_running = False
+        self.service_thread = None
+    
+    def is_user_offline(self):
+        last_interaction = datetime.fromisoformat(self.state_manager.get_state("active", "last_interaction"))
+        offline_seconds = (datetime.now() - last_interaction).total_seconds()
+        return offline_seconds > 300
+    
+    def should_start_learning(self):
+        if not self.is_user_offline():
+            return False
+        return self._check_learning_interval()
+```
+
+### 2. 多浏览器集成系统 (`browser_integration.py`)
+
+#### 架构特点：
+- **Chrome浏览器集成**：通过Chrome DevTools Protocol收集学习数据
+- **Firefox浏览器集成**：与Firefox浏览器深度集成
+- **Tabbit浏览器集成**：支持Tabbit浏览器（已废弃）
+- **浏览器检测**：自动检测可用的浏览器
+- **数据收集**：收集浏览器内容与学习的相关性
+
+#### 架构优化建议：
+```python
+# 现有架构
+class BrowserIntegration:
+    def __init__(self):
+        self.available_browsers = self._detect_browsers()
+    
+    def _detect_browsers(self):
+        # 检测Chrome、Firefox等可用浏览器
+        available = []
+        if self._chrome_browser_detected():
+            available.append("chrome")
+        if self._firefox_browser_detected():
+            available.append("firefox")
+        return available
+```
+
+### 3. 持续学习系统 (`continuous_learning.py`)
 
 #### 架构特点：
 - **基于认知科学理论**：实现类似人类的认知过程
