@@ -410,6 +410,10 @@ class BrowserIntegration:
         except Exception as e:
             return False, f"分析失败: {e}"
 
+    def get_available_browsers(self):
+        """获取可用浏览器列表"""
+        return self.available_browsers
+
     def get_browser_integration_status(self):
         """获取浏览器集成状态"""
         try:

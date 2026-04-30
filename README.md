@@ -201,6 +201,10 @@ python -c "from background_learning_service import BackgroundLearningService; se
 # 运行项目演示
 python run_demonstration.py                # 运行项目运行演示
 python -c "from run_demonstration import run_demonstration; run_demonstration()"
+
+# 系统自检功能
+python system_self_check.py                # 运行系统自检
+python -c "from system_self_check import SystemSelfCheck; check = SystemSelfCheck(); check.run_full_check()"
 ```
 
 ### 系统状态管理
