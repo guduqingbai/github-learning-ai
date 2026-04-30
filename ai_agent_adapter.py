@@ -20,14 +20,21 @@ class AIAgentAdapter:
         self.platform = platform
         self.agent_config = self._load_agent_config()
         self.claude_code_adapter = None
+        self.openclaw_adapter = None
 
-        # 如果是Claude Code平台，初始化专门的适配器
+        # 根据平台类型初始化相应的适配器
         if platform == "claude-code":
             try:
                 from claude_code_adapter import ClaudeCodeAdapter
                 self.claude_code_adapter = ClaudeCodeAdapter()
             except ImportError as e:
                 print(f"⚠️  无法加载Claude Code适配器: {e}")
+        elif platform == "openclaw":
+            try:
+                from openclaw_adapter import OpenClawAdapter
+                self.openclaw_adapter = OpenClawAdapter()
+            except ImportError as e:
+                print(f"⚠️  无法加载OpenClaw适配器: {e}")
 
     def _load_agent_config(self):
         """加载AI Agent配置"""
@@ -98,6 +105,8 @@ class AIAgentAdapter:
                 return self._send_to_claude(message, context)
             elif self.platform == "claude-code":
                 return self._send_to_claude_code(message, context)
+            elif self.platform == "openclaw":
+                return self._send_to_openclaw(message, context)
             elif self.platform == "baidu":
                 return self._send_to_baidu(message, context)
             elif self.platform == "aliyun":
@@ -179,6 +188,28 @@ class AIAgentAdapter:
 
         print("⚠️  Claude Code适配器未初始化")
         return self._send_to_claude(message, context)
+
+    def _send_to_openclaw(self, message, context):
+        """发送到OpenClaw平台"""
+        if self.openclaw_adapter:
+            # 如果是代码相关任务，使用专门的代码分析方法
+            if any(keyword in message.lower() for keyword in ["代码", "质量", "优化", "分析"]):
+                try:
+                    code_start = message.find("```")
+                    code_end = message.rfind("```")
+                    if code_start != -1 and code_end != -1:
+                        code = message[code_start + 3:code_end].strip()
+                        if len(code) > 50:
+                            quality_report = self.openclaw_adapter.analyze_code_quality(code)
+                            if quality_report:
+                                return json.dumps(quality_report, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    print(f"⚠️  OpenClaw代码分析失败: {e}")
+
+            return self.openclaw_adapter.create_code_suggestions(message)
+
+        print("⚠️  OpenClaw适配器未初始化")
+        return self._send_to_default_agent(message, context)
 
     def _send_to_baidu(self, message, context):
         """发送到百度的文心一言模型"""
@@ -300,6 +331,48 @@ class AIAgentAdapter:
             elif command_type == "create_suggestion":
                 if params and "requirements" in params:
                     return self.claude_code_adapter.create_code_suggestions(
+                        params["requirements"],
+                        params.get("language", "Python")
+                    )
+        # 如果是OpenClaw平台，处理代码分析相关命令
+        elif self.platform == "openclaw":
+            if command_type == "analyze_code":
+                if params and "code" in params:
+                    return self.openclaw_adapter.analyze_code_quality(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "optimize_code":
+                if params and "code" in params:
+                    return self.openclaw_adapter.optimize_code(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language"),
+                        params.get("optimization_level", "medium")
+                    )
+            elif command_type == "find_issues":
+                if params and "code" in params:
+                    return self.openclaw_adapter.find_code_issues(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "suggest_optimizations":
+                if params and "code" in params:
+                    return self.openclaw_adapter.suggest_optimizations(
+                        params["code"],
+                        params.get("filename"),
+                        params.get("language")
+                    )
+            elif command_type == "analyze_project":
+                if params and "path" in params:
+                    return self.openclaw_adapter.analyze_project_structure(
+                        params["path"]
+                    )
+            elif command_type == "create_suggestion":
+                if params and "requirements" in params:
+                    return self.openclaw_adapter.create_code_suggestions(
                         params["requirements"],
                         params.get("language", "Python")
                     )
