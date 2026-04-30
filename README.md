@@ -28,10 +28,12 @@
 - **效率改进**：分析学习模式并提供改进建议
 
 ### 3. 浏览器集成系统
-- **Tabbit浏览器集成**：与Tabbit浏览器深度集成
-- **学习数据收集**：收集浏览器学习数据
-- **内容分析**：分析浏览器内容与学习的相关性
+- **多浏览器支持**：支持Tabbit、Google Chrome、Firefox等主流浏览器
+- **学习数据收集**：收集浏览器学习数据和网页内容
+- **内容分析**：分析浏览器内容与学习的相关性和重要性
 - **浏览器同步**：同步浏览器状态与学习系统
+- **Chrome DevTools集成**：通过Chrome DevTools Protocol收集学习数据
+- **实时状态监控**：监控浏览器活动和学习状态
 
 ### 4. 认知架构系统
 - **认知循环**：实现完整的感知→推理→决策→学习循环
@@ -79,7 +81,10 @@ github-learning/
 ├── 📄 ai_agent_adapter.py            # AI代理适配器
 ├── 📄 knowledge_base.py              # 知识库管理
 ├── 📄 browser_integration.py         # 浏览器集成模块
+├── 📄 background_learning_service.py # 后台持续学习服务
+├── 📄 run_demonstration.py           # 项目运行可行性演示
 ├── 📄 ARCHITECTURE.md                # 项目架构文档
+├── 📄 DEMONSTRATION.md               # 项目运行演示文档
 ├── 📄 README.md                      # 项目说明
 ├── 📄 CONTRIBUTING.md                # 贡献指南
 ├── 📄 USAGE.md                       # 使用说明
@@ -174,11 +179,21 @@ print(f'📊 系统状态: {summary}')
 python browser_integration.py              # 测试浏览器集成模块
 python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); bi.get_browser_integration_status()"
 
-# 启用Tabbit浏览器集成
-python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); result, message = bi.enable_browser_integration('tabbit'); print(f'{result}: {message}')"
+# 启用多浏览器集成
+python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); result, message = bi.enable_browser_integration('chrome'); print(f'{result}: {message}')"
+python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); result, message = bi.enable_browser_integration('firefox'); print(f'{result}: {message}')"
 
 # 启动学习内容分析
 python -c "from browser_integration import BrowserIntegration; bi = BrowserIntegration(); result, message = bi.start_learning_content_analysis(); print(f'{result}: {message}')"
+
+# 后台学习服务使用
+python background_learning_service.py      # 启动后台持续学习服务
+python -c "from background_learning_service import test_background_learning_service; test_background_learning_service()"
+python -c "from background_learning_service import BackgroundLearningService; service = BackgroundLearningService(); service.start()"
+
+# 运行项目演示
+python run_demonstration.py                # 运行项目运行演示
+python -c "from run_demonstration import run_demonstration; run_demonstration()"
 ```
 
 ### 系统状态管理
