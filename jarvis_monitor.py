@@ -12,7 +12,7 @@ from typing import Optional
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from jarvis_active import JarvisActive
+from jarvis_active import JarvisActiveCommunication
 
 
 class JarvisMonitor:
@@ -24,7 +24,7 @@ class JarvisMonitor:
         """
         初始化监控系统
         """
-        self.assistant: Optional[JarvisActive] = None
+        self.assistant: Optional[JarvisActiveCommunication] = None
         self.running = False
         self.monitor_thread: Optional[threading.Thread] = None
         self.check_interval = 60  # 检查间隔（秒）
@@ -34,7 +34,7 @@ class JarvisMonitor:
         初始化智能助手
         """
         try:
-            self.assistant = JarvisActive()
+            self.assistant = JarvisActiveCommunication()
             return True
         except Exception as e:
             print(f"❌ 初始化助手失败: {e}")
@@ -56,7 +56,7 @@ class JarvisMonitor:
                         continue
 
                 # 检查是否需要沟通
-                if self.assistant.communicate():
+                if self.assistant.should_communicate():
                     self._handle_communication()
 
                 # 等待下一次检查
@@ -74,7 +74,7 @@ class JarvisMonitor:
         """
         try:
             response = input("🧑 请输入您的响应: ").strip()
-            self.assistant.process_user_response(response)
+            self.assistant.handle_response(response)
         except KeyboardInterrupt:
             print("\n🔄 监控系统暂停")
             return
@@ -108,7 +108,7 @@ class JarvisMonitor:
             self.monitor_thread.join(timeout=10)
 
         if self.assistant:
-            self.assistant.system.shutdown()
+            print("✅ 助手已停止")
 
         print("✅ 监控系统已停止")
 
@@ -120,7 +120,7 @@ class JarvisMonitor:
             if not self._initialize_assistant():
                 return False
 
-        return self.assistant.communicate(force=True)
+        return self.assistant.greet_and_ask()
 
 
 def run_monitor():

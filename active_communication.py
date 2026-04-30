@@ -118,8 +118,8 @@ class ActiveCommunicationAI:
     def _should_communicate_about_effectiveness(self):
         """判断是否需要沟通学习效果"""
         try:
-            with open(self.learning_file, "r", encoding="utf-8") as f:
-                learning = json.load(f)
+            # 使用系统状态管理器获取学习状态
+            learning = self.state_manager.get_state("learning")
 
             # 学习效果不佳（<0.7）或特别优秀（>0.9）
             if learning["learning_effectiveness"] < 0.7 or learning["learning_effectiveness"] > 0.9:
@@ -168,8 +168,7 @@ class ActiveCommunicationAI:
     def _time_since_last_interaction(self):
         """计算自上次交互以来的时间"""
         try:
-            with open(self.state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
+            state = self.state_manager.get_state("active")
             last_time = datetime.fromisoformat(state["last_interaction"])
             return (datetime.now() - last_time).total_seconds()
         except:
@@ -177,8 +176,7 @@ class ActiveCommunicationAI:
 
     def _update_state(self, state):
         """更新状态"""
-        with open(self.state_file, "w", encoding="utf-8") as f:
-            json.dump(state, f, ensure_ascii=False, indent=2)
+        self.state_manager.update_state("active", state)
 
     def communicate_proactively(self):
         """主动沟通 - 发现好的东西然后主动沟通需不需要"""
@@ -230,8 +228,7 @@ class ActiveCommunicationAI:
                 state["last_suggestion"] = "Trinity Claw项目架构"
 
         # 提供学习进度分析
-        with open(self.learning_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         conversation.append(f"您当前的目标是：{state['current_goal']}")
         conversation.append(f"您已经学习了 {learning['total_study_time']} 分钟，掌握了 {len(learning['knowledge_points'])} 个知识要点。")
@@ -265,8 +262,7 @@ class ActiveCommunicationAI:
         """情感识别"""
         # 简单的情感识别逻辑，可根据用户交互历史和学习进度判断
         try:
-            with open(self.learning_file, "r", encoding="utf-8") as f:
-                learning = json.load(f)
+            learning = self.state_manager.get_state("learning")
 
             # 根据学习效率和任务完成情况判断情感
             if learning["learning_effectiveness"] > 0.9 and len(learning["projects_studied"]) > 0:
@@ -304,8 +300,7 @@ class ActiveCommunicationAI:
     def _communicate_learning_effectiveness(self, conversation, state):
         """沟通学习效果"""
         try:
-            with open(self.learning_file, "r", encoding="utf-8") as f:
-                learning = json.load(f)
+            learning = self.state_manager.get_state("learning")
 
             conversation.append("📊 您的学习效果分析：")
             conversation.append(f"   学习效果: {learning['learning_effectiveness']:.0%}")
@@ -347,8 +342,7 @@ class ActiveCommunicationAI:
     def _assess_relationship(self):
         """关系评估"""
         try:
-            with open(self.state_file, "r", encoding="utf-8") as f:
-                state = json.load(f)
+            state = self.state_manager.get_state("active")
 
             # 根据沟通次数和响应次数计算关系评分
             if state["communication_count"] == 0:
@@ -427,8 +421,7 @@ class ActiveCommunicationAI:
     def _show_progress(self):
         """显示学习进度"""
         state = self.analyze_learning_state()
-        with open(self.learning_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         print("\n📊 学习进度")
         print("=" * 60)
@@ -445,8 +438,7 @@ class ActiveCommunicationAI:
     def _provide_learning_suggestion(self):
         """提供学习建议"""
         state = self.analyze_learning_state()
-        with open(self.learning_file, "r", encoding="utf-8") as f:
-            learning = json.load(f)
+        learning = self.state_manager.get_state("learning")
 
         print("\n💡 学习建议")
         print("=" * 60)
@@ -472,8 +464,9 @@ class ActiveCommunicationAI:
         print("\n🎯 学习目标")
         print("=" * 60)
         print(f"🏆 当前完成项目: {state['projects_completed']}个")
-        print(f"📚 已学项目: {len(json.load(open(self.learning_file))['projects_studied'])}个")
-        print(f"⏰ 学习时间: {json.load(open(self.learning_file))['total_study_time']}分钟")
+        learning = self.state_manager.get_state("learning")
+        print(f"📚 已学项目: {len(learning['projects_studied'])}个")
+        print(f"⏰ 学习时间: {learning['total_study_time']}分钟")
         print(f"🎯 当前目标: {state['current_goal']}")
 
     def run_communication_loop(self):

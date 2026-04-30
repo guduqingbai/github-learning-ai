@@ -169,7 +169,7 @@ class ObjectiveAssessment:
             initial_memory = self._get_memory_usage()
             # 模拟创建大量状态
             for i in range(50):
-                manager.set_state(f"test_state_{i}", f"value_{i}")
+                manager.set_state("system", f"test_state_{i}", f"value_{i}")
             memory_increase = self._get_memory_usage() - initial_memory
 
             if memory_increase < 0.1:  # MB

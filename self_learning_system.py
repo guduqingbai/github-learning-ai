@@ -166,7 +166,7 @@ class SelfLearningSystem:
                         issues.append("bare_except")
 
                     # 检查缺少文档字符串
-                    if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not has_docstring(node):
+                    if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not SelfLearningSystem.has_docstring(node):
                         issues.append("missing_docstring")
 
                     # 检查缺少类型提示
@@ -807,7 +807,7 @@ class SelfLearningSystem:
                 for node in ast.walk(tree):
                     if isinstance(node, ast.ExceptHandler) and node.type is None:
                         total += 1
-                    if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not has_docstring(node):
+                    if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not SelfLearningSystem.has_docstring(node):
                         total += 1
             except Exception:
                 continue
@@ -819,6 +819,7 @@ class SelfLearningSystem:
         learning = self.state_manager.get_state("learning")
         return learning.get("improvements", [])
 
+    @staticmethod
     def has_docstring(node):
         """检查是否有文档字符串"""
         if not hasattr(node, "body") or len(node.body) == 0:
