@@ -18,8 +18,22 @@ class SystemStateManager:
     负责所有模块的状态数据管理和操作
     """
 
+    # 类级别的单例实例
+    _instance = None
+
+    def __new__(cls):
+        """单例模式实现，避免重复初始化"""
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+
     def __init__(self):
-        """初始化系统状态管理器"""
+        """初始化系统状态管理器（单例模式）"""
+        if self._initialized:
+            return
+
+        self._initialized = True
         self.data_dir = Path("data")
         self._init_data_dir()
 
@@ -66,8 +80,9 @@ class SystemStateManager:
         # 内存中的状态缓存
         self._state_cache: Dict[str, Dict[str, Any]] = {}
 
-        # 初始化所有状态
-        self._init_all_states()
+        # 初始化所有状态（延迟加载）
+        # 改为在首次使用时加载，避免不必要的初始化
+
 
     def _init_data_dir(self):
         """初始化数据目录"""
@@ -76,7 +91,7 @@ class SystemStateManager:
 
     @measure_performance
     def _init_all_states(self):
-        """初始化所有系统状态"""
+        """初始化所有系统状态（延迟加载）"""
         print("🚀 初始化系统状态管理")
         total_states = 0
 
@@ -89,19 +104,27 @@ class SystemStateManager:
                 print(f"✅ 初始化 {module_name} 状态")
                 total_states += 1
             else:
-                # 加载现有状态到缓存
-                try:
-                    state_data = self._load_state(module_name)
-                    self._state_cache[module_name] = state_data
-                    print(f"✅ 加载 {module_name} 状态")
-                    total_states += 1
-                except Exception as e:
-                    print(f"⚠️  加载 {module_name} 状态失败: {e}")
-                    default_state = config["default"]()
-                    self._save_state(module_name, default_state)
-                    self._state_cache[module_name] = default_state
+                # 状态加载改为在首次使用时进行，避免不必要的IO操作
+                print(f"✅ 配置 {module_name} 状态（延迟加载）")
+                total_states += 1
 
         print(f"📊 系统状态管理初始化完成: {total_states} 个状态模块")
+
+    @measure_performance
+    def _load_state(self, module_name: str) -> Dict[str, Any]:
+        """加载指定模块的状态（添加错误处理和延迟加载）"""
+        config = self.state_config[module_name]
+        state_file = self.data_dir / config["file"]
+
+        try:
+            with open(state_file, "r", encoding="utf-8") as f:
+                state_data = json.load(f)
+            return state_data
+        except Exception as e:
+            print(f"⚠️  加载 {module_name} 状态失败: {e}")
+            default_state = config["default"]()
+            self._save_state(module_name, default_state)
+            return default_state
 
     @measure_performance
     def _load_state(self, module_name: str) -> Dict[str, Any]:

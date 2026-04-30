@@ -101,7 +101,7 @@ class BrowserIntegration:
             # 对于Chrome浏览器，检查是否可以通过API访问
             if browser_name == "chrome":
                 try:
-                    response = requests.get("http://localhost:9222/json", timeout=2)
+                    response = requests.get("http://localhost:9222/json", timeout=3)
                     if response.status_code == 200:
                         return True
                     else:
@@ -121,19 +121,57 @@ class BrowserIntegration:
             # 对于其他浏览器，使用API连接检查，并添加重试机制
             if "api_url" in browser_config and browser_config["api_url"]:
                 # 最大重试次数
-                max_retries = 3
+                max_retries = 5
                 for attempt in range(max_retries):
                     try:
-                        response = requests.get(browser_config["api_url"], timeout=2)
+                        response = requests.get(browser_config["api_url"], timeout=3)
                         if response.status_code == 200:
                             return True
                     except Exception:
                         if attempt < max_retries - 1:
                             import time
-                            time.sleep(0.5)
+                            time.sleep(1)
                             continue
                         else:
                             return False
+
+            # 对于无法通过API检查的浏览器，尝试通过其他方式检测
+            if browser_name in ["firefox", "edge"]:
+                # 尝试通过系统命令检测浏览器是否安装
+                try:
+                    if browser_name == "firefox":
+                        # 检查Firefox浏览器是否安装
+                        if sys.platform.startswith('win'):
+                            import winreg
+                            try:
+                                key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Mozilla\Mozilla Firefox")
+                                winreg.CloseKey(key)
+                                return True
+                            except FileNotFoundError:
+                                return False
+                        elif sys.platform.startswith('darwin'):
+                            return os.path.exists("/Applications/Firefox.app")
+                        else:
+                            return os.path.exists("/usr/bin/firefox") or os.path.exists("/usr/local/bin/firefox")
+
+                    elif browser_name == "edge":
+                        # 检查Edge浏览器是否安装
+                        if sys.platform.startswith('win'):
+                            import winreg
+                            try:
+                                key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Edge")
+                                winreg.CloseKey(key)
+                                return True
+                            except FileNotFoundError:
+                                return False
+                        elif sys.platform.startswith('darwin'):
+                            return os.path.exists("/Applications/Microsoft Edge.app")
+                        else:
+                            return os.path.exists("/usr/bin/microsoft-edge") or os.path.exists("/usr/local/bin/microsoft-edge")
+
+                except Exception as e:
+                    print(f"⚠️  检测{browser_name}浏览器失败: {e}")
+                    return False
 
             return False
 
@@ -268,6 +306,42 @@ class BrowserIntegration:
                             "timestamp": datetime.now().isoformat(),
                             "analysis": analysis
                         })
+
+        # 如果浏览器分析数据为空，尝试分析本地学习内容
+        if not analysis_data:
+            analysis_data = self._analyze_local_learning_content()
+
+        return analysis_data
+
+    def _analyze_local_learning_content(self):
+        """分析本地学习内容"""
+        analysis_data = []
+
+        # 检查是否有本地学习内容文件
+        local_content_files = [
+            "learning_notes.txt",
+            "study_materials.md",
+            "course_notes.txt"
+        ]
+
+        for filename in local_content_files:
+            if os.path.exists(filename):
+                try:
+                    with open(filename, "r", encoding="utf-8") as f:
+                        content = f.read()
+
+                    # 分析本地内容
+                    analysis = self._analyze_content({"text": content})
+                    if analysis:
+                        analysis_data.append({
+                            "browser": "local",
+                            "timestamp": datetime.now().isoformat(),
+                            "analysis": analysis,
+                            "source": filename
+                        })
+
+                except Exception as e:
+                    print(f"⚠️  分析本地内容文件失败: {e}")
 
         return analysis_data
 

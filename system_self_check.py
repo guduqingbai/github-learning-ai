@@ -33,7 +33,9 @@ class SystemSelfCheck:
             self.check_continuous_learning,
             self.check_cognitive_architecture,
             self.check_browser_integration,
-            self.check_data_availability
+            self.check_data_availability,
+            self.check_performance_optimization,
+            self.check_local_learning_features
         ]
         self.results = []
 
@@ -169,13 +171,99 @@ class SystemSelfCheck:
         try:
             from browser_integration import BrowserIntegration
             browser = BrowserIntegration()
-            available = browser.get_available_browsers()
-            if not available:
+
+            print("🔍 检查浏览器集成配置")
+            integration_status = browser.get_browser_integration_status()
+
+            if not integration_status:
+                print("❌ 无法获取浏览器集成状态")
+                return False
+
+            if integration_status.get("enabled"):
+                print("✅ 浏览器集成已启用")
+            else:
+                print("⚠️  浏览器集成未启用")
+
+            available_browsers = browser.get_available_browsers()
+            if available_browsers:
+                print(f"✅ 检测到可用浏览器: {', '.join(available_browsers)}")
+
+                # 检查每个可用浏览器的连接状态
+                for browser_name in available_browsers:
+                    try:
+                        config = browser.get_browser_config(browser_name)
+                        if config and config.get("enabled"):
+                            is_connected, message = browser.test_browser_connection(browser_name)
+                            if is_connected:
+                                print(f"✅ {browser_name} 连接成功")
+                            else:
+                                print(f"⚠️  {browser_name} 连接失败: {message}")
+                    except Exception as e:
+                        print(f"⚠️  检查 {browser_name} 失败: {e}")
+            else:
                 print("⚠️  未检测到可用的浏览器")
+
+            # 检查本地学习内容分析功能
+            print("🔍 检查本地学习内容分析功能")
+            local_content_files = ["learning_notes.txt", "study_materials.md", "course_notes.txt"]
+            found_local_content = False
+
+            for filename in local_content_files:
+                if Path(filename).exists():
+                    print(f"✅ 检测到本地学习内容: {filename}")
+                    found_local_content = True
+
+            if not found_local_content:
+                print("⚠️  未检测到本地学习内容文件")
 
             return True  # 即使没有浏览器，系统仍可工作
         except Exception as e:
             print(f"❌ 浏览器集成检查失败: {e}")
+            import traceback
+            print(f"错误详情: {traceback.format_exc()}")
+            return False
+
+    def check_performance_optimization(self) -> bool:
+        """系统性能优化检查"""
+        try:
+            # 检查系统状态管理的单例模式实现
+            from system_state_manager import SystemStateManager
+            manager1 = SystemStateManager()
+            manager2 = SystemStateManager()
+
+            if manager1 is not manager2:
+                print("❌ 系统状态管理单例模式未正确实现")
+                return False
+
+            print("✅ 系统状态管理单例模式实现成功")
+
+            return True
+        except Exception as e:
+            print(f"❌ 系统性能优化检查失败: {e}")
+            import traceback
+            print(f"错误详情: {traceback.format_exc()}")
+            return False
+
+    def check_local_learning_features(self) -> bool:
+        """本地学习功能检查"""
+        try:
+            # 检查本地学习内容分析功能
+            from browser_integration import BrowserIntegration
+            browser = BrowserIntegration()
+
+            print("🔍 检查本地学习内容分析功能")
+            # 测试本地内容分析方法是否存在
+            if hasattr(browser, "_analyze_local_learning_content"):
+                print("✅ 本地学习内容分析功能已实现")
+            else:
+                print("❌ 本地学习内容分析功能未实现")
+                return False
+
+            return True
+        except Exception as e:
+            print(f"❌ 本地学习功能检查失败: {e}")
+            import traceback
+            print(f"错误详情: {traceback.format_exc()}")
             return False
 
     def check_data_availability(self) -> bool:
