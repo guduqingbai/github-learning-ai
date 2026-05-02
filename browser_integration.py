@@ -22,11 +22,24 @@ class BrowserIntegration:
         self.data_dir = Path("data")
         self.data_dir.mkdir(exist_ok=True)
 
-        self.browser_config = self.data_dir / "browser_config.json"
+        self.browser_config_path = self.data_dir / "browser_config.json"
+        self._config_cache = None
         self._init_browser_config()
 
         # 检测可用的浏览器
         self.available_browsers = self._detect_browsers()
+
+    def _get_config(self):
+        """获取配置（带缓存）"""
+        if self._config_cache is not None:
+            return self._config_cache
+        with open(self.browser_config_path, "r", encoding="utf-8") as f:
+            self._config_cache = json.load(f)
+        return self._config_cache
+
+    def _invalidate_cache(self):
+        """使配置缓存失效"""
+        self._config_cache = None
 
     def _init_browser_config(self):
         """初始化浏览器配置"""
@@ -63,8 +76,8 @@ class BrowserIntegration:
             }
         }
 
-        if not self.browser_config.exists():
-            with open(self.browser_config, "w", encoding="utf-8") as f:
+        if not self.browser_config_path.exists():
+            with open(self.browser_config_path, "w", encoding="utf-8") as f:
                 json.dump(default_config, f, ensure_ascii=False, indent=2)
 
     def _detect_browsers(self):
@@ -86,8 +99,7 @@ class BrowserIntegration:
     def _check_browser_available(self, browser_name):
         """检查浏览器是否可用"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             if browser_name not in config["browsers"]:
                 return False
@@ -136,7 +148,6 @@ class BrowserIntegration:
                             return True
                     except Exception:
                         if attempt < max_retries - 1:
-                            import time
                             time.sleep(1)
                             continue
                         else:
@@ -189,8 +200,7 @@ class BrowserIntegration:
     def get_browser_config(self, browser_name=None):
         """获取浏览器配置"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             if browser_name:
                 return config["browsers"].get(browser_name)
@@ -204,17 +214,17 @@ class BrowserIntegration:
     def set_browser_config(self, browser_name, config_updates):
         """更新浏览器配置"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             if browser_name not in config["browsers"]:
                 config["browsers"][browser_name] = config_updates
             else:
                 config["browsers"][browser_name].update(config_updates)
 
-            with open(self.browser_config, "w", encoding="utf-8") as f:
+            with open(self.browser_config_path, "w", encoding="utf-8") as f:
                 json.dump(config, f, ensure_ascii=False, indent=2)
 
+            self._invalidate_cache()
             return True
 
         except Exception as e:
@@ -224,14 +234,14 @@ class BrowserIntegration:
     def toggle_browser_integration(self, enabled=True):
         """启用或禁用浏览器集成"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             config["integration"]["enabled"] = enabled
 
-            with open(self.browser_config, "w", encoding="utf-8") as f:
+            with open(self.browser_config_path, "w", encoding="utf-8") as f:
                 json.dump(config, f, ensure_ascii=False, indent=2)
 
+            self._invalidate_cache()
             return True
 
         except Exception as e:
@@ -367,7 +377,7 @@ class BrowserIntegration:
                         # 检查Chrome浏览器的安装路径
                         chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
                         return os.path.exists(chrome_path)
-                    except:
+                    except Exception:
                         return False
             elif sys.platform.startswith('darwin'):
                 # macOS系统检查Chrome是否安装
@@ -378,11 +388,11 @@ class BrowserIntegration:
                 try:
                     result = subprocess.run(["which", "google-chrome"], capture_output=True, text=True)
                     return result.returncode == 0
-                except:
+                except Exception:
                     try:
                         result = subprocess.run(["which", "chrome"], capture_output=True, text=True)
                         return result.returncode == 0
-                    except:
+                    except Exception:
                         return False
         except Exception as e:
             print(f"⚠️  检测Chrome浏览器安装状态失败: {e}")
@@ -396,55 +406,43 @@ class BrowserIntegration:
         ]
 
         analysis = {
+            "title": "",
             "relevant": False,
+            "relevance": 0.0,
             "keywords": [],
             "content_type": None,
             "learning_score": 0.0
         }
 
-        if "text" in content:
+        if isinstance(content, str):
+            text = content.lower()
+            analysis["title"] = content[:80]
+        elif "text" in content:
             text = content["text"].lower()
-            matched_keywords = []
+            analysis["title"] = content.get("title", content["text"][:80])
+        else:
+            text = str(content).lower()
+            analysis["title"] = str(content)[:80]
 
-            for keyword in learning_keywords:
-                if keyword in text:
-                    matched_keywords.append(keyword)
+        matched_keywords = []
 
-            if matched_keywords:
-                analysis["relevant"] = True
-                analysis["keywords"] = matched_keywords
-                analysis["learning_score"] = len(matched_keywords) * 0.1
+        for keyword in learning_keywords:
+            if keyword in text:
+                matched_keywords.append(keyword)
+
+        if matched_keywords:
+            analysis["relevant"] = True
+            analysis["keywords"] = matched_keywords
+            analysis["learning_score"] = len(matched_keywords) * 0.1
+            analysis["relevance"] = min(1.0, analysis["learning_score"])
 
         return analysis if analysis["relevant"] else None
-
-    def sync_browser_data(self):
-        """同步浏览器数据到学习系统"""
-        browser_data = self.collect_browser_data()
-
-        if browser_data:
-            data_file = self.data_dir / "browser_data.json"
-
-            if data_file.exists():
-                with open(data_file, "r", encoding="utf-8") as f:
-                    existing_data = json.load(f)
-            else:
-                existing_data = {"records": []}
-
-            existing_data["records"].append(browser_data)
-
-            with open(data_file, "w", encoding="utf-8") as f:
-                json.dump(existing_data, f, ensure_ascii=False, indent=2)
-
-            return True
-
-        return False
 
     def is_integration_enabled(self):
         """检查浏览器集成是否启用"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
-                return config["integration"]["enabled"]
+            config = self._get_config()
+            return config["integration"]["enabled"]
 
         except Exception as e:
             print(f"⚠️  读取集成配置失败: {e}")
@@ -488,13 +486,14 @@ class BrowserIntegration:
             self.set_browser_config(browser_name, {"enabled": True})
 
             # 更新集成配置
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             config["integration"]["enabled"] = True
 
-            with open(self.browser_config, "w", encoding="utf-8") as f:
+            with open(self.browser_config_path, "w", encoding="utf-8") as f:
                 json.dump(config, f, ensure_ascii=False, indent=2)
+
+            self._invalidate_cache()
 
             return True, "浏览器集成已启用"
 
@@ -534,8 +533,7 @@ class BrowserIntegration:
     def get_browser_integration_status(self):
         """获取浏览器集成状态"""
         try:
-            with open(self.browser_config, "r", encoding="utf-8") as f:
-                config = json.load(f)
+            config = self._get_config()
 
             status = {
                 "enabled": config["integration"]["enabled"],

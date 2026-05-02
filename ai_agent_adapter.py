@@ -4,10 +4,7 @@
 AI Agent智能体适配器 - 支持多种AI Agent平台
 """
 
-import os
-import sys
 import json
-import time
 import requests
 from datetime import datetime
 from pathlib import Path
@@ -381,25 +378,6 @@ class AIAgentAdapter:
         response = self.get_agent_response(command)
 
         return response
-
-    def update_agent_knowledge(self, knowledge_items):
-        """更新AI Agent的知识库"""
-        if not self.is_agent_available():
-            return False
-
-        print("📚 更新AI Agent知识库")
-
-        try:
-            knowledge_text = "\n".join([f"- {item}" for item in knowledge_items])
-            message = f"请将以下知识添加到知识库中:\n{knowledge_text}"
-
-            response = self.get_agent_response(message)
-
-            return response is not None
-
-        except Exception as e:
-            print(f"❌ 更新知识库失败: {e}")
-            return False
 
     def get_agent_statistics(self):
         """获取AI Agent统计信息"""

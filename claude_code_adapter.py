@@ -5,13 +5,10 @@
 """
 
 import os
-import sys
 import json
 import requests
-import time
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from datetime import datetime
 
 class ClaudeCodeAdapter:
     """Claude Code集成适配器 - 与Claude Code平台的专业API集成"""
@@ -278,7 +275,7 @@ if __name__ == "__main__":
         if response:
             try:
                 return json.loads(response)
-            except:
+            except Exception:
                 return {
                     "score": 65,
                     "dimensions": {
@@ -330,7 +327,7 @@ if __name__ == "__main__":
         if response:
             try:
                 return json.loads(response)
-            except:
+            except Exception:
                 return {
                     "optimized_code": code,
                     "explanation": "代码优化响应解析失败",
@@ -340,39 +337,6 @@ if __name__ == "__main__":
                 }
 
         return None
-
-    def generate_code_explanations(self, code: str,
-                                 filename: str = None,
-                                 language: str = None) -> List[str]:
-        """生成代码解释"""
-        prompt = f"""请详细解释以下代码的功能和实现原理：
-
-**代码内容：**
-```
-{code}
-```
-
-**解释要点：**
-1. 代码的核心功能
-2. 关键算法和数据结构
-3. 设计模式和架构思想
-4. 性能优化策略
-5. 潜在问题和改进方向
-
-**要求格式：**
-返回清晰的要点列表，使用Markdown格式。"""
-
-        messages = [
-            {"role": "system", "content": "你是一个专业的代码解释专家"},
-            {"role": "user", "content": prompt}
-        ]
-
-        response = self._send_request(messages, temperature=0.5)
-
-        if response:
-            return [line.strip() for line in response.split("\n") if line.strip()]
-
-        return []
 
     def find_code_issues(self, code: str,
                         filename: str = None,
@@ -413,7 +377,7 @@ if __name__ == "__main__":
         if response:
             try:
                 return json.loads(response)
-            except:
+            except Exception:
                 return [
                     {
                         "type": "parsing_error",
@@ -464,7 +428,7 @@ if __name__ == "__main__":
         if response:
             try:
                 return json.loads(response)
-            except:
+            except Exception:
                 return []
 
         return []
@@ -481,7 +445,7 @@ if __name__ == "__main__":
                             "size": len(f.read()),
                             "path": str(file)
                         })
-                except:
+                except Exception:
                     continue
 
         prompt = f"""请专业分析以下Python项目的结构：
@@ -513,7 +477,7 @@ if __name__ == "__main__":
         if response:
             try:
                 return json.loads(response)
-            except:
+            except Exception:
                 return {
                     "score": 60,
                     "suggestions": ["响应解析失败"],

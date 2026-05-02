@@ -4,10 +4,8 @@
 """
 
 import os
-import sys
 import time
 import json
-import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -142,7 +140,7 @@ class JarvisMonitor:
             print(f"⚠️  监控学习服务失败: {e}")
             try:
                 service.stop()
-            except:
+            except Exception:
                 pass
 
     def simulate_interaction(self):

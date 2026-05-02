@@ -5,8 +5,6 @@
 """
 
 import os
-import sys
-import json
 import time
 from pathlib import Path
 from ai_agent_adapter import AIAgentAdapter

@@ -5,24 +5,36 @@
 """
 
 import json
-import os
+import threading
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-import time
 from utils import measure_performance
 
 class KnowledgeBase:
     """
-    知识管理系统类
+    知识管理系统类（单例模式）
     """
+
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
 
     def __init__(self):
         """
-        初始化知识管理系统
+        初始化知识管理系统（单例模式）
         """
+        if self._initialized:
+            return
+        self._initialized = True
+
         self.knowledge = {}
         self.categories = set()
         self.topics = set()
+        self._lock = threading.RLock()
         self.data_dir = Path("data")
         self.knowledge_file = self.data_dir / "knowledge_base.json"
 
@@ -61,7 +73,8 @@ class KnowledgeBase:
         except Exception as e:
             print("❌ 加载知识数据失败: {}".format(e))
 
-    def _get_default_knowledge(self) -> List[Dict[str, Any]]:
+    @staticmethod
+    def _get_default_knowledge() -> List[Dict[str, Any]]:
         """
         获取默认知识数据
         """
@@ -362,19 +375,29 @@ class KnowledgeBase:
         Returns:
             是否删除成功
         """
-        if topic in self.knowledge:
-            del self.knowledge[topic]
+        try:
+            with self._lock:
+                if topic not in self.knowledge:
+                    return False
 
-            try:
+                item = self.knowledge.pop(topic)
+                self.topics.discard(topic)
+                # 清除分类引用（如果该分类下再无其他条目）
+                category = item.get("category")
+                if category:
+                    has_remaining = any(
+                        other.get("category") == category
+                        for other in self.knowledge.values()
+                    )
+                    if not has_remaining:
+                        self.categories.discard(category)
+
                 self._save_knowledge()
                 print("✅ 成功删除知识: {}".format(topic))
                 return True
-
-            except Exception as e:
-                print("❌ 删除知识失败: {}".format(e))
-                return False
-
-        return False
+        except Exception as e:
+            print("❌ 删除知识失败: {}".format(e))
+            return False
 
     def update_knowledge(self, topic: str, updates: Dict[str, Any]) -> bool:
         """
@@ -409,8 +432,12 @@ class KnowledgeBase:
         保存知识数据到文件
         """
         try:
-            with open(self.knowledge_file, 'w', encoding='utf-8') as f:
-                json.dump(list(self.knowledge.values()), f, ensure_ascii=False, indent=2)
+            with self._lock:
+                # 写临时文件再重命名，防止写中断导致文件损坏
+                tmp = self.knowledge_file.with_suffix(".tmp")
+                with open(tmp, "w", encoding="utf-8") as f:
+                    json.dump(list(self.knowledge.values()), f, ensure_ascii=False, indent=2)
+                tmp.replace(self.knowledge_file)
 
         except Exception as e:
             print("❌ 保存知识数据失败: {}".format(e))

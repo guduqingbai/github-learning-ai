@@ -94,6 +94,8 @@ def configure_claude_code():
                     with open(config_file, "r", encoding="utf-8") as f:
                         config_data = json.load(f)
                     print("配置文件内容:")
+                    if "api_key" in config_data and config_data["api_key"]:
+                        config_data = {**config_data, "api_key": config_data["api_key"][:6] + "****"}
                     print(json.dumps(config_data, ensure_ascii=False, indent=2))
                 else:
                     print("配置文件不存在")
@@ -146,7 +148,8 @@ def quick_configure():
         adapter = ClaudeCodeAdapter()
 
         print("📝 快速配置API密钥")
-        api_key = input("请输入Claude Code API密钥: ").strip()
+        import getpass
+        api_key = getpass.getpass("请输入Claude Code API密钥: ").strip()
 
         if api_key:
             adapter.update_config(api_key=api_key)

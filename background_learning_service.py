@@ -8,7 +8,6 @@ import os
 import sys
 import time
 import threading
-import json
 import signal
 import atexit
 from datetime import datetime, timedelta
@@ -38,6 +37,7 @@ class BackgroundLearningService:
         # 服务状态
         self.is_running = False
         self.service_thread = None
+        self._learning_session_thread = None
 
         # 监控配置
         self.check_interval = 60  # 60秒检查一次
@@ -216,12 +216,14 @@ class BackgroundLearningService:
         if self.learning_system and hasattr(self.learning_system, 'stop_learning'):
             try:
                 self.learning_system.stop_learning()
-            except:
+            except Exception:
                 pass
 
         # 等待线程结束
         if self.service_thread and self.service_thread.is_alive():
             self.service_thread.join(timeout=10)
+        if self._learning_session_thread and self._learning_session_thread.is_alive():
+            self._learning_session_thread.join(timeout=10)
 
         print("✅ 后台持续学习服务已停止")
         return True
@@ -271,7 +273,9 @@ class BackgroundLearningService:
             return False
 
         print("🚀 强制启动学习会话")
-        threading.Thread(target=self._start_learning_session).start()
+        self._learning_session_thread = threading.Thread(target=self._start_learning_session)
+        self._learning_session_thread.daemon = True
+        self._learning_session_thread.start()
         return True
 
 

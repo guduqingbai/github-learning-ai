@@ -5,14 +5,9 @@
 架构一致性优化：使用统一系统状态管理
 """
 
-import os
-import sys
-import json
 import time
 import random
-import threading
 from datetime import datetime
-from pathlib import Path
 from typing import Dict, Any, List, Optional
 import uuid
 from system_state_manager import SystemStateManager
@@ -48,10 +43,10 @@ class CognitiveArchitecture:
         self.learning_system = LearningSystem()
 
         # 意图识别系统
-        self.intention_recognition = IntentionRecognition()
+        self.intention_recognition = None
 
         # 情感计算系统
-        self.emotion_system = EmotionSystem()
+        self.emotion_system = None
 
         print("✅ 认知架构系统初始化完成")
 
@@ -101,23 +96,17 @@ class CognitiveArchitecture:
 
     def _save_cognitive_state(self):
         """保存认知状态（使用统一状态管理）"""
-        state = {
-            "cognitive_id": str(uuid.uuid4()),
+        state = self.state_manager.get_state("cognitive")
+        state.update({
             "attention": self.attention,
             "focus": self.focus,
             "awareness": self.awareness,
             "curiosity": self.curiosity,
             "creativity": self.creativity,
-            "learning_context": "正在学习机器学习",
             "last_perception": datetime.now().isoformat(),
             "last_reasoning": datetime.now().isoformat(),
             "last_learning": datetime.now().isoformat(),
-            "last_intention": "学习机器学习",
-            "emotional_state": "positive",
-            "cognitive_load": 0.5,
-            "energy_level": 0.8
-        }
-
+        })
         self.state_manager.update_state("cognitive", state)
         print("📊 认知状态已保存")
 
@@ -192,20 +181,6 @@ class CognitiveArchitecture:
 
         except Exception as e:
             print(f"⚠️  学习失败: {e}")
-            return None
-
-    def communicate_proactively(self, communication_content):
-        """主动沟通 - 类似人类的沟通方式"""
-        try:
-            from active_communication import ActiveCommunicationAI
-            communication_ai = ActiveCommunicationAI()
-
-            communication_result = communication_ai.communicate_proactively()
-
-            return communication_result
-
-        except Exception as e:
-            print(f"⚠️  沟通失败: {e}")
             return None
 
     def cognitive_cycle(self):
@@ -320,22 +295,6 @@ class LearningSystem:
             "experience": f"决策 '{decision}' 成功执行",
             "timestamp": datetime.now().isoformat()
         }
-
-
-class IntentionRecognition:
-    """意图识别系统 - 类似人类的意图理解"""
-
-    def recognize_intention(self, communication_data):
-        """识别用户意图"""
-        return "学习机器学习"
-
-
-class EmotionSystem:
-    """情感计算系统 - 类似人类的情感体验"""
-
-    def recognize_emotion(self, data):
-        """情感识别"""
-        return "positive"
 
 
 def test_cognitive_architecture():

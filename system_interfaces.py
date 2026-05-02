@@ -127,11 +127,6 @@ class ContinuousLearningInterface:
         continuous["learning_duration"] += duration_seconds / 60  # 转换为分钟
         self.state_manager.update_state("continuous", continuous)
 
-    def set_search_frequency(self, frequency: str):
-        """设置搜索频率"""
-        self.state_manager.set_state("continuous", "search_frequency", frequency)
-
-
 class SelfLearningInterface:
     """自我学习系统统一接口"""
 
@@ -141,22 +136,6 @@ class SelfLearningInterface:
     def get_self_learning_state(self) -> Dict[str, Any]:
         """获取自我学习状态"""
         return self.state_manager.get_state("self_learning")
-
-    def add_learning_record(self, record: Dict[str, Any]):
-        """添加学习记录"""
-        self_learning = self.get_self_learning_state()
-        self_learning["records"].append(record)
-        self.state_manager.update_state("self_learning", self_learning)
-
-    def get_total_knowledge_points(self) -> int:
-        """获取总知识点数"""
-        return len(self.state_manager.get_state("learning")["knowledge_points"])
-
-    def get_vulnerabilities_count(self) -> int:
-        """获取漏洞数量"""
-        from self_learning_system import SelfLearningSystem
-        return len(SelfLearningSystem().get_vulnerabilities())
-
 
 class JarvisInterface:
     """Jarvis系统统一接口"""

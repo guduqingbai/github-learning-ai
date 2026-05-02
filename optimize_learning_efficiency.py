@@ -3,11 +3,7 @@
 🚀 优化学习效率 - 提升到15个主题/小时
 """
 
-import os
-import sys
 import time
-import json
-from pathlib import Path
 from system_state_manager import SystemStateManager
 
 

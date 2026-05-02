@@ -7,7 +7,6 @@ import os
 import sys
 import time
 import json
-import subprocess
 from datetime import datetime
 from pathlib import Path
 

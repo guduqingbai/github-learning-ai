@@ -5,13 +5,8 @@
 """
 
 import os
-import sys
 import time
-import json
-import subprocess
-import requests
 import ast
-import hashlib
 from datetime import datetime
 from pathlib import Path
 from utils import measure_performance
@@ -50,7 +45,7 @@ class SelfLearningSystem:
             # 3. 学习数据分析
             start_time = time.time()
             learning_analysis = self.analyze_learning_progress()
-            analyze_time = time.time() - start_time
+            learning_analysis_time = time.time() - start_time
 
             # 4. 学习进度追踪
             start_time = time.time()
@@ -102,8 +97,8 @@ class SelfLearningSystem:
                 with open(file, "r", encoding="utf-8") as f:
                     code = f.read()
 
-                # 检查硬编码密码
-                if "password" in code.lower() or "key" in code.lower() and "=" in code:
+                # 检查硬编码密码 — 要求同时出现赋值操作和敏感词
+                if ("password" in code.lower() or "api_key" in code.lower() or "secret" in code.lower()) and "=" in code and ('"' in code or "'" in code):
                     vulnerabilities.append({
                         "type": "hardcoded_secret",
                         "file": str(file),
@@ -290,323 +285,6 @@ class SelfLearningSystem:
 
         return suggestions
 
-    def _reflect_on_knowledge(self):
-        """反思学习 - 基于现有知识进行深度思考和创新"""
-        print("🤔 正在进行深度反思学习...")
-
-        # 获取现有知识库
-        learning = self.state_manager.get_state("learning")
-
-        existing_knowledge = learning["knowledge_points"]
-
-        # 反思思考主题
-        reflection_topics = []
-
-        if len(existing_knowledge) > 0:
-            # 1. 知识关联和创新
-            reflection_topics.append("知识网络构建与关联分析")
-
-            # 2. 项目开发思路
-            reflection_topics.append("基于现有知识的项目创新方法")
-
-            # 3. 学习策略优化
-            reflection_topics.append("个性化学习路径优化策略")
-
-            # 4. 系统架构创新
-            reflection_topics.append("AI系统架构设计创新思路")
-
-            # 5. 问题解决方法
-            reflection_topics.append("复杂问题的系统化解决方法")
-
-            print(f"✨ 反思生成 {len(reflection_topics)} 个创新主题")
-
-        return reflection_topics
-
-    def _learn_from_web(self):
-        """从网络学习实时AI知识 - 扩展到10+个高质量来源"""
-        print("🌐 正在从全球AI知识平台获取实时信息...")
-
-        knowledge = []
-
-        try:
-            # 1. GitHub Trending - 热门AI项目
-            github_trending = self._get_github_trending()
-            knowledge.extend(github_trending)
-
-            # 2. arXiv - 最新AI论文
-            arxiv_papers = self._get_arxiv_papers()
-            knowledge.extend(arxiv_papers)
-
-            # 3. Hacker News - AI相关新闻
-            hn_news = self._get_hacker_news()
-            knowledge.extend(hn_news)
-
-            # 4. 知乎 - 中文AI社区
-            zhihu_topics = self._get_zhihu_topics()
-            knowledge.extend(zhihu_topics)
-
-            # 5. Medium - 技术博客
-            medium_articles = self._get_medium_articles()
-            knowledge.extend(medium_articles)
-
-            # 6. Towards Data Science - 数据科学文章
-            tdw_articles = self._get_towards_data_science()
-            knowledge.extend(tdw_articles)
-
-            # 7. LinkedIn - 专业AI内容
-            linkedin_posts = self._get_linkedin_posts()
-            knowledge.extend(linkedin_posts)
-
-            # 8. Reddit - AI社区讨论
-            reddit_discussions = self._get_reddit_discussions()
-            knowledge.extend(reddit_discussions)
-
-            # 9. 微博 - 中文AI社区实时动态
-            weibo_topics = self._get_weibo_topics()
-            knowledge.extend(weibo_topics)
-
-            # 10. 技术博客 - 高质量中文AI内容
-            tech_blogs = self._get_tech_blogs()
-            knowledge.extend(tech_blogs)
-
-            # 10. 研究机构官网 - 顶级AI实验室
-            research_institutions = self._get_research_institutions()
-            knowledge.extend(research_institutions)
-
-            # 11. 技术大会 - 最新AI趋势
-            conferences = self._get_conference_highlights()
-            knowledge.extend(conferences)
-
-            print(f"✅ 网络学习成功: {len(knowledge)}个新主题")
-            return knowledge
-
-        except Exception as e:
-            print(f"⚠️  网络学习失败: {e}")
-            # 网络学习失败时返回备用主题
-            return [
-                "AI大模型最新进展",
-                "机器学习算法优化",
-                "深度学习框架更新",
-                "自然语言处理新技术",
-                "计算机视觉应用",
-                "AI伦理与安全",
-                "AI在金融中的应用",
-                "医疗AI创新",
-                "AI在自动驾驶中的进展"
-            ]
-
-    def _get_github_trending(self):
-        """获取GitHub Trending中的AI相关项目"""
-        try:
-            return [
-                "GitHub热门项目：LLM微调框架",
-                "GitHub热门项目：向量数据库",
-                "GitHub热门项目：AI图像生成",
-                "GitHub热门项目：RAG检索增强生成"
-            ]
-        except:
-            return []
-
-    def _get_arxiv_papers(self):
-        """获取arXiv最新AI论文"""
-        try:
-            return [
-                "arXiv论文：大语言模型上下文窗口扩展",
-                "arXiv论文：高效注意力机制",
-                "arXiv论文：多模态融合技术",
-                "arXiv论文：低成本LLM训练方法"
-            ]
-        except:
-            return []
-
-    def _get_hacker_news(self):
-        """获取Hacker News的AI相关新闻"""
-        try:
-            return [
-                "Hacker News：AI在软件工程中的应用",
-                "Hacker News：AI辅助编程工具",
-                "Hacker News：生成式AI产品",
-                "Hacker News：AI安全研究"
-            ]
-        except:
-            return []
-
-    def _get_zhihu_topics(self):
-        """获取知乎热门AI话题"""
-        try:
-            return [
-                "知乎热门：大语言模型应用案例",
-                "知乎热门：AI学习路径推荐",
-                "知乎热门：AI面试经验分享"
-            ]
-        except:
-            return []
-
-    def _get_medium_articles(self):
-        """获取Medium最新AI文章"""
-        try:
-            return [
-                "Medium文章：如何构建RAG系统",
-                "Medium文章：AI产品经理指南",
-                "Medium文章：LLM推理优化"
-            ]
-        except:
-            return []
-
-    def _get_towards_data_science(self):
-        """获取Towards Data Science的AI内容"""
-        try:
-            return [
-                "TDS文章：Transformer架构详解",
-                "TDS文章：PyTorch训练技巧",
-                "TDS文章：数据可视化最佳实践"
-            ]
-        except:
-            return []
-
-    def _get_linkedin_posts(self):
-        """获取LinkedIn专业AI内容"""
-        try:
-            return [
-                "LinkedIn：AI行业职位趋势",
-                "LinkedIn：AI技术栈推荐",
-                "LinkedIn：AI团队管理经验"
-            ]
-        except:
-            return []
-
-    def _get_reddit_discussions(self):
-        """获取Reddit AI社区讨论"""
-        try:
-            return [
-                "Reddit：r/MachineLearning最新话题",
-                "Reddit：r/LanguageTechnology讨论",
-                "Reddit：r/DeepLearning热门帖子"
-            ]
-        except:
-            return []
-
-    def _get_weibo_topics(self):
-        """获取微博热门AI话题"""
-        try:
-            return [
-                "微博热门：AI大模型最新进展",
-                "微博热门：AI技术在各行业的应用",
-                "微博热门：AI学习路线推荐"
-            ]
-        except:
-            return []
-
-    def _get_tech_blogs(self):
-        """获取高质量中文技术博客的AI内容"""
-        try:
-            return [
-                "技术博客：极客公园AI专栏",
-                "技术博客：InfoQ中文站AI技术",
-                "技术博客：掘金AI专区"
-            ]
-        except:
-            return []
-
-    def _get_research_institutions(self):
-        """获取顶级研究机构的AI进展"""
-        try:
-            return [
-                "MIT AI Lab：大语言模型数学推理",
-                "DeepMind：AI蛋白质结构预测",
-                "OpenAI：DALL-E 3图像生成",
-                "Google DeepMind：Gemini多模态"
-            ]
-        except:
-            return []
-
-    def _get_conference_highlights(self):
-        """获取技术大会的AI亮点"""
-        try:
-            return [
-                "ICLR 2024：大语言模型压缩",
-                "NeurIPS 2024：强化学习进展",
-                "CVPR 2024：计算机视觉创新"
-            ]
-        except:
-            return []
-
-    def optimize_system(self):
-        """系统优化建议"""
-        print("🚀 正在分析系统优化建议...")
-
-        learning = self.state_manager.get_state("learning")
-
-        # 基于学习进度的优化建议
-        new_optimizations = 0
-        if len(learning["knowledge_points"]) > 10 and "代码架构重构" not in learning["improvements"]:
-            learning["improvements"].append("代码架构重构")
-            new_optimizations += 1
-
-        if learning["vulnerabilities_fixed"] > 5 and "安全策略升级" not in learning["improvements"]:
-            learning["improvements"].append("安全策略升级")
-            new_optimizations += 1
-
-        # 添加项目开发建议
-        if len(learning["knowledge_points"]) > 20 and "项目开发创新" not in learning["improvements"]:
-            learning["improvements"].append("项目开发创新")
-            new_optimizations += 1
-
-        if len(learning["knowledge_points"]) > 30 and "知识创新平台" not in learning["improvements"]:
-            learning["improvements"].append("知识创新平台")
-            new_optimizations += 1
-
-        # 记录优化建议
-        self.state_manager.update_state("learning", learning)
-
-        print("✅ 系统优化分析完成")
-        return new_optimizations
-
-    def develop_new_projects(self):
-        """开发新项目 - 基于现有知识创建创新项目"""
-        print("🚀 正在分析项目开发机会...")
-
-        learning = self.state_manager.get_state("learning")
-
-        existing_knowledge = learning["knowledge_points"]
-        projects_developed = []
-
-        # 基于知识分析开发新项目
-        if len(existing_knowledge) > 15:
-            # 项目1：知识图谱构建系统
-            if any("知识" in topic or "网络" in topic or "构建" in topic for topic in existing_knowledge):
-                projects_developed.append("知识图谱构建系统")
-
-            # 项目2：智能学习助手
-            if any("AI" in topic or "系统" in topic or "架构" in topic for topic in existing_knowledge):
-                projects_developed.append("智能学习助手")
-
-            # 项目3：代码质量分析工具
-            if any("代码" in topic or "质量" in topic or "分析" in topic for topic in existing_knowledge):
-                projects_developed.append("代码质量分析工具")
-
-            # 项目4：智能知识推荐系统
-            if any("推荐" in topic or "学习" in topic or "智能" in topic for topic in existing_knowledge):
-                projects_developed.append("智能知识推荐系统")
-
-            # 项目5：安全漏洞检测工具
-            if any("安全" in topic or "漏洞" in topic or "检测" in topic for topic in existing_knowledge):
-                projects_developed.append("安全漏洞检测工具")
-
-            print(f"🎯 识别到 {len(projects_developed)} 个项目开发机会")
-
-        # 记录项目开发信息
-        if "projects_developed" not in learning:
-            learning["projects_developed"] = []
-
-        for project in projects_developed:
-            if project not in learning["projects_developed"]:
-                learning["projects_developed"].append(project)
-
-        self.state_manager.update_state("learning", learning)
-
-        return projects_developed
-
     def record_learning_session(self, check_time, analyze_time, track_time, optimize_time,
                                vulnerabilities_found, code_quality_issues,
                                learning_progress, optimization_suggestions):
@@ -689,15 +367,6 @@ class SelfLearningSystem:
         else:
             return f"发现 {count} 个代码质量问题，代码需要进行重构优化。"
 
-    def _explain_knowledge_acquisition(self, count):
-        """解释知识补充任务"""
-        if count == 0:
-            return "知识库已更新到最新状态，无需补充新知识。"
-        elif count < 5:
-            return f"学习了 {count} 个新知识要点，主要是关于AI技术的最新发展。"
-        else:
-            return f"学习了 {count} 个新知识要点，覆盖了多个AI领域的最新知识。"
-
     def _explain_learning_progress(self, count):
         """解释学习进度任务"""
         if count == 0:
@@ -716,109 +385,6 @@ class SelfLearningSystem:
         else:
             return f"学习策略优化完成，发现 {count} 个学习策略优化建议，学习效率可以显著提升。"
 
-    def _explain_system_optimization(self, count):
-        """解释系统优化任务"""
-        if count == 0:
-            return "系统优化分析完成，没有发现需要优化的内容。"
-        elif count < 3:
-            return f"发现 {count} 个系统优化建议，主要是代码架构和安全策略方面的改进。"
-        else:
-            return f"发现 {count} 个系统优化建议，系统需要进行全面优化。"
-
-    def _explain_project_development(self, count):
-        """解释项目开发任务"""
-        if count == 0:
-            return "项目开发分析完成，当前知识储备不足以开发新项目。"
-        elif count < 3:
-            return f"识别到 {count} 个项目开发机会，主要基于现有知识进行创新。"
-        else:
-            return f"识别到 {count} 个项目开发机会，系统具备较强的项目创新能力。"
-
-    def fix_vulnerabilities(self):
-        """修复系统漏洞"""
-        print("🔧 正在修复系统安全漏洞...")
-
-        vulnerabilities = self.get_vulnerabilities()
-        fixed_count = 0
-
-        for vuln in vulnerabilities:
-            print(f"   🛠️  修复漏洞: {vuln['type']} - {vuln['file']}")
-
-            # 根据漏洞类型进行修复
-            if vuln['type'] == "permission_issue":
-                # 修复文件权限问题
-                try:
-                    os.chmod(vuln['file'], 0o640)
-                    fixed_count += 1
-                    print(f"      ✅ 权限修复成功: {oct(os.stat(vuln['file']).st_mode & 0o777)}")
-                except Exception as e:
-                    print(f"      ❌ 权限修复失败: {e}")
-
-            elif vuln['type'] == "hardcoded_secret":
-                # 修复硬编码密码问题（这里是模拟修复）
-                fixed_count += 1
-                print(f"      ✅ 机密信息已安全处理")
-
-            elif vuln['type'] == "sql_injection_risk":
-                # 修复SQL注入风险
-                fixed_count += 1
-                print(f"      ✅ SQL注入防护已启用")
-
-            else:
-                # 其他类型漏洞
-                fixed_count += 1
-                print(f"      ✅ 漏洞修复成功")
-
-        # 更新漏洞记录（使用统一状态管理）
-        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
-
-        vulnerabilities_data["fixed_count"] += fixed_count
-        # 移除已修复的漏洞
-        remaining_vulnerabilities = []
-        for vuln in vulnerabilities_data["vulnerabilities"]:
-            if vuln not in vulnerabilities[:fixed_count]:
-                remaining_vulnerabilities.append(vuln)
-
-        vulnerabilities_data["vulnerabilities"] = remaining_vulnerabilities
-        self.state_manager.update_state("vulnerabilities", vulnerabilities_data)
-
-        # 更新系统学习进度
-        learning = self.state_manager.get_state("learning")
-
-        learning["vulnerabilities_fixed"] += fixed_count
-        learning["total_study_time"] += 60  # 修复漏洞用时
-
-        self.state_manager.update_state("learning", learning)
-
-        print(f"✅ 漏洞修复完成！已修复 {fixed_count} 个漏洞")
-        return fixed_count
-
-    def get_vulnerabilities(self):
-        """获取漏洞列表（使用统一状态管理）"""
-        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
-        return vulnerabilities_data["vulnerabilities"]
-
-    def get_total_issues(self):
-        """获取总问题数"""
-        total = 0
-        for file in Path(".").glob("*.py"):
-            try:
-                tree = ast.parse(file.read_text(encoding="utf-8"))
-                for node in ast.walk(tree):
-                    if isinstance(node, ast.ExceptHandler) and node.type is None:
-                        total += 1
-                    if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not SelfLearningSystem.has_docstring(node):
-                        total += 1
-            except Exception:
-                continue
-
-        return total
-
-    def get_optimization_suggestions(self):
-        """获取优化建议"""
-        learning = self.state_manager.get_state("learning")
-        return learning.get("improvements", [])
-
     @staticmethod
     def has_docstring(node):
         """检查是否有文档字符串"""
@@ -832,6 +398,10 @@ class SelfLearningSystem:
 
         return False
 
+    def get_vulnerabilities(self):
+        """获取漏洞列表（使用统一状态管理）"""
+        vulnerabilities_data = self.state_manager.get_state("vulnerabilities")
+        return vulnerabilities_data["vulnerabilities"]
 
 def main():
     """主函数"""

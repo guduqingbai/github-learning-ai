@@ -4,8 +4,8 @@
 持续运行的监控系统，定期检查是否需要主动沟通
 """
 
-import sys
 import os
+import sys
 import time
 import threading
 from typing import Optional

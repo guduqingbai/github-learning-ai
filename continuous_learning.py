@@ -5,17 +5,14 @@
 架构一致性优化：使用统一系统状态管理
 """
 
-import os
-import sys
 import time
 import random
 import threading
 import json
 from datetime import datetime
-from pathlib import Path
 from typing import Dict, Any, List, Optional
 import urllib.request
-import urllib.error
+import urllib.parse
 import ssl
 from system_state_manager import SystemStateManager
 
@@ -174,54 +171,112 @@ class ContinuousLearningSystem:
         print(f"✅ 学习完成: {len(valuable_content)}个内容, 耗时={duration:.1f}秒, 学习时间={content_learning_time:.1f}分钟")
 
     def _choose_learning_resource(self):
-        """选择学习资源"""
-        # 基于资源重要性和学习频率选择
-        selected = None
-        max_importance = 0
-
-        for resource in self.learning_resources:
-            resource_importance = resource["importance"]
-
-            if resource_importance > max_importance:
-                selected = resource
-                max_importance = resource_importance
-
-        return selected
+        """选择学习资源 — 基于重要性加权的随机选择"""
+        weights = [r["importance"] for r in self.learning_resources]
+        total = sum(weights)
+        r = random.uniform(0, total)
+        cumulative = 0
+        for resource, w in zip(self.learning_resources, weights):
+            cumulative += w
+            if r <= cumulative:
+                return resource
+        return self.learning_resources[-1]
 
     def _choose_search_query(self):
         """选择搜索查询"""
         return random.choice(self.learning_interests)
 
     def _search_learning_content(self, resource, query):
-        """搜索学习内容"""
+        """搜索学习内容 - 从真实公开API获取"""
         print(f"🔍 在{resource['name']}中搜索: {query}")
+        ctx = ssl._create_unverified_context()
+        headers = {"User-Agent": "Mozilla/5.0 (compatible; LearningBot/1.0)"}
+        results = []
 
-        # 模拟搜索结果（实际项目需要实现）
-        return [
-            {
-                "title": f"{query}基础教程",
-                "content": "介绍" + query + "的基本概念和应用",
-                "source": resource["name"],
-                "importance": 0.8,
-                "link": f"https://example.com/{query}"
-            },
-            {
-                "title": f"{query}高级应用",
-                "content": f"深入探讨{query}的高级技术和最佳实践",
-                "source": resource["name"],
-                "importance": 0.9,
-                "link": f"https://example.com/{query}-advanced"
-            }
-        ]
+        try:
+            if resource["type"] == "github":
+                url = f"https://api.github.com/search/repositories?q={urllib.parse.quote(query)}&sort=stars&per_page=5"
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
+                    data = json.loads(resp.read().decode())
+                    for repo in data.get("items", [])[:5]:
+                        results.append({
+                            "title": repo["full_name"],
+                            "content": repo.get("description", "") or "暂无描述",
+                            "source": "GitHub",
+                            "importance": min(1.0, repo.get("stargazers_count", 0) / 5000 + 0.5),
+                            "link": repo["html_url"],
+                        })
+
+            elif resource["type"] == "arxiv":
+                url = f"http://export.arxiv.org/api/query?search_query=all:{urllib.parse.quote(query)}&sortBy=submittedDate&sortOrder=descending&max_results=5"
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+                    xml = resp.read().decode("utf-8")
+                    import re
+                    titles = re.findall(r"<title>(.*?)</title>", xml, re.DOTALL)
+                    ids = re.findall(r"<id>(.*?)</id>", xml)
+                    for i in range(1, min(len(titles), 5)):
+                        t = titles[i].strip().replace("\n", " ")[:200]
+                        link = ids[i].strip() if i < len(ids) else url
+                        results.append({
+                            "title": f"[论文] {t}",
+                            "content": f"arXiv最新论文: {query}",
+                            "source": "arXiv",
+                            "importance": 0.85,
+                            "link": link,
+                        })
+
+            elif resource["type"] in ("medium", "zhihu", "techcrunch"):
+                # 用Wikipedia作为备选
+                wiki_url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(query.replace(' ', '_'))}"
+                try:
+                    wreq = urllib.request.Request(wiki_url, headers=headers)
+                    with urllib.request.urlopen(wreq, timeout=8, context=ctx) as wresp:
+                        wdata = json.loads(wresp.read().decode())
+                        results.append({
+                            "title": wdata.get("title", query),
+                            "content": (wdata.get("extract", "") or "")[:400],
+                            "source": "Wikipedia",
+                            "importance": 0.8,
+                            "link": wdata.get("content_urls", {}).get("desktop", {}).get("page", wiki_url),
+                        })
+                except Exception:
+                    pass
+
+            time.sleep(1)  # 礼貌间隔
+
+        except Exception as e:
+            print(f"⚠️  真实搜索失败: {e}")
+
+        # 如果真实搜索没结果，用模拟数据兜底
+        if not results:
+            print("ℹ️  使用模拟数据补充")
+            results = [
+                {
+                    "title": f"{query}基础概念",
+                    "content": f"关于{query}的基本概念和核心原理介绍",
+                    "source": resource["name"],
+                    "importance": 0.8,
+                    "link": f"https://example.com/{query}"
+                },
+                {
+                    "title": f"{query}前沿进展",
+                    "content": f"{query}领域的最新研究进展和应用",
+                    "source": resource["name"],
+                    "importance": 0.7,
+                    "link": f"https://example.com/{query}-advanced"
+                }
+            ]
+
+        return results
 
     def _evaluate_content_value(self, search_results):
         """评估学习内容价值"""
         valuable_content = []
 
         # 获取已学习过的内容标题
-        learned_topics = self.state_manager.get_state("continuous", "learned_topics")
-        if not learned_topics:
-            learned_topics = []
+        learned_topics = set(self.state_manager.get_state("continuous", "learned_topics") or [])
 
         for result in search_results:
             # 基于重要性评分筛选
@@ -229,12 +284,12 @@ class ContinuousLearningSystem:
                 # 检查是否已学习过该内容
                 if result["title"] not in learned_topics:
                     valuable_content.append(result)
-                    learned_topics.append(result["title"])
+                    learned_topics.add(result["title"])
                 else:
                     print(f"ℹ️  内容已学习过: {result['title']}")
 
         # 更新已学习过的内容列表
-        self.state_manager.set_state("continuous", "learned_topics", learned_topics)
+        self.state_manager.set_state("continuous", "learned_topics", list(learned_topics))
         return valuable_content
 
     def _learn_content(self, content_items):
@@ -318,30 +373,6 @@ class ContinuousLearningSystem:
         except Exception as e:
             print(f"⚠️  学习报告获取失败: {e}")
             return None
-
-    def _simulate_web_search(self):
-        """模拟网页搜索"""
-        ssl._create_default_https_context = ssl._create_unverified_context
-
-        search_query = self._choose_search_query()
-        search_engine = "https://github.com"
-
-        print(f"🌐 搜索: {search_query} on {search_engine}")
-
-        try:
-            req = urllib.request.Request(
-                f"{search_engine}/search?type=Repositories&q={search_query}",
-                headers={"User-Agent": "Mozilla/5.0"}
-            )
-
-            with urllib.request.urlopen(req, timeout=10) as f:
-                html = f.read().decode()
-                return f"Found {len(html.split('class=\"repo-list-item\"'))} results for {search_query}"
-
-        except Exception as e:
-            print(f"⚠️  网络搜索失败: {e}")
-            return "网络搜索失败"
-
 
 def test_continuous_learning():
     """测试持续学习系统"""

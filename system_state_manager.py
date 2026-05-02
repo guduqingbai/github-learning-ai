@@ -5,7 +5,7 @@
 """
 
 import json
-import os
+import threading
 from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
@@ -34,6 +34,7 @@ class SystemStateManager:
             return
 
         self._initialized = True
+        self._lock = threading.Lock()
         self.data_dir = Path("data")
         self._init_data_dir()
 
@@ -157,74 +158,29 @@ class SystemStateManager:
         Returns:
             状态值（字典或特定值）
         """
-        # 更新访问统计
-        self._state_access_count[module_name] += 1
+        with self._lock:
+            # 更新访问统计
+            self._state_access_count[module_name] += 1
 
-        # 检查状态是否需要重新加载（超时检查）
-        current_time = datetime.now().timestamp()
-        if (module_name not in self._last_cache_update or
-            current_time - self._last_cache_update[module_name] > self._cache_timeout):
-            if module_name in self._state_cache:
-                del self._state_cache[module_name]
-                self._loaded_modules.remove(module_name)
+            # 检查状态是否需要重新加载（超时检查）
+            current_time = datetime.now().timestamp()
+            if (module_name not in self._last_cache_update or
+                current_time - self._last_cache_update[module_name] > self._cache_timeout):
+                if module_name in self._state_cache:
+                    del self._state_cache[module_name]
+                    if module_name in self._loaded_modules:
+                        self._loaded_modules.remove(module_name)
 
-        # 延迟加载
-        if module_name not in self._state_cache:
-            self._state_cache[module_name] = self._load_state(module_name)
-            self._loaded_modules.add(module_name)
-            self._last_cache_update[module_name] = current_time
+            # 延迟加载
+            if module_name not in self._state_cache:
+                self._state_cache[module_name] = self._load_state(module_name)
+                self._loaded_modules.add(module_name)
+                self._last_cache_update[module_name] = current_time
 
-        if key:
-            return self._state_cache[module_name].get(key)
-        else:
+            if key:
+                return self._state_cache[module_name].get(key)
+
             return self._state_cache[module_name]
-
-    @measure_performance
-    def get_state_statistics(self) -> Dict[str, Any]:
-        """
-        获取状态管理统计信息
-
-        Returns:
-            状态管理统计数据
-        """
-        return {
-            "total_modules": len(self.state_config),
-            "loaded_modules": len(self._loaded_modules),
-            "cache_hits": sum(1 for module in self._loaded_modules if module in self._state_cache),
-            "access_counts": self._state_access_count,
-            "last_cache_update": {module: datetime.fromtimestamp(t).strftime('%Y-%m-%d %H:%M:%S')
-                                for module, t in self._last_cache_update.items()},
-            "memory_usage": self._estimate_memory_usage()
-        }
-
-    def _estimate_memory_usage(self) -> float:
-        """
-        估算状态管理的内存使用
-
-        Returns:
-            内存使用量（MB）
-        """
-        import sys
-        total_memory = sys.getsizeof(self._state_cache)
-        for module, state in self._state_cache.items():
-            total_memory += sys.getsizeof(state)
-            for key, value in state.items():
-                total_memory += sys.getsizeof(key) + sys.getsizeof(value)
-
-        return total_memory / (1024 * 1024)
-
-    def optimize_cache(self):
-        """
-        优化状态缓存，根据访问频率和内存使用进行调整
-        """
-        if len(self._state_cache) > len(self.state_config) * 0.7:
-            # 找到访问最少的模块
-            least_used_module = min(self._state_access_count.items(), key=lambda x: x[1])[0]
-            if least_used_module in self._state_cache:
-                del self._state_cache[least_used_module]
-                self._loaded_modules.remove(least_used_module)
-                self._state_access_count[least_used_module] = 0
-                print(f"📉 优化状态缓存：移除访问最少的 {least_used_module} 模块")
 
     @measure_performance
     def set_state(self, module_name: str, key: str, value: Any) -> bool:
@@ -240,11 +196,12 @@ class SystemStateManager:
             是否设置成功
         """
         try:
-            if module_name not in self._state_cache:
-                self._state_cache[module_name] = self._load_state(module_name)
+            with self._lock:
+                if module_name not in self._state_cache:
+                    self._state_cache[module_name] = self._load_state(module_name)
 
-            self._state_cache[module_name][key] = value
-            self._save_state(module_name, self._state_cache[module_name])
+                self._state_cache[module_name][key] = value
+                self._save_state(module_name, self._state_cache[module_name])
             return True
         except Exception as e:
             print(f"⚠️  设置 {module_name} 状态失败: {e}")
@@ -263,11 +220,12 @@ class SystemStateManager:
             是否更新成功
         """
         try:
-            if module_name not in self._state_cache:
-                self._state_cache[module_name] = self._load_state(module_name)
+            with self._lock:
+                if module_name not in self._state_cache:
+                    self._state_cache[module_name] = self._load_state(module_name)
 
-            self._state_cache[module_name].update(updates)
-            self._save_state(module_name, self._state_cache[module_name])
+                self._state_cache[module_name].update(updates)
+                self._save_state(module_name, self._state_cache[module_name])
             return True
         except Exception as e:
             print(f"⚠️  更新 {module_name} 状态失败: {e}")
@@ -292,25 +250,6 @@ class SystemStateManager:
                 global_state[module_name] = {}
 
         return global_state
-
-    @measure_performance
-    def save_global_state(self) -> bool:
-        """
-        保存所有状态到文件
-        用于系统退出时的完整状态保存
-
-        Returns:
-            是否保存成功
-        """
-        all_successful = True
-        for module_name in self._state_cache.keys():
-            try:
-                self._save_state(module_name, self._state_cache[module_name])
-            except Exception as e:
-                print(f"⚠️  保存 {module_name} 状态失败: {e}")
-                all_successful = False
-
-        return all_successful
 
     @measure_performance
     def reset_state(self, module_name: Optional[str] = None):
@@ -374,7 +313,7 @@ class SystemStateManager:
         """获取文件大小（字节）"""
         try:
             return file_path.stat().st_size
-        except:
+        except Exception:
             return 0
 
     def _get_dir_size(self, directory: Path) -> int:
@@ -384,7 +323,7 @@ class SystemStateManager:
             if entry.is_file():
                 try:
                     total += entry.stat().st_size
-                except:
+                except Exception:
                     pass
         return total
 
@@ -478,7 +417,7 @@ class SystemStateManager:
     def _get_knowledge_base_defaults(self) -> Any:
         """获取知识库系统默认状态"""
         from knowledge_base import KnowledgeBase
-        return KnowledgeBase()._get_default_knowledge()
+        return KnowledgeBase._get_default_knowledge()
 
     def _get_vulnerabilities_defaults(self) -> Dict[str, Any]:
         """获取漏洞管理系统默认状态"""

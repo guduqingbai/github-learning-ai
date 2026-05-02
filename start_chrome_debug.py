@@ -4,7 +4,6 @@
 """
 
 import os
-import sys
 import platform
 import subprocess
 import time
@@ -72,17 +71,6 @@ def start_chrome_debug():
         # Linux系统
         print("⚠️ Linux系统Chrome调试模式需要手动启动")
         return False
-
-def test_chrome_connection():
-    """测试Chrome调试模式连接"""
-    try:
-        response = requests.get("http://localhost:9222/json", timeout=2)
-        if response.status_code == 200:
-            return True, response.json()
-        else:
-            return False, None
-    except Exception as e:
-        return False, str(e)
 
 if __name__ == "__main__":
     start_chrome_debug()

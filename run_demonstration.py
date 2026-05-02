@@ -5,8 +5,6 @@
 """
 
 import sys
-import time
-import os
 from pathlib import Path
 
 def run_demonstration():

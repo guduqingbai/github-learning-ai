@@ -7,10 +7,6 @@
 import os
 import sys
 import time
-import json
-import ast
-import hashlib
-import subprocess
 from datetime import datetime
 from pathlib import Path
 from utils import measure_performance
@@ -50,7 +46,7 @@ class ActiveCommunicationAI:
             self.state_manager.update_state("active", state)
 
             return state
-        except:
+        except Exception:
             return {
                 "last_interaction": datetime.now().isoformat(),
                 "learning_stage": "beginner",
@@ -171,7 +167,7 @@ class ActiveCommunicationAI:
             state = self.state_manager.get_state("active")
             last_time = datetime.fromisoformat(state["last_interaction"])
             return (datetime.now() - last_time).total_seconds()
-        except:
+        except Exception:
             return 3600
 
     def _update_state(self, state):
@@ -213,7 +209,7 @@ class ActiveCommunicationAI:
             self._communicate_new_content(conversation, state)
 
         # 常规沟通
-        if not conversation:  # 如果以上都没有内容，显示常规沟通
+        if len(conversation) <= 1:  # 只有默认问候语，没有新内容
             if state["learning_stage"] == "beginner":
                 conversation.append("我注意到您还没有开始项目学习。")
                 conversation.append("建议您先从基础项目开始，比如Python数据分析。")
@@ -271,7 +267,7 @@ class ActiveCommunicationAI:
                 return "neutral"
             else:
                 return "negative"
-        except:
+        except Exception:
             return "neutral"
 
     def _communicate_learning_opportunity(self, conversation, state):
@@ -349,7 +345,7 @@ class ActiveCommunicationAI:
                 return 0.0
 
             return min(1.0, state["response_count"] / state["communication_count"])
-        except:
+        except Exception:
             return 0.0
 
     def process_user_response(self, user_input):
@@ -404,12 +400,9 @@ class ActiveCommunicationAI:
         if state["last_suggestion"] not in learning["projects_studied"]:
             learning["projects_studied"].append(state["last_suggestion"])
 
-        learning["knowledge_points"].extend([
-            "项目分析技巧",
-            "代码问题识别",
-            "学习状态判断",
-            "主动沟通方法"
-        ])
+        for p in ["项目分析技巧", "代码问题识别", "学习状态判断", "主动沟通方法"]:
+            if p not in learning["knowledge_points"]:
+                learning["knowledge_points"].append(p)
 
         learning["learning_effectiveness"] = min(1.0, learning["learning_effectiveness"] + 0.05)
         learning["communication_effectiveness"] = min(1.0, learning["communication_effectiveness"] + 0.03)

@@ -5,13 +5,10 @@
 """
 
 import os
-import sys
 import json
 import requests
-import time
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from datetime import datetime
 
 
 class OpenClawAdapter:
@@ -214,7 +211,7 @@ class OpenClawAdapter:
                             "size": len(f.read()),
                             "path": str(file)
                         })
-                except:
+                except Exception:
                     continue
 
         data = {"files": files}

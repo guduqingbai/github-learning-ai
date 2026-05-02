@@ -5,7 +5,6 @@
 """
 
 import sys
-import os
 import time
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -16,7 +15,6 @@ from system_state_manager import SystemStateManager
 from system_interfaces import get_system_interface
 from continuous_learning import ContinuousLearningSystem
 from cognitive_architecture import test_cognitive_architecture
-from run_demonstration import run_demonstration
 
 
 class SystemSelfCheck:
