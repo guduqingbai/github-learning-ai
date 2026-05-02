@@ -30,62 +30,179 @@ class SelfThinkingAgent:
         self.thinking_log: List[Dict] = []
         self.data_dir = Path("data")
         self.log_file = self.data_dir / "self_thinking_log.json"
+        self._skills = self._init_skills()
 
-    # ---- 核心循环 ----
+    # ---- 模块化思考技能系统 ----
 
-    def run_thinking_cycle(self, depth: int = 3) -> List[Dict]:
-        """
-        执行一轮完整思考循环
+    def _init_skills(self) -> Dict[str, Dict[str, Any]]:
+        """注册可用思考技能（元数据+执行体，类似SKILL.md模式）"""
+        return {
+            "gap_analysis": {
+                "name": "知识缺口分析",
+                "description": "对比知识库与 KNOWLEDGE_MAP，发现缺失领域并生成爬虫任务",
+                "trigger": "knowledge_gaps > 0",
+                "default_depth": 5,
+                "icon": "🔍",
+            },
+            "global_research": {
+                "name": "全球架构研究",
+                "description": "搜索GitHub/arXiv获取自思考AI架构和最佳实践",
+                "trigger": "self_architecture_kb_missing",
+                "default_depth": 3,
+                "icon": "🌐",
+            },
+            "code_quality": {
+                "name": "代码质量审查",
+                "description": "扫描代码漏洞、质量问题和异常模式",
+                "trigger": "vulnerabilities > 0 or quality_issues > 0",
+                "default_depth": 3,
+                "icon": "🔧",
+            },
+            "self_scan": {
+                "name": "自身扫描",
+                "description": "扫描项目结构和自知识别覆盖情况",
+                "trigger": "self_kb_coverage < 50%",
+                "default_depth": 3,
+                "icon": "📡",
+            },
+            "full_cycle": {
+                "name": "完整思考循环",
+                "description": "运行所有思考技能（默认模式）",
+                "trigger": "manual / scheduled",
+                "default_depth": 4,
+                "icon": "🧠",
+            },
+        }
 
-        1. 扫描项目当前状态
-        2. 从数据中生成好奇心问题
-        3. 对 top N 问题分别探索并生成洞察
-        4. 将洞察存入知识库
-        5. 记录思考日志
-        """
-        print(f"\n{'='*60}")
-        print(f"🧠 自我思考循环启动 [{datetime.now().strftime('%H:%M:%S')}]")
-        print(f"{'='*60}")
+    def list_skills(self) -> List[Dict[str, Any]]:
+        """列出所有可用思考技能"""
+        return [
+            {
+                "name": s["name"],
+                "description": s["description"],
+                "trigger": s["trigger"],
+                "icon": s["icon"],
+                "key": key,
+            }
+            for key, s in self._skills.items()
+        ]
 
-        # 1. 扫描
+    def run_skill(self, skill_name: str, depth: Optional[int] = None) -> List[Dict]:
+        """执行指定的思考技能"""
+        skill = self._skills.get(skill_name)
+        if not skill:
+            print(f"⚠️  未知技能: {skill_name}")
+            return []
+
+        effective_depth = depth if depth is not None else skill["default_depth"]
+        icon = skill["icon"]
+
+        print(f"\n{icon} 执行思考技能: {skill['name']}")
+        print(f"   描述: {skill['description']}")
+
+        # 所有技能共享扫描阶段
         self._scan_project()
-        print(f"📡 扫描完成: {len(self.snapshot.get('py_files', []))} 文件, "
-              f"{self.snapshot.get('knowledge_base', {}).get('total_entries', 0)} 知识条目")
 
-        # 2. 生成好奇心问题
+        if skill_name == "gap_analysis":
+            return self._run_gap_skill(effective_depth)
+        elif skill_name == "global_research":
+            return self._run_research_skill(effective_depth)
+        elif skill_name == "code_quality":
+            return self._run_quality_skill(effective_depth)
+        elif skill_name == "self_scan":
+            return self._run_self_scan_skill(effective_depth)
+        else:
+            # full_cycle → 所有问题类型一起跑（原逻辑）
+            return self._run_full_cycle(effective_depth)
+
+    def _run_gap_skill(self, depth: int) -> List[Dict]:
+        """知识缺口分析技能：只关注 gap 类问题"""
+        self._generate_questions()
+        gap_qs = [q for q in self.questions if q.explore_action == "add_crawler_task"]
+        if not gap_qs:
+            print("✅ 没有发现新的知识缺口")
+            return []
+        print(f"🔍 发现 {len(gap_qs)} 个知识缺口，探索 top {min(depth, len(gap_qs))}")
+        return self._explore_and_store(gap_qs[:depth])
+
+    def _run_research_skill(self, depth: int) -> List[Dict]:
+        """全球研究技能：只关注 global_research 类问题"""
+        self._generate_questions()
+        research_qs = [q for q in self.questions if q.explore_action == "global_research"]
+        if not research_qs:
+            print("✅ 当前无需全球研究")
+            return []
+        print(f"🌐 发起 {len(research_qs)} 项全球研究，探索 top {min(depth, len(research_qs))}")
+        return self._explore_and_store(research_qs[:depth])
+
+    def _run_quality_skill(self, depth: int) -> List[Dict]:
+        """代码质量技能：分析代码问题"""
+        self._generate_questions()
+        quality_qs = [q for q in self.questions if q.explore_action in ("check_state", "read_file")]
+        if not quality_qs:
+            print("✅ 未发现新的代码质量问题")
+            return []
+        print(f"🔧 发现 {len(quality_qs)} 个代码相关问题，探索 top {min(depth, len(quality_qs))}")
+        return self._explore_and_store(quality_qs[:depth])
+
+    def _run_self_scan_skill(self, depth: int) -> List[Dict]:
+        """自身扫描技能：分析自知识覆盖"""
+        self._generate_questions()
+        self_qs = [q for q in self.questions if q.target == "project_self"]
+        if not self_qs:
+            print("✅ 项目自知识覆盖良好")
+            return []
+        return self._explore_and_store(self_qs[:depth])
+
+    def _explore_and_store(self, questions: List) -> List[Dict]:
+        """通用探索+存储流程（被各个技能复用）"""
+        results = []
+        for q in questions:
+            print(f"\n  {'─'*30}")
+            print(f"  ❓ {q.question[:90]}")
+            exploration = self._explore_question(q)
+            insight = self._generate_insight(q, exploration)
+            stored = self._store_insight(insight)
+            results.append(insight)
+
+            action = q.explore_action
+            if action == "add_crawler_task":
+                added = self._add_crawler_tasks(q)
+                print(f"  🎯 爬虫任务{'已添加' if added else '已存在'}")
+            elif action == "global_research":
+                print(f"  🌐 研究任务已调度")
+
+        self._log_thinking_cycle(results)
+        return results
+
+    def _run_full_cycle(self, depth: int) -> List[Dict]:
+        """完整思考循环：所有问题类型一起探索（原默认逻辑）"""
         self._generate_questions()
         if not self.questions:
             print("💤 当前没有特别的好奇心触发")
             return []
 
         print(f"❓ 生成了 {len(self.questions)} 个好奇心问题")
-        for q in self.questions[:depth]:
-            print(f"   [{q.importance:.2f}] {q.question[:80]}...")
+        return self._explore_and_store(self.questions[:depth])
 
-        # 3. 探索 top N 问题
-        cycle_results = []
-        for i, q in enumerate(self.questions[:depth]):
-            print(f"\n{'─'*40}")
-            print(f"🔍 探索问题 {i+1}/{depth}: {q.question[:80]}")
-            print(f"{'─'*40}")
+    # ---- 核心循环 ----
 
-            exploration = self._explore_question(q)
-            insight = self._generate_insight(q, exploration)
-            stored = self._store_insight(insight)
-            cycle_results.append(insight)
+    def run_thinking_cycle(self, depth: int = 3,
+                            skill: Optional[str] = None) -> List[Dict]:
+        """
+        执行一轮思考循环
 
-            print(f"   ✅ 洞察已{'存入' if stored else '生成'}: {insight.get('summary', '')[:100]}")
+        Args:
+            depth: 探索问题数量
+            skill: 指定思考技能（None=full_cycle, 或技能名称）
+        """
+        print(f"\n{'='*60}")
+        print(f"🧠 自我思考循环启动 [{datetime.now().strftime('%H:%M:%S')}]")
+        print(f"{'='*60}")
 
-            # 如果是知识缺口，添加爬虫任务
-            if q.explore_action == "add_crawler_task":
-                added = self._add_crawler_tasks(q)
-                print(f"   🎯 爬虫任务已{'添加' if added else '存在'}: {q.target}")
-
-        # 4. 记录思考日志
-        self._log_thinking_cycle(cycle_results)
-        print(f"\n✅ 思考循环完成，生成 {len(cycle_results)} 个洞察")
-
-        return cycle_results
+        if skill and skill in self._skills:
+            return self.run_skill(skill, depth)
+        return self._run_full_cycle(depth)
 
     def _scan_project(self):
         """扫描项目当前状态"""

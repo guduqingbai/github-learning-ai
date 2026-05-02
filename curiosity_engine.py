@@ -29,7 +29,7 @@ class CuriosityEngine:
 
     def generate_questions(self, snapshot: Dict[str, Any],
                            diff: Optional[Dict[str, Any]] = None) -> List[CuriosityQuestion]:
-        """运行所有好奇心触发器，按重要性排序"""
+        """运行所有好奇心触发器，按重要性排序（完整模式）"""
         questions: List[CuriosityQuestion] = []
 
         questions.extend(self._curiosity_new_files(snapshot, diff))
@@ -54,6 +54,29 @@ class CuriosityEngine:
 
         unique.sort(key=lambda x: -x.importance)
         return unique
+
+    def generate_metadata(self, snapshot: Dict[str, Any],
+                           diff: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """仅生成问题元数据（轻量模式），节省上下文"""
+        full = self.generate_questions(snapshot, diff)
+        return [
+            {
+                "id": i,
+                "question": q.question[:120],
+                "importance": q.importance,
+                "action": q.explore_action,
+                "target": q.target,
+            }
+            for i, q in enumerate(full)
+        ]
+
+    def get_question_detail(self, question_id: int, snapshot: Dict[str, Any],
+                             diff: Optional[Dict[str, Any]] = None) -> Optional[CuriosityQuestion]:
+        """按 ID 加载单个问题的完整详情（懒加载）"""
+        full = self.generate_questions(snapshot, diff)
+        if 0 <= question_id < len(full):
+            return full[question_id]
+        return None
 
     def _has_self_kb_entry(self, module_name: str) -> bool:
         """检查某个模块是否有项目自身知识条目"""
