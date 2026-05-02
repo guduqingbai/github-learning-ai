@@ -6,7 +6,6 @@
 
 import sys
 import os
-import random
 import datetime
 import json
 from typing import Dict, Any, List
@@ -23,7 +22,7 @@ class HumbleReflection:
             "our_capabilities": {},
             "real_progress": {},
             "challenges": [],
-            "humility_quotient": random.uniform(0.8, 0.95)
+            "humility_quotient": 0.85
         }
 
     def log(self, message: str, level: str = "info"):
@@ -143,12 +142,32 @@ class HumbleReflection:
             ]
         }
 
-        # 计算能力指数
-        self.reflection_data["capability_index"] = {
-            "compared_to_top_companies": random.uniform(0.15, 0.25),
-            "as_learning_system": random.uniform(0.65, 0.75),
-            "in_our_domain": random.uniform(0.8, 0.9)
-        }
+        # 计算能力指数（基于真实数据）
+        try:
+            from self_scanner import SelfScanner
+            scanner = SelfScanner()
+            snap = scanner.get_full_snapshot()
+
+            py_files = snap.get("py_files", [])
+            total_modules = len(py_files)
+            real_modules = sum(1 for f in py_files if f["classes"] or f["functions"])
+
+            kb_data = snap.get("knowledge_base", {})
+            total_kb = kb_data.get("total_entries", 1)
+            cat_breakdown = kb_data.get("category_breakdown", {})
+            self_entries = cat_breakdown.get("项目自身", 0)
+
+            self.reflection_data["capability_index"] = {
+                "compared_to_top_companies": round(min(1.0, real_modules / 50), 3),
+                "as_learning_system": round(min(1.0, total_kb / 200), 3),
+                "in_our_domain": round(min(1.0, self_entries / max(1, total_modules)), 3)
+            }
+        except Exception:
+            self.reflection_data["capability_index"] = {
+                "compared_to_top_companies": 0.05,
+                "as_learning_system": 0.5,
+                "in_our_domain": 0.3,
+            }
 
         self.log(f"与顶级公司对比能力指数: {self.reflection_data['capability_index']['compared_to_top_companies']:.1%}", "progress")
         self.log(f"作为学习系统能力指数: {self.reflection_data['capability_index']['as_learning_system']:.1%}", "progress")

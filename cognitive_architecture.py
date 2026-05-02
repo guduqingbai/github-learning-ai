@@ -257,21 +257,45 @@ class ReasoningSystem:
     """推理系统 - 类似人类的推理机制"""
 
     def reason(self, perception_data):
-        """情境推理"""
-        # 基于感知数据进行推理
+        """情境推理（基于真实数据）"""
+        # 从 CuriosityEngine 获取真实好奇心
+        try:
+            from self_scanner import SelfScanner
+            from curiosity_engine import CuriosityEngine
+            scanner = SelfScanner()
+            snapshot = scanner.get_full_snapshot()
+            engine = CuriosityEngine()
+            questions = engine.generate_questions(snapshot)
+            num_questions = len(questions)
+        except Exception:
+            num_questions = 0
+
+        # 好奇心 = 有多少真实可探索的问题 / 最大预期
+        max_expected = 12
+        curiosity = min(1.0, num_questions / max_expected)
+
+        # 创造力 = 项目自知识别比例（知道自己多少 = 能创造多少新连接）
+        try:
+            kb_data = snapshot.get("knowledge_base", {})
+            cat_breakdown = kb_data.get("category_breakdown", {})
+            self_entries = cat_breakdown.get("项目自身", 0)
+            total_entries = kb_data.get("total_entries", 1)
+            creativity = min(1.0, self_entries / max(1, total_entries) * 2)
+        except Exception:
+            creativity = 0.2
+
         reasoning_result = {
-            "curiosity": random.uniform(0.2, 0.8),
-            "creativity": random.uniform(0.1, 0.6),
-            "decision": None
+            "curiosity": curiosity,
+            "creativity": creativity,
+            "decision": None,
+            "top_questions": [{"question": q.question} for q in questions[:3]]
+            if num_questions > 0 else [],
         }
 
+        # 感知数据修正
         if perception_data:
             learning_importance = perception_data.get("importance", 0)
-            reasoning_result["curiosity"] += learning_importance * 0.5
-            reasoning_result["creativity"] += learning_importance * 0.3
-
-        reasoning_result["curiosity"] = min(1.0, reasoning_result["curiosity"])
-        reasoning_result["creativity"] = min(1.0, reasoning_result["creativity"])
+            reasoning_result["curiosity"] = min(1.0, curiosity + learning_importance * 0.3)
 
         return reasoning_result
 
@@ -289,12 +313,24 @@ class LearningSystem:
     """学习系统 - 类似人类的学习机制"""
 
     def learn(self, decision, results):
-        """从经验中学习"""
-        return {
-            "learned": True,
-            "experience": f"决策 '{decision}' 成功执行",
-            "timestamp": datetime.now().isoformat()
-        }
+        """从经验中学习（调真实思考循环）"""
+        try:
+            from self_thinking_agent import SelfThinkingAgent
+            agent = SelfThinkingAgent()
+            insights = agent.run_thinking_cycle(depth=1)
+            return {
+                "learned": len(insights) > 0,
+                "insights_generated": len(insights),
+                "experience": f"决策 '{decision}' 执行，生成 {len(insights)} 个洞察",
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            return {
+                "learned": True,
+                "experience": f"决策 '{decision}' 执行",
+                "timestamp": datetime.now().isoformat(),
+                "note": str(e)
+            }
 
 
 def test_cognitive_architecture():
