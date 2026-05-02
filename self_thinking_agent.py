@@ -236,6 +236,10 @@ class SelfThinkingAgent:
             return self._explore_list_new_entries(q)
         elif action == "global_research":
             return self._explore_global_research(q)
+        elif action == "self_heal":
+            return self._explore_self_heal(q)
+        elif action == "code_quality_heal":
+            return self._explore_self_heal(q)
         else:
             return {"note": f"未知探索动作: {action}"}
 
@@ -447,6 +451,57 @@ class SelfThinkingAgent:
             "note": f"已添加 {added} 个爬虫任务，实时获取 {len(results)} 条结果。更多结果将在后台爬取。"
         }
 
+    # ---- 自我修复探索 ----
+
+    def _explore_self_heal(self, q) -> Dict[str, Any]:
+        """探索并尝试修复代码问题"""
+        from self_modification_engine import SelfModificationEngine
+        engine = SelfModificationEngine()
+
+        target = q.target
+        fix_results = []
+
+        # 从问题和上下文推断修复类型
+        question = q.question
+        observation = q.observation
+
+        if "except" in question or "裸" in observation:
+            # 修复裸 except
+            result = engine.fix_bare_excepts(target)
+            fix_results.append({
+                "type": "fix_bare_except",
+                "file": target,
+                "success": result.get("success", False),
+                "detail": result.get("error", "已修复"),
+            })
+
+        # 检查是否有文档缺失的线索
+        ctx = q.context
+        doc_ratio = ctx.get("docstring_ratio", 1.0)
+        if doc_ratio < 0.1:
+            result = engine.add_module_docstring(target, f"{Path(target).stem} module")
+            fix_results.append({
+                "type": "add_docstring",
+                "file": target,
+                "success": result.get("success", False),
+                "detail": result.get("error", "已修复"),
+            })
+
+        if not fix_results:
+            fix_results.append({
+                "type": "inspection",
+                "file": target,
+                "success": False,
+                "detail": "未找到可自动修复的问题",
+            })
+
+        return {
+            "target": target,
+            "fixes_attempted": len(fix_results),
+            "fixes_succeeded": sum(1 for r in fix_results if r["success"]),
+            "fix_results": fix_results,
+        }
+
     # ---- 洞察生成与存储 ----
 
     def _generate_insight(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
@@ -467,6 +522,8 @@ class SelfThinkingAgent:
             return self._insight_from_gap(q, exploration)
         elif q.explore_action == "global_research":
             return self._insight_from_global_research(q, exploration)
+        elif q.explore_action in ("self_heal", "code_quality_heal"):
+            return self._insight_from_self_heal(q, exploration)
         else:
             return {
                 "observation": q.observation,
@@ -589,6 +646,38 @@ class SelfThinkingAgent:
             "findings": [f"调度了 {tasks} 个爬虫任务", f"实时获取 {realtime} 条结果"],
             "origin": "self_thinking",
             "action_taken": "global_research",
+        }
+
+    def _insight_from_self_heal(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
+        """从自我修复探索生成洞察"""
+        target = exploration.get("target", q.target)
+        attempted = exploration.get("fixes_attempted", 0)
+        succeeded = exploration.get("fixes_succeeded", 0)
+        fix_results = exploration.get("fix_results", [])
+
+        detail_lines = []
+        for fix in fix_results:
+            status = "✅" if fix["success"] else "❌"
+            detail_lines.append(f"  {status} [{fix['type']}] {fix['file']}: {fix['detail']}")
+
+        summary = f"自我修复 [{target}]: 尝试 {attempted} 项修复，成功 {succeeded} 项\n" + "\n".join(detail_lines)
+
+        return {
+            "observation": q.observation,
+            "question": q.question,
+            "summary": summary,
+            "topic": f"{Path(target).stem} 自我修复",
+            "category": "项目自身",
+            "content": f"好奇心引擎发现代码问题并自动修复:\n\n问题: {q.question}\n观察: {q.observation}\n\n修复结果:\n" + "\n".join(detail_lines),
+            "keywords": [Path(target).stem, "自我修复", "代码质量"],
+            "findings": [f"修复 {succeeded}/{attempted} 项" if attempted > 0 else "无需修复"],
+            "origin": "self_thinking",
+            "action_taken": "self_heal",
+            "modification_proposal": {
+                "file": target,
+                "fixes": fix_results,
+                "auto_applied": succeeded > 0,
+            },
         }
 
     def _store_insight(self, insight: Dict[str, Any]) -> bool:

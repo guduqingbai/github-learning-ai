@@ -184,7 +184,7 @@ class CognitiveArchitecture:
             return None
 
     def cognitive_cycle(self):
-        """认知循环 - 完整的认知过程"""
+        """认知循环 - 完整的认知过程（可被思考守护进程周期性调用）"""
         print("🔄 开始认知循环...")
 
         # 1. 感知环境
@@ -203,12 +203,50 @@ class CognitiveArchitecture:
             # 5. 学习经验
             self.learn_from_experience(decision, action_result)
 
+        # 6. 根据认知状态调整思考频率
+        self.adjust_thinking_frequency()
+
         print("✅ 认知循环完成")
+
+    def adjust_thinking_frequency(self):
+        """根据好奇心和创造力调整思考守护进程的频率"""
+        try:
+            from thinking_daemon import get_daemon
+            daemon = get_daemon()
+
+            # 好奇心高 → 思考更频繁（间隔缩短）
+            # 好奇心低 → 思考更慢（间隔拉长）
+            if self.curiosity > 0.7:
+                new_interval = max(600, int(1800 * (1 - self.curiosity * 0.5)))
+            elif self.curiosity > 0.4:
+                new_interval = 1800
+            else:
+                new_interval = 3600
+
+            if daemon.is_running and daemon.cycle_interval != new_interval:
+                old = daemon.cycle_interval
+                daemon.update_config(cycle_interval=new_interval)
+                print(f"🧠 思考频率已调整: {old}秒 → {new_interval}秒 (好奇心={self.curiosity:.2f})")
+
+        except Exception as e:
+            print(f"⚠️  思考频率调整失败: {e}")
 
     def _execute_action(self, decision):
         """执行决策"""
         print(f"⚡ 执行决策: {decision}")
-        return {"success": True, "message": "决策执行成功"}
+
+        # 如果决策是"探索新内容"，启动思考守护进程
+        if "探索" in str(decision):
+            try:
+                from thinking_daemon import get_daemon
+                daemon = get_daemon()
+                if not daemon.is_running:
+                    daemon.start()
+                    print("🚀 已启动自主思考守护进程")
+            except Exception as e:
+                print(f"⚠️  启动思考守护进程失败: {e}")
+
+        return {"success": True, "message": f"决策 '{decision}' 执行成功"}
 
 
 class PerceptionSystem:

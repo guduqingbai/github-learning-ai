@@ -171,6 +171,28 @@ class SelfScanner:
                 pass
         return []
 
+    def scan_modification_history(self) -> Dict[str, Any]:
+        """读取自我修改引擎的修改历史"""
+        log_file = self.data_dir / "modification_log.json"
+        if not log_file.exists():
+            return {"total_attempts": 0, "successful": 0, "recent": []}
+        try:
+            with open(log_file, encoding="utf-8") as f:
+                logs = json.load(f)
+            total = len(logs)
+            succeeded = sum(1 for l in logs if l.get("status") == "success")
+            failed = sum(1 for l in logs if l.get("status") == "failed")
+            rolled_back = sum(1 for l in logs if l.get("status") == "rolled_back")
+            return {
+                "total_attempts": total,
+                "successful": succeeded,
+                "failed": failed,
+                "rolled_back": rolled_back,
+                "recent": logs[-5:] if logs else [],
+            }
+        except Exception:
+            return {"total_attempts": 0, "successful": 0, "recent": []}
+
     def get_full_snapshot(self) -> Dict[str, Any]:
         """全量快照"""
         return {
@@ -184,6 +206,7 @@ class SelfScanner:
             "crawler_tasks": {
                 "pending": len(self.scan_crawler_tasks()),
             },
+            "modification_history": self.scan_modification_history(),
         }
 
     def save_snapshot(self, snapshot: Dict[str, Any]):
