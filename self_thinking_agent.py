@@ -200,8 +200,11 @@ class SelfThinkingAgent:
         print(f"🧠 自我思考循环启动 [{datetime.now().strftime('%H:%M:%S')}]")
         print(f"{'='*60}")
 
+        # 所有路径都需要先扫描
         if skill and skill in self._skills:
+            self._scan_project()
             return self.run_skill(skill, depth)
+        self._scan_project()
         return self._run_full_cycle(depth)
 
     def _scan_project(self):
