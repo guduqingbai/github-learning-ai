@@ -41,6 +41,7 @@ class CuriosityEngine:
         questions.extend(self._curiosity_kb_growth(snapshot, diff))
         questions.extend(self._curiosity_import_anomalies(snapshot))
         questions.extend(self._curiosity_empty_modules(snapshot))
+        questions.extend(self._curiosity_global_research(snapshot))
 
         # 去重：同样的问题不重复生成
         seen = set()
@@ -232,6 +233,60 @@ class CuriosityEngine:
                     context={"file": f["file"], "docstring_ratio": f["docstring_ratio"],
                              "function_count": len(f["functions"])}
                 ))
+        return qs
+
+    def _curiosity_global_research(self, snapshot: Dict[str, Any]) -> List[CuriosityQuestion]:
+        """项目核心架构本身 → 搜全球资料学习更好方案"""
+        qs = []
+
+        # 检查是否有"自我思考AI架构"相关知识
+        all_k = self.kb.get_all_knowledge()
+        has_self_thinking_kb = any(
+            "自我思考" in item.get("topic", "") or "自主Agent" in item.get("topic", "")
+            for item in all_k
+        )
+
+        if not has_self_thinking_kb:
+            qs.append(CuriosityQuestion(
+                observation="知识库中没有'自我思考AI架构'或'自主Agent系统'相关条目",
+                question="全球最好的自我思考AI架构是怎么设计的？其他项目如何实现自主Agent？",
+                importance=0.85,
+                explore_action="global_research",
+                target="self_thinking_architecture",
+                context={
+                    "research_queries": [
+                        "self thinking AI architecture",
+                        "autonomous agent system design",
+                        "cognitive architecture patterns",
+                        "metacognition AI implementation",
+                        "curiosity driven exploration system",
+                    ]
+                }
+            ))
+
+        # 检查当前项目架构的知识覆盖
+        py_files = snapshot.get("py_files", [])
+        total_modules = len(py_files)
+        cat_breakdown = snapshot.get("knowledge_base", {}).get("category_breakdown", {})
+        self_entries = cat_breakdown.get("项目自身", 0)
+
+        if self_entries < total_modules:
+            # 有模块还没分析，但更重要的是：当前的架构设计是否最优？
+            qs.append(CuriosityQuestion(
+                observation=f"项目有 {total_modules} 个模块，仅 {self_entries} 条自知识，架构仍有优化空间",
+                question="当前的多层架构（认知层→学习层→数据层→采集层）是否最优？业界有没有更好的分层方案？",
+                importance=0.8,
+                explore_action="global_research",
+                target="architecture_comparison",
+                context={
+                    "research_queries": [
+                        "AI learning system layered architecture",
+                        "self-improving system design patterns",
+                        "cognitive architecture best practices",
+                    ]
+                }
+            ))
+
         return qs
 
 

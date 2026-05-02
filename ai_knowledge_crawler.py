@@ -48,7 +48,7 @@ class AIKnowledgeCrawler:
 
     # ─── 1. GitHub Trending ─────────────────────────────────────
     def crawl_github(self) -> List[Dict]:
-        """从GitHub API获取热门AI仓库"""
+        """从GitHub API获取热门AI仓库 + 自思考架构相关项目"""
         results = []
         queries = [
             "machine+learning",
@@ -56,6 +56,11 @@ class AIKnowledgeCrawler:
             "natural+language+processing",
             "artificial+intelligence",
             "large+language+model",
+            "self+thinking+AI",
+            "autonomous+agent+architecture",
+            "meta+cognition+AI",
+            "curiosity+driven+learning",
+            "self+improving+systems",
         ]
         for q in queries:
             try:

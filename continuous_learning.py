@@ -33,7 +33,9 @@ class ContinuousLearningSystem:
         # 初始化学习属性
         self.learning_interests = [
             "机器学习", "深度学习", "自然语言处理",
-            "认知科学", "人工智能伦理", "知识图谱"
+            "认知科学", "人工智能伦理", "知识图谱",
+            "自我思考AI架构", "认知系统设计", "自主Agent系统",
+            "元学习与自我改进", "好奇心驱动探索"
         ]
 
         self.learning_resources = [

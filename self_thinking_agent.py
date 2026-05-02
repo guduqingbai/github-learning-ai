@@ -8,6 +8,9 @@
 import json
 import uuid
 import os
+import time
+import ssl
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -114,6 +117,8 @@ class SelfThinkingAgent:
             return self._explore_check_state(target)
         elif action == "list_new_entries":
             return self._explore_list_new_entries(q)
+        elif action == "global_research":
+            return self._explore_global_research(q)
         else:
             return {"note": f"未知探索动作: {action}"}
 
@@ -232,6 +237,99 @@ class SelfThinkingAgent:
             "categories": kb_data.get("category_breakdown", {}),
         }
 
+    def _explore_global_research(self, q) -> Dict[str, Any]:
+        """全球研究：调爬虫和持续学习系统搜索全球资料"""
+        ctx = q.context
+        queries = ctx.get("research_queries", [])
+        results = []
+
+        print(f"   🌐 全球研究: 发起 {len(queries)} 个搜索查询")
+
+        # 1. 添加爬虫任务到队列
+        task_file = self.data_dir / "crawler_tasks.json"
+        existing_tasks = []
+        if task_file.exists():
+            with open(task_file, encoding="utf-8") as f:
+                existing_tasks = json.load(f)
+        existing_queries = {t.get("query", "") for t in existing_tasks}
+
+        added = 0
+        for query in queries:
+            if query not in existing_queries:
+                existing_tasks.append({
+                    "query": query,
+                    "domain": "自思考架构研究",
+                    "reason": f"好奇心引擎全球研究: {q.question[:80]}",
+                    "priority": "high",
+                })
+                existing_queries.add(query)
+                added += 1
+
+        if added > 0:
+            with open(task_file, "w", encoding="utf-8") as f:
+                json.dump(existing_tasks, f, ensure_ascii=False, indent=2)
+
+        # 2. 同时尝试直接调爬虫实时获取
+        try:
+            from ai_knowledge_crawler import AIKnowledgeCrawler
+            crawler = AIKnowledgeCrawler()
+            # 用前3个查询搜索GitHub（最重要的）
+            for query in queries[:3]:
+                try:
+                    search_term = query.replace(" ", "+")
+                    url = f"https://api.github.com/search/repositories?q={search_term}&sort=stars&per_page=3"
+                    req = urllib.request.Request(url, headers={
+                        "User-Agent": "Mozilla/5.0 (compatible; SelfThinkingBot/1.0)"
+                    })
+                    with urllib.request.urlopen(req, timeout=10, context=ssl._create_unverified_context()) as resp:
+                        data = json.loads(resp.read().decode())
+                        for repo in data.get("items", [])[:3]:
+                            results.append({
+                                "title": repo["full_name"],
+                                "description": (repo.get("description") or "")[:200],
+                                "stars": repo.get("stargazers_count", 0),
+                                "url": repo["html_url"],
+                                "source": "GitHub",
+                            })
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"   ⚠️  搜索 '{query}' 失败: {e}")
+        except Exception as e:
+            print(f"   ⚠️  实时搜索异常: {e}")
+
+        # 3. 尝试arXiv搜索
+        try:
+            for query in queries[:2]:
+                try:
+                    url = f"http://export.arxiv.org/api/query?search_query=all:{query.replace(' ', '+')}&sortBy=relevance&max_results=3"
+                    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                    with urllib.request.urlopen(req, timeout=15, context=ssl._create_unverified_context()) as resp:
+                        xml = resp.read().decode("utf-8")
+                        import re as re_mod
+                        titles = re_mod.findall(r"<title>(.*?)</title>", xml, re_mod.DOTALL)
+                        for i, t in enumerate(titles[1:4], 1):
+                            results.append({
+                                "title": t.strip().replace("\n", " ")[:150],
+                                "description": f"arXiv论文: {query}",
+                                "stars": 0,
+                                "url": f"https://arxiv.org/search/?query={query}",
+                                "source": "arXiv",
+                            })
+                    time.sleep(3)
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+        return {
+            "research_topic": q.target,
+            "queries_scheduled": len(queries),
+            "crawler_tasks_added": added,
+            "real_time_results": len(results),
+            "sample_results": results[:5],
+            "note": f"已添加 {added} 个爬虫任务，实时获取 {len(results)} 条结果。更多结果将在后台爬取。"
+        }
+
     # ---- 洞察生成与存储 ----
 
     def _generate_insight(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
@@ -250,6 +348,8 @@ class SelfThinkingAgent:
             return self._insight_from_comparison(q, exploration)
         elif q.explore_action == "add_crawler_task":
             return self._insight_from_gap(q, exploration)
+        elif q.explore_action == "global_research":
+            return self._insight_from_global_research(q, exploration)
         else:
             return {
                 "observation": q.observation,
@@ -335,6 +435,43 @@ class SelfThinkingAgent:
             "findings": [f"缺失 {len(missing)} 个话题"],
             "origin": "self_thinking",
             "action_taken": "add_crawler_tasks",
+        }
+
+    def _insight_from_global_research(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
+        """从全球研究生成洞察"""
+        topic = exploration.get("research_topic", "global")
+        results = exploration.get("sample_results", [])
+        tasks = exploration.get("crawler_tasks_added", 0)
+        realtime = exploration.get("real_time_results", 0)
+
+        # 从实时结果提炼要点
+        top_results = ""
+        for r in results[:3]:
+            top_results += f"- [{r['source']}] {r['title']} ({r.get('stars', 0)}⭐) {r.get('description', '')[:80]}\n"
+
+        summary = f"全球研究 [{topic}]: 已调度 {tasks} 个爬虫任务"
+        if results:
+            summary += f"，实时获取 {len(results)} 条结果\n{top_results[:200]}"
+
+        content = (
+            f"好奇心驱动全球研究: {q.question}\n\n"
+            f"搜索查询:\n"
+            + "\n".join(f"- {qq}" for qq in q.context.get("research_queries", []))
+            + f"\n\n实时结果:\n{top_results}"
+            + f"\n爬虫将持续在后台上获取更多资料。"
+        )
+
+        return {
+            "observation": q.observation,
+            "question": q.question,
+            "summary": summary,
+            "topic": f"全球研究: {topic}",
+            "category": "项目自身",
+            "content": content,
+            "keywords": [topic, "全球研究", "架构探索"],
+            "findings": [f"调度了 {tasks} 个爬虫任务", f"实时获取 {realtime} 条结果"],
+            "origin": "self_thinking",
+            "action_taken": "global_research",
         }
 
     def _store_insight(self, insight: Dict[str, Any]) -> bool:
