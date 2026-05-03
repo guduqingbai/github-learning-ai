@@ -213,13 +213,13 @@ class SelfThinkingAgent:
         # 好奇心引擎生成问题（基于扫描数据）
         self._generate_questions()
 
-        # 学习触发的行动和问题（追加，不覆盖）
+        # 学习触发的行动和问题（优先级高于好奇心引擎的问题）
         action_questions = []
         study_questions = []
         if learned:
             action_questions = self._apply_study_actions(learned)
             study_questions = self._generate_questions_from_study(learned)
-            self.questions.extend(action_questions + study_questions)
+            self.questions = action_questions + study_questions + self.questions
             if action_questions or study_questions:
                 print(f"  💡 学习触发了 {len(action_questions) + len(study_questions)} 个新问题")
 

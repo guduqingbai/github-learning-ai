@@ -65,7 +65,7 @@ class JianyingAutomation:
                 if pos:
                     center = pyautogui.center(pos)
                     return (center.x, center.y)
-            except:
+            except Exception:
                 pass
             time.sleep(0.5)
         return None

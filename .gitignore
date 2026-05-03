@@ -28,8 +28,8 @@ data/*.xlsx
 !data/modification_log.json
 !data/thinking_daemon_state.json
 data/*.log
-data/screenshot_*.png
-data/region_*.png
+data/*.png
+data/mod_backups/
 data/content_output/
 
 # 浏览器配置（CDP 独立配置，非项目代码）
