@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🛡️ 星期八守护进程看门狗 — 进程挂了自动重启
+🛡️ 守护进程看门狗 — 进程挂了自动重启
 被开机自启调用，持续监控 daemon_launcher.py
 """
 import os
@@ -29,7 +29,7 @@ def main():
     (BASE_DIR / "data").mkdir(exist_ok=True)
     os.chdir(str(BASE_DIR))
 
-    log("🛡️ 星期八看门狗启动")
+    log("🛡️ 看门狗启动")
     log(f"工作目录: {BASE_DIR}")
 
     restart_count = 0

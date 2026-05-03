@@ -23,12 +23,21 @@ ENV/
 data/*.json
 data/*.jsonl
 data/*.txt
+data/*.csv
+data/*.xlsx
 !data/modification_log.json
 !data/thinking_daemon_state.json
 data/*.log
 data/screenshot_*.png
 data/region_*.png
 data/content_output/
+
+# 浏览器配置（CDP 独立配置，非项目代码）
+data/playwright_*/
+data/playwright_cdp_*/
+
+# Fiverr 交付物/市场调研（外部平台无关项目）
+data/fiverr_deliverables/
 
 # 测试
 .pytest_cache/

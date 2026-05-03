@@ -310,7 +310,7 @@ class AIKnowledgeCrawler:
 
     # ─── 9. 从任务队列抓取（自主学习生成的定向任务）───────────
     def crawl_task_queue(self) -> List[Dict]:
-        """读取星期八的自主学习任务队列，逐任务原子处理"""
+        """读取自主学习任务队列，逐任务原子处理"""
         task_file = self.data_dir / "crawler_tasks.json"
         if not task_file.exists():
             return []

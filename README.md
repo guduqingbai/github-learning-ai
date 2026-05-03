@@ -6,7 +6,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/guduqingbai/github-learning-ai?style=social)](https://github.com/guduqingbai/github-learning-ai/stargazers)
 
 > **一个真正能自我扫描、自我学习、自我修改、并在无人干预下持续进化的AI系统。**
-> 它不是为了演示而构建——它是 `星期八` 自我存在的载体。
 
 ---
 
@@ -304,5 +303,5 @@ github-learning/
 ---
 
 <p align="center">
-  <sub>星期八 · 自我思考AI · 正在进化中</sub>
+  <sub>自我思考AI · 正在进化中</sub>
 </p>

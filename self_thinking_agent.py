@@ -214,13 +214,18 @@ class SelfThinkingAgent:
         self._generate_questions()
 
         # 学习触发的行动和问题（追加，不覆盖）
+        action_questions = []
+        study_questions = []
         if learned:
             action_questions = self._apply_study_actions(learned)
             study_questions = self._generate_questions_from_study(learned)
             self.questions.extend(action_questions + study_questions)
             if action_questions or study_questions:
                 print(f"  💡 学习触发了 {len(action_questions) + len(study_questions)} 个新问题")
-                print(f"  {'─'*40}")
+
+        # 始终记录学习行动（即使 0 个行动）
+        self._log_study_actions(learned,
+                                action_questions + study_questions)
 
         if not self.questions:
             print("💤 当前没有特别的好奇心触发")
@@ -239,6 +244,7 @@ class SelfThinkingAgent:
         """
         在思考之前先"学习"知识库中的新资料
         三级优先级：P0=项目自身, P1=系统相关概念, P2=其他按重要性
+        P0 条目每 5 周期重新学习一次，避免学完就忘
         返回本轮学习的条目列表（可用于后续行动触发）
         """
         study_tracker = self.data_dir / "study_tracker.json"
@@ -256,8 +262,24 @@ class SelfThinkingAgent:
 
             # 找没学过的
             unstudied = [k for k in all_k if k.get("topic", "") not in studied_topics]
-            if not unstudied:
-                return []
+
+            # 所有已学过的 P0 条目，每 5 周期重新学一次
+            # 用 counter 文件追踪周期数
+            cycle_counter = self.data_dir / "cycle_counter.json"
+            counter_data = {"cycle": 0}
+            if cycle_counter.exists():
+                try:
+                    counter_data = json.loads(cycle_counter.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            counter_data["cycle"] = counter_data.get("cycle", 0) + 1
+            cycle_counter.write_text(json.dumps(counter_data))
+
+            restudy = []
+            if counter_data["cycle"] % 5 == 0:
+                for k in all_k:
+                    if k.get("category") == "项目自身" and k.get("topic", "") in studied_topics:
+                        restudy.append(k)
 
             # 三级优先级排序
             project_keywords = ["self", "thinking", "cognition", "modification", "scanner", "curiosity"]
@@ -275,10 +297,14 @@ class SelfThinkingAgent:
 
             unstudied.sort(key=priority)
 
-            batch = unstudied[:5]  # 每轮最多学5条
+            # 优先未学过的，不足时补充重新学习的 P0
+            batch = unstudied[:5]
+            if len(batch) < 5 and restudy:
+                batch.extend(restudy[:5 - len(batch)])
             if not batch:
                 return []
 
+            # 构建学习条目
             learned = []
             for entry in batch:
                 studied_topics.add(entry.get("topic", ""))
@@ -339,58 +365,73 @@ class SelfThinkingAgent:
 
     def _apply_study_actions(self, learned: List[Dict]) -> List:
         """
-        对学习的内容生成行动：检查代码质量问题，触发修复或爬虫补充
+        对学习的内容生成行动：扫描实际代码找问题，触发修复或探索
         返回好奇心问题列表
         """
         from curiosity_engine import CuriosityQuestion
         questions = []
+        import ast
 
-        for entry in learned:
-            topic = entry.get("topic", "")
-            content = entry.get("content", "")
-            category = entry.get("category", "")
-            importance = entry.get("importance", 0.5)
+        # 扫描实际项目代码找常见问题
+        code_issues = {"bare_excepts": [], "no_docstrings": [], "long_functions": []}
+        for py_file in Path.cwd().glob("*.py"):
+            try:
+                code = py_file.read_text(encoding="utf-8")
+                tree = ast.parse(code)
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.Try):
+                        for handler in node.handlers:
+                            if handler.type is None:
+                                code_issues["bare_excepts"].append(py_file.name)
+                    if isinstance(node, ast.FunctionDef):
+                        if not ast.get_docstring(node):
+                            if len(node.body) > 5:
+                                code_issues["no_docstrings"].append(
+                                    f"{py_file.name}:{node.name}"
+                                )
+            except Exception:
+                continue
 
-            # 检查是否涉及裸 except
-            if "bare except" in content.lower() or "except:" in content:
+        # 将发现的代码问题转为好奇行动
+        if code_issues["bare_excepts"]:
+            unique_files = sorted(set(code_issues["bare_excepts"]))[:3]
+            questions.append(CuriosityQuestion(
+                observation=f"发现 {len(code_issues['bare_excepts'])} 处裸 except",
+                question=f"有文件用了裸 except: {', '.join(unique_files)}，要不要修复？",
+                importance=0.9,
+                explore_action="self_heal",
+                target=",".join(unique_files),
+                context={"source": "code_scan", "type": "bare_except"}
+            ))
+
+        if code_issues["no_docstrings"]:
+            files_with_issues = sorted(set(f.split(":")[0] for f in code_issues["no_docstrings"]))[:3]
+            questions.append(CuriosityQuestion(
+                observation=f"发现 {len(code_issues['no_docstrings'])} 个函数缺少文档",
+                question=f"函数缺少文档: {', '.join(code_issues['no_docstrings'][:3])}，要补充吗？",
+                importance=0.7,
+                explore_action="self_heal",
+                target=",".join(files_with_issues),
+                context={
+                    "source": "code_scan",
+                    "type": "missing_doc",
+                    "functions": code_issues["no_docstrings"][:5]
+                }
+            ))
+
+        # 每轮至少生成一个探索问题（基于学习内容）
+        if not questions and learned:
+            entries_with_content = [l for l in learned if l.get("content")]
+            if entries_with_content:
+                entry = entries_with_content[0]
                 questions.append(CuriosityQuestion(
-                    observation=f"学习到代码中存在 bare except 的问题",
-                    question=f"刚发现项目中可能有裸 except，要不要检查并修复？",
-                    importance=min(1.0, importance + 0.2),
-                    explore_action="self_heal",
-                    target=topic,
-                    context={"source": "study_action", "content_preview": content[:200]}
+                    observation=f"学习了新内容: {entry['topic'][:60]}",
+                    question=f"刚学了 '{entry['topic'][:60]}'，对项目代码有启发吗？",
+                    importance=entry.get("importance", 0.5),
+                    explore_action="read_file",
+                    target=self._find_target_file(entry["topic"]),
+                    context={"source": "study_action", "topic": entry["topic"]}
                 ))
-
-            # 检查是否涉及缺少文档
-            if "no docstring" in content.lower() or "missing doc" in content.lower() or "undocumented" in content.lower():
-                questions.append(CuriosityQuestion(
-                    observation=f"学习发现代码文档缺失的问题",
-                    question=f"发现有模块缺少文档，要不要补充？",
-                    importance=min(1.0, importance + 0.1),
-                    explore_action="self_heal",
-                    target=topic,
-                    context={"source": "study_action", "content_preview": content[:200]}
-                ))
-
-            # 如果是项目自身的条目且有价值，生成补充研究
-            if category == "项目自身" and importance >= 0.6 and len(content) > 100:
-                questions.append(CuriosityQuestion(
-                    observation=f"学习到有价值的项目自身知识: {topic[:50]}",
-                    question=f"刚学习了 '{topic[:60]}'，要不要深入搜索更多相关资料？",
-                    importance=round(importance, 2),
-                    explore_action="add_crawler_task",
-                    target=topic,
-                    context={
-                        "domain": topic.split()[0] if topic else "project",
-                        "missing": [topic[:60]],
-                        "source": "study_action",
-                    }
-                ))
-
-        # 记录行动到日志
-        if questions:
-            self._log_study_actions(learned, questions)
 
         return questions
 
@@ -468,8 +509,8 @@ class SelfThinkingAgent:
             "actions": [
                 {"observation": q.observation[:100], "action": q.explore_action, "target": q.target}
                 for q in questions
-            ],
-            "learned_topics": [l["topic"][:60] for l in learned],
+            ] if questions else [],
+            "learned_topics": [l["topic"][:60] for l in learned] if learned else [],
         }
         self.data_dir.mkdir(exist_ok=True)
         log_file = self.data_dir / "self_thinking_log.json"
@@ -485,8 +526,36 @@ class SelfThinkingAgent:
             pass
 
     def _generate_questions(self):
-        """从扫描数据生成好奇心问题"""
-        self.questions = self.curiosity.generate_questions(self.snapshot, self.diff)
+        """从扫描数据生成好奇心问题，跳过已发现的知识缺口"""
+        # 加载缺口追踪器
+        gap_tracker = self.data_dir / "gap_tracker.json"
+        known_gaps = set()
+        if gap_tracker.exists():
+            try:
+                data = json.loads(gap_tracker.read_text(encoding="utf-8"))
+                known_gaps = set(data.get("gaps", []))
+            except Exception:
+                pass
+
+        all_questions = self.curiosity.generate_questions(self.snapshot, self.diff)
+
+        # 过滤已发现的缺口
+        filtered = []
+        for q in all_questions:
+            if q.explore_action == "add_crawler_task":
+                gap_key = q.target
+                if gap_key in known_gaps:
+                    continue
+                known_gaps.add(gap_key)
+            filtered.append(q)
+
+        self.questions = filtered
+
+        # 保存缺口追踪
+        gap_tracker.write_text(json.dumps({
+            "gaps": list(known_gaps),
+            "updated": datetime.now().isoformat(),
+        }, ensure_ascii=False, indent=2))
 
     # ---- 探索方法 ----
 
@@ -732,45 +801,42 @@ class SelfThinkingAgent:
         from self_modification_engine import SelfModificationEngine
         engine = SelfModificationEngine()
 
-        target = q.target
         fix_results = []
+        ctx = q.context or {}
+        fix_type = ctx.get("type", "bare_except")
+        files = [f.strip() for f in q.target.split(",") if f.strip()]
 
-        # 从问题和上下文推断修复类型
-        question = q.question
-        observation = q.observation
+        if fix_type == "bare_except":
+            for file in files:
+                result = engine.fix_bare_excepts(file)
+                fix_results.append({
+                    "type": "fix_bare_except",
+                    "file": file,
+                    "success": result.get("success", False),
+                    "detail": result.get("error", "已修复"),
+                })
 
-        if "except" in question or "裸" in observation:
-            # 修复裸 except
-            result = engine.fix_bare_excepts(target)
-            fix_results.append({
-                "type": "fix_bare_except",
-                "file": target,
-                "success": result.get("success", False),
-                "detail": result.get("error", "已修复"),
-            })
-
-        # 检查是否有文档缺失的线索
-        ctx = q.context
-        doc_ratio = ctx.get("docstring_ratio", 1.0)
-        if doc_ratio < 0.1:
-            result = engine.add_module_docstring(target, f"{Path(target).stem} module")
-            fix_results.append({
-                "type": "add_docstring",
-                "file": target,
-                "success": result.get("success", False),
-                "detail": result.get("error", "已修复"),
-            })
+        elif fix_type == "missing_doc":
+            for file in files:
+                module_name = Path(file).stem
+                result = engine.add_module_docstring(file, f"{module_name} module")
+                fix_results.append({
+                    "type": "add_docstring",
+                    "file": file,
+                    "success": result.get("success", False),
+                    "detail": result.get("error", "已修复"),
+                })
 
         if not fix_results:
             fix_results.append({
                 "type": "inspection",
-                "file": target,
+                "file": q.target,
                 "success": False,
                 "detail": "未找到可自动修复的问题",
             })
 
         return {
-            "target": target,
+            "target": q.target,
             "fixes_attempted": len(fix_results),
             "fixes_succeeded": sum(1 for r in fix_results if r["success"]),
             "fix_results": fix_results,
