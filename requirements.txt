@@ -20,3 +20,9 @@ python-dateutil>=2.8.2
 pytz>=2023.3
 pyyaml>=6.0.1
 jsonschema>=4.19.1
+
+# 延伸能力
+PyAutoGUI>=0.9.53
+playwright>=1.40.0
+ccxt>=4.0.0
+Pillow>=10.0.0

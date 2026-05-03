@@ -39,6 +39,14 @@ class CrawlerDaemon:
             from ai_knowledge_crawler import AIKnowledgeCrawler
             crawler = AIKnowledgeCrawler()
             crawler.crawl_all()
+            # 爬取完成后自动评估内容价值，触发深度学习
+            if crawler.last_results:
+                try:
+                    from crawler_learning_bridge import process_crawler_results
+                    result = process_crawler_results(crawler.last_results)
+                    self.log(f"🔬 学习桥接: 评估{result['evaluated']}条, 学习{result['learned']}条, 深挖{result['deep_dives']}个主题")
+                except Exception as e:
+                    self.log(f"⚠️ 学习桥接失败: {e}")
             self.log("✅ 守护进程爬取任务完成")
         except Exception as e:
             self.log(f"❌ 任务执行失败: {e}")

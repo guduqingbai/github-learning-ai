@@ -42,6 +42,7 @@ class CuriosityEngine:
         questions.extend(self._curiosity_import_anomalies(snapshot))
         questions.extend(self._curiosity_empty_modules(snapshot))
         questions.extend(self._curiosity_global_research(snapshot))
+        questions.extend(self._curiosity_deep_learning(snapshot))
 
         # 去重：同样的问题不重复生成
         seen = set()
@@ -257,6 +258,40 @@ class CuriosityEngine:
                              "function_count": len(f["functions"])}
                 ))
         return qs
+
+    def _curiosity_deep_learning(self, snapshot: Dict[str, Any]) -> List[CuriosityQuestion]:
+        """检查知识库中深度不足但值得深挖的条目"""
+        qs = []
+        try:
+            all_k = self.kb.get_all_knowledge()
+            for entry in all_k:
+                depth = entry.get("learning_depth", 0)
+                importance = entry.get("importance", 0)
+                score = entry.get("content_score", importance)
+                topic = entry.get("topic", "")
+
+                # 条件：深度不足(0或无标记) 但 内容质量不错 且 有学习价值
+                if depth is None:
+                    depth = 0
+                if depth < 2 and score >= 0.5 and len(topic) > 3:
+                    qs.append(CuriosityQuestion(
+                        observation=f"知识 '{topic[:50]}' 质量评分 {score} 但学习深度仅 {depth}",
+                        question=f"'{topic[:50]}' 资料不错（评分{score}），要不要深入挖掘更多相关内容？",
+                        importance=round(0.5 + score * 0.3, 2),
+                        explore_action="deep_learning",
+                        target=topic[:60],
+                        context={
+                            "topic": topic,
+                            "current_depth": depth,
+                            "score": score,
+                        }
+                    ))
+        except Exception:
+            pass
+
+        # 只保留最重要的2条，避免问题太多
+        qs.sort(key=lambda x: -x.importance)
+        return qs[:2]
 
     def _curiosity_global_research(self, snapshot: Dict[str, Any]) -> List[CuriosityQuestion]:
         """项目核心架构本身 → 搜全球资料学习更好方案"""

@@ -19,11 +19,16 @@ ENV/
 .venv/
 .idea/
 
-# 数据文件
+# 运行时数据（除重要状态文件外）
 data/*.json
 data/*.jsonl
 data/*.txt
-*.log
+!data/modification_log.json
+!data/thinking_daemon_state.json
+data/*.log
+data/screenshot_*.png
+data/region_*.png
+data/content_output/
 
 # 测试
 .pytest_cache/

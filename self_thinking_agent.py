@@ -203,15 +203,286 @@ class SelfThinkingAgent:
         # 所有路径都需要先扫描
         if skill and skill in self._skills:
             self._scan_project()
+            self._study_knowledge()
             return self.run_skill(skill, depth)
+
+        # 默认路径：学习 → 生成问题(好奇心+学习反馈) → 探索
         self._scan_project()
-        return self._run_full_cycle(depth)
+        learned = self._study_knowledge()
+
+        # 好奇心引擎生成问题（基于扫描数据）
+        self._generate_questions()
+
+        # 学习触发的行动和问题（追加，不覆盖）
+        if learned:
+            action_questions = self._apply_study_actions(learned)
+            study_questions = self._generate_questions_from_study(learned)
+            self.questions.extend(action_questions + study_questions)
+            if action_questions or study_questions:
+                print(f"  💡 学习触发了 {len(action_questions) + len(study_questions)} 个新问题")
+                print(f"  {'─'*40}")
+
+        if not self.questions:
+            print("💤 当前没有特别的好奇心触发")
+            return []
+
+        print(f"❓ 共 {len(self.questions)} 个好奇心问题")
+        return self._explore_and_store(self.questions[:depth])
 
     def _scan_project(self):
         """扫描项目当前状态"""
         self.snapshot = self.scanner.get_full_snapshot()
         self.diff = self.scanner.diff_from_previous(self.snapshot)
         self.scanner.save_snapshot(self.snapshot)
+
+    def _study_knowledge(self) -> List[Dict]:
+        """
+        在思考之前先"学习"知识库中的新资料
+        三级优先级：P0=项目自身, P1=系统相关概念, P2=其他按重要性
+        返回本轮学习的条目列表（可用于后续行动触发）
+        """
+        study_tracker = self.data_dir / "study_tracker.json"
+        studied_topics = set()
+        if study_tracker.exists():
+            try:
+                studied_topics = set(json.loads(study_tracker.read_text(encoding="utf-8")))
+            except Exception:
+                studied_topics = set()
+
+        try:
+            from knowledge_base import KnowledgeBase
+            kb = KnowledgeBase()
+            all_k = kb.get_all_knowledge()
+
+            # 找没学过的
+            unstudied = [k for k in all_k if k.get("topic", "") not in studied_topics]
+            if not unstudied:
+                return []
+
+            # 三级优先级排序
+            project_keywords = ["self", "thinking", "cognition", "modification", "scanner", "curiosity"]
+
+            def priority(entry):
+                cat = entry.get("category", "")
+                topic = entry.get("topic", "")
+                imp = entry.get("importance", 0.5)
+                if cat == "项目自身":
+                    return (0, -imp)  # P0: 项目自身知识优先
+                if any(kw in cat.lower() for kw in project_keywords) or \
+                   any(kw in topic.lower() for kw in project_keywords):
+                    return (1, -imp)  # P1: 系统相关概念
+                return (2, -imp)  # P2: 其他
+
+            unstudied.sort(key=priority)
+
+            batch = unstudied[:5]  # 每轮最多学5条
+            if not batch:
+                return []
+
+            learned = []
+            for entry in batch:
+                studied_topics.add(entry.get("topic", ""))
+                learned.append({
+                    "topic": entry.get("topic", ""),
+                    "source": entry.get("source", ""),
+                    "importance": entry.get("importance", 0),
+                    "category": entry.get("category", ""),
+                    "content": entry.get("content", ""),
+                    "key_concepts": entry.get("keywords", [])[:5],
+                    "summary": (entry.get("content", "") or "")[:100],
+                })
+
+            # 保存学习追踪
+            study_tracker.write_text(json.dumps(list(studied_topics), ensure_ascii=False), encoding="utf-8")
+
+            # 记录学习日志
+            study_log = self.data_dir / "study_log.json"
+            study_entries = []
+            if study_log.exists():
+                try:
+                    study_entries = json.loads(study_log.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            study_entries.append({
+                "time": datetime.now().isoformat(),
+                "batch_size": len(learned),
+                "total_studied": len(studied_topics),
+                "total_kb": len(all_k),
+                "entries": [{
+                    "topic": l["topic"],
+                    "source": l["source"],
+                    "importance": l["importance"],
+                    "category": l["category"],
+                    "key_concepts": l["key_concepts"],
+                    "summary": l["summary"],
+                } for l in learned],
+            })
+            study_log.write_text(json.dumps(study_entries, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            # 打印学习摘要
+            print(f"\n  {'─'*40}")
+            print(f"  📖 学习新知识 ({len(learned)}/{len(all_k)}):")
+            for l in learned:
+                tag = "🔬" if "[深度]" in l["topic"] else "📄"
+                pri = "⭐ " if l.get("category") == "项目自身" else ""
+                concepts = ", ".join(l["key_concepts"][:3])
+                print(f"  {tag}{pri}{l['topic'][:60]}")
+                if concepts:
+                    print(f"     概念: {concepts}")
+            print(f"  {'─'*40}")
+
+            return learned
+
+        except Exception as e:
+            print(f"  ⚠️ 学习阶段异常: {e}")
+            return []
+
+    def _apply_study_actions(self, learned: List[Dict]) -> List:
+        """
+        对学习的内容生成行动：检查代码质量问题，触发修复或爬虫补充
+        返回好奇心问题列表
+        """
+        from curiosity_engine import CuriosityQuestion
+        questions = []
+
+        for entry in learned:
+            topic = entry.get("topic", "")
+            content = entry.get("content", "")
+            category = entry.get("category", "")
+            importance = entry.get("importance", 0.5)
+
+            # 检查是否涉及裸 except
+            if "bare except" in content.lower() or "except:" in content:
+                questions.append(CuriosityQuestion(
+                    observation=f"学习到代码中存在 bare except 的问题",
+                    question=f"刚发现项目中可能有裸 except，要不要检查并修复？",
+                    importance=min(1.0, importance + 0.2),
+                    explore_action="self_heal",
+                    target=topic,
+                    context={"source": "study_action", "content_preview": content[:200]}
+                ))
+
+            # 检查是否涉及缺少文档
+            if "no docstring" in content.lower() or "missing doc" in content.lower() or "undocumented" in content.lower():
+                questions.append(CuriosityQuestion(
+                    observation=f"学习发现代码文档缺失的问题",
+                    question=f"发现有模块缺少文档，要不要补充？",
+                    importance=min(1.0, importance + 0.1),
+                    explore_action="self_heal",
+                    target=topic,
+                    context={"source": "study_action", "content_preview": content[:200]}
+                ))
+
+            # 如果是项目自身的条目且有价值，生成补充研究
+            if category == "项目自身" and importance >= 0.6 and len(content) > 100:
+                questions.append(CuriosityQuestion(
+                    observation=f"学习到有价值的项目自身知识: {topic[:50]}",
+                    question=f"刚学习了 '{topic[:60]}'，要不要深入搜索更多相关资料？",
+                    importance=round(importance, 2),
+                    explore_action="add_crawler_task",
+                    target=topic,
+                    context={
+                        "domain": topic.split()[0] if topic else "project",
+                        "missing": [topic[:60]],
+                        "source": "study_action",
+                    }
+                ))
+
+        # 记录行动到日志
+        if questions:
+            self._log_study_actions(learned, questions)
+
+        return questions
+
+    def _generate_questions_from_study(self, learned: List[Dict]) -> List:
+        """
+        从学习的内容生成新的好奇心问题，让学到的知识驱动进一步探索
+        """
+        from curiosity_engine import CuriosityQuestion
+        questions = []
+
+        for entry in learned:
+            topic = entry.get("topic", "")
+            content = entry.get("content", "")
+            importance = entry.get("importance", 0.5)
+            key_concepts = entry.get("key_concepts", [])[:3]
+            category = entry.get("category", "")
+
+            # 1. 学到项目自身相关内容 → 代码质量/改进问题
+            if category == "项目自身":
+                questions.append(CuriosityQuestion(
+                    observation=f"学习了项目自身知识: {topic[:60]}",
+                    question=f"学习了 '{topic[:60]}'，检查这部分代码还有优化空间吗？",
+                    importance=round(importance, 2),
+                    explore_action="read_file",
+                    target=self._find_target_file(topic),
+                    context={"source": "study_question", "category": category}
+                ))
+
+            # 2. 学到新技术概念且重要性较高 → 深入搜索
+            elif key_concepts and importance >= 0.6:
+                domain = key_concepts[0]
+                questions.append(CuriosityQuestion(
+                    observation=f"学到新概念: {topic[:50]}",
+                    question=f"'{topic[:60]}' 评分 {importance}，搜索更多关于 {domain} 的资料？",
+                    importance=round(importance, 2),
+                    explore_action="add_crawler_task",
+                    target=topic[:60],
+                    context={
+                        "domain": domain,
+                        "missing": [topic[:60]],
+                        "source": "study_question",
+                    }
+                ))
+
+            # 3. 条目内容较长/较重要 → 全球研究
+            if len(content) > 300 and importance >= 0.7:
+                questions.append(CuriosityQuestion(
+                    observation=f"发现高质量知识: {topic[:50]}",
+                    question=f"'{topic[:60]}' 内容质量很高，做全球深度研究？",
+                    importance=round(importance + 0.1, 2),
+                    explore_action="global_research",
+                    target=topic[:60],
+                    context={
+                        "research_queries": [topic[:80], f"{topic[:60]} tutorial", f"{topic[:60]} best practices"],
+                        "source": "study_question",
+                    }
+                ))
+
+        return questions
+
+    def _find_target_file(self, topic: str) -> str:
+        """从学习 topic 推断对应的项目文件"""
+        for py_file in Path.cwd().glob("*.py"):
+            if py_file.stem in topic:
+                return str(py_file)
+        return topic
+
+    def _log_study_actions(self, learned: List[Dict], questions: List):
+        """记录学习触发的行动到 thinking_log"""
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "type": "study_actions",
+            "learned_count": len(learned),
+            "actions_generated": len(questions),
+            "actions": [
+                {"observation": q.observation[:100], "action": q.explore_action, "target": q.target}
+                for q in questions
+            ],
+            "learned_topics": [l["topic"][:60] for l in learned],
+        }
+        self.data_dir.mkdir(exist_ok=True)
+        log_file = self.data_dir / "self_thinking_log.json"
+        try:
+            existing = []
+            if log_file.exists():
+                with open(log_file, encoding="utf-8") as f:
+                    existing = json.load(f)
+            existing.append(entry)
+            with open(log_file, "w", encoding="utf-8") as f:
+                json.dump(existing, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
 
     def _generate_questions(self):
         """从扫描数据生成好奇心问题"""

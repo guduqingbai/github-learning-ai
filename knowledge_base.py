@@ -337,6 +337,27 @@ class KnowledgeBase:
 
         return dict(sorted(category_count.items(), key=lambda x: x[1], reverse=True))
 
+    def get_knowledge_by_category(self, category: str) -> List[Dict[str, Any]]:
+        """
+        按类别获取知识条目
+
+        Args:
+            category: 类别名称
+
+        Returns:
+            该类别的知识条目列表
+        """
+        return [k for k in self.knowledge.values() if k.get("category") == category]
+
+    def get_knowledge_topics(self) -> List[str]:
+        """
+        获取所有知识主题
+
+        Returns:
+            所有知识主题列表
+        """
+        return list(self.topics)
+
     def add_knowledge(self, knowledge: Dict[str, Any]) -> bool:
         """
         添加新知识

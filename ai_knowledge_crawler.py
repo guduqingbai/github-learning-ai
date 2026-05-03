@@ -25,6 +25,7 @@ class AIKnowledgeCrawler:
         self.data_dir = Path("data")
         self.data_dir.mkdir(exist_ok=True)
         self.session_count = 0
+        self.last_results = []
         self.headers = {"User-Agent": "Mozilla/5.0 (compatible; LearningBot/1.0)"}
         self._log_buffer = []  # 日志缓冲，减少文件I/O
 
@@ -455,6 +456,7 @@ class AIKnowledgeCrawler:
         self.log(f"  共计: {len(unique)} 条 (去重后)")
 
         self.save_knowledge(unique)
+        self.last_results = unique
         self._flush_log()
         self.log(f"✅ [第{self.session_count}次] 爬取完成\n")
 
