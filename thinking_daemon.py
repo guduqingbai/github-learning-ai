@@ -6,12 +6,97 @@
 
 import time
 import json
+import os
 import threading
 import signal
 import atexit
+from dataclasses import dataclass, field
 from datetime import datetime
+from enum import Enum
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, List, Optional, Callable
+
+
+class DaemonHookEvent(str, Enum):
+    """守护进程 Tick 生命周期事件"""
+    TICK_START = "tick_start"
+    PRE_CYCLE = "pre_cycle"
+    POST_CYCLE = "post_cycle"
+    TICK_END = "tick_end"
+    PRE_SLEEP = "pre_sleep"
+    WAKE_UP = "wake_up"
+    ERROR = "error"
+
+
+class DaemonHook:
+    """单个 Tick 钩子"""
+    def __init__(self, event: str, handler, *, name: str = "", priority: int = 0):
+        self.event = event
+        self.handler = handler
+        self.name = name or getattr(handler, "__name__", "unnamed")
+        self.priority = priority
+
+
+# ── ForkedAgent 模式（源自 Claude Code runForkedAgent）──────────────
+
+class ForkedAgent:
+    """Fire-and-forget 子代理：后台并行执行，永不阻塞主循环"""
+
+    @staticmethod
+    def fire(target: Callable, args: tuple = (), *,
+             name: str = "fork", on_done: Optional[Callable] = None) -> threading.Thread:
+        """启动后台任务，可选完成回调"""
+        def wrapper():
+            try:
+                result = target(*args)
+                if on_done:
+                    on_done(result)
+            except Exception:
+                pass
+        thread = threading.Thread(target=wrapper, daemon=True, name=name)
+        thread.start()
+        return thread
+
+    @staticmethod
+    def fire_and_forget(target: Callable, args: tuple = (), name: str = "fork"):
+        """纯发后即忘，不关心结果"""
+        return ForkedAgent.fire(target, args, name=name)
+
+
+# ── StopHook 系统（源自 Claude Code stopHooks.ts）─────────────────
+
+@dataclass
+class StopHook:
+    """后台钩子服务：每轮结束后 fire-and-forget 执行
+    每个钩子有独立的门控检查 + 执行体，互不干扰"""
+    name: str
+    gate_check: Callable  # (daemon) -> bool — 最便宜的检查最先执行
+    run: Callable         # (daemon) -> None — 实际工作，在后台线程执行
+    priority: int = 0
+    cooldown: float = 300.0  # 秒，同类型最小执行间隔
+    _last_run: float = 0.0
+
+
+# ── Suppression Pipeline（源自 PromptSuggestion 的抑制检查）─────
+
+class SuppressionPipeline:
+    """行动前快速判断是否该行动：防止重复执行、频率过高、无数据时空转"""
+
+    def __init__(self):
+        self._last_action: Dict[str, float] = {}
+
+    def should_suppress(self, action_name: str, min_interval: float = 300.0) -> bool:
+        """检查此操作是否被抑制"""
+        now = time.time()
+        last = self._last_action.get(action_name, 0.0)
+        if now - last < min_interval:
+            return True  # 过于频繁
+        self._last_action[action_name] = now
+        return False
+
+    def reset(self, action_name: str):
+        """重置抑制状态"""
+        self._last_action.pop(action_name, None)
 
 
 class ThinkingDaemon:
@@ -34,9 +119,29 @@ class ThinkingDaemon:
         self.thinking_depth = 3
         self.heal_threshold = 0.7   # 重要性超过此值的洞察触发自我修复
 
-        # 统计
+        # ---- KAIROS Tick 系统 ----
+        self._hooks: Dict[str, List[DaemonHook]] = {}
+        self.min_interval = 60       # 最短间隔（连续失败时）
+        self.max_interval = 1800     # 最长间隔（正常）
+        self.backoff_factor = 3      # 失败次数放大倍数
+
+        # ---- 健康指标追踪 ----
         self.cycle_count = 0
         self.last_cycle_time: Optional[str] = None
+        self.consecutive_failures = 0
+        self.error_count = 0
+        self.total_cycle_duration = 0.0
+        self.total_heal_attempts = 0
+        self.total_heal_successes = 0
+        self.cycle_durations: List[float] = []
+
+        # ---- StopHook 系统 ----
+        self._stop_hooks: List[StopHook] = []
+        self._suppression = SuppressionPipeline()
+        self._background_tasks: List[threading.Thread] = []
+
+        # 注册默认 stop hooks
+        self._register_default_hooks()
 
         # 注册退出处理
         atexit.register(self._shutdown)
@@ -66,6 +171,11 @@ class ThinkingDaemon:
             return False
 
         self.is_running = True
+        # 更新锁文件中的 PID
+        try:
+            (self.data_dir / "daemon.lock").write_text(str(os.getpid()))
+        except Exception:
+            pass
         self._thread = threading.Thread(target=self._daemon_loop, daemon=True)
         self._thread.start()
         self._log("自主思考守护进程已启动")
@@ -79,24 +189,304 @@ class ThinkingDaemon:
         self._save_state()
         self._log("自主思考守护进程已停止")
 
+    # ---- Tick Hook 系统 ----
+
+    def register_tick_hook(self, event: str, handler, *, name: str = "", priority: int = 0):
+        """注册 Tick 生命周期钩子"""
+        hook = DaemonHook(event, handler, name=name, priority=priority)
+        self._hooks.setdefault(event, []).append(hook)
+        self._hooks[event].sort(key=lambda h: h.priority)
+
+    def unregister_tick_hook(self, event: str, handler=None, name: str = ""):
+        """移除 Tick 钩子"""
+        hooks = self._hooks.get(event, [])
+        if handler:
+            self._hooks[event] = [h for h in hooks if h.handler != handler]
+        elif name:
+            self._hooks[event] = [h for h in hooks if h.name != name]
+        if not self._hooks.get(event):
+            self._hooks.pop(event, None)
+
+    def _run_tick_hooks(self, event: str, **context):
+        """执行指定事件的所有 Tick 钩子"""
+        hooks = self._hooks.get(event, [])
+        if not hooks:
+            return
+        for hook in hooks:
+            try:
+                hook.handler(self, **context)
+            except Exception as e:
+                self._log(f"钩子 [{hook.name}] 执行失败: {e}")
+
+    # ---- StopHook 系统 ----
+
+    def register_stop_hook(self, hook: StopHook):
+        """注册一个后台钩子服务"""
+        self._stop_hooks.append(hook)
+        self._stop_hooks.sort(key=lambda h: h.priority)
+        self._log(f"注册 StopHook: {hook.name}")
+
+    def unregister_stop_hook(self, name: str):
+        """移除一个后台钩子服务"""
+        self._stop_hooks = [h for h in self._stop_hooks if h.name != name]
+
+    def _run_stop_hooks(self):
+        """每轮结束后执行所有 stop hooks（fire-and-forget，永不阻塞主循环）"""
+        for hook in self._stop_hooks:
+            # 抑制检查：太频繁就不跑
+            if self._suppression.should_suppress(hook.name, hook.cooldown):
+                continue
+            # 门控检查：最便宜的检查最先
+            try:
+                if not hook.gate_check(self):
+                    continue
+            except Exception as e:
+                self._log(f"  StopHook [{hook.name}] 门控异常: {e}")
+                continue
+            # Fire-and-forget：后台线程执行
+            hook._last_run = time.time()
+            def run_wrapper(h=hook):
+                try:
+                    h.run(self)
+                    self._log(f"  StopHook [{h.name}] 完成")
+                except Exception as e:
+                    self._log(f"  StopHook [{h.name}] 异常: {e}")
+            t = ForkedAgent.fire(run_wrapper, name=f"stophook-{hook.name}")
+            self._background_tasks.append(t)
+        # 清理已结束的线程引用
+        self._background_tasks = [t for t in self._background_tasks if t.is_alive()]
+
+    def _register_default_hooks(self):
+        """注册默认的 stop hooks"""
+        # ---- H1: 知识库自动整理 ----
+        self.register_stop_hook(StopHook(
+            name="auto_consolidation",
+            priority=10,
+            cooldown=3600.0,  # 最少间隔 1h
+            gate_check=lambda d: self._gate_consolidation(d),
+            run=lambda d: self._run_consolidation(d),
+        ))
+        # ---- H2: 记忆提取 ----
+        self.register_stop_hook(StopHook(
+            name="memory_extraction",
+            priority=20,
+            cooldown=600.0,  # 最少间隔 10min
+            gate_check=lambda d: self._gate_memory_extraction(d),
+            run=lambda d: self._run_memory_extraction(d),
+        ))
+        # ---- H3: 健康自检 ----
+        self.register_stop_hook(StopHook(
+            name="health_check",
+            priority=30,
+            cooldown=3600.0,  # 最少间隔 1h
+            gate_check=lambda d: True,  # 无门控，靠 cooldown 节流
+            run=lambda d: self._run_health_check(d),
+        ))
+    # ---- 门控检查（从最便宜到最贵排序）----
+
+    @staticmethod
+    def _gate_consolidation(daemon) -> bool:
+        """知识库整理门控：feature flag + 时间门 + 条目门 + 锁门"""
+        from system_state_manager import SystemStateManager
+        try:
+            sm = SystemStateManager()
+            ffm = sm.get_feature_flag_manager()
+            if not ffm.is_enabled("auto_consolidation"):
+                return False
+        except Exception:
+            pass
+        # 时间门 + 条目门（从 consolidate_tracker 读取）
+        from knowledge_base import KnowledgeBase
+        tracker_file = daemon.data_dir / "consolidate_tracker.json"
+        if tracker_file.exists():
+            try:
+                tracker = json.loads(tracker_file.read_text(encoding="utf-8"))
+                last_run = tracker.get("last_run", "")
+                if last_run:
+                    last = datetime.fromisoformat(last_run)
+                    hours_since = (datetime.now() - last).total_seconds() / 3600
+                    if hours_since < 12:  # 至少 12 小时
+                        return False
+                # 条目门：至少 5 个新条目
+                kb = KnowledgeBase()
+                current = len(kb.get_all_knowledge())
+                prev = tracker.get("kb_size", 0)
+                if prev > 0 and current - prev < 5:
+                    return False
+            except Exception:
+                pass
+        # 锁门
+        return KnowledgeBase.acquire_consolidation_lock(daemon.data_dir)
+
+    @staticmethod
+    def _gate_memory_extraction(daemon) -> bool:
+        """记忆提取门控：feature flag + 有新条目"""
+        from system_state_manager import SystemStateManager
+        try:
+            sm = SystemStateManager()
+            ffm = sm.get_feature_flag_manager()
+            if not ffm.is_enabled("memory_extraction"):
+                return False
+        except Exception:
+            pass
+        # 检查是否有新知识条目
+        try:
+            from knowledge_base import KnowledgeBase
+            kb = KnowledgeBase()
+            tracker_file = daemon.data_dir / "extract_tracker.json"
+            if tracker_file.exists():
+                tracker = json.loads(tracker_file.read_text(encoding="utf-8"))
+                last_idx = tracker.get("last_idx", -1)
+                total = len(kb.get_all_knowledge())
+                if total <= last_idx + 1:
+                    return False  # 没有新条目
+        except Exception:
+            pass
+        return True
+
+    # ---- StopHook 执行体 ----
+
+    @staticmethod
+    def _run_consolidation(daemon):
+        """执行知识库整理（后台线程）"""
+        from knowledge_base import KnowledgeBase
+        try:
+            kb = KnowledgeBase()
+            stats = kb.consolidate_knowledge(max_per_category=50, dry_run=False)
+            # 更新追踪
+            tracker_file = daemon.data_dir / "consolidate_tracker.json"
+            tracker = {"last_run": datetime.now().isoformat(), "kb_size": len(kb.get_all_knowledge()), "last_stats": stats}
+            tracker_file.write_text(json.dumps(tracker, ensure_ascii=False, indent=2))
+            if stats.get("removed_stale") or stats.get("deduped") or stats.get("pruned"):
+                daemon._log(f"  🧹 知识库整理: 清理 {stats.get('removed_stale',0)} 过期 + {stats.get('deduped',0)} 去重 + {stats.get('pruned',0)} 修剪")
+        finally:
+            KnowledgeBase.release_consolidation_lock(daemon.data_dir)
+
+    @staticmethod
+    def _run_memory_extraction(daemon):
+        """执行记忆提取（后台线程）"""
+        from self_thinking_agent import SelfThinkingAgent
+        agent = SelfThinkingAgent()
+        agent._extract_memories()
+
+    @staticmethod
+    def _run_health_check(daemon):
+        """执行健康自检"""
+        # 检查最近的修复是否仍然有效
+        if daemon._thinking_agent:
+            try:
+                agent = daemon._thinking_agent
+                agent.snapshot = agent.scanner.get_full_snapshot()
+                agent._verify_past_improvements()
+            except Exception as e:
+                daemon._log(f"  健康自检异常: {e}")
+
     # ---- 核心循环 ----
 
     def _daemon_loop(self):
-        """守护进程主循环"""
+        """守护进程主循环 — KAIROS Tick 模式"""
+        self._log("守护线程开始运行 (KAIROS Tick 模式)")
         while self.is_running:
+            self._run_tick_hooks(DaemonHookEvent.TICK_START)
             try:
+                cycle_start = time.time()
+                self._run_tick_hooks(DaemonHookEvent.PRE_CYCLE)
                 self._run_thinking_cycle()
+                elapsed = time.time() - cycle_start
                 self.cycle_count += 1
                 self.last_cycle_time = datetime.now().isoformat()
+                self.total_cycle_duration += elapsed
+                self.cycle_durations.append(elapsed)
+                if len(self.cycle_durations) > 50:
+                    self.cycle_durations.pop(0)
+                self._log(f"第 {self.cycle_count} 轮完成 ({elapsed:.0f}s) | 连续失败: {self.consecutive_failures}")
                 self._save_state()
+                self._write_health_status()
+                self.consecutive_failures = 0  # 成功后重置
+                self._run_tick_hooks(DaemonHookEvent.POST_CYCLE, elapsed=elapsed)
+                # Fire-and-forget stop hooks（不阻塞主循环）
+                self._run_stop_hooks()
             except Exception as e:
-                self._log(f"思考循环异常: {e}")
+                self.consecutive_failures += 1
+                self.error_count += 1
+                self._log(f"思考循环异常 (连续{self.consecutive_failures}次): {e}")
+                import traceback
+                self._log(f"  traceback: {traceback.format_exc()[:200]}")
+                self._write_health_status(error=str(e)[:100])
+                self._run_tick_hooks(DaemonHookEvent.ERROR, error=e)
 
-            # 等待到下一个周期（每秒检查是否该停止）
-            for _ in range(self.cycle_interval):
+            # 动态睡眠间隔
+            sleep_interval = self._calculate_sleep_interval()
+            self._run_tick_hooks(DaemonHookEvent.TICK_END,
+                                 interval=sleep_interval,
+                                 consecutive_failures=self.consecutive_failures)
+            self._run_tick_hooks(DaemonHookEvent.PRE_SLEEP, interval=sleep_interval)
+            for _ in range(sleep_interval):
                 if not self.is_running:
                     return
                 time.sleep(1)
+            self._run_tick_hooks(DaemonHookEvent.WAKE_UP)
+
+    def _calculate_sleep_interval(self) -> int:
+        """动态计算睡眠间隔：正常 max_interval，连续失败时指数退避"""
+        if self.consecutive_failures <= 0:
+            return self.max_interval
+        divisor = self.backoff_factor ** min(self.consecutive_failures, 5)
+        computed = max(self.min_interval, self.max_interval // divisor)
+        self._log(f"  动态间隔: {computed}s (连续失败 {self.consecutive_failures} 次)")
+        return computed
+
+    def _write_health_status(self, error: str = ""):
+        """写入健康状态文件，供外部监控 — 含详细 KAIROS 指标"""
+        try:
+            loop_active = self.is_running
+            if loop_active:
+                import platform
+                lock_file = self.data_dir / "daemon.lock"
+                if lock_file.exists():
+                    try:
+                        pid = int(lock_file.read_text().strip())
+                        if platform.system() == "Windows":
+                            import ctypes
+                            PROCESS_QUERY_INFORMATION = 0x0400
+                            handle = ctypes.windll.kernel32.OpenProcess(
+                                PROCESS_QUERY_INFORMATION, 0, pid)
+                            if handle:
+                                ctypes.windll.kernel32.CloseHandle(handle)
+                            else:
+                                loop_active = False
+                        else:
+                            os.kill(pid, 0)
+                    except (OSError, ValueError):
+                        loop_active = False
+            avg_duration = round(self.total_cycle_duration / max(1, self.cycle_count), 1)
+            heal_success_rate = round(
+                self.total_heal_successes / max(1, self.total_heal_attempts) * 100, 1
+            ) if self.total_heal_attempts > 0 else 0.0
+            status = {
+                "running": loop_active,
+                "cycle_count": self.cycle_count,
+                "error_count": self.error_count,
+                "consecutive_failures": self.consecutive_failures,
+                "last_cycle": self.last_cycle_time,
+                "avg_cycle_duration_s": avg_duration,
+                "last_duration_s": round(self.cycle_durations[-1], 1) if self.cycle_durations else 0,
+                "heal_attempts": self.total_heal_attempts,
+                "heal_successes": self.total_heal_successes,
+                "heal_success_rate": heal_success_rate,
+                "interval_config": {
+                    "current_max": self.max_interval,
+                    "min_interval": self.min_interval,
+                    "backoff_factor": self.backoff_factor,
+                },
+                "error": error,
+                "updated_at": datetime.now().isoformat(),
+            }
+            self.data_dir.mkdir(exist_ok=True)
+            (self.data_dir / "daemon_health.json").write_text(
+                json.dumps(status, ensure_ascii=False), encoding="utf-8")
+        except Exception:
+            pass
 
     def _run_thinking_cycle(self):
         """执行一轮完整的思考→行动循环"""
@@ -127,11 +517,16 @@ class ThinkingDaemon:
             self._log(f"应用了 {heals_applied} 个自我修复")
 
     def _apply_heals(self, insights: list) -> int:
-        """根据洞察尝试自我修复"""
+        """根据洞察尝试自我修复（heal_threshold 过滤 + error_kind 分类日志 + 统计）"""
         applied = 0
 
         for insight in insights:
-            # 检查洞察是否包含修改建议
+            # heal_threshold 过滤：低于阈值的跳过
+            importance = insight.get("importance", 0.0)
+            if importance < self.heal_threshold:
+                self._log(f"  跳过修复: 重要性 {importance} < 阈值 {self.heal_threshold}")
+                continue
+
             findings = insight.get("findings", [])
             summary = insight.get("summary", "")
             topic = insight.get("topic", "")
@@ -139,22 +534,31 @@ class ThinkingDaemon:
             # 寻找可修复的代码问题
             for finding in findings:
                 if "文档缺失" in finding or "模块文档缺失" in finding:
-                    # 尝试为对应文件添加文档
                     filepath = self._extract_file_from_topic(topic)
                     if filepath:
                         result = self._modification_engine.add_module_docstring(filepath)
+                        self.total_heal_attempts += 1
                         if result.get("success"):
                             applied += 1
+                            self.total_heal_successes += 1
                             self._log(f"✅ 已修复: {filepath} 添加模块文档")
+                        else:
+                            ek = result.get("error_kind", "unknown")
+                            self._log(f"❌ 修复失败 [{ek}]: {filepath} - {result.get('error', '')}")
 
             # 检查 summary 中是否有可修复的问题
             if "裸 except" in summary or "bare except" in summary:
                 filepath = self._extract_file_from_topic(topic)
                 if filepath:
                     result = self._modification_engine.fix_bare_excepts(filepath)
+                    self.total_heal_attempts += 1
                     if result.get("success"):
                         applied += 1
+                        self.total_heal_successes += 1
                         self._log(f"✅ 已修复: {filepath} 修复裸 except")
+                    else:
+                        ek = result.get("error_kind", "unknown")
+                        self._log(f"❌ 修复失败 [{ek}]: {filepath} - {result.get('error', '')}")
 
         return applied
 
@@ -191,25 +595,36 @@ class ThinkingDaemon:
                 self.last_cycle_time = state.get("last_cycle_time")
                 self.cycle_interval = state.get("cycle_interval", 1800)
                 self.thinking_depth = state.get("thinking_depth", 3)
+                self.consecutive_failures = state.get("consecutive_failures", 0)
+                self.error_count = state.get("error_count", 0)
+                self.total_cycle_duration = state.get("total_cycle_duration", 0.0)
+                self.total_heal_attempts = state.get("total_heal_attempts", 0)
+                self.total_heal_successes = state.get("total_heal_successes", 0)
                 self._log(f"加载状态: 已运行 {self.cycle_count} 轮")
             except Exception:
                 pass
 
     def _save_state(self):
-        """持久化当前状态"""
+        """持久化当前状态（原子写入）"""
         try:
+            import tempfile
             state = {
                 "cycle_count": self.cycle_count,
                 "last_cycle_time": self.last_cycle_time,
                 "cycle_interval": self.cycle_interval,
                 "thinking_depth": self.thinking_depth,
                 "heal_threshold": self.heal_threshold,
+                "consecutive_failures": self.consecutive_failures,
+                "error_count": self.error_count,
+                "total_cycle_duration": self.total_cycle_duration,
+                "total_heal_attempts": self.total_heal_attempts,
+                "total_heal_successes": self.total_heal_successes,
                 "updated_at": datetime.now().isoformat(),
             }
-            self.state_file.write_text(
-                json.dumps(state, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
+            fd, tmp = tempfile.mkstemp(suffix=".tmp", dir=str(self.data_dir))
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(state, f, ensure_ascii=False, indent=2)
+            os.replace(tmp, str(self.state_file))
         except Exception as e:
             self._log(f"状态保存失败: {e}")
 

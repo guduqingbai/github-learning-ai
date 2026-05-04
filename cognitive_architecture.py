@@ -322,12 +322,26 @@ class ReasoningSystem:
         except Exception:
             creativity = 0.2
 
+        # 知识图校准：用知识图缺口修正好奇心
+        low_depth_count = 0
+        try:
+            from knowledge_graph import KnowledgeGraph
+            kg = KnowledgeGraph()
+            gaps = kg.find_gaps()
+            low_depth_count = len([g for g in gaps if g['type'] == 'isolated'])
+            if low_depth_count > 3:
+                curiosity_boost = min(0.3, low_depth_count * 0.02)
+                curiosity = min(1.0, curiosity + curiosity_boost)
+        except Exception:
+            pass
+
         reasoning_result = {
             "curiosity": curiosity,
             "creativity": creativity,
             "decision": None,
             "top_questions": [{"question": q.question} for q in questions[:3]]
             if num_questions > 0 else [],
+            "low_depth_topics": low_depth_count,
         }
 
         # 感知数据修正

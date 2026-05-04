@@ -65,8 +65,13 @@ def thinking_loop():
             daemon.cycle_count += 1
             daemon.last_cycle_time = datetime.now().isoformat()
             daemon._save_state()
+            daemon._write_health_status()
         except Exception as e:
             log(f"⚠️ 思考循环异常: {e}")
+            try:
+                daemon._write_health_status(error=str(e)[:100])
+            except Exception:
+                pass
         # 等30分钟，每秒检查是否退出
         for _ in range(daemon.cycle_interval):
             time.sleep(1)

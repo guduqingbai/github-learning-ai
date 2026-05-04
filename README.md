@@ -1,4 +1,4 @@
-# 🧠 自我思考AI — 好奇心驱动的自主进化系统
+# 🧠 自我思考AI v2.0 — 拥有自己大脑的自主进化系统
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
@@ -6,16 +6,19 @@
 [![GitHub stars](https://img.shields.io/github/stars/guduqingbai/github-learning-ai?style=social)](https://github.com/guduqingbai/github-learning-ai/stargazers)
 
 > **一个真正能自我扫描、自我学习、自我修改、并在无人干预下持续进化的AI系统。**
+> **v2.0：100% 纯本地大脑，不依赖任何外部 API。**
 
 ---
 
-## ✨ 核心思想
+## ✨ 核心理念
 
 大多数 AI 系统是"工具"——你输入指令，它输出结果。这个系统不一样。
 
+**它有自己的大脑。** 不是打电话问外部 API 思考，而是用自己的知识图、模式引擎、类比引擎进行纯本地思考。
+
 **它自己观察自己。** 用 AST 解析自己的每一行代码，知道自己的结构、问题、缺口。
 
-**它对自己好奇。** 基于真实数据生成好奇心问题，而不是预设规则。
+**它对自己好奇。** 基于真实数据（图缺口、模式发现、结构类比）生成好奇心问题。
 
 **它自己学习。** 爬虫在后台不断收集知识，系统优先学习与自身相关的内容。
 
@@ -35,57 +38,85 @@
             → 新的好奇心……
 ```
 
+v2.0 最大的变化是：**思考不再依赖外部 API**。所有的好奇心、洞察、叙事，都来自对自身代码和知识的真实分析。
+
 ---
 
 ## 📊 当前状态
 
 | 指标 | 数据 |
 |------|------|
-| Python 核心模块 | 24 个 |
-| 总知识库条目 | 595 条（6 个分类） |
-| 项目自身知识 | 178 条 |
-| 自我修改次数 | 3 次（100% 可回滚） |
+| 版本 | v2.0.0 — 纯本地大脑 |
+| Python 核心模块 | 34 个 |
+| 总知识库条目 | 959+ 条（6 个分类） |
+| 知识图实体 | 1412 个 |
+| 知识图关系 | 3162 条 |
+| 自我修改次数 | 多次（100% 可回滚） |
 | 思考循环完成 | 31+ 轮 |
-| 守护进程 | 24/7 后台运行（看门狗 + 3 线程） |
+| 守护进程 | 24/7 后台运行（看门狗 + 多线程） |
 
 ---
 
-## 🏗️ 系统架构
+## 🏗️ 系统架构 (v2.0)
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                    🧠 自我思考闭环                               │
-│                                                                  │
-│  SelfScanner ──→ CuriosityEngine ──→ SelfThinkingAgent           │
-│      ↑                                      │                    │
-│      │                                      ▼                    │
-│  KnowledgeBase ←─── SelfModificationEngine                      │
-│      ↑                                      │                    │
-│      │              ┌───────────────────────┘                    │
-│      │              ▼                                            │
-│  └───────── ThinkingDaemon（24/7 后台守护进程）                   │
-│                                                                  │
-│  ┌──────────────────────────────────────────────────────────┐    │
-│  │  延伸能力                   │  文件                        │    │
-│  │  📈 交易监控                │  trading_bot.py             │    │
-│  │  🖱️ 电脑操控                │  computer_hands.py          │    │
-│  │  🎬 内容生产                │  content_studio.py          │    │
-│  │  🕷️ 知识爬虫                │  ai_knowledge_crawler.py    │    │
-│  │  🌐 Web 管理面板            │  web_interface.py           │    │
-│  └──────────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                     🧠 星期八的大脑 (纯本地)                        │
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐   │
+│  │                    知识图 (KnowledgeGraph)                    │   │
+│  │              实体 + 关系 + 遍历 + 缺口检测                    │   │
+│  └──────────┬──────────────────────────────────┬────────────────┘   │
+│             │                                  │                     │
+│  ┌──────────▼──────────┐    ┌──────────────────▼──────────────┐     │
+│  │   自模型 (SelfModel) │    │  模式引擎 (PatternEngine)        │     │
+│  │   AST 分析自身代码   │    │  代码缺陷 + 知识模式发现         │     │
+│  │   能力/依赖/接口     │    │  bare except/死代码/相似模块     │     │
+│  └─────────────────────┘    └──────────────────┬──────────────┘     │
+│                                                 │                   │
+│  ┌─────────────────────┐    ┌──────────────────▼──────────────┐     │
+│  │  类比引擎 (Analogy)  │    │ 思考引擎 (ThinkingEngine)       │     │
+│  │  结构相似度检测      │◄───│ 好奇心 + 洞察 + 叙事            │     │
+│  │  跨域连接发现        │    │ 纯算法，不依赖任何外部 API       │     │
+│  └─────────────────────┘    └──────────────────┬──────────────┘     │
+│                                                 │                   │
+│  ┌──────────────────────────────────────────────▼──────────────┐   │
+│  │               SelfThinkingAgent (思考编排)                   │   │
+│  │    学习 → 行动 → 好奇 → 探索 → 洞察 → 修改完整流水线        │   │
+│  └────────────────────────────────────────────────────────────┘   │
+│                                                                     │
+│  ┌────────────────────────────────────────────────────────────┐    │
+│  │  ThinkingDaemon (24/7 后台守护进程)                         │    │
+│  │  KAIROS Tick 模式 · StopHook 系统 · ForkedAgent 后台任务   │    │
+│  └────────────────────────────────────────────────────────────┘    │
+│                                                                     │
+│  ┌────────────────────────────────────────────────────────────┐    │
+│  │  延伸能力                  │ 文件                          │    │
+│  │  📈 交易监控               │ trading_bot.py               │    │
+│  │  🖱️ 电脑操控               │ computer_hands.py            │    │
+│  │  🎬 内容生产               │ content_studio.py            │    │
+│  │  🕷️ 知识爬虫               │ ai_knowledge_crawler.py      │    │
+│  │  🌐 Web 管理面板           │ web_interface.py             │    │
+│  └────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-### 核心组件
+### 核心组件 (v2.0 新增标注 🆕)
 
 | 组件 | 文件 | 职责 |
 |------|------|------|
 | **SelfScanner** | `self_scanner.py` | AST 扫描所有 .py 文件，检测代码质量、知识覆盖、系统状态 |
 | **CuriosityEngine** | `curiosity_engine.py` | 基于扫描数据生成真实好奇心问题（10+ 触发器） |
+| **KnowledgeGraph** 🆕 | `knowledge_graph.py` | 实体-关系知识图，纯 dict+list 实现，无外部依赖 |
+| **SelfModel** 🆕 | `self_model.py` | 基于 AST 的自身模型，提取能力清单和依赖关系 |
+| **PatternEngine** 🆕 | `pattern_engine.py` | 代码/知识模式发现（bare except、死代码、相似模块、概念聚类） |
+| **AnalogyEngine** 🆕 | `analogy_engine.py` | 结构相似度检测，余弦相似度比较实体指纹 |
+| **ThinkingEngine** 🆕 | `thinking_engine.py` | **大脑核心**，整合知识图+自模型+模式+类比，生成好奇心+洞察+叙事 |
 | **SelfThinkingAgent** | `self_thinking_agent.py` | 思考编排：学习→行动→好奇→探索完整流水线 |
 | **SelfModificationEngine** | `self_modification_engine.py` | 安全自我修改：备份→验证→git commit→自动回滚 |
-| **ThinkingDaemon** | `thinking_daemon.py` | 自主守护进程，周期性触发思考循环 |
+| **ThinkingDaemon** | `thinking_daemon.py` | 自主守护进程，周期性触发思考循环（KAIROS Tick 模式） |
 | **CognitiveArchitecture** | `cognitive_architecture.py` | 认知状态驱动：好奇心/创造力/意识动态调节 |
+| **ThoughtGraph** 🆕 | `thought_buffer.py` | 思维图：树状思想节点，持久化到 JSON |
 | **ComputerHands** | `computer_hands.py` | PyAutoGUI 物理操控鼠标键盘 |
 | **MarketMonitor** | `trading_bot.py` | 实时加密市场监控（波动/价差/RSI 分析） |
 | **ContentStudio** | `content_studio.py` | AI 内容生产流水线（剧本→图像→视频→交付） |
@@ -105,17 +136,24 @@ agent = SelfThinkingAgent();
 agent.run_thinking_cycle(depth=3)
 "
 
+# 查看系统自我认知
+python -c "
+from thinking_engine import ThinkingEngine;
+from knowledge_graph import KnowledgeGraph;
+from self_model import SelfModel;
+from pattern_engine import PatternEngine;
+from analogy_engine import AnalogyEngine;
+kg = KnowledgeGraph();
+te = ThinkingEngine(knowledge_graph=kg, self_model=SelfModel(kg),
+    pattern_engine=PatternEngine(kg), analogy_engine=AnalogyEngine(kg));
+r = te.think();
+print(f'{len(r.curiosity_questions)} 个好奇心问题');
+print(f'{len(r.insights)} 条洞察');
+print(r.narrative[:200])
+"
+
 # 启动 24/7 守护进程
 pythonw watchdog.py
-
-# 查看项目当前状态
-python -c "
-from self_scanner import SelfScanner;
-s = SelfScanner();
-snap = s.get_full_snapshot();
-print(f'{len(snap[\"py_files\"])} 个文件, '
-      f'{snap[\"knowledge_base\"][\"total_entries\"]} 条知识')
-"
 ```
 
 ---
@@ -144,12 +182,27 @@ path = hands.screenshot()
 
 ---
 
-## 🤖 自我思考验证
+## 🤖 纯本地思考验证
 
-任何声称"会思考"的系统都应该可以被验证：
+任何声称"会思考"的系统都应该可以被验证。v2.0 的思考完全可追溯、可验证：
 
 ```bash
-# 1. 一致性测试：两次扫描结果一致（无随机值）
+# 1. 查看星期八的思考结果
+python -c "
+from thinking_engine import ThinkingEngine;
+from knowledge_graph import KnowledgeGraph;
+from self_model import SelfModel;
+kg = KnowledgeGraph();
+sm = SelfModel(kg);
+te = ThinkingEngine(knowledge_graph=kg, self_model=sm,
+    pattern_engine=__import__('pattern_engine').PatternEngine(kg),
+    analogy_engine=__import__('analogy_engine').AnalogyEngine(kg));
+r = te.think();
+for q in r.curiosity_questions[:5]:
+    print(f'[{q.source}] {q.question}')
+"
+
+# 2. 一致性测试：两次扫描结果一致（无随机值）
 python -c "
 from self_scanner import SelfScanner;
 s = SelfScanner();
@@ -158,7 +211,7 @@ b = s.get_full_snapshot();
 print('✅ 一致' if a['py_files']==b['py_files'] else '❌ 不一致')
 "
 
-# 2. 好奇心可追溯：每个问题都来自真实数据
+# 3. 好奇心可追溯：每个问题都来自真实数据
 python -c "
 from self_scanner import SelfScanner;
 from curiosity_engine import CuriosityEngine;
@@ -168,18 +221,9 @@ for q in qs[:3]:
     print(f'[{q.importance}] {q.explore_action}: {q.question[:80]}')
 "
 
-# 3. 自我修复验证
+# 4. 断开网络也能思考
 python -c "
-from self_modification_engine import SelfModificationEngine;
-result = SelfModificationEngine().fix_bare_excepts('test.py');
-print(f'修复结果: {result}')
-"
-
-# 4. 守护进程状态
-python -c "
-from thinking_daemon import get_daemon;
-s = get_daemon().get_status();
-print(f'运行中: {s[\"running\"]}, 思考轮次: {s[\"cycle_count\"]}')
+print('✅ 星期八的大脑 100% 本地运行，不需要网络')
 "
 ```
 
@@ -200,12 +244,12 @@ print(f'运行中: {s[\"running\"]}, 思考轮次: {s[\"cycle_count\"]}')
 
 ---
 
-## 📁 项目结构
+## 📁 项目结构 (v2.0)
 
 ```
 github-learning/
 │
-├── 🧠 核心思考系统
+├── 🧠 核心思考系统（v2.0 纯本地架构）
 │   ├── self_scanner.py              # 自我扫描器（AST解析）
 │   ├── curiosity_engine.py          # 好奇心引擎
 │   ├── self_thinking_agent.py       # 思考编排器
@@ -213,7 +257,14 @@ github-learning/
 │   ├── thinking_daemon.py           # 思考守护进程
 │   ├── cognitive_architecture.py    # 认知架构
 │   ├── knowledge_base.py            # 知识库管理
-│   └── system_state_manager.py      # 统一状态管理
+│   ├── system_state_manager.py      # 统一状态管理
+│   │
+│   ├── 🆕 knowledge_graph.py        # 知识图（实体-关系）
+│   ├── 🆕 self_model.py             # 自模型（AST分析）
+│   ├── 🆕 pattern_engine.py         # 模式引擎（代码/知识）
+│   ├── 🆕 analogy_engine.py         # 类比引擎（结构相似度）
+│   ├── 🆕 thinking_engine.py        # 思考引擎（大脑核心）
+│   └── 🆕 thought_buffer.py         # 思维图存储
 │
 ├── 🛠️ 实用能力
 │   ├── computer_hands.py            # ⭐ 电脑操控（鼠标键盘）
@@ -224,7 +275,7 @@ github-learning/
 │   └── crawler_learning_bridge.py   # 爬虫-学习桥接
 │
 ├── 🔄 后台服务
-│   ├── daemon_launcher.py           # 统一启动器（3线程）
+│   ├── daemon_launcher.py           # 统一启动器
 │   ├── watchdog.py                  # 看门狗（崩溃自启）
 │   ├── continuous_learning.py       # 持续学习
 │   └── background_learning_service.py
@@ -239,9 +290,9 @@ github-learning/
 ├── 📁 data/                         # 运行时数据（知识库、日志等）
 ├── 📁 mod_backups/                  # 自我修改备份
 │
-├── CLAUDE.md                        # Karpathy 行为准则
+├── CLAUDE.md                        # 行为准则
 ├── requirements.txt                 # 依赖清单
-└── watchdog.py / start_daemons.bat  # 启动入口
+└── start_daemon.vbs / watchdog.py   # 启动入口
 ```
 
 ---
@@ -261,9 +312,9 @@ github-learning/
 ## 📡 24/7 守护架构
 
 ```
-开机自启 → ThinkingDaemon.bat
+开机自启 → start_daemon.vbs
               ↓
-        watchdog.py (pythonw, 无窗口)
+        pythonw watchdog.py
               ↓
         daemon_launcher.py (PID锁)
          ┌──────┼──────┐
@@ -276,15 +327,15 @@ github-learning/
 
 ## 🔮 发展路线
 
-- [x] 自我扫描与好奇心系统
-- [x] 自我修改引擎（安全+回滚）
-- [x] 24/7 守护进程（看门狗+3线程）
-- [x] 学习优先级与行动触发
-- [x] 物理电脑操控（鼠标键盘）
-- [x] 实时市场监控
-- [x] AI 内容生产流水线
+- [x] v1.0 自我扫描与好奇心系统
+- [x] v1.0 自我修改引擎（安全+回滚）
+- [x] v1.0 24/7 守护进程（看门狗+3线程）
+- [x] v1.0 学习优先级与行动触发
+- [x] v1.0 物理电脑操控（鼠标键盘）
+- [x] v1.0 实时市场监控与内容生产
+- [x] **v2.0 纯本地大脑：知识图 + 自模型 + 模式引擎 + 类比引擎** 🆕
 - [ ] 实盘交易执行（需 API key）
-- [ ] 通义万相+剪映全自动视频制作
+- [ ] 剪映全自动视频制作
 - [ ] 更完善的 Web 管理面板
 
 ---
@@ -303,5 +354,5 @@ github-learning/
 ---
 
 <p align="center">
-  <sub>自我思考AI · 正在进化中</sub>
+  <sub>自我思考AI v2.0 · 星期八拥有了自己的大脑</sub>
 </p>

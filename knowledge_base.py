@@ -6,6 +6,7 @@
 
 import json
 import threading
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from utils import measure_performance
@@ -358,6 +359,164 @@ class KnowledgeBase:
         """
         return list(self.topics)
 
+    def consolidate_knowledge(self, max_per_category: int = 50,
+                               dry_run: bool = False) -> Dict[str, Any]:
+        """
+        知识整理（AutoDream 风格）：清除过期条目、去重、裁剪过大的分类
+
+        Args:
+            max_per_category: 每类最大条目数（超出部分裁剪，保留重要性最高的）
+            dry_run: 仅报告，不实际删除
+
+        Returns:
+            统计字典: removed, deduped, pruned, kept
+        """
+        stats = {"removed_stale": 0, "deduped": 0, "pruned": 0, "kept": 0}
+
+        to_remove = set()
+
+        # 1. 清除引用已不存在 .py 文件的模块分析条目
+        for topic, item in list(self.knowledge.items()):
+            if "模块分析" in topic:
+                # 从 topic 提取文件名，如 "xxx 模块分析" → "xxx.py"
+                stem = topic.replace(" 模块分析", "").strip()
+                py_path = Path(f"{stem}.py")
+                if not py_path.exists():
+                    to_remove.add(topic)
+                    stats["removed_stale"] += 1
+                    if not dry_run:
+                        print(f"  🗑️ 过期模块分析: {topic}")
+
+        # 2. 去重：主题高度相似（编辑距离 < 3 或共享前缀超过 80%）的保留 importance 最高的
+        topics = sorted(self.knowledge.keys())
+        dedup_groups = []
+        used = set()
+        for i, t1 in enumerate(topics):
+            if t1 in used or t1 in to_remove:
+                continue
+            group = [t1]
+            used.add(t1)
+            for t2 in topics[i + 1:]:
+                if t2 in used or t2 in to_remove:
+                    continue
+                # 简单前缀/后缀重叠检测
+                shorter = min(len(t1), len(t2))
+                if shorter > 4:
+                    overlap = sum(1 for a, b in zip(t1, t2) if a == b)
+                    if overlap / shorter >= 0.8:
+                        group.append(t2)
+                        used.add(t2)
+            if len(group) > 1:
+                dedup_groups.append(group)
+
+        for group in dedup_groups:
+            # 保留 importance 最高的（同分时选版本号最大的）
+            def sort_key(topic):
+                item = self.knowledge[topic]
+                imp = item.get("importance", 0)
+                # 从主题中提取版本号（如 "v3"、"v6"）
+                import re
+                vs = re.findall(r'[vV](\d+)', topic)
+                ver = int(vs[-1]) if vs else 0
+                return (-imp, -ver)
+            group.sort(key=sort_key)
+            keep = group[0]
+            for t in group[1:]:
+                to_remove.add(t)
+                stats["deduped"] += 1
+                if not dry_run:
+                    print(f"  🔗 去重: '{t}' → 合并到 '{keep}'")
+
+        # 3. 裁剪过大的分类
+        for cat in list(self.categories):
+            cat_items = [(k, v.get("importance", 0))
+                         for k, v in self.knowledge.items()
+                         if v.get("category") == cat and k not in to_remove]
+            if len(cat_items) > max_per_category:
+                cat_items.sort(key=lambda x: -x[1])
+                keep_count = max_per_category
+                for k, _ in cat_items[keep_count:]:
+                    to_remove.add(k)
+                    stats["pruned"] += 1
+                    if not dry_run:
+                        print(f"  ✂️ 裁剪 [{cat}]: {k[:60]} (重要性 {_})")
+
+        # 4. 生成压缩摘要（compact.rs 风格：Previously + Newly consolidated）
+        if to_remove and not dry_run:
+            removed_by_cat = {}
+            for topic in to_remove:
+                item = self.knowledge.get(topic, {})
+                cat = item.get("category", "其他")
+                removed_by_cat.setdefault(cat, []).append(topic)
+
+            summary_lines = []
+            for cat, topics in sorted(removed_by_cat.items()):
+                sample = sorted(topics)[:5]
+                label = ', '.join(s[:50] for s in sample)
+                summary_lines.append(f"- [{cat}] {len(topics)} 条: {label}{'...' if len(topics) > 5 else ''}")
+
+            current_summary = '\n'.join(summary_lines)
+            today = datetime.now().strftime("%Y-%m-%d")
+            summary_topic = "知识压缩摘要"
+
+            if summary_topic in self.knowledge:
+                existing_entry = self.knowledge[summary_topic]
+                prev = existing_entry.get("content", "")
+                parts = prev.split("\n\n")
+                recent_parts = parts[-4:]
+                cleaned = []
+                for p in recent_parts[:-1]:
+                    text = p.replace("【Previously consolidated】", "").replace("【Newly consolidated", "【Previously consolidated").strip()
+                    cleaned.append(f"【Previously consolidated】{text}")
+                if recent_parts:
+                    cleaned.append(f"【Newly consolidated ({today})】{current_summary}")
+                merged = "\n\n".join(cleaned[-4:])
+                self.knowledge[summary_topic].update({
+                    "content": merged,
+                    "importance": 0.7,
+                    "updated": datetime.now().isoformat(),
+                })
+            else:
+                self.knowledge[summary_topic] = {
+                    "topic": summary_topic,
+                    "category": "项目自身",
+                    "content": f"【Newly consolidated ({today})】\n{current_summary}",
+                    "source": "auto_consolidation",
+                    "keywords": ["知识压缩", "记忆合并", today],
+                    "importance": 0.7,
+                    "created": datetime.now().isoformat(),
+                }
+                self.topics.add(summary_topic)
+                self.categories.add("项目自身")
+
+            print(f"  📝 压缩摘要已更新")
+
+        # 5. 执行删除
+        for topic in to_remove:
+            self.knowledge.pop(topic, None)
+            self.topics.discard(topic)
+
+        # 清理空分类
+        for cat in list(self.categories):
+            has_remaining = any(
+                v.get("category") == cat
+                for v in self.knowledge.values()
+            )
+            if not has_remaining:
+                self.categories.discard(cat)
+
+        stats["kept"] = len(self.knowledge)
+
+        if not dry_run and (stats["removed_stale"] > 0 or stats["deduped"] > 0 or stats["pruned"] > 0):
+            self._save_knowledge()
+            print(f"  💾 知识库已保存 ({stats['kept']} 条)")
+
+        total_removed = stats["removed_stale"] + stats["deduped"] + stats["pruned"]
+        print(f"  📊 整理报告: 移除 {total_removed} 条"
+              f"(过期 {stats['removed_stale']}, 去重 {stats['deduped']}, 裁剪 {stats['pruned']})"
+              f", 保留 {stats['kept']} 条")
+        return stats
+
     def add_knowledge(self, knowledge: Dict[str, Any]) -> bool:
         """
         添加新知识
@@ -462,6 +621,67 @@ class KnowledgeBase:
 
         except Exception as e:
             print("❌ 保存知识数据失败: {}".format(e))
+
+    # ---- 自动合并锁机制（源自 autoDream/consolidationLock.ts） ----
+
+    @staticmethod
+    def acquire_consolidation_lock(data_dir: Path, lock_name: str = "consolidate") -> bool:
+        """
+        获取合并锁（PID 文件锁 + mtime 时间戳）
+
+        Returns True 表示成功获取锁。
+        如果锁被活动进程持有则返回 False。
+        死进程的锁会被自动回收。
+
+        源自 autoDream/consolidationLock.ts:
+        - 锁文件的 mtime 就是 lastConsolidatedAt
+        - PID 用于检测活进程
+        - 1 小时间隔的僵死进程回收
+        """
+        import os
+        lock_file = data_dir / f"{lock_name}.lock"
+        try:
+            if lock_file.exists():
+                pid_str = lock_file.read_text().strip()
+                if pid_str:
+                    try:
+                        pid = int(pid_str)
+                        os.kill(pid, 0)
+                        return False  # 锁被活动进程持有
+                    except (OSError, ValueError):
+                        pass  # 死进程，可以回收
+                lock_file.unlink(missing_ok=True)
+            lock_file.write_text(str(os.getpid()))
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def release_consolidation_lock(data_dir: Path, lock_name: str = "consolidate"):
+        """释放合并锁"""
+        lock_file = data_dir / f"{lock_name}.lock"
+        try:
+            if lock_file.exists():
+                lock_file.unlink(missing_ok=True)
+        except Exception:
+            pass
+
+    @staticmethod
+    def read_last_consolidated_at(data_dir: Path, lock_name: str = "consolidate") -> Optional[float]:
+        """
+        读取锁文件 mtime = 上次合并的时间戳
+        返回 None 表示从未合并过
+
+        源自 autoDream/consolidationLock.ts:
+        mtime of the lock file = lastConsolidatedAt
+        """
+        lock_file = data_dir / f"{lock_name}.lock"
+        try:
+            if lock_file.exists():
+                return lock_file.stat().st_mtime
+            return None
+        except Exception:
+            return None
 
 
 if __name__ == "__main__":

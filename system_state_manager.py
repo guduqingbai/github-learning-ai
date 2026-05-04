@@ -6,10 +6,117 @@
 
 import json
 import threading
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, List, Optional
 from datetime import datetime
 from utils import measure_performance
+
+
+# ── Feature Flag System (from Claude Code's 90+ feature() flags) ──────────
+
+@dataclass
+class FeatureFlag:
+    """单个 feature flag 定义"""
+    key: str
+    enabled: bool = True
+    description: str = ""
+    group: str = "core"
+    is_runtime: bool = True  # True=运行时切换, False=需重启
+
+
+DEFAULT_FEATURE_FLAGS: Dict[str, FeatureFlag] = {
+    flag.key: flag for flag in [
+        FeatureFlag("self_modification", True, "自我修改能力", "core"),
+        FeatureFlag("self_scanner", True, "项目扫描", "core"),
+        FeatureFlag("curiosity_engine", True, "好奇心引擎", "core"),
+        FeatureFlag("knowledge_learning", True, "知识学习", "core"),
+        FeatureFlag("auto_consolidation", True, "知识自动整理", "memory"),
+        FeatureFlag("memory_extraction", True, "记忆提取", "memory"),
+        FeatureFlag("proactive_mode", True, "主动模式", "core"),
+        FeatureFlag("modification_bare_except", True, "修复裸 except", "modification"),
+        FeatureFlag("modification_docstring", True, "添加文档字符串", "modification"),
+        FeatureFlag("modification_unused_import", True, "移除未使用 import", "modification"),
+        FeatureFlag("modification_destructive", False, "高风险修改", "modification"),
+        FeatureFlag("network_crawler", True, "网络爬虫", "network"),
+        FeatureFlag("global_research", True, "全局研究", "exploration"),
+        FeatureFlag("deep_learning", True, "深度学习", "exploration"),
+        FeatureFlag("heal_threshold_adjustment", True, "动态阈值调整", "core"),
+        FeatureFlag("cog_architecture", True, "认知架构", "core"),
+        # ── 纯本地思维引擎 flags ──
+        FeatureFlag("local_thinking", True, "纯本地深度思考", "cognitive"),
+        FeatureFlag("knowledge_graph", True, "知识图分析", "cognitive"),
+        FeatureFlag("pattern_analysis", True, "代码模式发现", "cognitive"),
+        FeatureFlag("analogy_engine", True, "结构类比引擎", "cognitive"),
+        FeatureFlag("self_narrative_local", True, "本地叙事组装", "cognitive"),
+    ]
+}
+
+
+class FeatureFlagManager:
+    """管理所有 feature flags，类似 Claude Code 的 feature() + GrowthBook"""
+
+    def __init__(self, state_manager: "SystemStateManager"):
+        self._state_manager = state_manager
+        self._flags: Dict[str, FeatureFlag] = {}
+        self._lock = threading.RLock()
+        self._load()
+
+    def _load(self):
+        """从持久化状态加载 flags，合并默认值"""
+        merged: Dict[str, bool] = {}
+        try:
+            persisted = self._state_manager.get_state("feature_flags")
+            if isinstance(persisted, dict):
+                merged = {k: v for k, v in persisted.items() if isinstance(v, bool)}
+        except Exception:
+            pass
+        self._flags = {}
+        for key, default in DEFAULT_FEATURE_FLAGS.items():
+            flag = FeatureFlag(**{**default.__dict__})
+            if key in merged:
+                flag.enabled = merged[key]
+            self._flags[key] = flag
+
+    def _persist(self):
+        """持久化当前 flags 状态"""
+        try:
+            raw = {k: v.enabled for k, v in self._flags.items()}
+            self._state_manager.set_state("feature_flags", raw)
+        except Exception:
+            pass
+
+    def is_enabled(self, key: str) -> bool:
+        """检查功能是否启用（类似 Claude Code 的 feature()）"""
+        flag = self._flags.get(key)
+        if flag is None:
+            return False
+        return flag.enabled
+
+    def set_enabled(self, key: str, enabled: bool) -> bool:
+        """运行时切换功能状态"""
+        with self._lock:
+            if key not in self._flags:
+                return False
+            self._flags[key].enabled = enabled
+            self._persist()
+            return True
+
+    def get_all_flags(self) -> Dict[str, FeatureFlag]:
+        """列出所有功能及其状态"""
+        return dict(self._flags)
+
+    def get_flags_by_group(self, group: str) -> List[FeatureFlag]:
+        """按分组查询"""
+        return [f for f in self._flags.values() if f.group == group]
+
+    def get_gate_snapshot(self) -> str:
+        """返回所有 flags 的紧凑状态字符串（用于日志/显示）"""
+        parts = []
+        for key, flag in sorted(self._flags.items()):
+            status = "+" if flag.enabled else "-"
+            parts.append(f"{status}{key}")
+        return " | ".join(parts)
 
 
 class SystemStateManager:
@@ -75,8 +182,15 @@ class SystemStateManager:
             "vulnerabilities": {
                 "file": "vulnerabilities.json",
                 "default": self._get_vulnerabilities_defaults
+            },
+            "feature_flags": {
+                "file": "feature_flags.json",
+                "default": self._get_feature_flags_defaults
             }
         }
+
+        # 全局 feature flag 管理器（延迟初始化）
+        self._feature_flag_manager: Optional[FeatureFlagManager] = None
 
         # 内存中的状态缓存
         self._state_cache: Dict[str, Dict[str, Any]] = {}
@@ -408,7 +522,7 @@ class SystemStateManager:
     def _get_system_state_defaults(self) -> Dict[str, Any]:
         """获取系统状态默认状态"""
         return {
-            "version": "1.0.0",
+            "version": "2.0.0",
             "last_optimized": datetime.now().isoformat(),
             "performance_score": 100,
             "errors_count": 0
@@ -425,6 +539,16 @@ class SystemStateManager:
             "vulnerabilities": [],
             "fixed_count": 0
         }
+
+    def _get_feature_flags_defaults(self) -> Dict[str, bool]:
+        """获取 feature flags 默认状态"""
+        return {k: v.enabled for k, v in DEFAULT_FEATURE_FLAGS.items()}
+
+    def get_feature_flag_manager(self) -> FeatureFlagManager:
+        """获取全局 feature flag 管理器（延迟初始化单例）"""
+        if self._feature_flag_manager is None:
+            self._feature_flag_manager = FeatureFlagManager(self)
+        return self._feature_flag_manager
 
 
 def test_system_state_manager():

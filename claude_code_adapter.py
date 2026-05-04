@@ -10,6 +10,13 @@ import requests
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
+# 可选 Anthropic SDK（不存在则使用 requests 回退）
+try:
+    import anthropic
+    HAS_ANTHROPIC_SDK = True
+except ImportError:
+    HAS_ANTHROPIC_SDK = False
+
 class ClaudeCodeAdapter:
     """Claude Code集成适配器 - 与Claude Code平台的专业API集成"""
 
@@ -17,7 +24,7 @@ class ClaudeCodeAdapter:
         """初始化Claude Code适配器"""
         self.api_key = api_key or os.getenv("CLAUDE_API_KEY")
         self.base_url = base_url
-        self.model = "claude-3-sonnet-20250219"
+        self.model = "claude-sonnet-4-20250514"
         self.timeout = 60
         self.max_tokens = 4096
 
@@ -25,7 +32,19 @@ class ClaudeCodeAdapter:
         self.config_file = Path("data") / "claude_code_config.json"
         self._load_config()
 
+        # Anthropic SDK 客户端
+        self._anthropic_client = None
+        self._init_anthropic_client()
+
         print("🎯 Claude Code适配器初始化完成")
+
+    def _init_anthropic_client(self):
+        """初始化 Anthropic SDK 客户端（可选）"""
+        if HAS_ANTHROPIC_SDK and self.api_key:
+            try:
+                self._anthropic_client = anthropic.Anthropic(api_key=self.api_key)
+            except Exception:
+                self._anthropic_client = None
 
     def _load_config(self):
         """加载Claude Code配置"""
@@ -89,9 +108,49 @@ class ClaudeCodeAdapter:
         """检查Claude Code是否可用"""
         return self.api_key and len(self.api_key.strip()) > 0
 
+    def send_messages(self, system: str, messages: List[Dict],
+                      max_tokens: int = None) -> Optional[str]:
+        """
+        用 Anthropic SDK 发送消息（首选），失败则用 requests 回退。
+        这是给 ThoughtInterface 使用的主入口。
+        """
+        if not self.is_available():
+            return self._generate_mock_response(messages)
+
+        max_tokens = max_tokens or self.max_tokens
+
+        # SDK 模式（首选）
+        if self._anthropic_client:
+            try:
+                response = self._anthropic_client.messages.create(
+                    model=self.model,
+                    system=system,
+                    messages=messages,
+                    max_tokens=max_tokens,
+                )
+                return response.content[0].text
+            except Exception as e:
+                print(f"  ⚠️ SDK调用失败，使用requests回退: {e}")
+
+        # requests 回退
+        return self._send_request(messages, max_tokens=max_tokens)
+
+    @staticmethod
+    def get_token_usage(response) -> Dict:
+        """提取 token 使用信息（SDK 响应对象或 dict 均可）"""
+        if hasattr(response, 'usage'):
+            return {
+                "input_tokens": response.usage.input_tokens,
+                "output_tokens": response.usage.output_tokens,
+            }
+        if isinstance(response, dict) and 'usage' in response:
+            return response['usage']
+        return {"input_tokens": 0, "output_tokens": 0}
+
     def _send_request(self, messages: List[Dict[str, Any]],
                      temperature: float = 0.7,
-                     stream: bool = False) -> Optional[str]:
+                     stream: bool = False,
+                     max_tokens: int = None) -> Optional[str]:
         """发送API请求到Claude Code"""
         if not self.is_available():
             print("⚠️  Claude Code API密钥未配置，使用模拟响应")
@@ -107,7 +166,7 @@ class ClaudeCodeAdapter:
             "model": self.model,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": self.max_tokens
+            "max_tokens": max_tokens or self.max_tokens
         }
 
         try:
