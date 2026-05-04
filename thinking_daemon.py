@@ -282,7 +282,14 @@ class ThinkingDaemon:
             gate_check=lambda d: True,  # 无门控，靠 cooldown 节流
             run=lambda d: self._run_health_check(d),
         ))
-    # ---- 门控检查（从最便宜到最贵排序）----
+        # ---- H4: 研究调度器 ----
+        self.register_stop_hook(StopHook(
+            name="research_scheduler",
+            priority=40,
+            cooldown=1800.0,  # 最少间隔 30min
+            gate_check=lambda d: self._gate_research_scheduler(d),
+            run=lambda d: self._run_research_scheduler(d),
+        ))
 
     @staticmethod
     def _gate_consolidation(daemon) -> bool:
@@ -380,6 +387,138 @@ class ThinkingDaemon:
                 agent._verify_past_improvements()
             except Exception as e:
                 daemon._log(f"  健康自检异常: {e}")
+
+    # ---- 研究调度器门控 + 执行体 ----
+
+    @staticmethod
+    def _gate_research_scheduler(daemon) -> bool:
+        """研究调度器门控：feature flag + 任务队列上限"""
+        from system_state_manager import SystemStateManager
+        try:
+            sm = SystemStateManager()
+            ffm = sm.get_feature_flag_manager()
+            if not ffm.is_enabled("global_research"):
+                return False
+        except Exception:
+            pass
+        # 检查待处理队列长度（最多 30 个）
+        task_file = daemon.data_dir / "crawler_tasks.json"
+        if task_file.exists():
+            try:
+                tasks = json.loads(task_file.read_text(encoding="utf-8"))
+                if len(tasks) >= 30:
+                    return False
+            except Exception:
+                pass
+        return True
+
+    @staticmethod
+    def _run_research_scheduler(daemon):
+        """从 stats + goals 生成爬虫研究任务"""
+        from system_state_manager import SystemStateManager
+        task_file = daemon.data_dir / "crawler_tasks.json"
+        existing_tasks = []
+        if task_file.exists():
+            try:
+                existing_tasks = json.loads(
+                    task_file.read_text(encoding="utf-8"))
+            except Exception:
+                existing_tasks = []
+        existing_queries = {t.get("query", "") for t in existing_tasks}
+
+        new_tasks = []
+        topics_found = set()
+
+        # 1. 从知识缺口生成任务
+        try:
+            from knowledge_base import KnowledgeBase
+            kb = KnowledgeBase()
+            # 获取当前知识分类统计
+            all_k = kb.get_all_knowledge()
+            categories = {}
+            for entry in all_k:
+                cat = entry.get("category", "未分类")
+                categories.setdefault(cat, 0)
+                categories[cat] += 1
+            # 找出分类数最少的领域
+            sorted_cats = sorted(categories.items(), key=lambda x: x[1])
+            for cat, count in sorted_cats[:2]:
+                if count < 5:
+                    gap_query = f"{cat} 前沿研究"
+                    if gap_query not in existing_queries:
+                        new_tasks.append({
+                            "query": gap_query,
+                            "domain": cat,
+                            "reason": f"研究调度器: {cat} 领域知识不足 ({count} 条)",
+                            "priority": "medium",
+                        })
+                        existing_queries.add(gap_query)
+                        topics_found.add(cat)
+        except Exception:
+            pass
+
+        # 2. 从 GoalPlanner 活跃目标生成任务
+        try:
+            from goal_planner import GoalPlanner
+            gp = GoalPlanner()
+            summary = gp.get_summary()
+            for g in summary.get("active", []):
+                cat = g.get("category", "")
+                desc = g.get("desc", "")
+                if desc and cat:
+                    # 如果目标描述看起来像研究主题
+                    words = desc.split()[:4]
+                    query = " ".join(words)
+                    if query not in existing_queries:
+                        new_tasks.append({
+                            "query": query,
+                            "domain": cat,
+                            "reason": f"研究调度器: 目标驱动 — {desc[:60]}",
+                            "priority": "high",
+                        })
+                        existing_queries.add(query)
+                        topics_found.add(cat)
+        except Exception:
+            pass
+
+        # 3. 从元认知监控获取研究缺口
+        try:
+            from metacognitive_monitor import MetacognitiveMonitor
+            mm = MetacognitiveMonitor()
+            # 通过检查历史找 gap
+            state_file = daemon.data_dir / "metacognitive_state.json"
+            if state_file.exists():
+                import json as j
+                data = j.loads(state_file.read_text(encoding="utf-8"))
+                for h in data.get("findings_history", []):
+                    if h.get("type") == "loop":
+                        query = "元认知 思考循环 突破策略"
+                        if query not in existing_queries:
+                            new_tasks.append({
+                                "query": query,
+                                "domain": "元认知",
+                                "reason": f"研究调度器: 检测到思考循环 — {h.get('detail', '')[:60]}",
+                                "priority": "high",
+                            })
+                            existing_queries.add(query)
+                            break
+        except Exception:
+            pass
+
+        if new_tasks:
+            existing_tasks.extend(new_tasks)
+            try:
+                import json as j
+                task_file.write_text(
+                    j.dumps(existing_tasks, ensure_ascii=False, indent=2),
+                    encoding="utf-8")
+            except Exception:
+                pass
+
+        if topics_found:
+            daemon._log(
+                f"  📚 研究调度: 生成 {len(new_tasks)} 个新任务 "
+                f"({', '.join(sorted(topics_found))})")
 
     # ---- 核心循环 ----
 

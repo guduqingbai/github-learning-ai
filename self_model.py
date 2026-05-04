@@ -259,6 +259,120 @@ class SelfModel:
             },
         }
 
+    def generate_self_profile(self, data_sources: Dict[str, Any] = None) -> Dict[str, Any]:
+        """
+        从多个运行时来源构建集成自我画像。
+
+        Args:
+            data_sources: 可选来源字典，包含:
+                - experience_tracker: ExperienceTracker 实例
+                - metacognitive_monitor: MetacognitiveMonitor 实例
+                - knowledge_base: KnowledgeBase 实例
+                - daemon_stats: ThinkingDaemon.get_status() 字典
+
+        Returns:
+            包含以下键的字典:
+            - knowledge_domains: {category: strength}
+            - strategy_effectiveness: {strategy: success_rate}
+            - recent_trends: {direction: trend}
+            - health: 0-1 复合健康值
+            - confidence: 0-1 置信度
+        """
+        profile = {
+            "knowledge_domains": {},
+            "strategy_effectiveness": {},
+            "recent_trends": {},
+            "health": 0.5,
+            "confidence": 0.5,
+        }
+
+        if not data_sources:
+            return profile
+
+        # 1. 知识领域分布
+        kb = data_sources.get("knowledge_base")
+        if kb is not None:
+            try:
+                all_k = kb.get_all_knowledge()
+                cat_counts = {}
+                for e in all_k:
+                    c = e.get("category", "未分类")
+                    cat_counts[c] = cat_counts.get(c, 0) + 1
+                if cat_counts:
+                    max_count = max(cat_counts.values())
+                    profile["knowledge_domains"] = {
+                        c: round(n / max_count, 3)
+                        for c, n in sorted(cat_counts.items(),
+                                           key=lambda x: -x[1])
+                    }
+            except Exception:
+                pass
+
+        # 2. 策略有效性
+        et = data_sources.get("experience_tracker")
+        if et is not None:
+            try:
+                summary = et.get_summary()
+                profile["strategy_effectiveness"] = summary.get(
+                    "strategy_success_rates", {})
+            except Exception:
+                pass
+
+        # 3. 近期趋势（从元认知发现历史对比）
+        mm = data_sources.get("metacognitive_monitor")
+        if mm is not None:
+            try:
+                state_file = Path("data") / "metacognitive_state.json"
+                if state_file.exists():
+                    import json
+                    mc_data = json.loads(
+                        state_file.read_text(encoding="utf-8"))
+                    history = mc_data.get("findings_history", [])
+                    if len(history) >= 4:
+                        mid = len(history) // 2
+                        first_half = history[:mid]
+                        second_half = history[mid:]
+                        for ftype in ("confidence", "loop",
+                                       "failure_risk", "stagnation"):
+                            before = sum(
+                                1 for h in first_half if h.get("type") == ftype)
+                            after = sum(
+                                1 for h in second_half if h.get("type") == ftype)
+                            if after < before:
+                                profile["recent_trends"][ftype] = "improving"
+                            elif after > before:
+                                profile["recent_trends"][ftype] = "worsening"
+                            else:
+                                profile["recent_trends"][ftype] = "stable"
+                # 置信度
+                profile["confidence"] = 0.5
+                for h in mc_data.get("findings_history", []):
+                    if h.get("type") == "confidence":
+                        profile["confidence"] = max(
+                            0, 1.0 - h.get("severity", 0.5))
+            except Exception:
+                pass
+
+        # 4. 复合健康
+        confidence = profile["confidence"]
+        error_rate = 0.0
+        heal_rate = 0.0
+        d_stats = data_sources.get("daemon_stats")
+        if d_stats:
+            total = d_stats.get("total_heal_attempts", 0)
+            errors = d_stats.get("error_count", 0)
+            succ = d_stats.get("total_heal_successes", 0)
+            error_rate = min(1.0, errors / max(1, total + errors))
+            heal_rate = succ / max(1, total)
+        profile["health"] = round(
+            0.4 * confidence
+            + 0.3 * (1.0 - error_rate)
+            + 0.3 * heal_rate,
+            3,
+        )
+
+        return profile
+
     @staticmethod
     def _decorator_name(node) -> str:
         if isinstance(node, ast.Name):

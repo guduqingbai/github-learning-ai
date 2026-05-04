@@ -163,6 +163,19 @@ class SelfThinkingAgent:
         self._thinking_engine: Optional[ThinkingEngine] = None
         self._last_local_think_cycle: int = -1  # -1 = 从未运行
 
+        # ── 经验记忆 ──
+        self._experience_tracker = None
+
+        # ── 元认知监控 ──
+        self._metacognitive_monitor: Optional["MetacognitiveMonitor"] = None
+
+        # ── 自我画像 ──
+        self._self_profile: Dict[str, Any] = {}
+
+        # ── 策略学习循环 ──
+        self._cycle_count = 0
+        self._strategy_journal_file = self.data_dir / "strategy_journal.json"
+
     # ---- Hook 系统 ----
 
     def register_hook(self, event: str, handler, *, name: str = "", priority: int = 0):
@@ -247,6 +260,363 @@ class SelfThinkingAgent:
             return True
         return False
 
+    def _get_experience_tracker(self):
+        """延迟初始化经验追踪器"""
+        if self._experience_tracker is None:
+            from experience_tracker import ExperienceTracker
+            self._experience_tracker = ExperienceTracker()
+        return self._experience_tracker
+
+    def _get_metacognitive_monitor(self):
+        """延迟初始化元认知监控器"""
+        if self._metacognitive_monitor is None:
+            from metacognitive_monitor import MetacognitiveMonitor
+            self._metacognitive_monitor = MetacognitiveMonitor()
+        return self._metacognitive_monitor
+
+    def _get_daemon_stats(self) -> Dict[str, Any]:
+        """获取守护进程运行时统计"""
+        try:
+            from thinking_daemon import get_daemon
+            d = get_daemon()
+            return {
+                "cycle_count": d.cycle_count,
+                "consecutive_failures": d.consecutive_failures,
+                "error_count": d.error_count,
+                "total_heal_attempts": d.total_heal_attempts,
+                "total_heal_successes": d.total_heal_successes,
+                "cycle_interval": d.cycle_interval,
+            }
+        except Exception:
+            return {}
+
+    def _get_thinking_engine_stats(self) -> Dict[str, Any]:
+        """获取思考引擎统计"""
+        if self._thinking_engine is not None:
+            try:
+                d = self._thinking_engine._previous_stats
+                return {
+                    "questions_generated": d.get("questions_generated", 0),
+                    "insights_generated": d.get("insights_generated", 0),
+                    "graph_entities": d.get("graph_entities", 0),
+                    "isolated_entities": d.get("isolated_entities", 0),
+                }
+            except Exception:
+                pass
+        return {}
+
+    def _build_self_profile(self) -> Dict[str, Any]:
+        """构建当前自我画像并存入 self._self_profile"""
+        try:
+            from self_model import SelfModel
+            sm = SelfModel()
+            ds = self._get_daemon_stats()
+            profile = sm.generate_self_profile({
+                "experience_tracker": self._get_experience_tracker(),
+                "metacognitive_monitor": self._get_metacognitive_monitor(),
+                "knowledge_base": None,
+                "daemon_stats": ds if ds else None,
+            })
+            # 单独补知识库数据
+            try:
+                from knowledge_base import KnowledgeBase
+                kb = KnowledgeBase()
+                profile["knowledge_domains"] = {}
+                all_k = kb.get_all_knowledge()
+                cat_counts = {}
+                for e in all_k:
+                    c = e.get("category", "未分类")
+                    cat_counts[c] = cat_counts.get(c, 0) + 1
+                if cat_counts:
+                    mc = max(cat_counts.values())
+                    profile["knowledge_domains"] = {
+                        c: round(n / mc, 3)
+                        for c, n in sorted(cat_counts.items(),
+                                           key=lambda x: -x[1])
+                    }
+            except Exception:
+                pass
+
+            # 策略学习经验：从已回顾的策略日志中提取
+            try:
+                journal = []
+                if self._strategy_journal_file.exists():
+                    journal = json.loads(
+                        self._strategy_journal_file.read_text(encoding="utf-8"))
+                reviewed = [e for e in journal if e.get("effective") is not None]
+                strat_lessons = {}
+                for e in reviewed:
+                    t = e.get("trigger", "")
+                    eff = e.get("effective", False)
+                    for param_key in e.get("changes", {}):
+                        if param_key == "sub_gates":
+                            continue
+                        tag = f"{param_key}_adjusted"
+                        lesson = strat_lessons.setdefault(t, {})
+                        entry = lesson.setdefault(tag, {"effective": 0, "ineffective": 0, "total": 0})
+                        if eff:
+                            entry["effective"] += 1
+                        else:
+                            entry["ineffective"] += 1
+                        entry["total"] += 1
+                        # 自动总结有效/无效
+                        if entry["total"] >= 2:
+                            entry["verdict"] = "effective" if entry["effective"] > entry["ineffective"] else "ineffective"
+                profile["strategy_lessons"] = strat_lessons
+            except Exception:
+                profile["strategy_lessons"] = {}
+
+            self._self_profile = profile
+        except Exception:
+            self._self_profile = {}
+        return self._self_profile
+
+    def _apply_metacognitive_adjustments(self, findings: List) -> None:
+        """
+        基于元认知发现实际改变系统参数。
+
+        让 MetacognitiveMonitor 的 intervention 字符串变为可执行代码。
+        """
+        if not findings:
+            return
+
+        daemon = None
+        try:
+            from thinking_daemon import get_daemon
+            daemon = get_daemon()
+        except Exception:
+            pass
+
+        # 捕获调整前的系统状态
+        pre_state = self._capture_daemon_state(daemon)
+
+        adjustments = []
+        journal_entries = []
+
+        for finding in findings:
+            ftype = finding.finding_type
+            severity = finding.severity
+            changes = {}
+
+            if ftype == "loop" and severity > 0.3:
+                # 循环检测：增大 depth 强制新颖性
+                if daemon:
+                    old = daemon.thinking_depth
+                    new = min(8, old + 2)
+                    daemon.update_config(thinking_depth=new)
+                    changes["thinking_depth"] = [old, new]
+                    adjustments.append(
+                        f"循环 → 深度 {old}→{new}（强制新颖性）")
+
+            elif ftype == "confidence" and severity > 0.5:
+                # 低置信度：保守行事
+                if daemon:
+                    old_depth = daemon.thinking_depth
+                    old_interval = daemon.cycle_interval
+                    old_heal = daemon.heal_threshold
+                    daemon.update_config(
+                        thinking_depth=max(1, old_depth - 1),
+                        cycle_interval=min(3600, old_interval + 600),
+                        heal_threshold=0.85,
+                    )
+                    changes["thinking_depth"] = [old_depth, max(1, old_depth - 1)]
+                    changes["cycle_interval"] = [old_interval, min(3600, old_interval + 600)]
+                    changes["heal_threshold"] = [old_heal, 0.85]
+                    adjustments.append(
+                        f"低置信度 → 深度 {old_depth}→{max(1, old_depth - 1)}, "
+                        f"间隔 {old_interval}→{min(3600, old_interval + 600)}, "
+                        f"heal阈值 {old_heal}→0.85")
+                # 只开安全 sub_gates
+                try:
+                    from self_modification_engine import SelfModificationEngine
+                    engine = SelfModificationEngine()
+                    engine.configure_sub_gates(
+                        allow_bare_except_fix=True,
+                        allow_docstring_add=True,
+                        allow_unused_import_remove=False,
+                        allow_destructive_change=False,
+                    )
+                    changes["sub_gates"] = ["mixed", "safe_only"]
+                except Exception:
+                    pass
+
+            elif ftype == "stagnation" and severity > 0.4:
+                # 停滞：缩短间隔，降低 heal_threshold 鼓励小修复
+                if daemon:
+                    old_interval = daemon.cycle_interval
+                    old_heal = daemon.heal_threshold
+                    daemon.update_config(
+                        cycle_interval=max(600, old_interval - 300),
+                        heal_threshold=0.5,
+                    )
+                    changes["cycle_interval"] = [old_interval, max(600, old_interval - 300)]
+                    changes["heal_threshold"] = [old_heal, 0.5]
+                    adjustments.append(
+                        f"停滞 → 间隔 {old_interval}→{max(600, old_interval - 300)}, "
+                        f"heal阈值 {old_heal}→0.5")
+
+            elif ftype == "failure_risk" and severity > 0.5:
+                # 高风险：保守行事
+                if daemon:
+                    old_depth = daemon.thinking_depth
+                    old_heal = daemon.heal_threshold
+                    daemon.update_config(
+                        heal_threshold=0.9,
+                        thinking_depth=max(1, old_depth - 1),
+                    )
+                    changes["heal_threshold"] = [old_heal, 0.9]
+                    changes["thinking_depth"] = [old_depth, max(1, old_depth - 1)]
+                    adjustments.append(
+                        f"失败风险 → heal阈值 0.9, 深度 {old_depth}→{max(1, old_depth - 1)}")
+
+            # 记录策略日志
+            if changes:
+                expected_text = {
+                    "loop": "减少循环",
+                    "confidence": "提升稳定性",
+                    "stagnation": "加速进展",
+                    "failure_risk": "降低风险",
+                }.get(ftype, "")
+                journal_entries.append({
+                    "timestamp": datetime.now().isoformat(),
+                    "cycle": self._cycle_count,
+                    "trigger": ftype,
+                    "severity": severity,
+                    "changes": {k: {"from": v[0], "to": v[1]} for k, v in changes.items()},
+                    "expected": expected_text,
+                    "pre_state": pre_state,
+                    "post_state": None,
+                    "effective": None,
+                })
+
+        if adjustments:
+            print(f"\n  ⚙️ 行为调整 ({len(adjustments)} 项):")
+            for a in adjustments:
+                print(f"    {a}")
+            self._save_strategy_journal(journal_entries)
+
+    def _capture_daemon_state(self, daemon=None) -> Dict[str, Any]:
+        """捕获 daemon 当前状态快照，用于策略日志对比"""
+        if daemon is None:
+            try:
+                from thinking_daemon import get_daemon
+                daemon = get_daemon()
+            except Exception:
+                pass
+        if daemon is None:
+            return {}
+        return {
+            "thinking_depth": getattr(daemon, "thinking_depth", 0),
+            "cycle_interval": getattr(daemon, "cycle_interval", 0),
+            "heal_threshold": getattr(daemon, "heal_threshold", 0),
+            "error_rate": getattr(daemon, "error_count", 0) / max(1, getattr(daemon, "total_heal_attempts", 1)),
+            "health": self._self_profile.get("health", 0.5),
+            "confidence": self._self_profile.get("confidence", 0.5),
+        }
+
+    def _save_strategy_journal(self, entries: List[Dict]) -> None:
+        """追加策略日志到 data/strategy_journal.json"""
+        try:
+            existing = []
+            if self._strategy_journal_file.exists():
+                existing = json.loads(self._strategy_journal_file.read_text(encoding="utf-8"))
+            existing.extend(entries)
+            # 最多保留 100 条
+            existing = existing[-100:]
+            self._strategy_journal_file.parent.mkdir(exist_ok=True)
+            self._strategy_journal_file.write_text(
+                json.dumps(existing, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        except Exception:
+            pass
+
+    def _review_strategy_effectiveness(self) -> None:
+        """
+        策略回顾：检查上次调整的效果。
+
+        在每轮开始时调用，读取策略日志中未评估的条目，
+        对比调整前后的 daemon 状态，判断调整是否有效。
+        """
+        if not self._strategy_journal_file.exists():
+            return
+
+        try:
+            journal = json.loads(self._strategy_journal_file.read_text(encoding="utf-8"))
+        except Exception:
+            return
+
+        # 找出所有未评估的条目
+        unreviewed = [e for e in journal if e.get("effective") is None]
+        if not unreviewed:
+            return
+
+        current_state = self._capture_daemon_state()
+        lessons = self._self_profile.setdefault("strategy_lessons", {})
+
+        for entry in unreviewed:
+            trigger = entry.get("trigger", "")
+            pre = entry.get("pre_state", {})
+            changes = entry.get("changes", {})
+            expected = entry.get("expected", "")
+
+            # 判断调整是否有效
+            effective = self._judge_adjustment_effect(trigger, pre, current_state, changes)
+            entry["post_state"] = current_state
+            entry["effective"] = effective
+
+            # 更新策略经验
+            trigger_lessons = lessons.setdefault(trigger, {})
+            for param_key in changes:
+                if param_key == "sub_gates":
+                    continue
+                if effective:
+                    tag = f"{param_key}_increase" if changes[param_key].get("to", 0) > changes[param_key].get("from", 0) else f"{param_key}_decrease"
+                    trigger_lessons[tag] = trigger_lessons.get(tag, {"effective": 0, "ineffective": 0})
+                    trigger_lessons[tag]["effective"] += 1
+                else:
+                    tag = f"{param_key}_increase" if changes[param_key].get("to", 0) > changes[param_key].get("from", 0) else f"{param_key}_decrease"
+                    trigger_lessons[tag] = trigger_lessons.get(tag, {"effective": 0, "ineffective": 0})
+                    trigger_lessons[tag]["ineffective"] += 1
+
+            verdict = "✅ 有效" if effective else "❌ 无效"
+            print(f"  📊 策略回顾 [{entry.get('cycle', '?')}] {trigger}: {verdict} ({expected})")
+
+        # 写回日志
+        try:
+            self._strategy_journal_file.write_text(
+                json.dumps(journal, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        except Exception:
+            pass
+
+    def _judge_adjustment_effect(self, trigger: str, pre: Dict, post: Dict, changes: Dict) -> bool:
+        """
+        判断调整是否有效。
+
+        根据不同的 trigger 判断对应指标是否改善：
+        - loop → 检查 error_rate 是否下降
+        - confidence → 检查 confidence 是否上升
+        - stagnation → 检查 health 是否上升
+        - failure_risk → 检查 error_rate 是否下降
+        """
+        if not pre or not post:
+            return False
+
+        if trigger == "loop":
+            # 循环减少 → error_rate 下降或 health 上升
+            return post.get("error_rate", 1) < pre.get("error_rate", 0) or \
+                   post.get("health", 0) > pre.get("health", 0)
+        elif trigger == "confidence":
+            # 置信度上升
+            return post.get("confidence", 0) > pre.get("confidence", 0)
+        elif trigger == "stagnation":
+            # 停滞减少 → health 上升
+            return post.get("health", 0) > pre.get("health", 0)
+        elif trigger == "failure_risk":
+            # 风险降低 → error_rate 下降
+            return post.get("error_rate", 1) < pre.get("error_rate", 0)
+        return False
+
     def _do_local_think(self):
         """
         执行纯本地深度思考。
@@ -302,6 +672,10 @@ class SelfThinkingAgent:
 
         except Exception as e:
             print(f"  ⚠️ 本地深度思考失败: {e}")
+            et = self._get_experience_tracker()
+            et.record("local_thinking", "thinking_engine", "failure",
+                      "exception", getattr(self, '_cycle_count', 0),
+                      str(e)[:200])
 
     # ---- 模块化思考技能系统 ----
 
@@ -429,17 +803,22 @@ class SelfThinkingAgent:
         """通用探索+存储流程（被各个技能复用）
         单个问题失败不影响其他问题的探索
         """
+        et = self._get_experience_tracker()
+        cycle = getattr(self, '_cycle_count', 0)
         results = []
         for q in questions:
             print(f"\n  {'─'*30}")
             print(f"  ❓ {q.question[:90]}")
+            problem = q.target or q.question[:80]
+            action = q.explore_action
             try:
                 exploration = self._explore_question(q)
                 insight = self._generate_insight(q, exploration)
                 stored = self._store_insight(insight)
                 results.append(insight)
 
-                action = q.explore_action
+                et.record(problem, action, "success", cycle=cycle)
+
                 if action == "add_crawler_task":
                     added = self._add_crawler_tasks(q)
                     print(f"  🎯 爬虫任务{'已添加' if added else '已存在'}")
@@ -447,6 +826,9 @@ class SelfThinkingAgent:
                     print(f"  🌐 研究任务已调度")
             except Exception as e:
                 print(f"  ⚠️ 问题探索失败: {e}")
+                error_type = type(e).__name__
+                et.record(problem, action, "failure", error_type,
+                          cycle, str(e)[:200])
                 results.append({
                     "observation": q.observation,
                     "question": q.question,
@@ -483,6 +865,10 @@ class SelfThinkingAgent:
         print(f"{'='*60}")
 
         self._run_hooks(HookEvent.CYCLE_START, depth=depth, skill=skill)
+
+        # 策略回顾：上次调整的效果如何？
+        self._cycle_count += 1
+        self._review_strategy_effectiveness()
 
         # 所有路径都需要先扫描
         if skill and skill in self._skills:
@@ -522,6 +908,9 @@ class SelfThinkingAgent:
         self._run_hooks(HookEvent.PRE_EVALUATE)
         evaluation = self._self_evaluate()
         self._run_hooks(HookEvent.POST_EVALUATE, evaluation=evaluation)
+
+        # 构建自我画像（方向1：自我理解）
+        self._build_self_profile()
 
         # 根据评估设定改进目标
         goals = self._set_improvement_goals(evaluation)
@@ -567,7 +956,7 @@ class SelfThinkingAgent:
             # ThinkingEngine 生成的 CuriosityQuestion 已合并到 self.questions
 
         # 按活跃目标重新排序问题（目标相关的优先探索）
-        self.questions = self._prioritize_questions_by_goals(self.questions)
+        self.questions = self._prioritize_questions(self.questions)
 
         # 始终记录学习行动（即使 0 个行动）
         self._log_study_actions(learned,
@@ -582,6 +971,25 @@ class SelfThinkingAgent:
         self._run_hooks(HookEvent.PRE_EXPLORE, questions=self.questions[:depth])
         results = self._explore_and_store(self.questions[:depth])
         self._run_hooks(HookEvent.POST_EXPLORE, results=results)
+
+        # 元认知记录：本轮探索结果 → 思考主题
+        try:
+            monitor = self._get_metacognitive_monitor()
+            for ins in results:
+                topic = ins.get("topic", "") or ins.get("summary", "")[:60]
+                if topic:
+                    monitor.record_thought(topic)
+            # 执行元认知检查（无 findings 也记录统计）
+            et = self._get_experience_tracker()
+            t_stats = self._get_thinking_engine_stats()
+            d_stats = self._get_daemon_stats()
+            mc_findings = monitor.check(
+                experience_tracker=et, thinking_stats=t_stats,
+                daemon_stats=d_stats)
+            # 方向3：基于元认知发现调整行为
+            self._apply_metacognitive_adjustments(mc_findings)
+        except Exception:
+            pass
 
         # 将探索结果写入思维图
         if self._thought_graph is not None and results:
@@ -1300,6 +1708,50 @@ class SelfThinkingAgent:
                 self._log_reflection_finding("heal_pending",
                     f"修复待验证: {topic}")
 
+        # 4. 经验记忆：跨周期重复失败检测
+        try:
+            et = self._get_experience_tracker()
+            patterns = et.get_failure_patterns(min_count=3)
+            for p in patterns[:3]:
+                findings.append(
+                    f"🔁 重复失败: '{p['problem'][:30]}' "
+                    f"用 '{p['strategy']}' 已失败 {p['count']} 次 "
+                    f"({p['error_type']})")
+                self._log_reflection_finding("repeated_failure",
+                    f"{p['problem']}|{p['strategy']}|{p['count']}次")
+        except Exception:
+            pass
+
+        # 5. 元认知监控：思考质量评估
+        try:
+            monitor = self._get_metacognitive_monitor()
+            # 记录本轮思考主题
+            for ins in insights:
+                topic = ins.get("topic", "") or ins.get("summary", "")[:60]
+                if topic:
+                    monitor.record_thought(topic)
+
+            # 执行元认知检查
+            et = self._get_experience_tracker()
+            t_stats = self._get_thinking_engine_stats()
+            d_stats = self._get_daemon_stats()
+            m_findings = monitor.check(
+                experience_tracker=et,
+                thinking_stats=t_stats,
+                daemon_stats=d_stats,
+            )
+            for mf in m_findings:
+                findings.append(
+                    f"[元认知] [{mf.finding_type}] (severity={mf.severity:.2f}) "
+                    f"{mf.detail[:80]}")
+                self._log_reflection_finding(
+                    f"metacognitive_{mf.finding_type}", mf.detail)
+            # 方向3：基于元认知发现实际改变行为
+            self._apply_metacognitive_adjustments(m_findings)
+        except Exception:
+            import traceback
+            findings.append(f"⚠️ 元认知监控异常: {traceback.format_exc()[:100]}")
+
         if findings:
             print(f"\n  {'─'*40}")
             print(f"  🔍 反思审计 ({len(findings)} 项)")
@@ -1424,44 +1876,108 @@ class SelfThinkingAgent:
 
         return verifications
 
-    def _prioritize_questions_by_goals(self, questions: List) -> List:
+    def _prioritize_questions(self, questions: List) -> List:
         """
-        根据活跃目标对问题重新排序
-        与目标相关的问题排在前面，无关的排在后面
+        5 因子加权评分：对好奇心问题重新排序。
+
+        final_score = 0.30 * base_importance
+                     + 0.20 * experience_factor
+                     + 0.20 * goal_alignment
+                     + 0.15 * knowledge_gap_severity
+                     + 0.15 * metacognitive_urgency
         """
         if not questions:
             return questions
 
-        plan = self._load_growth_plan()
-        active_goals = [g for g in plan.get("current_goals", []) if g.get("status") == "active"]
+        profile = getattr(self, "_self_profile", {})
 
-        if not active_goals:
-            return questions
+        # 1. 策略历史成功率
+        strat_effect = profile.get("strategy_effectiveness", {})
 
-        # 确定目标相关的关键词
-        goal_keywords = set()
-        for g in active_goals:
-            gtype = g.get("type", "")
-            desc = g.get("description", "")
-            if gtype == "fix":
-                goal_keywords.update(["except", "修复", "bug", "error", "self_heal", "code_quality"])
-            elif gtype == "learn":
-                goal_keywords.update(["学习", "知识", "概念", "read_file", "项目自身"])
-            elif gtype == "improve":
-                goal_keywords.update(["文档", "docstring", "类型", "type", "改进"])
+        # 2. 目标优先级
+        goal_prio = {}
+        try:
+            from goal_planner import GoalPlanner
+            gp = GoalPlanner()
+            goal_prio = gp.get_goal_priorities()
+        except Exception:
+            pass
 
-        # 给每个问题打分
+        # 3. 知识领域强度
+        kb_domains = profile.get("knowledge_domains", {})
+
+        # 4. 元认知状态
+        confidence = profile.get("confidence", 0.5)
+        trends = profile.get("recent_trends", {})
+
         scored = []
         for q in questions:
-            score = 0
-            q_text = (q.question + " " + q.explore_action + " " + str(q.target)).lower()
-            for kw in goal_keywords:
-                if kw.lower() in q_text:
-                    score += 1
-            # 额外权重：self_heal 对 fix 目标
-            if q.explore_action == "self_heal" and "fix" in str(active_goals):
-                score += 2
-            scored.append((score, q))
+            # base_importance (0.30)
+            base = q.importance
+
+            # experience_factor (0.20)
+            exp = 0.5
+            action = q.explore_action
+            if action in strat_effect:
+                exp = strat_effect[action] / 100.0
+            elif action in ("read_file", "check_state"):
+                exp = 0.7  # 安全操作默认较高
+            elif action in ("self_heal", "global_research"):
+                exp = 0.4  # 高风险操作默认较低
+
+            # goal_alignment (0.20)
+            align = 0.0
+            for cat, info in goal_prio.items():
+                if isinstance(info, dict):
+                    prio_val = info.get("priority", 0)
+                else:
+                    prio_val = info
+                # 检查问题的操作类型是否匹配目标类别
+                if ((cat == "knowledge" and action in ("add_crawler_task", "global_research", "deep_learning"))
+                        or (cat == "code_quality" and action in ("self_heal", "check_state"))
+                        or (cat == "architecture" and action in ("read_file", "compare_files"))):
+                    align = max(align, prio_val)
+                # 检查 target 是否含类别关键词
+                target = (q.target or "").lower()
+                if cat.lower() in target:
+                    align = max(align, prio_val)
+
+            # knowledge_gap_severity (0.15)
+            gap = 0.3
+            if q.target and kb_domains:
+                for domain, strength in kb_domains.items():
+                    if domain.lower() in q.target.lower():
+                        gap = 1.0 - strength
+                        break
+            # 如果问题是知识缺口类型的，gap 更高
+            if action in ("add_crawler_task", "global_research", "deep_learning"):
+                gap = max(gap, 0.6)
+
+            # metacognitive_urgency (0.15)
+            meta = 0.3
+            if confidence < 0.4:
+                # 低置信度：偏安全操作
+                if action in ("read_file", "check_state", "list_new_entries"):
+                    meta = 0.8
+                elif action in ("self_heal", "global_research"):
+                    meta = 0.2
+            if trends.get("loop") == "worsening":
+                # 循环恶化：偏新颖操作
+                if action not in ("read_file", "check_state"):
+                    meta = max(meta, 0.6)
+            elif trends.get("stagnation") == "worsening":
+                # 停滞：偏探索操作
+                if action in ("add_crawler_task", "global_research"):
+                    meta = max(meta, 0.7)
+
+            final = (
+                0.30 * base
+                + 0.20 * exp
+                + 0.20 * align
+                + 0.15 * gap
+                + 0.15 * meta
+            )
+            scored.append((final, q))
 
         scored.sort(key=lambda x: -x[0])
         return [q for _, q in scored]
@@ -1668,6 +2184,18 @@ class SelfThinkingAgent:
         """根据问题类型执行探索"""
         action = q.explore_action
         target = q.target
+
+        # 经验记忆守卫：同一问题+策略失败 >= 3 次则跳过
+        et = self._get_experience_tracker()
+        problem = target or q.question[:80]
+        if et.should_retry(problem, action, max_failures=3):
+            alt_strategies = et.get_successful_strategies(problem)
+            if alt_strategies:
+                print(f"  ⏭️ '{problem[:40]}' 的 '{action}' 已失败多次，尝试替代策略: {alt_strategies[0]}")
+                action = alt_strategies[0]
+            else:
+                print(f"  ⏭️ '{problem[:40]}' 的 '{action}' 已失败多次，跳过")
+                return {"note": f"经验记忆跳过: {action} 对 {problem} 已失败 3+ 次"}
 
         if action == "read_file":
             return self._explore_read_file(target)
@@ -1913,6 +2441,14 @@ class SelfThinkingAgent:
         """探索并尝试修复代码问题"""
         from self_modification_engine import SelfModificationEngine
         engine = SelfModificationEngine()
+
+        # 应用 feature flag 守卫到 sub_gates
+        engine.configure_sub_gates(
+            allow_bare_except_fix=self._check_feature("modification_bare_except"),
+            allow_docstring_add=self._check_feature("modification_docstring"),
+            allow_unused_import_remove=self._check_feature("modification_unused_import"),
+            allow_destructive_change=self._check_feature("modification_destructive"),
+        )
 
         fix_results = []
         ctx = q.context or {}

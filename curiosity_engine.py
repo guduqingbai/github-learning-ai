@@ -17,6 +17,7 @@ class CuriosityQuestion:
     explore_action: str       # 探索方式
     target: str               # 目标文件/模块
     context: Dict[str, Any] = field(default_factory=dict)
+    reason: str = ""          # 为什么生成这个问题
 
 
 class CuriosityEngine:

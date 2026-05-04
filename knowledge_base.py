@@ -14,6 +14,7 @@ from utils import measure_performance
 class KnowledgeBase:
     """
     知识管理系统类（单例模式）
+    使用 KnowledgeGraph 作为存储后端，消除数据冗余。
     """
 
     _instance = None
@@ -39,6 +40,10 @@ class KnowledgeBase:
         self.data_dir = Path("data")
         self.knowledge_file = self.data_dir / "knowledge_base.json"
 
+        # 使用 KnowledgeGraph 作为存储后端
+        from knowledge_graph import KnowledgeGraph
+        self._kg = KnowledgeGraph()
+
         self._initialize_data_dir()
         self._load_knowledge()
 
@@ -46,33 +51,112 @@ class KnowledgeBase:
         """
         初始化数据目录
         """
-        if not self.data_dir.exists():
-            self.data_dir.mkdir(parents=True)
-
-        if not self.knowledge_file.exists():
-            with open(self.knowledge_file, 'w', encoding='utf-8') as f:
-                json.dump(self._get_default_knowledge(), f, ensure_ascii=False, indent=2)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
 
     def _load_knowledge(self):
         """
-        从文件加载知识数据
+        从 KnowledgeGraph 加载知识数据。
+        首次运行自动从旧 JSON 迁移或创建默认知识。
         """
         try:
-            with open(self.knowledge_file, 'r', encoding='utf-8') as f:
-                knowledge_data = json.load(f)
+            # 从 KG 读取 concept 实体
+            kg_entities = self._kg.find_entities("concept")
 
-            for item in knowledge_data:
-                self.knowledge[item["topic"]] = item
-                if "category" in item:
-                    self.categories.add(item["category"])
-                self.topics.add(item["topic"])
+            # KG 为空：尝试迁移或初始化
+            if not kg_entities:
+                old_file = self.knowledge_file
+                if old_file.exists():
+                    self._migrate_from_json(old_file)
+                    kg_entities = self._kg.find_entities("concept")
 
-            print("✅ 已加载 {} 个知识条目".format(len(self.knowledge)))
+            # 仍然为空：首次运行，添加默认知识
+            if not kg_entities:
+                for item in self._get_default_knowledge():
+                    self._add_to_kg(item)
+                kg_entities = self._kg.find_entities("concept")
+
+            # 从 KG 填充缓存
+            for entity in kg_entities:
+                item = self._entity_to_kb_dict(entity)
+                topic = entity.name
+                self.knowledge[topic] = item
+                cat = item.get("category", "")
+                if cat:
+                    self.categories.add(cat)
+                self.topics.add(topic)
+
+            print("✅ 已加载 {} 个知识条目 (KG后端)".format(len(self.knowledge)))
             print("📊 知识类别: {} 个".format(len(self.categories)))
             print("🎯 知识主题: {} 个".format(len(self.topics)))
 
         except Exception as e:
             print("❌ 加载知识数据失败: {}".format(e))
+
+    def _migrate_from_json(self, json_path: Path):
+        """将旧 knowledge_base.json 迁移到 KnowledgeGraph"""
+        try:
+            data = json.loads(json_path.read_text(encoding="utf-8"))
+            for item in data:
+                self._add_to_kg(item)
+            # 备份旧文件
+            backup = json_path.with_suffix(".json.bak")
+            json_path.rename(backup)
+            print("  📦 已迁移 {} 条知识到 KnowledgeGraph".format(len(data)))
+        except Exception as e:
+            print("  ⚠️ 知识迁移失败: {}".format(e))
+
+    def _add_to_kg(self, item: Dict[str, Any]):
+        """将 KB 条目写入 KnowledgeGraph"""
+        topic = item.get("topic", "")
+        if not topic:
+            return
+        existing = self._kg.find_entity(topic)
+        if existing:
+            return
+        eid = self._kg.add_entity(topic, "concept", {
+            "category": item.get("category", ""),
+            "content": item.get("content", ""),
+            "source": item.get("source", ""),
+            "keywords": item.get("keywords", []),
+            "importance": item.get("importance", 0.5),
+            "references": item.get("references", []),
+        })
+        # 分类关系
+        category = item.get("category", "")
+        if category:
+            cat_entity = self._kg.find_entity(category)
+            if not cat_entity:
+                cat_id = self._kg.add_entity(category, "concept",
+                                             {"category": "meta"})
+            else:
+                cat_id = cat_entity.id
+            self._kg.add_relation(eid, cat_id, "belongs_to")
+        # 关键词关系
+        for kw in item.get("keywords", [])[:5]:
+            kw_entity = self._kg.find_entity(kw)
+            if not kw_entity:
+                kw_id = self._kg.add_entity(kw, "concept", {"keyword": True})
+            else:
+                kw_id = kw_entity.id
+            self._kg.add_relation(eid, kw_id, "related_to", 0.5)
+
+    @staticmethod
+    def _entity_to_kb_dict(entity) -> Dict[str, Any]:
+        """将 KG entity 转回 KB dict 格式"""
+        return {
+            "topic": entity.name,
+            "category": entity.properties.get("category", ""),
+            "content": entity.properties.get("content", ""),
+            "source": entity.properties.get("source", ""),
+            "keywords": entity.properties.get("keywords", []),
+            "importance": entity.properties.get("importance", 0.5),
+            "references": entity.properties.get("references", []),
+        }
+
+    def _sync_to_kg(self):
+        """将 self.knowledge 同步到 KnowledgeGraph（只添加/更新，不删除）"""
+        for item in self.knowledge.values():
+            self._add_to_kg(item)
 
     @staticmethod
     def _get_default_knowledge() -> List[Dict[str, Any]]:
@@ -609,7 +693,7 @@ class KnowledgeBase:
 
     def _save_knowledge(self):
         """
-        保存知识数据到文件
+        保存知识数据到文件 + 同步到 KnowledgeGraph
         """
         try:
             with self._lock:
@@ -618,6 +702,9 @@ class KnowledgeBase:
                 with open(tmp, "w", encoding="utf-8") as f:
                     json.dump(list(self.knowledge.values()), f, ensure_ascii=False, indent=2)
                 tmp.replace(self.knowledge_file)
+
+            # 同步到 KnowledgeGraph（消除数据冗余）
+            self._sync_to_kg()
 
         except Exception as e:
             print("❌ 保存知识数据失败: {}".format(e))
