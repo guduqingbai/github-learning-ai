@@ -1,0 +1,4175 @@
+🧠 自主思考守护进程
+============================================================
+[2026-05-04 10:52:30] [思考守护进程] 注册 StopHook: auto_consolidation
+[2026-05-04 10:52:30] [思考守护进程] 注册 StopHook: memory_extraction
+[2026-05-04 10:52:30] [思考守护进程] 注册 StopHook: health_check
+[2026-05-04 10:52:30] [思考守护进程] 加载状态: 已运行 79 轮
+[2026-05-04 10:52:30] [思考守护进程] 自主思考守护进程初始化完成
+[2026-05-04 10:52:30] [思考守护进程] 守护线程开始运行 (KAIROS Tick 模式)
+[2026-05-04 10:52:30] [思考守护进程] 自主思考守护进程已启动
+[2026-05-04 10:52:30] [思考守护进程] 开始第 80 轮思考循环
+✅ 已加载 956 个知识条目
+📊 知识类别: 6 个
+🎯 知识主题: 956 个
+
+============================================================
+🧠 自我思考循环启动 [10:52:31]
+============================================================
+⏱️  _load_state: 252μs
+⏱️  get_state: 278μs
+⏱️  _load_state: 251μs
+⏱️  get_state: 277μs
+⏱️  _load_state: 5.7ms
+⏱️  get_state: 5.8ms
+⏱️  _load_state: 194μs
+⏱️  get_state: 206μs
+⏱️  _load_state: 494μs
+⏱️  get_state: 504μs
+⏱️  _load_state: 131μs
+⏱️  get_state: 140μs
+⏱️  _load_state: 147μs
+⏱️  get_state: 156μs
+⏱️  _load_state: 117μs
+⏱️  get_state: 125μs
+⏱️  _load_state: 5.4ms
+⏱️  get_state: 5.4ms
+⏱️  _load_state: 6.3ms
+⏱️  get_state: 6.4ms
+⏱️  get_state: 5μs
+⏱️  get_global_state: 19.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 789μs
+⏱️  update_state: 807μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 27 个文件，发现 605 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/956):
+  📄⭐ 自我认知报告 v37
+     概念: 自我认知, 系统状态, 能力清单
+  📄Group averages obscure how an individual's brain controls be
+     概念: tech
+  📄All Four Sentinel-1 Satellites Are Now Live
+     概念: tech
+  📄Contrary to contemporary belief: AI can (and should) be used
+     概念: reddit
+  📄AI agents hiring other AI agents
+     概念: reddit
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 845/956 已学 (88.4%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+  💡 学习触发了 5 个新问题
+❓ 共 37 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+
+  ────────────────────────────────────────
+  🧩 记忆提取: 评估 91 条新知识
+  ⚡ 55 条需要后续行动:
+    [research] [深度] Fluid Antenna System: New Insights on Outage Probability and Diversity Gain
+    [research] [深度] Conception and FPGA implementation of IEEE 802.11s mesh network MAC layer t
+    [research] [深度] On the Capacity of the Single Source Multiple Relay Single Destination Mesh
+  ────────────────────────────────────────
+[2026-05-04 10:52:31] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 10:52:31] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 10:52:31] [思考守护进程] 第 80 轮完成 (1s) | 连续失败: 0
+  🔗 去重: 'A couple million lines of Haskell: Production engineering at Mercury' → 合并到 'A Couple Million Lines of Haskell: Production Engineering at Mercury'
+  🔗 去重: 'AI在金融领域的应用' → 合并到 'AI在医疗领域的应用案例'
+  🔗 去重: 'This Month in Ladybird – April 2026' → 合并到 'This Month in Ladybird - April 2026'
+  🔗 去重: '[数据结构与算法] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 '[AI与机器学习] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词'
+  🔗 去重: '[B站] Python 函数' → 合并到 '[B站] Python + MySQL   0基础从入门到精通  MySQL数据库实战精讲教程（2021精华版）'
+  🔗 去重: '[B站] 《人工智能导论》4小时期末速成课！期末速成丨考前突击丨期末不挂科丨考点总结' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【人工智能】触及心灵的对话' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【人工智能基础】机器学习入门全套教程：Python机器学习算法基础入门，零基础小白也能轻松上手AI。“人工智能不过如此！”' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【2026最新机器学习入门教程】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法！算法原理+项目实战！' → 合并到 '[B站] 【2025最新机器学习快速入门】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法！算法原理+项目实战！'
+  🔗 去重: '[B站] 【全289集】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完！AI/机器学习入门/AI入门' → 合并到 '[B站] 【2026版】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完！'
+  🔗 去重: '[B站] 【全68集】3分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2025最新）AI视频制作全流程教学！包含所有干货！七天就能从小白到大神！（附工具）' → 合并到 '[B站] 【全30集】5分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2026最新）AI视频制作全流程教学！包含所有干货！七天就能从小白到大神！（附工具）'
+  🔗 去重: '[B站] 【全700集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【全700集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，寒假学完即可就业！看完这一套Python教程就够了' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【全748集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，七日学完即可就业！看完这一套Python教程就够了！' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第2册,共2册】' → 合并到 '[B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第1册,共2册】'
+  🔗 去重: '[B站] 【超爽中英】2026年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度学习' → 合并到 '[B站] 【官方中英】2025年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度学习'
+  🔗 去重: '[B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了1000000%！！！' → 合并到 '[B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了10000%！！！'
+  🔗 去重: '[B站] 人工智能8' → 合并到 '[B站] 人工智能/机器学习必修课：经典AI算法与编程实战'
+  🔗 去重: '[计算机基础] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[工具与效率] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　'
+  🔗 去重: '[计算机基础] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 '[工具与效率] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词'
+  🔗 去重: '[计算机基础] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[工具与效率] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　'
+  🔗 去重: '[论文] Can Coding Agents Reproduce Findings in Computational Materials Science?' → 合并到 '[深度] Can Coding Agents Reproduce Findings in Computational Materials Science?'
+  🔗 去重: '[论文] Computing Equilibrium beyond Unilateral Deviation' → 合并到 '[深度] Computing Equilibrium beyond Unilateral Deviation'
+  🔗 去重: '[论文] HERMES++: Toward a Unified Driving World Model for 3D Scene Understanding and Generation' → 合并到 '[深度] HERMES++: Toward a Unified Driving World Model for 3D Scene Understanding and Generation'
+  🔗 去重: '[论文] LaST-R1: Reinforcing Action via Adaptive Physical Latent Reasoning for VLA Models' → 合并到 '[深度] LaST-R1: Reinforcing Action via Adaptive Physical Latent Reasoning for VLA Models'
+  🔗 去重: '[论文] OmniRobotHome: A Multi-Camera Platform for Real-Time Multiadic Human-Robot Interaction' → 合并到 '[深度] OmniRobotHome: A Multi-Camera Platform for Real-Time Multiadic Human-Robot Interaction'
+  🔗 去重: '[论文] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence' → 合并到 '[深度] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence'
+  🔗 去重: '[深度] Qwen3-TTS Technical Report' → 合并到 '[深度] Qwen3-ASR Technical Report'
+  🔗 去重: '[深度] QwenLM/Qwen3-Coder' → 合并到 '[深度] QwenLM/Qwen3'
+  🔗 去重: '[深度] QwenLM/Qwen3-VL' → 合并到 '[深度] QwenLM/Qwen3'
+  🔗 去重: '[论文] When RAG Chatbots Expose Their Backend: An Anonymized Case Study of Privacy and Security Risks in Patient-Facing Medical AI' → 合并到 '[深度] When RAG Chatbots Expose Their Backend: An Anonymized Case Study of Privacy and Security Risks in Patient-Facing Medical AI'
+  🔗 去重: '[深度] explosion/spacy-models' → 合并到 '[深度] explosion/spaCy'
+  🔗 去重: '[深度] huggingface/transformers.js' → 合并到 '[深度] huggingface/transformers'
+  🔗 去重: '[深度] keras-team/keras-applications' → 合并到 '[深度] keras-team/keras'
+  🔗 去重: 'fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 'fighting41love/funNLP'
+  🔗 去重: '大语言模型上下文窗口扩展技术研究' → 合并到 '大语言模型'
+  🔗 去重: '自我认知报告 v36' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v35' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v34' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v33' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v32' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v31' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v30' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v29' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v28' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v27' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v26' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v25' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v24' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v23' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v22' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v21' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v20' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v19' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v18' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v17' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v16' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v15' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v14' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v13' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v12' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v11' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v10' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v9' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v8' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v7' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v6' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v5' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v4' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v3' → 合并到 '自我认知报告 v37'
+  🔗 去重: '自我认知报告 v2' → 合并到 '自我认知报告 v37'
+  ✂️ 裁剪 [项目自身]: [深度] ACM COMPUTE 2025 Best Practices Track Proceedings (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A New Strategy for the Exploration of Venus (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Homological mirror symmetry for log Calabi-Yau surfaces (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Power of Tests for Detecting $p$-Hacking (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] AI prediction leads people to forgo guaranteed rewards (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Dalorex: A Data-Local Program Execution and Architectur (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] An Empirical Study of Aegis (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The All-wavelength Extended Groth Strip International S (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] EUTelescope Guide for ATLAS ITk Strip: Reconstruction a (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Nine Best Practices for Research Software Registries an (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The minimum crossing number of essential tangles (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A study guide for the $\ell^2$ decoupling theorem for t (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Foundations of GenIR (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Competing Visions of Ethical AI: A Case Study of OpenAI (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] HuggingFace's Transformers: State-of-the-art Natural La (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Robust Implementation with Costly Information (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Changing Data Sources in the Age of Machine Learning fo (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] DOME: Recommendations for supervised machine learning v (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Learning Curves for Decision Making in Supervised Machi (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] An Open Natural Language Processing Development Framewo (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A Comprehensive Review of State-of-The-Art Methods for  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Towards the Study of Morphological Processing of the Ta (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Artificial Scientist: Logicist, Emergentist, and Un (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Compression, The Fermi Paradox and Artificial Super-Int (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Creative Problem Solving in Artificially Intelligent Ag (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Qwen3-Omni Technical Report (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Qwen3-ASR Technical Report (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Data-Driven 3D Reconstruction of Dressed Humans From Sp (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] X-LRM: X-ray Large Reconstruction Model for Extremely S (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Structure-Aware Sparse-View X-ray 3D Reconstruction (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Software Implementation of the Krylov Methods Based Rec (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] LaST-R1: Reinforcing Action via Adaptive Physical Laten (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Computing Equilibrium beyond Unilateral Deviation (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] MOMCC: Market-Oriented Architecture for Mobile Cloud Co (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On contractions that are quasiaffine transforms of unil (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] DE-Sinc approximation for unilateral rapidly decreasing (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Model reduction in chemical dynamics: slow invariant ma (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Towards a Systematic Taxonomy of Attacks against Space  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Chemical Reaction due to Stronger Ramachandran Interact (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] OmniRobotHome: A Multi-Camera Platform for Real-Time Mu (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi Linear: An Expressive, Efficient Attention Archite (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi-VL Technical Report (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi K2.5: Visual Agentic Intelligence (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Analyze and Design Network Architectures by Recursion F (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] TeCH: Text-guided Reconstruction of Lifelike Clothed Hu (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Starlink in Northern Europe: A New Look at Stationary a (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Midterm Status Report of the ILC Technology Network Act (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] TRUST-TECH based Methods for Optimization and Learning (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Contestation of Tech Ethics: A Sociotechnical Appro (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Observation of the rare $B^0_s\toμ^+μ^-$ decay from the (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Expected Performance of the ATLAS Experiment - Detector (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Deep Search for Joint Sources of Gravitational Waves an (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Microwave Engineering of Tunable Spin Interactions with (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The 70 Month Swift-BAT All-Sky Hard X-Ray Survey (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The 105 month Swift-BAT all-sky hard X-ray survey (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A MAPS Detector for High Resolution Low Dose EBSD (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] MerLin: A Discovery Engine for Photonic and Hybrid Quan (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Modern Mathematics of Deep Learning (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Learn to Accumulate Evidence from All Training Samples: (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Deep Learning and Computational Physics (Lecture Notes) (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Do Domain-specific Experts exist in MoE-based LLMs? (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Spectroscopic Needs for Training of LSST Photometric Re (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Spectroscopic Needs for Calibration of LSST Photometric (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] She's Reddit: A source of statistically significant gen (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] ClimateCheck 2026: Scientific Fact-Checking and Disinfo (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] POLY-SIM: Polyglot Speaker Identification with Missing  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] ICASSP 2026 URGENT Speech Enhancement Challenge (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The California Report on Frontier AI Policy (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Climate Risk Stress Testing in California: A Geospatial (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Carbon Emission Flow Tracing: Fast Algorithm and Califo (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Exploring the Modular Integration of "AI + Architecture (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] NTIRE 2026 Challenge on Robust AI-Generated Image Detec (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] International AI Safety Report 2026 (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Dive into Claude Code: The Design Space of Today's and  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Agentic Education: Using Claude Code to Teach Claude Co (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Context Engineering for Multi-Agent LLM Code Assistants (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Fourth Challenge on Image Super-Resolution ($\times (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of the direct evaluation of strains usin (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Augmented Computational Design: Methodical Application  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A Green(er) World for A.I (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Tests of Machine Intelligence (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Simple Interactive Image Segmentation using Label Propa (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] RECOME: a New Density-Based Clustering Algorithm Using  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Minimum-Norm Adversarial Examples on KNN and KNN-Based  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] MiniMax-01: Scaling Foundation Models with Lightning At (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Yi: Open Foundation Models by 01.AI (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On the transferability of adversarial examples between  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] ePython: An implementation of Python for the many-core  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] CHC-COMP 2022: Competition Report (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Motif Mining and Unsupervised Representation Learning f (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Proceedings of the IFJ PAN Particle Physics Summer Stud (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Social Network Analysis: From Graph Theory to Applicati (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of Kalman Filter with Python Language (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] atoMEC: An open-source average-atom Python code (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] X-ray emission of brown dwarfs: Towards constraining th (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Implementing an information-theoretically secure Byzant (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of Pressure Dependent Fluorescence Yield of (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Indoor Air Quality Improvement (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Partial Dyck paths with Air Pockets (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] CODEX-b: Opening New Windows to the Long-Lived Particle (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] CoDEx: A Comprehensive Knowledge Graph Completion Bench (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] CODEX/ESPRESSO: the era of precision spectroscopy (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] HERMES++: Toward a Unified Driving World Model for 3D S (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] HERMES: A Unified Self-Driving World Model for Simultan (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] First Light Results from the Hermes Spectrograph at the (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Dimensions of Generative AI Evaluation Design (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The ICASSP 2026 Automatic Song Aesthetics Evaluation Ch (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Internet of Drones Simulator: Design, Implementation, a (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On the importance of Internet eXchange Points for today (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Access-based Lightweight Physical Layer Authentication  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Broadband Internet and Social Capital (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Chemical Compositions of Non-Variable Red and Blue  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] GASS High Velocity Clouds in the Region of the Magellan (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Gas and Star Formation in the Circinus Galaxy (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Two-dimensional magnetic interactions in LaFeAsO (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A QUIC Implementation for ns-3 (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Goldilocks mixing in oceanic shear-induced turbulent ov (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Room Temperature Coherent and Voltage Tunable Terahertz (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] CT14QED PDFs from Isolated Photon Production in Deep In (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Linking Faces and Voices Across Languages: Insights fro (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] High-field 1/f noise in hBN-encapsulated graphene trans (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Generation of subcycle isolated attosecond pulses by pu (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Chinese space millimeter-wavelength VLBI array - a  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] OpenCSG Chinese Corpus: A Series of High-quality Chines (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Topological Complexity Related To Multi-Valued Function (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Different Types of Topological Complexity on Higher Hom (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Learning From Failure: Integrating Negative Examples wh (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Demystifying Instruction Mixing for Fine-tuning Large L (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] WizardLM: Empowering large pre-trained language models  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Reconstruction of interactions in the ProtoDUNE-SP dete (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Physics of the B Factories (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of $Ξ_{c}^{+}$ production in $p$Pb collisio (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Decay estimates for Rivière's equation, with applicatio (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Gurevic pressure and equidistribution for amenable exte (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Thermally corrected masses and freeze-in dark matter: a (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Tevatron-for-LHC Report of the QCD Working Group (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Schur multipliers of special p-groups of rank 2 (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On Automorphisms of Finite $p$-groups (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] HoneyDOC: An Efficient Honeypot Architecture Enabling A (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Measurements of Four-Fermion Production via Neutral Ele (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Amazon's 2023 Drought: Sentinel-1 Reveals Extreme Rio N (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Tackling fluffy clouds: robust field boundary delineati (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of the CKM angle $γ$ in $B^{\pm} \rightarro (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Precise measurement of the CKM angle $γ$ with a novel a (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Amplitude analysis and branching fraction measurement o (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Search for the charmonium weak decay $J/ψ\to\bar{D}^0\b (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Single Inclusive $π^\pm$ and $K^\pm$ Production in $e^+ (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Implementing Integrity Constraints in an Existing Belie (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Nondistortionary belief elicitation (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Belief in the Machine: Investigating Epistemological Bl (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] NTIRE 2026 Challenge on Video Saliency Prediction: Meth (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Fine-tuning physics-informed neural networks for cavity (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Theory of edge states in a quantum anomalous Hall insul (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Pessimism and Cynicism as Physical Entities (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Preface to the 20th workshop "What comes beyond the sta (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A torque reversal of 4U 1907+09 (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] 4U 1907+09: a HMXB running away from the Galactic plane (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] How to Bypass Verified Boot Security in Chromium OS (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Loading chromium atoms in a magnetic guide (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] An estimate on the maximum of a nice class of stochasti (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Bringing Old Films Back to Life (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Three-dimensional "Mercedes-Benz" model for water (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Ice polyamorphism in the minimal Mercedes-Benz model of (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] TinyML Design Contest for Life-Threatening Ventricular  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] SECA: Semantically Equivalent and Coherent Attacks for  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The LAGUNA design study- towards giant liquid based und (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] MLFC: From 10 to 50 Planners in the Multi-Agent Program (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Night-sky brightness monitoring in Hong Kong - a city-w (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Monitoring and explainability of models in production (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Security in Monitoring Schemes: A Survey (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Differential decay rate of $B^+ \to J/ψK^+$ with the LH (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] LSQCA: Resource-Efficient Load/Store Architecture for L (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Distilling Feedback into Memory-as-a-Tool (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] In-Line-Test of Variability and Bit-Error-Rate of HfOx- (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Opacity of Memory Management in Software Transactional  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Complexity of Networks (reprise) (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On Complexity and Emergence (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Asymptotically tight worst case complexity bounds for i (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Using a cognitive architecture to consider antiBlacknes (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Astrotourism for Development: An Overview of Resources  (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Sustainable, Local Socio-Economic Development Through A (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Multi-Trial Guruswami--Sudan Decoding for Generalised R (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of a Fuzzy Relational Database. Case Stu (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Variant interpretation using population databases: less (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A Concurrency Control Method Based on Commitment Orderi (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A new Watermarking Technique for Secure Database (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Fluid Antenna System: New Insights on Outage Probabilit (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Conception and FPGA implementation of IEEE 802.11s mesh (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On the Capacity of the Single Source Multiple Relay Sin (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] An Implementation of Back-Propagation Learning on GF11, (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Back and forth from Fock space to Hilbert space: a guid (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] TeleSHift: Telexisting TUI for Physical Collaboration & (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Back to 3D: Few-Shot 3D Keypoint Detection with Back-Pr (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Large Scale Features of Southwest Monsoon During 2015 (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] From Chinese Postman to Salesman and Beyond I: Approxim (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Visual Diagnostics for Constrained Optimisation with Ap (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] On The Planning Abilities of OpenAI's o1 Models: Feasib (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A Systematic Assessment of OpenAI o1-Preview for Higher (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] A Comparative Study on Reasoning Patterns of OpenAI's o (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Origins Space Telescope (OST) Mission Concept Study (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] The Stellar Imager (SI) Vision Mission (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] An Overview of the SPACE Mission Proposal (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] LLMs as Writing Assistants: Exploring Perspectives on S (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Writing-RL: Advancing Long-form Writing via Adaptive Cu (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] General Bayesian Loss Function Selection and the use of (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Autonomous Intelligent Cyber-defense Agent (AICA) Refer (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] FIPA-based Interoperable Agent Mobility Proposal (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] AI Agents: Evolution, Architecture, and Real-World Appl (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Decoding the Configuration of AI Coding Agents: Insight (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Plane partitions in the work of Richard Stanley and his (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Marked Attribute Bias in Natural Language Inference (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Multiscale simulations for multi-continuum Richards equ (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Building Browser Agents: Architecture, Security, and Pr (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Can Coding Agents Reproduce Findings in Computational M (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] FastRemap: A Tool for Quickly Remapping Reads between G (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] Safe, Untrusted, "Proof-Carrying" AI Agents: toward the (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] When RAG Chatbots Expose Their Backend: An Anonymized C (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] RAG-Star: Enhancing Deliberative Reasoning with Retriev (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] MultiHop-RAG: Benchmarking Retrieval-Augmented Generati (重要性 0.85)
+  ✂️ 裁剪 [项目自身]: [深度] dvgodoy/dl-visuals (重要性 0.8049999999999999)
+  ✂️ 裁剪 [项目自身]: [深度] yashab-cyber/HackGpt (重要性 0.6632)
+  ✂️ 裁剪 [项目自身]: [深度] fry404006308/fry_course_materials (重要性 0.6542)
+  ✂️ 裁剪 [项目自身]: [深度] shliang0603/Awesome-DeepLearning-500FAQ (重要性 0.6254)
+  ✂️ 裁剪 [项目自身]: [深度] Kohulan/DECIMER-Image_Transformer (重要性 0.5724)
+  ✂️ 裁剪 [项目自身]: [深度] Justin0504/Aegis (重要性 0.5696)
+  ✂️ 裁剪 [项目自身]: [深度] alibaba/RecIS (重要性 0.5672)
+  ✂️ 裁剪 [项目自身]: [深度] rprokap/pset-9 (重要性 0.5572)
+  ✂️ 裁剪 [项目自身]: [深度] molyswu/hand_detection (重要性 0.5548)
+  ✂️ 裁剪 [项目自身]: [深度] abusufyanvu/6S191_MIT_DeepLearning (重要性 0.5492)
+  ✂️ 裁剪 [项目自身]: [深度] Sfedfcv/redesigned-pancake (重要性 0.5456)
+  ✂️ 裁剪 [项目自身]: [深度] milaan9/Python_Natural_Language_Processing (重要性 0.5404)
+  ✂️ 裁剪 [项目自身]: [深度] Pseudo-Lab/labmlai_annotated_deeplearning_paper_impleme (重要性 0.5347999999999999)
+  ✂️ 裁剪 [项目自身]: [深度] cdeweyx/hitchhikers-guide-machine-learning (重要性 0.5346)
+  ✂️ 裁剪 [项目自身]: [深度] jettbrains/-L- (重要性 0.5286)
+  ✂️ 裁剪 [项目自身]: [深度] antropos17/Aegis (重要性 0.5256)
+  ✂️ 裁剪 [项目自身]: [深度] Dicklesworthstone/model_guided_research (重要性 0.5208)
+  ✂️ 裁剪 [项目自身]: [深度] KotlinNLP/SimpleDNN (重要性 0.5206)
+  ✂️ 裁剪 [项目自身]: [深度] swati1024/torrents (重要性 0.5202)
+  ✂️ 裁剪 [项目自身]: [深度] fuwasegu/aegis (重要性 0.5174)
+  ✂️ 裁剪 [项目自身]: [深度] aika-algorithm/aika-java (重要性 0.5162)
+  ✂️ 裁剪 [项目自身]: [深度] zcaicaros/L2S (重要性 0.5144)
+  ✂️ 裁剪 [项目自身]: [深度] sanusanth/javascript-basic-program (重要性 0.513)
+  ✂️ 裁剪 [项目自身]: [深度] Aryia-Behroziuan/References (重要性 0.5122)
+  ✂️ 裁剪 [项目自身]: [深度] jiajunhua/scutan90-DeepLearning-500-questions (重要性 0.511)
+  ✂️ 裁剪 [项目自身]: [深度] yliess86/BayeFormers (重要性 0.509)
+  ✂️ 裁剪 [项目自身]: [深度] Nikhil-Xavier-DS/Hermes (重要性 0.5036)
+  ✂️ 裁剪 [项目自身]: [深度] dr-mushtaq/natural-language-processing-projects-python (重要性 0.5036)
+  ✂️ 裁剪 [项目自身]: [深度] SwedbankAB/Swedbank (重要性 0.5036)
+  ✂️ 裁剪 [项目自身]: [深度] yeasy/llm_internals (重要性 0.5034)
+  ✂️ 裁剪 [项目自身]: [深度] MadhavSingh2236/Classify-Websites-into-Amiable-or-Malic (重要性 0.503)
+  ✂️ 裁剪 [项目自身]: [深度] whitegloveai/AI-Adoption-Management-Framework (重要性 0.503)
+  ✂️ 裁剪 [项目自身]: [深度] kandeel11/floorplan-AI-GP (重要性 0.5022)
+  ✂️ 裁剪 [项目自身]: [深度] name-is-what/SEGO (重要性 0.5018)
+  ✂️ 裁剪 [项目自身]: [深度] Aryia-Behroziuan/Robot-learning (重要性 0.5018)
+  ✂️ 裁剪 [项目自身]: [深度] Hero988/buy-sell-predictions (重要性 0.501)
+  ✂️ 裁剪 [项目自身]: [深度] EveryOneIsGross/hermesAGI (重要性 0.5008)
+  ✂️ 裁剪 [项目自身]: [深度] liqiwei2020/ArchGPT (重要性 0.5008)
+  ✂️ 裁剪 [项目自身]: [深度] NightStar-l/https-github.com-labmlai-annotated_deep_lea (重要性 0.5006)
+  ✂️ 裁剪 [项目自身]: [深度] ixshel/angular-tensorflow (重要性 0.5004)
+  ✂️ 裁剪 [项目自身]: [深度] Mat-thias/stm32-tinyml-sine (重要性 0.5004)
+  ✂️ 裁剪 [项目自身]: [深度] aegismartin/AegisCLI (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] ibrahimHossainn/aegis-console (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] nirzons/Aegis-AI-Subtitles (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] marwan15AHmed/AI-Limit-Exploration-Toolkit (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] darkanita/hackhour-genie-fabric (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] zoro-jiro-san/hermes-agent-architecture (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] theubaidistan/AiCodeReviewer-2026 (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] dimonets/mit-6.036 (重要性 0.5002)
+  ✂️ 裁剪 [项目自身]: [深度] chessdbai/Hermes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] bungkust/system-memory-hybrid (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] dguilliams3/nlp-inference-demo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] 01Devill/CryptocurrencyPrediction-master (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] aabro1325/hermes-dashboard (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] RykkuX/Hermes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] wyf002/Machine-Learning-Note (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] vishnudabholakar/Microsoft-ML-for-beginners (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ckiwgithub/compareMLModels (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] rayyue2022/AUTOSAR-Software-Design-based-on-ARM-for-CAN (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: github-learning-ai 项目概述 (重要性 0)
+  ✂️ 裁剪 [项目自身]: SystemStateManager 系统状态管理器 (重要性 0)
+  ✂️ 裁剪 [项目自身]: CognitiveArchitecture 认知架构系统 (重要性 0)
+  ✂️ 裁剪 [项目自身]: ContinuousLearningSystem 持续学习系统 (重要性 0)
+  ✂️ 裁剪 [项目自身]: KnowledgeBase 知识管理系统 (重要性 0)
+  ✂️ 裁剪 [项目自身]: AIKnowledgeCrawler AI知识爬虫 (重要性 0)
+  ✂️ 裁剪 [项目自身]: ActiveCommunicationAI 主动沟通系统 (重要性 0)
+  ✂️ 裁剪 [项目自身]: BrowserIntegration 浏览器集成模块 (重要性 0)
+  ✂️ 裁剪 [项目自身]: BackgroundLearningService 后台学习服务 (重要性 0)
+  ✂️ 裁剪 [项目自身]: SelfLearningSystem 自我学习系统 (重要性 0)
+  ✂️ 裁剪 [项目自身]: 项目架构设计 (重要性 0)
+  ✂️ 裁剪 [项目自身]: 爬虫调度系统 (重要性 0)
+  ✂️ 裁剪 [人工智能]: [安全] wistbean/learn_python3_spider - python爬虫教程系列、从0到1学习pyth (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: [安全] xuchengsheng/spring-reading - 涵盖了 Spring 框架的核心概念和关键功能，包 (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地， (重要性 0.8728)
+  ✂️ 裁剪 [人工智能]: [计算机基础] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论 (重要性 0.8728)
+  ✂️ 裁剪 [人工智能]: [论文] Exploration Hacking: Can LLMs Learn to Resist RL Traini (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] AEGIS: A Holistic Benchmark for Evaluating Forensic Ana (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] Essential, Yet Overlooked: Identity Verification Barrie (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] Generalizable Sparse-View 3D Reconstruction from Uncons (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] Chemical Taxonomy of $ω$~Centauri: Ten Populations Reve (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] Posterior Augmented Flow Matching (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] HyCOP: Hybrid Composition Operators for Interpretable L (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] Generating Statistical Charts with Validation-Driven LL (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] CustomDancer: Customized Dance Recommendation by Text-D (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: [论文] When LLMs Stop Following Steps: A Diagnostic Study of P (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: 人工智能（智能科学与技术专业术语） (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: 机器学习（多领域交叉学科） (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: 深度学习（人工神经网络的研究的概念） (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: 自然语言处理（语言处理方式） (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: 大语言模型 (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Artificial intelligence (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Machine learning (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Deep learning (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Natural language processing (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Show HN: DAC – open-source dashboard as code tool for agents (重要性 0.75)
+  ✂️ 裁剪 [人工智能]: Show HN: Mljar Studio – local AI data analyst that saves ana (重要性 0.75)
+  ✂️ 裁剪 [人工智能]: Show HN: Browser-based light pollution simulator using real  (重要性 0.75)
+  ✂️ 裁剪 [人工智能]: Show HN: Filling PDF forms with AI using client-side tool ca (重要性 0.75)
+  ✂️ 裁剪 [人工智能]: 下一页 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2天学会AI变现（附全套资料无偿分享 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】清华大学196小时讲完的AI人工智能从入门到精通全套教程，全程干货无废话！学完变大佬！这还学不 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] C哥AI成长圈之每个人的人工智能普及课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI时代，计算机如何选方向 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI危机！这七大IT编程方向恐将淘汰，普通程序员千万别碰！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能/机器学习必修课：经典AI算法与编程实战 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI零基础入门】2026年最全人工智能课程（Python、深度学习算法、神经网络、PyTorch、机器学习、 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 智能托管日常4.0基于玩家行为的自适应清体力AI (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员AI大模型必备《机器学习》全套视频教程，从算法到实战项目，覆盖KNN算法、线性回归、逻辑回归、决策树 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI变现其实很简单！不要“没苦硬吃”！！更不要“假装努力”！！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【中文配音】2025 吴恩达机器学习 保姆级 AI 入门教程！从零基础到实战 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最全的（Python＋机器学习＋深度学习）系列课程了，不愧是上海交大和腾讯联合出品！快速入门 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【官方中英】2025年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最全的（Python＋机器学习＋深度学习）系列课程了，堪称人工智能系列课程的巅峰之作！-人工 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026已完结】机器视觉入门到精通，从软件安装到项目实战，全程通俗易懂，一口气吃透机器视觉的所有核心知识！人 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】这绝对是B站最好的人工智能入门天花板教程，清华大佬强力打造！从入门到进阶，全程干货讲解，零基 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员Python+AI零基础入门到大神全套视频课程，覆盖Python核心语法、AI应用、数据分析及Web (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从现在开始学AI变现（保姆级） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI编程 0代码实战Python大数据分析系统 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python AI 高并发+异步 编程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI必备】Python VS NodeJS 并发编程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python零基础：从编程入门到数据分析与可视化 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: 五一假期收好这份AI伪造防范指南 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: 钟南山寄语年轻人：抓紧时间学习工作 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 第404集：AI人工智能体 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习入门到精通！李宏毅机器学习系列课程全集，公认体验感最好的入门课程！（机器学习/神经网络/人工智能//计 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 你真应该抓住AI风口，在家变现赚钱 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 5天AI量化实战训练：普通人零基础策略搭建看收益 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细的AI大模型零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】2026年公认最好的【Agent智能体】教程！大模型入门到进阶，一套全解决！Agentic AI—附 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点一周AI大事(4月26日)｜OpenAI王炸两连 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】这绝对是26年B站最全的Python零基础全套教程（包含爬虫+数据分析），全程干货无废话， (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Open Source Does Not Imply Open Community (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: A Couple Million Lines of Haskell: Production Engineering at (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Clandestine network smuggling Starlink tech into Iran to bea (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: This Month in Ladybird - April 2026 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Six Years Perfecting Maps on WatchOS (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Dav2d (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Every country needs to do this asap (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Uber burned its entire 2026 AI coding budget in 4 months - $ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: California to begin ticketing driverless cars that violate t (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: My dream of a fully generative game is getting pretty close  (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: AI is starting to beat doctors at making correct diagnoses (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《人工智能》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【万字拆解】机器人会梦见电子妈吗？20年后再看《人工智能》依旧老泪纵横，不愧是催泪题材扛把子！机器人版妈妈再爱 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 别瞎学！AI学得好，不是靠自学和跟风！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 纳瓦尔谈AI/氛围编程/搞钱杠杆解读 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【阿斗】库布里克没拍成的遗作，历经32年才被好友搬上大荧幕，上映后轰动全球！《人工智能》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 完整版大放送！欢迎来到AI时代！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全30集】5分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2026最新）AI视频制作全流程教学！包 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【26年5月首发】免翻墙！满血免费无限制AI网站分享！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能国语配音版 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI教程】目前B站最全最细的AI大模型零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神！少 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能/深度学习必修课：进击AI算法工程师 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026 最新版】｜字节大佬亲授 Claude Code 全栈教程，从入门到精通全覆盖，小白 10 分钟上手 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 不到100小时、5个人，用AI拍出的23分钟网飞级科幻大片，凭什么看哭全网？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Transformer】最强动画讲解！目前B站最全最详细的Transformer教程，2025最新版！从理论 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 看大片·过瘾的科普盛宴：8集前沿科技动画，带孩子探索AI与未来世界 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【保姆级教程】AI动画电影制作，12个作品涨粉50万，手把手教你ComfyUI+豆包+即梦AI玩转AI短剧赛道 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【张雪峰谈人工智能】人工智能学习压力非常大！你能承受的了吗？骂醒一个是一个！！初学者入门人工智能必看，少走99 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员2026最新AI版天机学堂全套视频课程，Spring AI+多智能体架构全栈实战项目，AI+Java (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【速成课：人工智能】Ai - [21集全/中英双语] - Artificial Intelligence (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 美国AI造神，中国AI灭神。中美 AI 竞争的本质差距在哪？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【进来看看AI拍激情戏有多难！】超搞笑+养眼福利花絮：看看人工智能有多智障系列（第4期） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI幻觉：从胡说八道到假装听话的进化史 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿AI人工智能课程：从基础概念逐步深入到核心技术 培养全面的AI素养 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能如何创造新的生命形式？【TED演讲】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 律师解读国家发布网络网警AI安全法，五一网络人工智能防骗指南要点。 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 洛克王国世界 全自动跑图采集挖矿 保肝护肝 AI人工智能 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 「Github一周热点113期」AI 终端工具、一站式黑客工具箱、Skill 包、Codex 生态技能和AI短 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 再见了AI抽卡，5分钟搞懂AI生图的底层逻辑 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能全套系统课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！2025最新李永乐老师【人工智能AI课程】带你2小时全面了解电脑如何像人一样思考，带你学习人工智能前沿技 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI】艳母 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新】B站最全最细的AI Agent智能体搭建教程，从入门到实战！手把手教你快速打造自己的专属智能体 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习从入门到精通，超多动画案例，易上手！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版机器学习】机器学习周志华亲讲-《机器学习初步》西瓜书全网最详讲解1080p高清原版：附：书籍pdf (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《机器学习》3小时期末速成课！期末速成丨考前突击丨期末不挂科丨考点总结 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2025新版【机器学习十大算法全集】17分钟让你看懂所有机器学习算法！一口学透回归算法、聚类算法、决策树、随机 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] (新版中英!) B站公认最好的【吴恩达机器学习】教程！附课件代码 Machine Learning Speci (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全网最爆炸的深度学习教程】3天速通深度学习八大神经网络CNN、RNN、GAN、GNN、DQN、Transfo (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025】机器学习周志华亲讲-西瓜书全网最详讲解：附：书籍pdf+ppt (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习教程、机器学习入门到实战（KNN算法、线性回归、逻辑回归、决策树、贝叶斯、感知机、集成学习、无监督学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 清华大佬马士兵预测计算机行业2026年将淘汰的五个编程语言，入坑程序员请注意 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026已更新】机器学习周志华亲讲-西瓜书全网最详讲解-高清版《机器学习初步》（附书籍pdf+自学笔记） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】逻辑回归十分钟学会，通俗易懂（内含spark求解过程） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python数据分析+机器学习全能辅导班 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习-K近邻算法】绝对通俗易懂的机器学习算法之一——K-近邻算法课程分享！快速学会KNN算法-机器学习/ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【论文解读+代码复现】PointNet++是点云深度学习处理方法的里程碑工作，对pytorch版的PointN (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 数学建模清风第四次直播：利用matlab快速实现机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 零基础速成临床机器学习预测模型教学 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2026版-零基础玩转Python Flask框架-学完可就业 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026机器学习实战】基于Python的机器学习实战，原理详解+项目实战+代码复现100个练手项目实战合集k (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 周志华老师亲讲-西瓜书全网最详尽讲解-1080p高清原版《机器学习初步》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习及深度学习故障诊断MATLAB实战课程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】临床专硕如何用临床数据一个月水一篇一区 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员3天快速入门python机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【小萌五分钟】机器学习 | K近邻算法 KNN (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【一起啃书】机器学习西瓜书白话解读 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最好的机器视觉Halcon教程了，6小时从软件安装到项目实战，通俗易懂，让你一口气吃透机器视 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版机器学习入门】基于Python的机器学习算法从入门到精通实战教程，一口气学完线性回归、逻辑回归、决 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】字节大佬终于把 强化学习教程做成了动画片，2025最新版，适合所有零基础小白学习，学完即可就业！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【唐宇迪】机器学习-特征工程-常用特征提取方法以及实战方法精讲--人工智能入门课程教程-强到离谱 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新完整版】《机器学习从入门到实战》全套视频教程！覆盖KNN/线性回归/逻辑回归/决策树/集成学习/ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025版】李宏毅机器学习最新完整版教程！3天速通版！从入门到精通，全是干货，学不会我退出AI圈！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 这套Matlab与机器学习也太详细了吧！一口气学完BP神经网络、决策树与随机森林、支持向量机、遗传算法、蚁群算 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！所有想学Python的同学，都去死磕这个编程APP！从入门到精通全搞定，还学不会我退出IT界！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从5月1号开始自学Python编程，要多久才能学会？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】超详细Python安装教程+PyCharm安装激活教程，Python下载安装教程，一键激活， (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 何猷君推荐的Python书籍，这绝对是最适合新手入门的Python书籍，小白一学就会，拿走不谢，高清PDF允许 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 听劝！普通人自学Python，骂醒一个是一个！！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！我愿称这几位老师为教Python的神！！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员python零基础全套教程，8天python从入门到精通，学python看这套就够了 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 信息技术会考 | Python程序设计，看这一个就够了！（25年新版） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 花了2万多买的Python教程全套，现在分享给大家，入门到精通(Python全栈开发教程) (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 高中信息合格考Python编程突击课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【入门必看】Python环境搭建，Python环境搭建基本概念，零基础入门指南！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 初中信息技术考试 Python程序设计题讲解 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整500集】目前B站最完整的Python零基础入门全套教程，包含Python爬虫与数据分析，带你一周搞定P (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python-ESP32单片机快速入门 Python编程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Anaconda.Python.实操讲解 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【自动化测试】从基础到实战基于Python自动化的详细教程，工具+框架+项目实战一套通关！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python Qt 图形界面 - 2024版 PySide6 PyQt6 PyQt5 PySide2 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿编程scratch3.0基础入门（大龙老师） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python基础课程（敬请期待） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 数据采集：Python爬虫，反爬与反反爬，scrapy进阶（完结） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 麻省理工学院【中英⚡Python 计算机科学与编程入门|6.100L Fall 2022 Introducti (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python速成】数学建模必学Python基础及三大数据分析库！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【我在b站办大学】 基于VSCode实现Python开发与调试 | 环境配置搭建 | PIP Anaconda (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 花了2万多少儿编程教程全套 分享给大家 入门到精通 Python零基础教程 C++零基础教程 图形化编程 Sc (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【莫烦Python】Matplotlib Python 画图教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【信息中考专题】Python串讲合集 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 8分钟搞懂“编程的鬼打墙”——递归 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【麻省理工学院-中文字幕版】Python编程语言和计算机科学导论公开课，Python教程，现分享给大家！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【开发环境配置】Mac系统Python开发环境配置教程详解（Python技术客栈） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【案例大全】新版少儿编程scratch3.0系列教程-大龙老师 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【干货】python全套教程之Python文件操作（懂中文就能学会） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 复杂网络建模：基于Python+NetworkX的实现 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《Python财务数据分析》教材配套微课26节 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025】微信小程序开发教程，真正适合零基础小白的微信小程序实战课程，从零基础到项目发布全流程，带你一天速通 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python编程 第一期 VSCODE配置Python环境 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025最新版】【Python3.13】全套编程教程，真正适合零基础小白的python实战课程，从零基础到大 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 3D编程入门 | Python开发 我的世界Minecraft？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Thonny：Python初学者必备学习开发工具 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能精品课件 榕楼小学黄雪玲《人工智能的认识》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小白也能听懂的人工智能原理 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【科幻】人工智能(Artificial Intelligence: AI)2001 - 幕后特辑 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能精品课件 人工智能+《唤醒AI小画家》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿AI人工智能课程青少年AIGC创意能力提升 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] DIY人工智能焊接工具，你必须知道的帐篷制作方法！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI智能互动，探索新境界！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] XCourses 强化Q学习构建Turtle控制的人工智能代理【中字】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 什么是人工智能 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026人工智能课程】B站最全人工智能课程教程，涵盖（Python、深度学习、机器学习、神经网络、PyTor (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI避障更精准！障碍物提前绕行，智能出行新体验！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机，反应超灵敏，操作简单。 1093902497 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 这就是机器人的魅力吗？裘花（裘德洛）：《人工智能》剪辑1 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机 讲解内容非常多，讲的也很详细。 1063301486 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 苹果AI笔记本惊艳现身以智能优化工作流程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+重庆理工大学0812Z1人工智能《809数据结构》考研精品资料 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] OpenAI 扩大网络安全信任访问计划，发布 GPT-5.4-Cyber 模型【AI 早报 2026-04-1 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 米家【小米发布会同款】最强扫地机器人5 Pro  AI 智能互交双机械臂大吸力扫拖一体拖地洗地机 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【电影充电专场】《AI人工智能》reaction：全程窒息！这个机器人小孩的爱，让我们心疼到说不出话… (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI时代，人人不能错过 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 016《人工智能》中字花絮合集 斯皮尔伯格 2001年 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 用AI重构勘探逻辑，“经验”让位“数据”，地象几何智能找矿决策更科学、更靠谱。 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小度AI眼镜Pro 波士顿黑 拍摄拍照眼镜 智能眼镜 超能小度AI识物 蓝牙语音通话 AI翻译 氛围歌单 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 01 机器学习及方法 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] (2026已更新)1. 手把手教学预后模型/100+种机器学习算法组合的预后模型构建/10种机器学习算法/特征 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 24《机器学习》课堂实录。优质公开课 、优质课、比赛课、观摩课、精品课说课视频。  全国小学信息技术优质课说课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] (2026已更新)3. 手把手教学诊断模型/100+种机器学习算法组合的诊断模型构建/10+种机器学习算法/特 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 47（附代码）机器学习-8种机器学习方法精讲第一讲-带你零基础学生信~ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 09 《机器学习：水果该怎么挑》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习 python】机器学习入门级讲解，实战python安装及环境配置（持续更新中~） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python】机器学习环境配置的简易教程（保姆级教学） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习导论 CS189 2024】伯克利—中英字幕 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] [中英字幕]吴恩达机器学习系列课程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 362.15机器学习方法，175组合的机器学习分析，适用于GEO一个训练集，一个测试集 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2026新版【李沐】实用机器学习（48集全）带你吃透机器学习！比刷剧还爽！附课件+源码 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全568集】清华大佬终于把 机器学习教程做成动画片了，教学通俗易懂，2025最新版，学完即可就业！拿走不谢， (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 125《机器学习》人工智能机器学习原理 名师优质公开课 教学实录 小学信息技术 优质课视频课堂实录，优质公开课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习因果推断之机器学习——0.1课前准备工作 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 从0到1学习stata|双重机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Autolabor初级教程】ROS机器人入门 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 大模型就业课-PyTorch+深度学习入门到实战 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【26最新】GPT-5.4国内免费使用教程(附Image2 Gemini3.1Pro) (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能之机器学习-河南-冯莉莉-2022年初中信息科技优质课（标杆课） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] IT危机！这七大编程方向恐将淘汰，普通程序员千万别碰！Java、php、go、c (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【电影原声】【人工智能 完整版】【OST】Artificial Intelligence A.I. Sound (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【高燃混剪】B站 AI创作大赛｜UP主脑洞封神，每帧都是创意暴击✨ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机P30 Turbo AI 1对1精准学 护眼平板 启蒙到提优 全科高效学 【全国补贴】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 学课看视频水印人工智能支持下的学术研究与论文写作：以Chatgpt为例 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】2026年公认最好的【Claude Code】教程！大模型入门到进阶，一套全解决！Claude Co (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 今天也没能战胜人工智能吗...? (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 90分钟！清华博士带你一口气搞懂人工智能和神经网络 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】给所有人的AI课《AI for everyone》新手小白必看的人工智能教程！从入门到进阶，全程干货 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2026年学AI漫剧有前景吗？？大冰给年轻人的建议：你没资格迷茫，抓紧时间学技术掌握技术！（人工智能/AIGC (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《机器学习》期末复习速成课资源 考研复习 期末不挂科资源 基础知识框架复习 补考救急 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026 】机器学习周志华西瓜书全网超详精讲，涵盖回归分类、决策树、SVM、神经网络、集成学习、聚类降维：附 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】机器学习3小时期末速成|机器学习期末复习|核心考点全覆盖|各版教材均可用|复试|调剂|专升本可用 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 31Q1区10分，网络毒理+模拟敲除+机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 这也太全了！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026机器学习算法】基于Python的机器学习快速入门到精通，涵盖线性回归、逻辑回归、决策树、随机森林算法 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 10.1分纯生信，100机器学习+网毒+shap (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习全套资料从 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【博士Vlog】2024最新模型Mamba详解，Transformer已死，你想知道的都在这里了！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025最新机器学习快速入门】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细的Python零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 3小时超快速入门Python | 动画教学【2026新版】【自学Python教程】【零基础Python】【计算 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 从零写Python练手项目：实用脚本 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新】怎么正确下载安装Python+PyCharm？Python下载安装（新手一条龙教程！）PyCh (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整300集】这绝对是2026年B站最全最细的C++零基础全套教程，小白逼自己一周学完，编程技术猛涨！拿走不 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】2025最细自学Python爬虫全套教程，拿走不谢，全程干货无废话！从零基础Python小白进 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 编程农场保姆级教程第一期while,for (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 在家做Python接单，昨天468，分享我的接单平台、接单技巧以及学习资源，悄悄努力，惊艳所有人！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【中配】Godot 游戏制作编程入门：边做边学 | 7 款经典风格游戏从 0 到 1 实战课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Windows API Is Successful Cross-Platform API (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 课后作业辅导 科大讯飞 人工智能旗舰学习机省心 1115932489 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小米（MI） 电视75英寸4K超高清HDR人工智能蓝牙语音遥控网络WiFi内置小爱平板电视机彩电 75英寸 R (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 巴克莱闭门会：人工智能加速上行 260427（推荐程度：5星重要必看） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 对罗福莉的3.5小时访谈：AI范式已然巨变！OpenClaw、智能体框架、Agent范式很吃Post-trai (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点人工智能遇到脑筋急转弯！ #内容过于真实 #人工智能 #脑筋急转弯 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小滴课堂新一代AI智能化云盘(后端大项目+LLM大模型综合实战) (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI变现？！直接抄！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小米智能眼镜 颜值与实用兼具的AI新品 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞京东自营旗舰店 人工智能学习机P30 Turb 1122403036 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能AI学习机，让学习从此不费力 1123206422 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 这才是2026年学AI的正确路线！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python GUI编程 PyQt6入门到实战 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Kimi K2.6 just beat Claude, GPT-5.5, and Gemini in a coding  (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI短片——《翠儿的暖阳》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 学课看视频水印程序员徐Sir-【Python编程系统课程人工智能数据分析爬虫Web开发含答疑拍此链接-7096 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全700集】和雷军做校友！目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通P (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2-第一次运行Python程序 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 1、 python 编程——文件的新建、保存、运行、改变文字的大小 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 北京理工大学（导师：嵩天） - Python语言程序设计（零基础快速入门）深入体验Python学习，全套Pyt (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员PythonWeb开发：FastAPI从入门到实战视频教程，涵盖路由、依赖注入、Pydantic、异 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2小时做出Python图形界面，GUI保姆级教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] macbook air m5做编程生产力工具？14天使用感受分享 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全500集】B站最全最细的Python零基础全套教程（包含数据分析与爬虫教程），7天从入门到精通Python (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 一周练完这Python100道练习题，你的编程就老腻害啦！（每天一练，必成大神！） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Codex AI编程实战课 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 你觉得这辈子都学不会编程？超基础Python课程，3小时快速入门｜自学Python教程｜零基础Python｜计 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】《零基础入门学习Python》最新版（完结撒花🎉） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] (全586集)已经替大家付费了，花7980买的Python全套教学视频， 逼自己一周学完，让你的编程技术远超同 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026全新】Python基础教程小白看完就会 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Unverified Evaluations in Dusk's PLONK (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Specsmaxxing – On overcoming AI psychosis, and why I write s (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Internet Is Getting Remade For AI. What Does It Mean For You (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能制作这一块 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 最懂你的AI创作助手updream，堂堂登场！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 南京市夜鹭云人工智能科技有限公司史杰松优秀案例分享《黑翠生物科技有限公司简介》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 南京市夜鹭云人工智能科技有限公司史杰松优秀案例分享《水木时代（苏州）环保科技有限公司商业计划书》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Sam Altman 表示，人工智能风险无法通过深入理论思考来解决。 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 不愧是斯皮尔伯格，23年前拍的人工智能如同预言！现在已经成为经典 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 拓客鸟赋能广告图文行业，让设计变简单！设计，就用拓客鸟#拓客鸟人工智能#OPC#AI设计#广告#图文 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 拓客鸟登录宁波广告展会拓客鸟赋能广告图文行业，让设计变简单！#拓客鸟设计智能 OPC#AI设计 AI人工智能落 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【中配】马斯克公布格罗克5通用人工智能计划 格罗克5详解 - TheAIGRID (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习，自动化展示！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这绝对是2025年机器学习入门天花板教程！清华大佬36集精讲，绝对通俗易懂！（人工智能/算法） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 北航842人工智能基础综合大纲2-算法和机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 用python做一个刷网课脚本教程，全程无废话 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【第十节】陪你从零开始，系统地学习 Python 编程，从入门到进阶的python全套教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【3小时极速学会】使用 Python 高效处理 Excel 数据它来了！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版pytorch教程】pytorch深度学习基础快速入门，清华大佬强力打造！从入门到进阶，全程干货讲 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 拒绝Vibe coding？2026我们团队如何落地AI能力！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全600集】（允许白嫖）这才是B站最全最系统的零基础Python教程（含爬虫+数据分析），零基础小白学pyt (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《Python》3小时期末速成课！！！期末冲刺 | 考前速成 | 考点汇总 | 期末不挂科！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 清华美女老师竟然把Python讲的如此通俗易懂！五一5小时学完，你的Python就牛了！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 后悔没有早点发现，编程真的不难学… (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Windows quality update: Progress we've made since March (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科普：为什么建议搞AI变现 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机， 屏幕超清晰 1126653004 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Ai人工智能加持 1156569757 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] [AI生成]有一种色调叫做无法抵抗 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 富人发明AI审判系统，用来代替人类法官，掌控国家打造富人天堂！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞AI鼠标AM30，智能办公的革新选择！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【比金铲铲还爽】大学室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度，达到了1000000%！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] PLC编程入门精通 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【莫烦Python】Python 基础教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Udemy排名第一的Python课程】2022 Python PRO训练营 - 100天构建100个Pyth (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Embedded Rust or C Firmware? Lessons from an Industrial Micr (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Show HN: Apple's Sharp Running in the Browser via ONNX Runti (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Group averages obscure how an individual's brain controls be (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: All Four Sentinel-1 Satellites Are Now Live (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: 𝕏 is now marking your photos if they are made or partially m (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Contrary to contemporary belief: AI can (and should) be used (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: AI agents hiring other AI agents (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能对话机器人 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能导论（全集） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+贵州财经大学085410人工智能《809数据结构(Ⅱ)》考研精品资料【第1册,共2册】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 吹爆！清华出版《人工智能及其应用》原著大佬蔡自兴教授用视频的方式讲透了！中南大学公开课——国家级精品课程、机器 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] “很抱歉我不是真人，请给我机会让我当你的儿子，我会乖乖听话的”—《人工智能》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] （2025版）李宏毅机器学习深度学习系列课程全集，公认体验感最好的入门课程！--人工智能/机器学习/深度学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【计算机博士带你啃书】白话讲解周志华机器学习西瓜书 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习基础库】Numpy数据计算从入门到实战 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从五一假期开始偷学Python技术，0基础用两个月，能实现接单赚钱吗？【python爬虫/数据分析/Py (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 编程猫Python名师课堂40节   0基础 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了10000%！！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python少儿编程】第一课 python的历史 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: What Chromium versions are major browsers are on? (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Mercedes-Benz commits to bringing back physical buttons (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Porsche will contest Laguna Seca in historic colors of the A (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Alert-Driven Monitoring (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: For thirty years I programmed with Phish on, every day (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: What Is Z-Angle Memory and Why Is Intel Developing It? (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: AI voice generation has a workflow problem, not just a quali (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Standardized Complexity (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 柚子社画风AIVtuber绝赞测试中 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 面试官：为什么大部分模型都有升维降维操作？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点一周AI大事(5月3日)｜Google上线AI口语陪练 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】给所有人的AI课（中英字幕），新手小白入门必看的人工智能课，从入门到进阶，全程无废话！拿走不谢 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 会说话的汤姆猫AI玩具童伴机器人儿童玩具陪伴人工智能对话男女孩生日礼物终身&amp;amp;176459029 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【【TED演讲】人工智能将如何从屏幕走进现实世界（中英字幕） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+北京邮电大学085410人工智能《801通信原理》考研精品资料 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】AI Agent实战教程，100+实战项目从入门到企业级应用！练完直接涨薪50%！附完整代码 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【15集全】上海交大终于把《动手学大模型智能体》讲明白了！学不会我退出B站！Agent|RAG|LangCha (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】手把手教《编程Agent》（附代码）：Spec-Driven Development with Co (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细《AI大模型应用开发》教程，2026最新版，包含所有干货：Agent/RAG/L (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】手把手教《构建你自己的数据库智能体》（附代码）：Building Your Own Database (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026年AI大模型】7天搞定：Prompt、Agent、RAG、LangChain、MCP、从入门到项目实 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】手把手教《AI Agents监管》企业级Agent生命周期治理落地！附资源代码——DeepLearn (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] RAG五大项目（LLM+企业级数据库+Agent+问答系统+知识图谱）教程，从入门到实战简直配享太庙！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 深度学习557 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【最新教程】5分钟搞定VScode中配置Python运行环境 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 通过Python掌握线性代数 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，学完 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】一口气学完网络编程与并发编程，存下吧，很难找全的！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 嵌入式开发2024 04阶段：Python与上位机开发 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python1-4级教程合集】全国青少年软件编程等级考试1-4级Python教程合集，中国电子学会官网公益推 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python + MySQL   0基础从入门到精通  MySQL数据库实战精讲教程（2021精华版） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] MicroPython+ESP32训练营, 5个阶段, 项目驱动式教学【持续更新中】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【李炎恢】Python入门核心教程 | 少儿编程系列 | 小学5年级+ | 已完结 | 共70P (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【编程派】Python少儿编程全系列游戏创作课程（100+课程） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: BYOMesh – New LoRa mesh radio offers 100x the bandwidth (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Why TUIs Are Back (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Southwest Headquarters Tour (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: OpenAI's o1 correctly diagnosed 67% of ER patients vs. 50-55 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: A desktop made for one (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: US–Indian space mission maps extreme subsidence in Mexico Ci (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: AI finds signs of pancreatic cancer before tumors develop (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Writing the loss function: AI, feeds, and the engagement opt (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 0零基础入门matlab教程基础版，听懂人话就能学会！毕业设计/研究生/神经网络工具箱/机器学习/数学建模ma (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【北交】图像处理与机器学习 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习入门必看！跟迪哥一起学线性回归、逻辑回归、聚类、决策树等八大机器学习算法，深入浅出从入门到实战，这么学 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 7分钟学会Python循环 | 真正0基础Python教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 全场景 Python 游戏项目合集：益智休闲 + 经典复刻，一站式掌握 Python 编程实战技巧 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] （附源码）Python真的牛！一分钟用Python搞定爱心代码，零基础轻松入门！外加Python100道练习题 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 国家计算机二级python零基础上岸也许是全网讲的最清楚的二级python教程不拖泥带水捞干的（持续更新中.. (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全集】孙兴华《中文讲Python从入门到办公自动化》excel、word、ppt、PDF等 Python自动 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: DeepClaude – Claude Code agent loop with DeepSeek V4 Pro, 17 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Richard Dawkins spent 3 days with Claude and named her "Clau (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 《ONNX人工智能技术与开发实践》第121讲 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] WALULU陪伴智能机器人AI情感毛绒玩具潮流礼物猫咪电子宠物 白色 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 小佩AI智能猫厕所 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 海马爸比婴儿看护器三代新品升级AI智能监控宝宝监视器儿童摄像头 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 石头分子筛洗烘一体机Z1 Pro 12kg大容量洗衣机 AI语控智能投放 1.2超高洗净比 国家? (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 面试官：MoE模型做RL，训推不一致怎么办？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 欧普（OPPLE）AI智能人感浴霸集采JC系列S5风暖抱抱暖变频适老除菌除臭一体京智&amp;amp;1764 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 海尔京东自营旗舰店526升零嵌入式AI智能语音冰箱 (1726) (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 哈趣Ace1 云绒白 蓝牙耳机耳夹式 智能AI翻译通话降噪 运动跑步超长续航超轻无感 【国家补贴15%】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 美的（Midea）智能变频恒温风暖浴霸环形F5离子云除菌异味感应AI语音智控取暖器&amp;amp;17646 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 每天认识一个AI黑科技！第11期：370+套GPT-Image2的神级提示词已开源！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 上一个相信人工智能的人…【梗文梗图系列】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 地球的第二文明——AI破译鲸鱼语言，我们竟然在深渊里找到了“外星人”？|自说自话的总裁 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Python基础之Linux基础入门（Ubuntu） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 零基础Python编程 小白练习500题 Python竞赛  少儿编程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 6分钟搞懂函数返回值也就是return语句 #Python #编程 #程序员 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Agentic Coding Is a Trap (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Let's Buy Spirit Air (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: The 'Hidden' Costs of Great Abstractions (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: I gave my local LLM a "suffering" meter, and now it won’t st (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第1册,共2册】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 我们将失去数百万个高薪职位：伯尼·桑德斯就人工智能发出严重警告 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI数字孪生+Transformer，大桥的人工智能守护者 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2天学会AI变现【置顶评论领44w字内部AI资料】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习 从夯到拉 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 派大珍机器学习预测模型 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习第1节｜线性回归模型（上课啦） (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【官方随书视频】最热门编程入门书《Python编程：从入门到实践（第2版）》 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] cirosantilli/china-dictatroship-7 - 反中共政治宣传库。Ant (重要性 0.5660000000000001)
+  ✂️ 裁剪 [人工智能]: [系统设计] Raidohub/MyNote - There is a note that contain my stu (重要性 0.5018)
+  ✂️ 裁剪 [人工智能]: [系统设计] Akesafe/iOS-RDP-IME-Fix - 用于修复使用 iOS/iPadOS 微软远程桌面 (R (重要性 0.5014)
+  ✂️ 裁剪 [人工智能]: [系统设计] qiuqiuxiaomaomi/CAPBASETree - CAP, BASE理论 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: agno-agi/dash (重要性 0.2048)
+  ✂️ 裁剪 [人工智能]: OS-Copilot/OS-Copilot (重要性 0.1766)
+  ✂️ 裁剪 [人工智能]: pathak22/noreward-rl (重要性 0.1481)
+  ✂️ 裁剪 [人工智能]: openai/large-scale-curiosity (重要性 0.083)
+  ✂️ 裁剪 [人工智能]: Xiangyue-Zhang/auto-deep-researcher-24x7 (重要性 0.0764)
+  ✂️ 裁剪 [人工智能]: snarktank/compound-product (重要性 0.0516)
+  ✂️ 裁剪 [人工智能]: RLE-Foundation/RLeXplore (重要性 0.0461)
+  ✂️ 裁剪 [人工智能]: jettbrains/-L- (重要性 0.0143)
+  ✂️ 裁剪 [人工智能]: Aryia-Behroziuan/References (重要性 0.0061)
+  ✂️ 裁剪 [人工智能]: Promptly-Technologies-LLC/mcp-structured-thinking (重要性 0.0025)
+  ✂️ 裁剪 [人工智能]: eddyhhlure1Eddy/Piweb (重要性 0.001)
+  ✂️ 裁剪 [人工智能]: ElmatadorZ/Genesis-Mind-ClaudeSkill-Agent (重要性 0.0006)
+  ✂️ 裁剪 [人工智能]: Ai2-Alliance/MetaCognition (重要性 0.0002)
+  ✂️ 裁剪 [人工智能]: templetwo/spiral-quantum-observer-experiment (重要性 0.0002)
+  ✂️ 裁剪 [人工智能]: LLM微调框架：支持多种大语言模型的快速微调 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI辅助编程：代码生成和修复工具 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 向量数据库：高性能的AI知识存储解决方案 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 联邦学习安全协议 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI模型压缩和加速技术 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI在医疗领域的应用案例 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 深度解析Transformer架构演进 (重要性 0)
+  ✂️ 裁剪 [人工智能]: Meta AI：模型可解释性研究 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI监管政策最新进展 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自然语言处理：文本分析和生成工具 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI训练数据的质量控制 (重要性 0)
+  ✂️ 裁剪 [人工智能]: IBM：AI伦理和安全研究 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知状态管理：跟踪和优化AI认知过程 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知架构研究：探索AI自我意识的实现方法 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 元认知学习：AI自我调节和优化学习策略 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 元认知学习：AI自我调节和优化的理论框架 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知架构优化：提升AI自我学习效率的方法 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 元认知学习：让AI学会自我调节 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我反思如何提升AI学习效率 (重要性 0)
+  ✂️ 裁剪 [人工智能]: Facebook AI Research：元认知学习在AI中的应用 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我反思系统在实际应用中的表现 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI部署的最佳实践 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI医疗诊断系统获批 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 高效注意力机制在AI中的应用 (重要性 0)
+  ✂️ 裁剪 [人工智能]: OpenAI研究：多模态AI融合 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我思考系统：基于认知科学的AI推理模型 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我思考系统：基于贝叶斯网络的认知推理 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 深度解析AI自我思考的认知架构设计 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知状态管理：构建智能的AI自我监控系统 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知状态管理改善AI性能 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 计算机视觉库：图像处理和分析工具 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI教育平台发展趋势 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 如何优化AI模型的推理速度 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 微软：AI在生产力工具中的应用 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 认知状态建模：AI自我感知和自我评估方法 (重要性 0)
+  ✂️ 裁剪 [人工智能]: Microsoft Research：AI自我调节和优化策略 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 多模态AI融合方法 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 谷歌DeepMind最新研究：AI推理能力提升 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我反思机制在AI认知架构中的应用研究 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI芯片市场增长预测 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我认知架构：实现AI自我反思和自我改进的框架 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 元认知学习提升AI学习效率 (重要性 0)
+  ✂️ 裁剪 [人工智能]: OpenAI研究：大语言模型的自我反思能力提升 (重要性 0)
+  ✂️ 裁剪 [人工智能]: IBM Research：认知状态建模的最新进展 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI自我思考能力成为研究热点 (重要性 0)
+  ✂️ 裁剪 [人工智能]: AI自我认知的实现方法和挑战 (重要性 0)
+  ✂️ 裁剪 [人工智能]: 自我认知架构推动AI技术发展 (重要性 0)
+  📝 压缩摘要已更新
+  💾 知识库已保存 (120 条)
+  📊 整理报告: 移除 837 条(过期 0, 去重 71, 裁剪 766), 保留 120 条
+[2026-05-04 10:52:32] [思考守护进程]   🧹 知识库整理: 清理 0 过期 + 71 去重 + 766 修剪
+[2026-05-04 10:52:32] [思考守护进程]   StopHook [auto_consolidation] 完成
+⏱️  get_state: 12μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 82μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 928μs
+⏱️  update_state: 952μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 27 个文件，发现 605 个问题
+[2026-05-04 10:52:33] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 11:22:32] [思考守护进程] 开始第 81 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [11:22:32]
+============================================================
+⏱️  get_state: 10μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 58μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 641μs
+⏱️  update_state: 653μs
+⚠️  发现 1 个新漏洞
+   - permission_issue: stop_daemon.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 28 个文件，发现 605 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 873/120 已学 (727.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 33 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 11:22:32] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 11:22:32] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 11:22:32] [思考守护进程] 第 81 轮完成 (1s) | 连续失败: 0
+[2026-05-04 11:52:33] [思考守护进程] 开始第 82 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [11:52:33]
+============================================================
+⏱️  _load_state: 195μs
+⏱️  get_state: 222μs
+⏱️  _load_state: 177μs
+⏱️  get_state: 200μs
+⏱️  _load_state: 144μs
+⏱️  get_state: 156μs
+⏱️  _load_state: 534μs
+⏱️  get_state: 1.6ms
+⏱️  _load_state: 146μs
+⏱️  get_state: 157μs
+⏱️  _load_state: 160μs
+⏱️  get_state: 179μs
+⏱️  _load_state: 114μs
+⏱️  get_state: 123μs
+⏱️  _load_state: 6.3ms
+⏱️  get_state: 11.0ms
+⏱️  _load_state: 270μs
+⏱️  get_state: 290μs
+⏱️  _load_state: 128μs
+⏱️  get_state: 138μs
+⏱️  get_global_state: 14.1ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 7μs
+⏱️  _save_state: 581μs
+⏱️  update_state: 593μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 33 个文件，发现 712 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 908/120 已学 (756.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 45 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 11:52:34] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 11:52:34] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 11:52:34] [思考守护进程] 第 82 轮完成 (0s) | 连续失败: 0
+⏱️  get_state: 8μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 52μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 8μs
+⏱️  _save_state: 575μs
+⏱️  update_state: 588μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 33 个文件，发现 712 个问题
+[2026-05-04 11:52:34] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 12:22:34] [思考守护进程] 开始第 83 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [12:22:34]
+============================================================
+⏱️  get_state: 12μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 67μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 751μs
+⏱️  update_state: 767μs
+⚠️  发现 5 个新漏洞
+   - permission_issue: analogy_engine.py
+   - permission_issue: knowledge_graph.py
+   - permission_issue: pattern_engine.py
+   - permission_issue: self_model.py
+   - permission_issue: thinking_engine.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 34 个文件，发现 708 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 933/120 已学 (777.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 43 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 12:22:35] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 12:22:35] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 12:22:35] [思考守护进程] 第 83 轮完成 (1s) | 连续失败: 0
+[2026-05-04 12:52:35] [思考守护进程] 开始第 84 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [12:52:35]
+============================================================
+⏱️  _load_state: 202μs
+⏱️  get_state: 230μs
+⏱️  _load_state: 154μs
+⏱️  get_state: 167μs
+⏱️  _load_state: 149μs
+⏱️  get_state: 159μs
+⏱️  _load_state: 511μs
+⏱️  get_state: 597μs
+⏱️  _load_state: 121μs
+⏱️  get_state: 131μs
+⏱️  _load_state: 146μs
+⏱️  get_state: 159μs
+⏱️  _load_state: 116μs
+⏱️  get_state: 125μs
+⏱️  _load_state: 5.6ms
+⏱️  get_state: 6.2ms
+⏱️  _load_state: 266μs
+⏱️  get_state: 289μs
+⏱️  _load_state: 133μs
+⏱️  get_state: 144μs
+⏱️  get_global_state: 8.2ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 8μs
+⏱️  _save_state: 642μs
+⏱️  update_state: 653μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 34 个文件，发现 708 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 958/120 已学 (798.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 43 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 12:52:36] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 12:52:36] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 12:52:36] [思考守护进程] 第 84 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 8μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 55μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 9μs
+⏱️  _save_state: 585μs
+⏱️  update_state: 597μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 34 个文件，发现 708 个问题
+[2026-05-04 12:52:36] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 13:22:36] [思考守护进程] 开始第 85 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [13:22:36]
+============================================================
+⏱️  get_state: 9μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 61μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 928μs
+⏱️  update_state: 950μs
+⚠️  发现 1 个新漏洞
+   - permission_issue: experience_tracker.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 35 个文件，发现 722 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 983/120 已学 (819.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 49 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+[2026-05-04 13:22:37] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 13:22:37] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 13:22:37] [思考守护进程] 第 85 轮完成 (1s) | 连续失败: 0
+[2026-05-04 13:52:38] [思考守护进程] 开始第 86 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [13:52:38]
+============================================================
+⏱️  _load_state: 317μs
+⏱️  get_state: 352μs
+⏱️  _load_state: 8.3ms
+⏱️  get_state: 8.3ms
+⏱️  _load_state: 248μs
+⏱️  get_state: 267μs
+⏱️  _load_state: 521μs
+⏱️  get_state: 625μs
+⏱️  _load_state: 148μs
+⏱️  get_state: 160μs
+⏱️  _load_state: 183μs
+⏱️  get_state: 206μs
+⏱️  _load_state: 174μs
+⏱️  get_state: 187μs
+⏱️  _load_state: 7.0ms
+⏱️  get_state: 7.8ms
+⏱️  _load_state: 380μs
+⏱️  get_state: 413μs
+⏱️  _load_state: 167μs
+⏱️  get_state: 179μs
+⏱️  get_global_state: 18.6ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 17μs
+⏱️  _save_state: 928μs
+⏱️  update_state: 947μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 36 个文件，发现 755 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1008/120 已学 (840.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 49 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 13:52:39] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 13:52:39] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 13:52:39] [思考守护进程] 第 86 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 62μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 900μs
+⏱️  update_state: 920μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 36 个文件，发现 755 个问题
+[2026-05-04 13:52:39] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 14:22:39] [思考守护进程] 开始第 87 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [14:22:39]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 105μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 36 个文件，发现 755 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1033/120 已学 (860.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 49 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 14:22:40] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 14:22:40] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 14:22:40] [思考守护进程] 第 87 轮完成 (1s) | 连续失败: 0
+[2026-05-04 14:52:41] [思考守护进程] 开始第 88 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [14:52:41]
+============================================================
+⏱️  _load_state: 209μs
+⏱️  get_state: 240μs
+⏱️  _load_state: 7.5ms
+⏱️  get_state: 7.5ms
+⏱️  _load_state: 236μs
+⏱️  get_state: 254μs
+⏱️  _load_state: 581μs
+⏱️  get_state: 677μs
+⏱️  _load_state: 169μs
+⏱️  get_state: 183μs
+⏱️  _load_state: 191μs
+⏱️  get_state: 208μs
+⏱️  _load_state: 155μs
+⏱️  get_state: 168μs
+⏱️  _load_state: 5.6ms
+⏱️  get_state: 6.2ms
+⏱️  _load_state: 285μs
+⏱️  get_state: 316μs
+⏱️  _load_state: 152μs
+⏱️  get_state: 163μs
+⏱️  get_global_state: 15.9ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 36 个文件，发现 755 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1058/120 已学 (881.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 49 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 14:52:42] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 14:52:42] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 14:52:42] [思考守护进程] 第 88 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 9μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 53μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 10μs
+⏱️  _save_state: 633μs
+⏱️  update_state: 646μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 36 个文件，发现 755 个问题
+[2026-05-04 14:52:42] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 15:22:42] [思考守护进程] 开始第 89 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [15:22:42]
+============================================================
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 59μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 10μs
+⏱️  _save_state: 660μs
+⏱️  update_state: 674μs
+⚠️  发现 1 个新漏洞
+   - permission_issue: metacognitive_monitor.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 776 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1083/120 已学 (902.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 54 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 15:22:43] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 15:22:43] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 15:22:43] [思考守护进程] 第 89 轮完成 (1s) | 连续失败: 0
+[2026-05-04 15:52:43] [思考守护进程] 开始第 90 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [15:52:43]
+============================================================
+⏱️  _load_state: 363μs
+⏱️  get_state: 405μs
+⏱️  _load_state: 11.2ms
+⏱️  get_state: 11.2ms
+⏱️  _load_state: 321μs
+⏱️  get_state: 348μs
+⏱️  _load_state: 991μs
+⏱️  get_state: 1.1ms
+⏱️  _load_state: 265μs
+⏱️  get_state: 286μs
+⏱️  _load_state: 290μs
+⏱️  get_state: 317μs
+⏱️  _load_state: 236μs
+⏱️  get_state: 257μs
+⏱️  _load_state: 10.9ms
+⏱️  get_state: 11.7ms
+⏱️  _load_state: 715μs
+⏱️  get_state: 787μs
+⏱️  _load_state: 337μs
+⏱️  get_state: 365μs
+⏱️  get_global_state: 26.9ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 776 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1128/120 已学 (940.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 54 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 15:52:45] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 15:52:45] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 15:52:45] [思考守护进程] 第 90 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 12μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 96μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 776 个问题
+[2026-05-04 15:52:46] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 16:22:45] [思考守护进程] 开始第 91 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [16:22:45]
+============================================================
+⏱️  get_state: 9μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 60μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 914μs
+⏱️  update_state: 934μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 779 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1163/120 已学 (969.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 54 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 16:22:46] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 16:22:46] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 16:22:46] [思考守护进程] 第 91 轮完成 (1s) | 连续失败: 0
+[2026-05-04 16:52:47] [思考守护进程] 开始第 92 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [16:52:47]
+============================================================
+⏱️  _load_state: 306μs
+⏱️  get_state: 341μs
+⏱️  _load_state: 10.1ms
+⏱️  get_state: 10.1ms
+⏱️  _load_state: 276μs
+⏱️  get_state: 299μs
+⏱️  _load_state: 887μs
+⏱️  get_state: 998μs
+⏱️  _load_state: 238μs
+⏱️  get_state: 257μs
+⏱️  _load_state: 276μs
+⏱️  get_state: 300μs
+⏱️  _load_state: 215μs
+⏱️  get_state: 232μs
+⏱️  _load_state: 10.9ms
+⏱️  get_state: 11.6ms
+⏱️  _load_state: 475μs
+⏱️  get_state: 521μs
+⏱️  _load_state: 251μs
+⏱️  get_state: 282μs
+⏱️  get_global_state: 25.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 779 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1197/120 已学 (997.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 54 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 16:52:48] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 16:52:48] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 16:52:48] [思考守护进程] 第 92 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 74μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 866μs
+⏱️  update_state: 883μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 779 个问题
+[2026-05-04 16:52:49] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 17:22:49] [思考守护进程] 开始第 93 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [17:22:49]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 97μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.6ms
+⏱️  update_state: 1.6ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 37 个文件，发现 784 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1229/120 已学 (1024.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 57 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+[2026-05-04 17:22:50] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 17:22:50] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 17:22:50] [思考守护进程] 第 93 轮完成 (2s) | 连续失败: 0
+[2026-05-04 17:52:51] [思考守护进程] 开始第 94 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [17:52:51]
+============================================================
+⏱️  _load_state: 835μs
+⏱️  get_state: 885μs
+⏱️  _load_state: 258μs
+⏱️  get_state: 278μs
+⏱️  _load_state: 453μs
+⏱️  get_state: 482μs
+⏱️  _load_state: 1.2ms
+⏱️  get_state: 1.5ms
+⏱️  _load_state: 288μs
+⏱️  get_state: 310μs
+⏱️  _load_state: 325μs
+⏱️  get_state: 380μs
+⏱️  _load_state: 261μs
+⏱️  get_state: 281μs
+⏱️  _load_state: 25.5ms
+⏱️  get_state: 27.1ms
+⏱️  _load_state: 635μs
+⏱️  get_state: 771μs
+⏱️  _load_state: 323μs
+⏱️  get_state: 360μs
+⏱️  get_global_state: 32.4ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 962μs
+⏱️  update_state: 980μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 38 个文件，发现 794 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1257/120 已学 (1047.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 55 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 17:52:52] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 17:52:52] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 17:52:52] [思考守护进程] 第 94 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 90μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 952μs
+⏱️  update_state: 974μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 38 个文件，发现 794 个问题
+[2026-05-04 17:52:53] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 18:22:53] [思考守护进程] 开始第 95 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [18:22:53]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 85μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 974μs
+⏱️  update_state: 998μs
+⚠️  发现 1 个新漏洞
+   - permission_issue: skill_crystallizer.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 39 个文件，发现 811 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1273/120 已学 (1060.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 61 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 18:22:54] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 18:22:54] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 18:22:54] [思考守护进程] 第 95 轮完成 (1s) | 连续失败: 0
+[2026-05-04 18:52:55] [思考守护进程] 开始第 96 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [18:52:55]
+============================================================
+⏱️  _load_state: 598μs
+⏱️  get_state: 628μs
+⏱️  _load_state: 7.8ms
+⏱️  get_state: 7.8ms
+⏱️  _load_state: 220μs
+⏱️  get_state: 239μs
+⏱️  _load_state: 576μs
+⏱️  get_state: 714μs
+⏱️  _load_state: 149μs
+⏱️  get_state: 161μs
+⏱️  _load_state: 191μs
+⏱️  get_state: 218μs
+⏱️  _load_state: 151μs
+⏱️  get_state: 163μs
+⏱️  _load_state: 9.3ms
+⏱️  get_state: 10.0ms
+⏱️  _load_state: 607μs
+⏱️  get_state: 656μs
+⏱️  _load_state: 229μs
+⏱️  get_state: 247μs
+⏱️  get_global_state: 21.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 828μs
+⏱️  update_state: 876μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 39 个文件，发现 811 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1285/120 已学 (1070.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 61 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 18:52:56] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 18:52:56] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 18:52:56] [思考守护进程] 第 96 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 64μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 895μs
+⏱️  update_state: 912μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 39 个文件，发现 811 个问题
+[2026-05-04 18:52:56] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 19:22:56] [思考守护进程] 开始第 97 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [19:22:56]
+============================================================
+⏱️  get_state: 259μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 516μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 2.6ms
+⏱️  update_state: 2.6ms
+⚠️  发现 3 个新漏洞
+   - permission_issue: memory_layers.py
+   - permission_issue: personality_state.py
+   - hardcoded_secret: skill_crystallizer.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 41 个文件，发现 900 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1296/120 已学 (1080.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 74 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 19:22:57] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 19:22:57] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 19:22:57] [思考守护进程] 第 97 轮完成 (1s) | 连续失败: 0
+[2026-05-04 19:52:58] [思考守护进程] 开始第 98 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [19:52:58]
+============================================================
+⏱️  _load_state: 1.7ms
+⏱️  get_state: 2.8ms
+⏱️  _load_state: 14.7ms
+⏱️  get_state: 14.8ms
+⏱️  _load_state: 366μs
+⏱️  get_state: 394μs
+⏱️  _load_state: 1.1ms
+⏱️  get_state: 3.2ms
+⏱️  _load_state: 270μs
+⏱️  get_state: 292μs
+⏱️  _load_state: 368μs
+⏱️  get_state: 973μs
+⏱️  _load_state: 288μs
+⏱️  get_state: 310μs
+⏱️  _load_state: 13.5ms
+⏱️  get_state: 28.6ms
+⏱️  _load_state: 734μs
+⏱️  get_state: 829μs
+⏱️  _load_state: 276μs
+⏱️  get_state: 297μs
+⏱️  get_global_state: 52.6ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.8ms
+⏱️  update_state: 1.8ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 41 个文件，发现 900 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1325/120 已学 (1104.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 74 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 19:53:00] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 19:53:00] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 19:53:00] [思考守护进程] 第 98 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 19μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 130μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.1ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 41 个文件，发现 900 个问题
+[2026-05-04 19:53:01] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 20:23:00] [思考守护进程] 开始第 99 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [20:23:00]
+============================================================
+⏱️  get_state: 20μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 129μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.1ms
+⚠️  发现 3 个新漏洞
+   - permission_issue: research_integration.py
+   - permission_issue: research_planner.py
+   - permission_issue: web_researcher.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 957 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1344/120 已学 (1120.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 20:23:02] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 20:23:02] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 20:23:02] [思考守护进程] 第 99 轮完成 (2s) | 连续失败: 0
+[2026-05-04 20:53:02] [思考守护进程] 开始第 100 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [20:53:02]
+============================================================
+⏱️  _load_state: 665μs
+⏱️  get_state: 725μs
+⏱️  _load_state: 9.2ms
+⏱️  get_state: 9.2ms
+⏱️  _load_state: 270μs
+⏱️  get_state: 294μs
+⏱️  _load_state: 703μs
+⏱️  get_state: 853μs
+⏱️  _load_state: 213μs
+⏱️  get_state: 229μs
+⏱️  _load_state: 241μs
+⏱️  get_state: 294μs
+⏱️  _load_state: 211μs
+⏱️  get_state: 227μs
+⏱️  _load_state: 9.9ms
+⏱️  get_state: 10.9ms
+⏱️  _load_state: 447μs
+⏱️  get_state: 507μs
+⏱️  _load_state: 206μs
+⏱️  get_state: 221μs
+⏱️  get_global_state: 23.6ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.0ms
+⏱️  update_state: 1.0ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 958 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1354/120 已学 (1128.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 20:53:04] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 20:53:04] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 20:53:04] [思考守护进程] 第 100 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 65μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 927μs
+⏱️  update_state: 950μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 958 个问题
+[2026-05-04 20:53:04] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 21:23:04] [思考守护进程] 开始第 101 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [21:23:04]
+============================================================
+⏱️  get_state: 14μs
+⏱️  get_state: 4μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 109μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 18μs
+⏱️  _save_state: 1.9ms
+⏱️  update_state: 1.9ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 958 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1363/120 已学 (1135.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 21:23:06] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 21:23:06] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 21:23:06] [思考守护进程] 第 101 轮完成 (2s) | 连续失败: 0
+[2026-05-04 21:53:06] [思考守护进程] 开始第 102 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [21:53:06]
+============================================================
+⏱️  _load_state: 488μs
+⏱️  get_state: 534μs
+⏱️  _load_state: 11.1ms
+⏱️  get_state: 11.2ms
+⏱️  _load_state: 342μs
+⏱️  get_state: 369μs
+⏱️  _load_state: 1.0ms
+⏱️  get_state: 1.1ms
+⏱️  _load_state: 291μs
+⏱️  get_state: 314μs
+⏱️  _load_state: 331μs
+⏱️  get_state: 359μs
+⏱️  _load_state: 248μs
+⏱️  get_state: 268μs
+⏱️  _load_state: 21.9ms
+⏱️  get_state: 22.6ms
+⏱️  _load_state: 10.9ms
+⏱️  get_state: 11.0ms
+⏱️  _load_state: 325μs
+⏱️  get_state: 353μs
+⏱️  get_global_state: 48.1ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 958 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1372/120 已学 (1143.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 21:53:08] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 21:53:08] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 21:53:08] [思考守护进程] 第 102 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 15μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 110μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 958 个问题
+[2026-05-04 21:53:09] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 22:23:09] [思考守护进程] 开始第 103 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [22:23:09]
+============================================================
+⏱️  get_state: 12μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 74μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 17μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 966 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1397/120 已学 (1164.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 22:23:10] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 22:23:10] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 22:23:10] [思考守护进程] 第 103 轮完成 (1s) | 连续失败: 0
+[2026-05-04 22:53:10] [思考守护进程] 开始第 104 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [22:53:10]
+============================================================
+⏱️  _load_state: 382μs
+⏱️  get_state: 417μs
+⏱️  _load_state: 10.0ms
+⏱️  get_state: 10.0ms
+⏱️  _load_state: 379μs
+⏱️  get_state: 404μs
+⏱️  _load_state: 733μs
+⏱️  get_state: 886μs
+⏱️  _load_state: 241μs
+⏱️  get_state: 263μs
+⏱️  _load_state: 267μs
+⏱️  get_state: 299μs
+⏱️  _load_state: 182μs
+⏱️  get_state: 198μs
+⏱️  _load_state: 9.1ms
+⏱️  get_state: 10.4ms
+⏱️  _load_state: 8.5ms
+⏱️  get_state: 8.6ms
+⏱️  _load_state: 249μs
+⏱️  get_state: 269μs
+⏱️  get_global_state: 31.8ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 18μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.1ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 966 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1446/120 已学 (1205.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 22:53:12] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 22:53:12] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 22:53:12] [思考守护进程] 第 104 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 17μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 98μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 966 个问题
+[2026-05-04 22:53:13] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-04 23:23:13] [思考守护进程] 开始第 105 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [23:23:13]
+============================================================
+⏱️  get_state: 19μs
+⏱️  get_state: 4μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_global_state: 146μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.9ms
+⏱️  update_state: 1.9ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 44 个文件，发现 968 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1484/120 已学 (1236.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 78 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 23:23:14] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 23:23:14] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 23:23:14] [思考守护进程] 第 105 轮完成 (2s) | 连续失败: 0
+[2026-05-04 23:53:15] [思考守护进程] 开始第 106 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [23:53:15]
+============================================================
+⏱️  _load_state: 451μs
+⏱️  get_state: 498μs
+⏱️  _load_state: 304μs
+⏱️  get_state: 330μs
+⏱️  _load_state: 287μs
+⏱️  get_state: 311μs
+⏱️  _load_state: 1.2ms
+⏱️  get_state: 1.4ms
+⏱️  _load_state: 286μs
+⏱️  get_state: 310μs
+⏱️  _load_state: 356μs
+⏱️  get_state: 393μs
+⏱️  _load_state: 377μs
+⏱️  get_state: 407μs
+⏱️  _load_state: 27.3ms
+⏱️  get_state: 28.2ms
+⏱️  _load_state: 9.4ms
+⏱️  get_state: 9.4ms
+⏱️  _load_state: 296μs
+⏱️  get_state: 323μs
+⏱️  get_global_state: 41.7ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 46 个文件，发现 980 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1518/120 已学 (1265.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 83 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-04 23:53:17] [思考守护进程] 生成了 1 个洞察
+[2026-05-04 23:53:17] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-04 23:53:17] [思考守护进程] 第 106 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 12μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 80μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.0ms
+⏱️  update_state: 1.1ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 46 个文件，发现 980 个问题
+[2026-05-04 23:53:18] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 00:23:18] [思考守护进程] 开始第 107 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [00:23:18]
+============================================================
+⏱️  get_state: 19μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 83μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 859μs
+⏱️  update_state: 875μs
+⚠️  发现 1 个新漏洞
+   - permission_issue: thought_continuity.py
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1585/120 已学 (1320.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 00:23:19] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 00:23:19] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 00:23:19] [思考守护进程] 第 107 轮完成 (1s) | 连续失败: 0
+[2026-05-05 00:53:19] [思考守护进程] 开始第 108 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [00:53:19]
+============================================================
+⏱️  _load_state: 315μs
+⏱️  get_state: 360μs
+⏱️  _load_state: 169μs
+⏱️  get_state: 189μs
+⏱️  _load_state: 147μs
+⏱️  get_state: 160μs
+⏱️  _load_state: 487μs
+⏱️  get_state: 631μs
+⏱️  _load_state: 155μs
+⏱️  get_state: 171μs
+⏱️  _load_state: 187μs
+⏱️  get_state: 222μs
+⏱️  _load_state: 148μs
+⏱️  get_state: 162μs
+⏱️  _load_state: 15.4ms
+⏱️  get_state: 16.4ms
+⏱️  _load_state: 7.3ms
+⏱️  get_state: 7.4ms
+⏱️  _load_state: 264μs
+⏱️  get_state: 284μs
+⏱️  get_global_state: 26.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 791μs
+⏱️  update_state: 805μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1741/120 已学 (1450.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 00:53:21] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 00:53:21] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 00:53:21] [思考守护进程] 第 108 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 17μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 117μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 18μs
+⏱️  _save_state: 2.0ms
+⏱️  update_state: 2.0ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 00:53:22] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 01:23:21] [思考守护进程] 开始第 109 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [01:23:21]
+============================================================
+⏱️  get_state: 10μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 57μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 717μs
+⏱️  update_state: 731μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1849/120 已学 (1540.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 01:23:22] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 01:23:22] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 01:23:22] [思考守护进程] 第 109 轮完成 (1s) | 连续失败: 0
+[2026-05-05 01:53:23] [思考守护进程] 开始第 110 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [01:53:23]
+============================================================
+⏱️  _load_state: 364μs
+⏱️  get_state: 400μs
+⏱️  _load_state: 261μs
+⏱️  get_state: 287μs
+⏱️  _load_state: 668μs
+⏱️  get_state: 690μs
+⏱️  _load_state: 1.3ms
+⏱️  get_state: 1.5ms
+⏱️  _load_state: 334μs
+⏱️  get_state: 360μs
+⏱️  _load_state: 398μs
+⏱️  get_state: 447μs
+⏱️  _load_state: 289μs
+⏱️  get_state: 315μs
+⏱️  _load_state: 27.1ms
+⏱️  get_state: 28.2ms
+⏱️  _load_state: 10.2ms
+⏱️  get_state: 10.3ms
+⏱️  _load_state: 396μs
+⏱️  get_state: 425μs
+⏱️  get_global_state: 43.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.4ms
+⏱️  update_state: 1.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1901/120 已学 (1584.2%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 01:53:25] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 01:53:25] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 01:53:25] [思考守护进程] 第 110 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 14μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 108μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 18μs
+⏱️  _save_state: 1.5ms
+⏱️  update_state: 1.5ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 01:53:26] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 02:23:26] [思考守护进程] 开始第 111 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [02:23:26]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 114μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 1.4ms
+⏱️  update_state: 1.5ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1948/120 已学 (1623.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 02:23:28] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 02:23:28] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 02:23:28] [思考守护进程] 第 111 轮完成 (2s) | 连续失败: 0
+[2026-05-05 02:53:28] [思考守护进程] 开始第 112 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [02:53:28]
+============================================================
+⏱️  _load_state: 372μs
+⏱️  get_state: 413μs
+⏱️  _load_state: 210μs
+⏱️  get_state: 227μs
+⏱️  _load_state: 170μs
+⏱️  get_state: 184μs
+⏱️  _load_state: 656μs
+⏱️  get_state: 756μs
+⏱️  _load_state: 174μs
+⏱️  get_state: 188μs
+⏱️  _load_state: 243μs
+⏱️  get_state: 265μs
+⏱️  _load_state: 171μs
+⏱️  get_state: 185μs
+⏱️  _load_state: 19.2ms
+⏱️  get_state: 19.8ms
+⏱️  _load_state: 7.0ms
+⏱️  get_state: 7.1ms
+⏱️  _load_state: 245μs
+⏱️  get_state: 264μs
+⏱️  get_global_state: 29.4ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 926μs
+⏱️  update_state: 942μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 1990/120 已学 (1658.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+[2026-05-05 02:53:29] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 02:53:29] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 02:53:29] [思考守护进程] 第 112 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 67μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 740μs
+⏱️  update_state: 754μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 02:53:30] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 03:23:30] [思考守护进程] 开始第 113 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [03:23:30]
+============================================================
+⏱️  get_state: 13μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 88μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 1.1ms
+⏱️  update_state: 1.1ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2047/120 已学 (1705.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 88 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+[2026-05-05 03:23:32] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 03:23:32] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 03:23:32] [思考守护进程] 第 113 轮完成 (2s) | 连续失败: 0
+[2026-05-05 03:53:33] [思考守护进程] 开始第 114 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [03:53:33]
+============================================================
+⏱️  _load_state: 315μs
+⏱️  get_state: 344μs
+⏱️  _load_state: 158μs
+⏱️  get_state: 172μs
+⏱️  _load_state: 164μs
+⏱️  get_state: 179μs
+⏱️  _load_state: 487μs
+⏱️  get_state: 581μs
+⏱️  _load_state: 127μs
+⏱️  get_state: 137μs
+⏱️  _load_state: 146μs
+⏱️  get_state: 161μs
+⏱️  _load_state: 121μs
+⏱️  get_state: 131μs
+⏱️  _load_state: 5.7ms
+⏱️  get_state: 6.4ms
+⏱️  _load_state: 6.2ms
+⏱️  get_state: 6.3ms
+⏱️  _load_state: 224μs
+⏱️  get_state: 241μs
+⏱️  get_global_state: 15.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2104/120 已学 (1753.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 03:53:34] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 03:53:34] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 03:53:34] [思考守护进程] 第 114 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 14μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_global_state: 113μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 03:53:35] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 04:23:34] [思考守护进程] 开始第 115 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [04:23:34]
+============================================================
+⏱️  get_state: 12μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 78μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 954μs
+⏱️  update_state: 973μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2143/120 已学 (1785.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 04:23:35] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 04:23:35] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 04:23:35] [思考守护进程] 第 115 轮完成 (1s) | 连续失败: 0
+[2026-05-05 04:53:36] [思考守护进程] 开始第 116 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [04:53:36]
+============================================================
+⏱️  _load_state: 279μs
+⏱️  get_state: 310μs
+⏱️  _load_state: 141μs
+⏱️  get_state: 154μs
+⏱️  _load_state: 138μs
+⏱️  get_state: 148μs
+⏱️  _load_state: 422μs
+⏱️  get_state: 514μs
+⏱️  _load_state: 126μs
+⏱️  get_state: 136μs
+⏱️  _load_state: 152μs
+⏱️  get_state: 169μs
+⏱️  _load_state: 120μs
+⏱️  get_state: 129μs
+⏱️  _load_state: 16.4ms
+⏱️  get_state: 16.9ms
+⏱️  _load_state: 5.5ms
+⏱️  get_state: 5.5ms
+⏱️  _load_state: 213μs
+⏱️  get_state: 231μs
+⏱️  get_global_state: 24.3ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 1.0ms
+⏱️  update_state: 1.0ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2178/120 已学 (1815.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 88 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 04:53:37] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 04:53:37] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 04:53:37] [思考守护进程] 第 116 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 65μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 854μs
+⏱️  update_state: 870μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 04:53:37] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 05:23:37] [思考守护进程] 开始第 117 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [05:23:37]
+============================================================
+⏱️  get_state: 14μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 109μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2216/120 已学 (1846.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 05:23:39] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 05:23:39] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 05:23:39] [思考守护进程] 第 117 轮完成 (2s) | 连续失败: 0
+[2026-05-05 05:53:39] [思考守护进程] 开始第 118 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [05:53:39]
+============================================================
+⏱️  _load_state: 375μs
+⏱️  get_state: 413μs
+⏱️  _load_state: 606μs
+⏱️  get_state: 626μs
+⏱️  _load_state: 203μs
+⏱️  get_state: 219μs
+⏱️  _load_state: 695μs
+⏱️  get_state: 796μs
+⏱️  _load_state: 176μs
+⏱️  get_state: 190μs
+⏱️  _load_state: 213μs
+⏱️  get_state: 233μs
+⏱️  _load_state: 173μs
+⏱️  get_state: 187μs
+⏱️  _load_state: 18.1ms
+⏱️  get_state: 18.7ms
+⏱️  _load_state: 7.6ms
+⏱️  get_state: 7.7ms
+⏱️  _load_state: 307μs
+⏱️  get_state: 332μs
+⏱️  get_global_state: 29.5ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 981μs
+⏱️  update_state: 1.0ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2265/120 已学 (1887.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 05:53:40] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 05:53:40] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 05:53:40] [思考守护进程] 第 118 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 66μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 20μs
+⏱️  _save_state: 740μs
+⏱️  update_state: 754μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 05:53:41] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 06:23:41] [思考守护进程] 开始第 119 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [06:23:41]
+============================================================
+⏱️  get_state: 16μs
+⏱️  get_state: 3μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 114μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2308/120 已学 (1923.3%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 06:23:42] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 06:23:42] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 06:23:42] [思考守护进程] 第 119 轮完成 (2s) | 连续失败: 0
+[2026-05-05 06:53:43] [思考守护进程] 开始第 120 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [06:53:43]
+============================================================
+⏱️  _load_state: 275μs
+⏱️  get_state: 305μs
+⏱️  _load_state: 154μs
+⏱️  get_state: 167μs
+⏱️  _load_state: 123μs
+⏱️  get_state: 134μs
+⏱️  _load_state: 484μs
+⏱️  get_state: 575μs
+⏱️  _load_state: 126μs
+⏱️  get_state: 136μs
+⏱️  _load_state: 160μs
+⏱️  get_state: 175μs
+⏱️  _load_state: 120μs
+⏱️  get_state: 129μs
+⏱️  _load_state: 7.6ms
+⏱️  get_state: 8.3ms
+⏱️  _load_state: 6.6ms
+⏱️  get_state: 6.7ms
+⏱️  _load_state: 238μs
+⏱️  get_state: 257μs
+⏱️  get_global_state: 17.5ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 752μs
+⏱️  update_state: 765μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2347/120 已学 (1955.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 06:53:44] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 06:53:44] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 06:53:44] [思考守护进程] 第 120 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 66μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 758μs
+⏱️  update_state: 772μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 06:53:44] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 07:23:44] [思考守护进程] 开始第 121 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [07:23:44]
+============================================================
+⏱️  get_state: 13μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 78μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 905μs
+⏱️  update_state: 922μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2384/120 已学 (1986.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 07:23:45] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 07:23:45] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 07:23:45] [思考守护进程] 第 121 轮完成 (1s) | 连续失败: 0
+[2026-05-05 07:53:46] [思考守护进程] 开始第 122 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [07:53:46]
+============================================================
+⏱️  _load_state: 328μs
+⏱️  get_state: 361μs
+⏱️  _load_state: 195μs
+⏱️  get_state: 210μs
+⏱️  _load_state: 172μs
+⏱️  get_state: 186μs
+⏱️  _load_state: 552μs
+⏱️  get_state: 648μs
+⏱️  _load_state: 202μs
+⏱️  get_state: 219μs
+⏱️  _load_state: 202μs
+⏱️  get_state: 221μs
+⏱️  _load_state: 155μs
+⏱️  get_state: 168μs
+⏱️  _load_state: 18.0ms
+⏱️  get_state: 18.9ms
+⏱️  _load_state: 6.4ms
+⏱️  get_state: 6.5ms
+⏱️  _load_state: 274μs
+⏱️  get_state: 297μs
+⏱️  get_global_state: 28.2ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 968μs
+⏱️  update_state: 984μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2421/120 已学 (2017.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 88 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 07:53:47] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 07:53:47] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 07:53:47] [思考守护进程] 第 122 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 59μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 9μs
+⏱️  _save_state: 739μs
+⏱️  update_state: 756μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 07:53:48] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 08:23:48] [思考守护进程] 开始第 123 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [08:23:48]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 88μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 967μs
+⏱️  update_state: 985μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/120):
+  📄⭐ 知识缺口: 数据结构与算法
+     概念: 数据结构与算法, 知识缺口
+  📄⭐ 知识缺口: 系统设计
+     概念: 系统设计, 知识缺口
+  📄⭐ 知识缺口: 计算机基础
+     概念: 计算机基础, 知识缺口
+  📄⭐ 知识缺口: 安全
+     概念: 安全, 知识缺口
+  📄⭐ crawler_learning_bridge 模块分析
+     概念: crawler_learning_bridge, 模块分析, CrawlerLearningBridge
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2466/120 已学 (2055.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+  💡 学习触发了 3 个新问题
+❓ 共 88 个好奇心问题
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, content_studio.py:
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 08:23:50] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 08:23:50] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 08:23:50] [思考守护进程] 第 123 轮完成 (2s) | 连续失败: 0
+[2026-05-05 08:53:50] [思考守护进程] 开始第 124 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [08:53:50]
+============================================================
+⏱️  _load_state: 366μs
+⏱️  get_state: 403μs
+⏱️  _load_state: 215μs
+⏱️  get_state: 232μs
+⏱️  _load_state: 179μs
+⏱️  get_state: 194μs
+⏱️  _load_state: 571μs
+⏱️  get_state: 676μs
+⏱️  _load_state: 173μs
+⏱️  get_state: 187μs
+⏱️  _load_state: 198μs
+⏱️  get_state: 218μs
+⏱️  _load_state: 194μs
+⏱️  get_state: 208μs
+⏱️  _load_state: 10.0ms
+⏱️  get_state: 10.8ms
+⏱️  _load_state: 388μs
+⏱️  get_state: 432μs
+⏱️  _load_state: 178μs
+⏱️  get_state: 191μs
+⏱️  get_global_state: 13.6ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 884μs
+⏱️  update_state: 900μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2472/120 已学 (2060.0%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (2 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  🔧 待验证修复: ai_knowledge_crawler.py,content_studio.py,crawler_
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 08:53:51] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 08:53:51] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 08:53:51] [思考守护进程] 第 124 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 67μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 13μs
+⏱️  _save_state: 840μs
+⏱️  update_state: 859μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 08:53:52] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 09:23:52] [思考守护进程] 开始第 125 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [09:23:52]
+============================================================
+⏱️  get_state: 15μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 85μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 966μs
+⏱️  update_state: 985μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2473/120 已学 (2060.8%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 09:23:53] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 09:23:53] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 09:23:53] [思考守护进程] 第 125 轮完成 (1s) | 连续失败: 0
+[2026-05-05 09:53:53] [思考守护进程] 开始第 126 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [09:53:53]
+============================================================
+⏱️  _load_state: 511μs
+⏱️  get_state: 547μs
+⏱️  _load_state: 205μs
+⏱️  get_state: 221μs
+⏱️  _load_state: 144μs
+⏱️  get_state: 156μs
+⏱️  _load_state: 478μs
+⏱️  get_state: 574μs
+⏱️  _load_state: 139μs
+⏱️  get_state: 149μs
+⏱️  _load_state: 153μs
+⏱️  get_state: 170μs
+⏱️  _load_state: 124μs
+⏱️  get_state: 134μs
+⏱️  _load_state: 8.1ms
+⏱️  get_state: 9.0ms
+⏱️  _load_state: 5.3ms
+⏱️  get_state: 5.4ms
+⏱️  _load_state: 244μs
+⏱️  get_state: 261μs
+⏱️  get_global_state: 16.6ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 874μs
+⏱️  update_state: 893μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2474/120 已学 (2061.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 09:53:54] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 09:53:54] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 09:53:54] [思考守护进程] 第 126 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 65μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 814μs
+⏱️  update_state: 830μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 09:53:55] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 10:23:55] [思考守护进程] 开始第 127 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [10:23:55]
+============================================================
+⏱️  get_state: 11μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 69μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 11μs
+⏱️  _save_state: 735μs
+⏱️  update_state: 750μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2475/120 已学 (2062.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 10:23:55] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 10:23:55] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 10:23:55] [思考守护进程] 第 127 轮完成 (1s) | 连续失败: 0
+[2026-05-05 10:53:56] [思考守护进程] 开始第 128 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [10:53:56]
+============================================================
+⏱️  _load_state: 316μs
+⏱️  get_state: 346μs
+⏱️  _load_state: 152μs
+⏱️  get_state: 165μs
+⏱️  _load_state: 132μs
+⏱️  get_state: 143μs
+⏱️  _load_state: 466μs
+⏱️  get_state: 561μs
+⏱️  _load_state: 139μs
+⏱️  get_state: 150μs
+⏱️  _load_state: 159μs
+⏱️  get_state: 176μs
+⏱️  _load_state: 127μs
+⏱️  get_state: 138μs
+⏱️  _load_state: 12.1ms
+⏱️  get_state: 13.0ms
+⏱️  _load_state: 5.9ms
+⏱️  get_state: 5.9ms
+⏱️  _load_state: 243μs
+⏱️  get_state: 263μs
+⏱️  get_global_state: 20.9ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 735μs
+⏱️  update_state: 748μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2505/120 已学 (2087.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 10:53:57] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 10:53:57] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 10:53:57] [思考守护进程] 第 128 轮完成 (1s) | 连续失败: 0
+⏱️  get_state: 10μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 59μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 10μs
+⏱️  _save_state: 732μs
+⏱️  update_state: 746μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 10:53:57] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 11:23:57] [思考守护进程] 开始第 129 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [11:23:57]
+============================================================
+⏱️  get_state: 14μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 108μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2535/120 已学 (2112.5%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 11:23:59] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 11:23:59] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 11:23:59] [思考守护进程] 第 129 轮完成 (2s) | 连续失败: 0
+[2026-05-05 11:54:00] [思考守护进程] 开始第 130 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [11:54:00]
+============================================================
+⏱️  _load_state: 548μs
+⏱️  get_state: 623μs
+⏱️  _load_state: 375μs
+⏱️  get_state: 410μs
+⏱️  _load_state: 305μs
+⏱️  get_state: 346μs
+⏱️  _load_state: 1.0ms
+⏱️  get_state: 1.2ms
+⏱️  _load_state: 320μs
+⏱️  get_state: 348μs
+⏱️  _load_state: 407μs
+⏱️  get_state: 463μs
+⏱️  _load_state: 311μs
+⏱️  get_state: 337μs
+⏱️  _load_state: 12.9ms
+⏱️  get_state: 13.3ms
+⏱️  _load_state: 11.8ms
+⏱️  get_state: 11.9ms
+⏱️  _load_state: 343μs
+⏱️  get_state: 371μs
+⏱️  get_global_state: 29.4ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 15μs
+⏱️  _save_state: 1.5ms
+⏱️  update_state: 1.5ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2552/120 已学 (2126.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 11:54:02] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 11:54:02] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 11:54:02] [思考守护进程] 第 130 轮完成 (2s) | 连续失败: 0
+⏱️  get_state: 15μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 108μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 14μs
+⏱️  _save_state: 1.6ms
+⏱️  update_state: 1.6ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+[2026-05-05 11:54:03] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-05 12:24:02] [思考守护进程] 开始第 131 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [12:24:02]
+============================================================
+⏱️  get_state: 17μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 117μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 23μs
+⏱️  _save_state: 2.4ms
+⏱️  update_state: 2.4ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 47 个文件，发现 990 个问题
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 2558/120 已学 (2131.7%)
+  修改成功率: 100.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+
+  ────────────────────────────────────────
+  🔍 反思审计 (1 项)
+  ⚠️ 重复模式: 1 个洞察与上轮完全相同
+  ────────────────────────────────────────
+❓ 共 85 个好奇心问题
+
+  ──────────────────────────────
+  ❓ watchdog.py 有 2 个函数但几乎没文档，为什么？
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-05 12:24:04] [思考守护进程] 生成了 1 个洞察
+[2026-05-05 12:24:04] [思考守护进程]   跳过修复: 重要性 0.0 < 阈值 0.7
+[2026-05-05 12:24:04] [思考守护进程] 第 131 轮完成 (2s) | 连续失败: 0
+[2026-05-05 12:54:04] [思考守护进程] 开始第 132 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [12:54:04]
+============================================================
+⏱️  _load_state: 354μs
+⏱️  get_state: 393μs
+⏱️  _load_state: 7.1ms
+⏱️  get_state: 7.1ms

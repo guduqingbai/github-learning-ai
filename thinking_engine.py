@@ -162,7 +162,7 @@ class ThinkingEngine:
 
         # ── 8. 组装叙事 ────────────────────────────
         narrative = self._assemble_narrative(
-            questions, insights, sm_report, pattern_results, goal_summary)
+            questions, insights, sm_report, pattern_results, analogies, goal_summary)
 
         # ── 9. 统计 ────────────────────────────────
         stats = {
@@ -417,6 +417,7 @@ class ThinkingEngine:
                             insights: List[Insight],
                             sm_report: Dict[str, Any],
                             pattern_results: Dict[str, Any],
+                            analogies: List[Dict] = None,
                             goal_summary: Dict[str, Any] = None) -> str:
         """组装带自我理解的叙事 — 不只是报告，还有反思和趋势感知"""
         now = datetime.now().strftime('%Y-%m-%d %H:%M')
@@ -515,21 +516,16 @@ class ThinkingEngine:
                 parts.append(f"  [{ins.category}] (重要性 {ins.importance}) {ins.content}")
 
         # ═══════════════════════════════════════════
-        # 6. 跨域类比
+        # 6. 跨域类比（使用已计算好的结果，避免重复调用）
         # ═══════════════════════════════════════════
-        if self._ae:
-            try:
-                cross = self._ae.cross_domain_analogies(threshold=0.5, use_deep=True)
-                if cross:
-                    parts.append(f"跨域类比: {len(cross)} 个潜在连接")
-                    for a in cross[:2]:
-                        shared = a.get("shared_roles", [])
-                        hint = f"  - {a['entity_a']} ({a['entity_a_type']}) ↔ {a['entity_b']} ({a['entity_b_type']})"
-                        if shared:
-                            hint += f" 共同角色: {', '.join(shared[:3])}"
-                        parts.append(hint)
-            except Exception:
-                pass
+        if analogies:
+            parts.append(f"跨域类比: {len(analogies)} 个潜在连接")
+            for a in analogies[:2]:
+                shared = a.get("shared_roles", [])
+                hint = f"  - {a['entity_a']} ({a['entity_a_type']}) ↔ {a['entity_b']} ({a['entity_b_type']})"
+                if shared:
+                    hint += f" 共同角色: {', '.join(shared[:3])}"
+                parts.append(hint)
 
         # ═══════════════════════════════════════════
         # 7. 目标进展

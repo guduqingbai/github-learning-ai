@@ -120,6 +120,9 @@ class KnowledgeBase:
             "keywords": item.get("keywords", []),
             "importance": item.get("importance", 0.5),
             "references": item.get("references", []),
+            "learning_depth": item.get("learning_depth", 0),
+            "content_score": item.get("content_score", 0),
+            "relevance_to_project": item.get("relevance_to_project", ""),
         })
         # 分类关系
         category = item.get("category", "")
@@ -151,6 +154,9 @@ class KnowledgeBase:
             "keywords": entity.properties.get("keywords", []),
             "importance": entity.properties.get("importance", 0.5),
             "references": entity.properties.get("references", []),
+            "learning_depth": entity.properties.get("learning_depth", 0),
+            "content_score": entity.properties.get("content_score", 0),
+            "relevance_to_project": entity.properties.get("relevance_to_project", ""),
         }
 
     def _sync_to_kg(self):
@@ -690,6 +696,16 @@ class KnowledgeBase:
         except Exception as e:
             print("❌ 更新知识信息失败: {}".format(e))
             return False
+
+    def increment_learning_depth(self, topic: str, amount: int = 1) -> bool:
+        """递增知识条目的学习深度，上限 2"""
+        if topic not in self.knowledge:
+            return False
+        current = self.knowledge[topic].get("learning_depth", 0) or 0
+        new_depth = min(current + amount, 2)
+        self.knowledge[topic]["learning_depth"] = new_depth
+        self._save_knowledge()
+        return True
 
     def _save_knowledge(self):
         """

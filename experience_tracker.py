@@ -10,6 +10,52 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from collections import Counter
+import math
+
+
+class TFIDFVectorizer:
+    """
+    轻量级 TF-IDF 向量化（零外部依赖）。
+    用于经验检索中的相关性排序。
+    """
+    def __init__(self):
+        self._corpus: List[str] = []
+        self._idf: Dict[str, float] = {}
+
+    def fit(self, corpus: List[str]):
+        self._corpus = corpus
+        n_docs = len(corpus)
+        word_doc_count: Dict[str, int] = {}
+        for doc in corpus:
+            words = set(self._tokenize(doc))
+            for w in words:
+                word_doc_count[w] = word_doc_count.get(w, 0) + 1
+        self._idf = {
+            w: math.log((n_docs + 1) / (count + 1)) + 1
+            for w, count in word_doc_count.items()
+        }
+
+    def similarity(self, query: str, doc: str) -> float:
+        """查询和文档的 TF-IDF 余弦相似度"""
+        q_tokens = self._tokenize(query)
+        d_tokens = self._tokenize(doc)
+        q_tf = {w: q_tokens.count(w) for w in set(q_tokens)}
+        d_tf = {w: d_tokens.count(w) for w in set(d_tokens)}
+
+        q_vec = {w: tf * self._idf.get(w, 1.0) for w, tf in q_tf.items()}
+        d_vec = {w: tf * self._idf.get(w, 1.0) for w, tf in d_tf.items()}
+
+        all_words = set(q_vec) | set(d_vec)
+        dot = sum(q_vec.get(w, 0) * d_vec.get(w, 0) for w in all_words)
+        q_norm = math.sqrt(sum(v * v for v in q_vec.values()))
+        d_norm = math.sqrt(sum(v * v for v in d_vec.values()))
+        if q_norm * d_norm == 0:
+            return 0.0
+        return dot / (q_norm * d_norm)
+
+    @staticmethod
+    def _tokenize(text: str) -> List[str]:
+        return text.lower().replace("_", " ").replace("-", " ").split()
 
 
 @dataclass
@@ -132,6 +178,78 @@ class ExperienceTracker:
         """清空所有记录（测试用）"""
         self._records.clear()
         self._save()
+
+    # ── 经验检索（Self-Navigating 风格） ────────────
+
+    def search_experience(self, task_desc: str,
+                          top_k: int = 3) -> List[Dict[str, Any]]:
+        """
+        搜索与任务描述最相关的历史经验。
+        使用 TF-IDF 向量相似度排序（零外部依赖）。
+        """
+        if not self._records:
+            return []
+
+        # 构建语料库
+        corpus = [f"{r.problem} {r.strategy} {r.detail} {r.error_type}"
+                  for r in self._records]
+        vec = TFIDFVectorizer()
+        vec.fit(corpus)
+
+        # 计算相似度
+        scored = []
+        for i, r in enumerate(self._records):
+            doc = corpus[i]
+            sim = vec.similarity(task_desc, doc)
+            if sim > 0.05:
+                scored.append({
+                    "problem": r.problem,
+                    "strategy": r.strategy,
+                    "outcome": r.outcome,
+                    "error_type": r.error_type,
+                    "cycle": r.cycle,
+                    "detail": r.detail,
+                    "similarity": round(sim, 3),
+                })
+
+        scored.sort(key=lambda x: -x["similarity"])
+        return scored[:top_k]
+
+    def get_best_strategy(self, task_desc: str) -> Optional[str]:
+        """
+        对给定任务，从历史经验中推荐最佳策略。
+
+        类似 AgentEvolver Self-Navigating 的 experience guidance：
+        找到最相似的成功经验，复用其策略。
+        """
+        matches = self.search_experience(task_desc, top_k=5)
+
+        # 只看成功的
+        successes = [m for m in matches if m["outcome"] == "success"]
+        if successes:
+            return successes[0]["strategy"]
+
+        # 有失败经验的，返回 None 表示"不要用这些策略"
+        return None
+
+    def get_experience_context(self, task_desc: str, max_items: int = 3) -> str:
+        """
+        生成经验上下文字符串（注入思考循环）。
+        类似 AgentEvolver 的 experience-mixed rollout。
+        """
+        matches = self.search_experience(task_desc, top_k=max_items)
+        if not matches:
+            return ""
+
+        lines = ["[相关经验]"]
+        for m in matches:
+            icon = "✅" if m["outcome"] == "success" else "❌"
+            lines.append(f"  {icon} [{m['strategy']}] {m['problem'][:60]} "
+                         f"(相似度 {m['similarity']:.2f})")
+            if m["detail"]:
+                lines.append(f"    {m['detail'][:100]}")
+
+        return "\n".join(lines)
 
     # ── 持久化 ──────────────────────────────────────
 

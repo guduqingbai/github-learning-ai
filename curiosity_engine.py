@@ -29,7 +29,8 @@ class CuriosityEngine:
         self.kb = KnowledgeBase()
 
     def generate_questions(self, snapshot: Dict[str, Any],
-                           diff: Optional[Dict[str, Any]] = None) -> List[CuriosityQuestion]:
+                           diff: Optional[Dict[str, Any]] = None,
+                           strategy_context: Optional[Dict[str, Any]] = None) -> List[CuriosityQuestion]:
         """运行所有好奇心触发器，按重要性排序（完整模式）"""
         questions: List[CuriosityQuestion] = []
 
@@ -43,6 +44,7 @@ class CuriosityEngine:
         questions.extend(self._curiosity_import_anomalies(snapshot))
         questions.extend(self._curiosity_empty_modules(snapshot))
         questions.extend(self._curiosity_global_research(snapshot))
+        questions.extend(self._curiosity_research_gaps(snapshot))
         questions.extend(self._curiosity_deep_learning(snapshot))
 
         # 去重：同样的问题不重复生成
@@ -55,6 +57,24 @@ class CuriosityEngine:
                 unique.append(q)
 
         unique.sort(key=lambda x: -x.importance)
+
+        # 策略过滤：如果传入了策略上下文
+        if strategy_context:
+            min_imp = strategy_context.get("min_importance", 0.0)
+            if min_imp > 0.0:
+                unique = [q for q in unique if q.importance >= min_imp]
+            diversity_bias = strategy_context.get("diversity_bias", 0.5)
+            if diversity_bias > 0.6:
+                target_count = {}
+                diverse = []
+                for q in unique:
+                    t = q.target
+                    cnt = target_count.get(t, 0)
+                    if cnt < 2:
+                        diverse.append(q)
+                        target_count[t] = cnt + 1
+                unique = diverse
+
         return unique
 
     def generate_metadata(self, snapshot: Dict[str, Any],
@@ -259,6 +279,59 @@ class CuriosityEngine:
                              "function_count": len(f["functions"])}
                 ))
         return qs
+
+    def _curiosity_research_gaps(self, snapshot: Dict[str, Any]) -> List[CuriosityQuestion]:
+        """检查已有网络研究结果中是否有未填补的缺口，生成跟进研究问题"""
+        qs = []
+        try:
+            all_k = self.kb.get_all_knowledge()
+            for entry in all_k:
+                if entry.get("category") != "网络研究":
+                    continue
+                topic = entry.get("topic", "")
+                gaps = entry.get("gaps", [])
+                follow_ups = entry.get("follow_up_queries", [])
+                depth = entry.get("learning_depth", 0) or 0
+
+                # 条件：有缺口或跟进问题，且深度不足
+                if (gaps or follow_ups) and depth < 2:
+                    gap_text = (gaps + follow_ups)[0][:80]
+                    qs.append(CuriosityQuestion(
+                        observation=f"研究「{topic[:50]}」有 {len(gaps)} 个缺口、{len(follow_ups)} 个跟进待探索",
+                        question=f"跟进研究: {gap_text}",
+                        importance=0.7,
+                        explore_action="web_research",
+                        target=gap_text,
+                        context={
+                            "parent_topic": topic,
+                            "gaps": gaps[:3],
+                            "follow_ups": follow_ups[:3],
+                            "depth": depth,
+                        },
+                        reason="研究缺口发现",
+                    ))
+
+                # 条件：条目质量不错但学习深度为 0
+                score = entry.get("content_score", 0) or entry.get("importance", 0) or 0
+                if depth == 0 and score >= 0.5 and len(topic) > 3:
+                    qs.append(CuriosityQuestion(
+                        observation=f"研究条目「{topic[:50]}」质量评分 {score} 但尚未深入",
+                        question=f"对「{topic[:50]}」进行更深入的研究",
+                        importance=0.6,
+                        explore_action="web_research",
+                        target=topic,
+                        context={
+                            "parent_topic": topic,
+                            "score": score,
+                            "reason": "deepen_research",
+                        },
+                        reason="网络研究深度不足",
+                    ))
+        except Exception:
+            pass
+
+        qs.sort(key=lambda x: -x.importance)
+        return qs[:3]  # 最多 3 个
 
     def _curiosity_deep_learning(self, snapshot: Dict[str, Any]) -> List[CuriosityQuestion]:
         """检查知识库中深度不足但值得深挖的条目"""

@@ -23,6 +23,21 @@ class MetacognitiveFinding:
     context: Dict[str, Any] = field(default_factory=dict)
 
 
+@dataclass
+class ThinkingQualityReport:
+    """综合思考质量报告——聚合四项元认知分析为单一评分"""
+    overall_score: float                    # 0.0-1.0 综合质量
+    loop_severity: float                    # 0.0-1.0 循环严重度
+    failure_risk: float                     # 0.0-1.0 失败风险
+    confidence: float                       # 0.0-1.0 置信度（高=好）
+    stagnation: float                       # 0.0-1.0 停滞程度
+    stability: float                        # 0.0-1.0 近期趋势稳定性
+    freshness: float                        # 0.0-1.0 思维新鲜度
+    interpretation: str                     # 中文可读解释
+    recommended_mode: str                   # 推荐的策略模式名
+    factor_breakdown: Dict[str, float]      # 各因子详细得分
+
+
 class MetacognitiveMonitor:
     """
     纯算法元认知监控，零外部依赖。
@@ -45,6 +60,13 @@ class MetacognitiveMonitor:
         # 历史统计
         self._total_checks = 0
         self._findings_history: List[Dict[str, Any]] = []
+
+        # ── 信号去重（从 Evolver 学习） ──
+        self._signal_counter: Dict[str, int] = {}   # 信号类型→连续出现次数
+        self._signal_dead: Dict[str, bool] = {}      # 信号类型→是否已静默
+        self._consecutive_failures = 0                # 连续失败计数
+        self._last_strategy_switch = 0                # 上次切换策略的轮次
+        self._strategy_history: List[str] = []        # 策略切换历史
 
         self._load()
 
@@ -88,8 +110,114 @@ class MetacognitiveMonitor:
                 "detail": f.detail,
             })
 
+        # 信号去重：抑制 3+ 次重复的同类信号
+        findings = self._dedup_signals(findings)
+
+        # 连续失败检测：5 次后强制切换策略
+        self._check_consecutive_failures(findings)
+
         self._save()
         return findings
+
+    # ── 综合质量评分 ─────────────────────────────────
+
+    def compute_quality_score(self, experience_tracker=None,
+                               thinking_stats: Dict[str, Any] = None,
+                               daemon_stats: Dict[str, Any] = None,
+                               goal_planner=None) -> ThinkingQualityReport:
+        """
+        聚合四项元认知分析为单一综合质量评分（0.0-1.0）。
+
+        评分公式：
+          overall = (1-loop)*0.25 + (1-risk)*0.20 + confidence*0.25
+                  + (1-stagnation)*0.15 + stability*0.10 + freshness*0.05
+        """
+        # 运行四项分析获取 severity
+        loops = self._detect_loops()
+        risks = self._estimate_failure_risk(experience_tracker)
+        confs = self._estimate_confidence(experience_tracker, thinking_stats)
+        stags = self._detect_stagnation(goal_planner)
+
+        loop_sev = loops[0].severity if loops else 0.0
+        risk_sev = risks[0].severity if risks else 0.0
+        stag_sev = stags[0].severity if stags else 0.0
+        # confidence: 无finding → 默认0.6，有则反转severity
+        if confs:
+            conf_val = max(0.0, 1.0 - confs[0].severity)
+        else:
+            conf_val = 0.6
+
+        # stability: 基于 findings_history 最近趋势
+        recent = [h for h in self._findings_history[-20:]
+                  if h.get("type") != "empty_cycle"]
+        if len(recent) >= 4:
+            half = len(recent) // 2
+            first_half = sum(1 for h in recent[:half] if h.get("severity", 0) > 0.3)
+            second_half = sum(1 for h in recent[half:] if h.get("severity", 0) > 0.3)
+            if second_half <= first_half:
+                stability = 0.8  # 改善或持平
+            elif second_half > first_half + 1:
+                stability = 0.3  # 恶化
+            else:
+                stability = 0.5
+        else:
+            stability = 0.6
+
+        # freshness: 思考窗口中去重率
+        window = list(self._thought_window)
+        if len(window) >= 3:
+            unique_ratio = len(set(window)) / len(window)
+            freshness = min(1.0, unique_ratio * 1.5)
+        else:
+            freshness = 0.7
+
+        # 综合评分
+        overall = (
+            (1.0 - loop_sev) * 0.25
+            + (1.0 - risk_sev) * 0.20
+            + conf_val * 0.25
+            + (1.0 - stag_sev) * 0.15
+            + stability * 0.10
+            + freshness * 0.05
+        )
+        overall = max(0.0, min(1.0, overall))
+
+        # 策略推荐
+        if overall < 0.35:
+            recommended = "rest_consolidate"
+            interpretation = f"思考质量偏低 ({overall:.2f})，建议休息巩固"
+        elif stag_sev > 0.6:
+            recommended = "goal_driven"
+            interpretation = f"停滞严重 ({stag_sev:.2f})，需要目标驱动突破"
+        elif loop_sev > 0.5:
+            recommended = "broad_exploration"
+            interpretation = f"循环显著 ({loop_sev:.2f})，需要广泛探索打破循环"
+        elif overall >= 0.7:
+            recommended = "deep_mining"
+            interpretation = f"思考质量良好 ({overall:.2f})，适合深度挖掘"
+        else:
+            recommended = "broad_exploration"
+            interpretation = f"思考质量一般 ({overall:.2f})，保持广泛探索"
+
+        return ThinkingQualityReport(
+            overall_score=round(overall, 3),
+            loop_severity=round(loop_sev, 3),
+            failure_risk=round(risk_sev, 3),
+            confidence=round(conf_val, 3),
+            stagnation=round(stag_sev, 3),
+            stability=round(stability, 3),
+            freshness=round(freshness, 3),
+            interpretation=interpretation,
+            recommended_mode=recommended,
+            factor_breakdown={
+                "loop_penalty": round(1.0 - loop_sev, 3),
+                "risk_penalty": round(1.0 - risk_sev, 3),
+                "confidence": round(conf_val, 3),
+                "stagnation_penalty": round(1.0 - stag_sev, 3),
+                "stability": round(stability, 3),
+                "freshness": round(freshness, 3),
+            },
+        )
 
     # ── 四项分析 ─────────────────────────────────────
 
@@ -278,6 +406,78 @@ class MetacognitiveMonitor:
 
         return findings
 
+    # ── 信号去重（从 Evolver 学习） ──────────────────
+
+    def _dedup_signals(self, findings: List[MetacognitiveFinding]) -> List[MetacognitiveFinding]:
+        """
+        信号去重：相同类型的信号连续出现 3+ 次则静默。
+        类似 Evolver 的 "3次重复信号抑制" 机制。
+        """
+        deduped = []
+        # 先统一累加本轮所有信号的计数
+        for f in findings:
+            sig_key = f"{f.finding_type}:{f.detail[:60]}"
+            self._signal_counter[sig_key] = self._signal_counter.get(sig_key, 0) + 1
+
+        for f in findings:
+            sig_key = f"{f.finding_type}:{f.detail[:60]}"
+
+            if self._signal_dead.get(sig_key):
+                continue  # 已永久静默
+
+            # 检查总出现次数（历史记录 + 本轮+之前累计）
+            total_count = self._signal_counter[sig_key]
+
+            if total_count >= 3:
+                # 检查是否在最近 8 条历史记录中也有这个信号
+                recent = [h for h in self._findings_history[-8:]
+                          if h.get("type") == f.finding_type
+                          and f.detail[:60] in h.get("detail", "")]
+                if len(recent) >= 2 or total_count >= 4:
+                    # 历史中有记录 或 计数过高 → 静默
+                    self._signal_dead[sig_key] = True
+                    print(f"  🔇 信号去重: {f.finding_type} 已出现 {total_count} 次，静默")
+                    continue
+
+            # 保留第一个出现（最多保留首次 + 一次重复）
+            if deduped and any(
+                d.finding_type == f.finding_type and d.detail == f.detail
+                for d in deduped
+            ):
+                continue  # 同一批内只保留第一个
+
+            deduped.append(f)
+
+        return deduped
+
+    def _check_consecutive_failures(self, findings: List[MetacognitiveFinding]) -> None:
+        """
+        连续失败检测：5 次连续检查都发现问题 → 强制切换策略。
+        类似 Evolver 的 "5次失败后剥离主导策略"。
+        """
+        has_finding = len(findings) > 0
+        if has_finding:
+            self._consecutive_failures += 1
+        else:
+            self._consecutive_failures = max(0, self._consecutive_failures - 1)
+
+    def force_strategy_switch(self) -> Optional[str]:
+        """当连续失败 >=5 时，返回应该切换到的策略名称"""
+        if self._consecutive_failures >= 5:
+            # 在修复/保守/创新之间轮换
+            strategies = ["repair-only", "balanced", "innovate"]
+            used = self._strategy_history[-3:]
+            for s in strategies:
+                if s not in used:
+                    self._strategy_history.append(s)
+                    self._consecutive_failures = 0
+                    return s
+            # 都用过了就回到 balanced
+            self._strategy_history.append("balanced")
+            self._consecutive_failures = 0
+            return "balanced"
+        return None
+
     # ── 工具方法 ─────────────────────────────────────
 
     @staticmethod
@@ -305,6 +505,11 @@ class MetacognitiveMonitor:
             return
         try:
             data = json.loads(self.state_file.read_text(encoding="utf-8"))
+            self._signal_counter = data.get("signal_counter", {})
+            self._signal_dead = {k: bool(v) for k, v in data.get("signal_dead", {}).items()}
+            self._consecutive_failures = data.get("consecutive_failures", 0)
+            self._last_strategy_switch = data.get("last_strategy_switch", 0)
+            self._strategy_history = data.get("strategy_history", [])
             self._thought_window = deque(
                 data.get("thought_window", []), maxlen=20
             )
@@ -319,7 +524,12 @@ class MetacognitiveMonitor:
             data = {
                 "thought_window": list(self._thought_window),
                 "total_checks": self._total_checks,
-                "findings_history": self._findings_history[-100:],  # 最多保留 100 条
+                "findings_history": self._findings_history[-100:],
+                "signal_counter": self._signal_counter,
+                "signal_dead": self._signal_dead,
+                "consecutive_failures": self._consecutive_failures,
+                "last_strategy_switch": self._last_strategy_switch,
+                "strategy_history": self._strategy_history,
                 "updated_at": datetime.now().isoformat(),
             }
             self.state_file.write_text(

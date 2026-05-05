@@ -39,6 +39,7 @@ class ModErrorKind(str, Enum):
     HUMAN_APPROVAL_DENIED = "human_approval_denied"
     ROLLED_BACK = "rolled_back"
     GIT_FAILED = "git_failed"
+    CONSTITUTION_VIOLATION = "constitution_violation"
     OTHER = "other"
 
 
@@ -55,6 +56,7 @@ class GateResult:
 class ModificationGate(Enum):
     """Gate 类型 — GateChain 中的每个检查点"""
     KILL_SWITCH = "kill_switch"
+    CONSTITUTION = "constitution"  # 宪法门禁（始终启用，不可绕过）
     SCOPE = "scope"
     RISK_ASSESSMENT = "risk_assessment"
     PRE_VALIDATE = "pre_validate"
@@ -88,6 +90,9 @@ DENIED_SCOPE: List[str] = [
     "self_modification_engine.py",
     "knowledge_base.py",
     "system_state_manager.py",
+    "CONSTITUTION.md",
+    "constitution_gate.py",
+    "thought_continuity.py",
 ]
 
 
@@ -146,6 +151,7 @@ class GateChain:
         """运行完整 gate chain。返回 None=通过, GateResult=失败"""
         chain = [
             self._gate_kill_switch,
+            self._gate_constitution,  # 宪法门禁（始终启用，不可绕过）
             self._gate_scope,
             self._gate_sub_gates,
             self._gate_risk_assessment,
@@ -175,6 +181,26 @@ class GateChain:
                                   ModErrorKind.KILL_SWITCH_OFF)
         except ImportError:
             pass
+        return None
+
+    def _gate_constitution(self, filepath: str, old_code: str, new_code: str,
+                            reason: str, mod_type: str) -> Optional[GateResult]:
+        """
+        宪法门禁（始终启用，不可绕过）。
+
+        检查三个维度：
+        - CON.2: 文件是否在不可修改列表中
+        - CON.5: 修改内容是否包含安全机制关键词
+        - 完整性: 宪法文件是否被篡改
+
+        注意：此 gate 不从 _gate_config 读取——始终启用。
+        """
+        from constitution_gate import check_modification
+        result = check_modification(filepath, new_code, reason)
+        if not result.passed:
+            principles = "; ".join(result.violated_principles)
+            return GateResult(False, f"宪法门禁拦截: {principles}",
+                              ModErrorKind.CONSTITUTION_VIOLATION)
         return None
 
     def _gate_scope(self, filepath: str, old_code: str, new_code: str,

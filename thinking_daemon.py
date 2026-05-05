@@ -290,6 +290,14 @@ class ThinkingDaemon:
             gate_check=lambda d: self._gate_research_scheduler(d),
             run=lambda d: self._run_research_scheduler(d),
         ))
+        # ---- H5: Claude 记忆同步 ----
+        self.register_stop_hook(StopHook(
+            name="claude_memory_sync",
+            priority=45,
+            cooldown=1800.0,  # 最少间隔 30min
+            gate_check=lambda d: self._gate_claude_memory_sync(d),
+            run=lambda d: self._run_claude_memory_sync(d),
+        ))
 
     @staticmethod
     def _gate_consolidation(daemon) -> bool:
@@ -520,6 +528,42 @@ class ThinkingDaemon:
                 f"  📚 研究调度: 生成 {len(new_tasks)} 个新任务 "
                 f"({', '.join(sorted(topics_found))})")
 
+    # ---- Claude 记忆同步门控 + 执行体 ----
+
+    @staticmethod
+    def _gate_claude_memory_sync(daemon) -> bool:
+        """Claude 记忆同步门控：特征开关 + 有意义变化"""
+        from system_state_manager import SystemStateManager
+        try:
+            sm = SystemStateManager()
+            ffm = sm.get_feature_flag_manager()
+            if not ffm.is_enabled("claude_memory_bridge"):
+                return False
+        except Exception:
+            pass
+        try:
+            from claude_memory_bridge import ClaudeMemoryBridge
+            bridge = ClaudeMemoryBridge()
+            return bridge.should_sync()
+        except Exception:
+            return False
+
+    @staticmethod
+    def _run_claude_memory_sync(daemon):
+        """执行 Claude 记忆同步（后台线程）"""
+        try:
+            from claude_memory_bridge import ClaudeMemoryBridge
+            bridge = ClaudeMemoryBridge()
+            result = bridge.sync()
+            if result.get("synced"):
+                daemon._log(
+                    f"  🧠 Claude记忆同步: {result.get('memory_name')} "
+                    f"({result.get('entries_count', 0)} 条目, {result.get('reason', '')})")
+            elif result.get("reason") != "no_changes":
+                daemon._log(f"  🧠 Claude记忆同步跳过: {result.get('reason', 'unknown')}")
+        except Exception as e:
+            daemon._log(f"  🧠 Claude记忆同步异常: {e}")
+
     # ---- 核心循环 ----
 
     def _daemon_loop(self):
@@ -705,6 +749,18 @@ class ThinkingDaemon:
 
     def get_status(self) -> Dict[str, Any]:
         """获取守护进程状态"""
+        # 尝试读取当前策略信息
+        current_strategy = "unknown"
+        try:
+            strategy_file = self.data_dir / "strategy_history.json"
+            if strategy_file.exists():
+                data = json.loads(strategy_file.read_text(encoding="utf-8"))
+                history = data if isinstance(data, list) else []
+                if history:
+                    current_strategy = history[-1].get("to", "unknown")
+        except Exception:
+            pass
+
         return {
             "running": self.is_running,
             "cycle_count": self.cycle_count,
@@ -712,6 +768,7 @@ class ThinkingDaemon:
             "thinking_depth": self.thinking_depth,
             "heal_threshold": self.heal_threshold,
             "last_cycle": self.last_cycle_time,
+            "current_strategy": current_strategy,
             "modification_stats": self._modification_engine.get_modification_stats()
             if self._modification_engine else {},
         }

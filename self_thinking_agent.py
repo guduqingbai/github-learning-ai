@@ -18,6 +18,7 @@ from typing import Dict, Any, List, Optional
 
 # ── 思维引擎组件（纯本地大脑）──
 from thought_buffer import ThoughtGraph
+from thought_continuity import ThoughtContinuityManager, ThoughtContinuityConfig
 from thinking_engine import ThinkingEngine
 
 
@@ -160,6 +161,7 @@ class SelfThinkingAgent:
 
         # ── 思维引擎组件（纯本地大脑）──
         self._thought_graph: Optional[ThoughtGraph] = None
+        self._thought_continuity: Optional[ThoughtContinuityManager] = None
         self._thinking_engine: Optional[ThinkingEngine] = None
         self._last_local_think_cycle: int = -1  # -1 = 从未运行
 
@@ -175,6 +177,20 @@ class SelfThinkingAgent:
         # ── 策略学习循环 ──
         self._cycle_count = 0
         self._strategy_journal_file = self.data_dir / "strategy_journal.json"
+
+        # 人格状态（从 Evolver 学习）
+        self._personality: Optional["PersonalityState"] = None
+
+        # 分层记忆（从 GenericAgent 学习）
+        self._layered_memory: Optional["LayeredMemory"] = None
+
+        # 自主研究（自建）
+        self._research_integration: Optional["ResearchIntegration"] = None
+
+        # ── 能力学习与差距分析 ──
+        self._capability_registry = None
+        self._directed_crawler = None
+        self._gap_analyzer = None
 
     # ---- Hook 系统 ----
 
@@ -227,6 +243,15 @@ class SelfThinkingAgent:
         if self._thought_graph is None:
             self._thought_graph = ThoughtGraph()
             self._thought_graph.migrate_from_legacy()
+        if self._thought_continuity is None:
+            self._thought_continuity = ThoughtContinuityManager(
+                thought_graph=self._thought_graph,
+                config=ThoughtContinuityConfig(
+                    max_active_threads=3,
+                    max_thread_depth=5,
+                    stale_cycles_threshold=5,
+                ),
+            )
         if self._thinking_engine is None:
             from knowledge_graph import KnowledgeGraph
             from self_model import SelfModel
@@ -260,6 +285,86 @@ class SelfThinkingAgent:
             return True
         return False
 
+    def _internal_think(self) -> List[Dict]:
+        """
+        内在思考：主动分析已有知识，不依赖外部触发。
+
+        返回内在思考产生的新问题列表（Dictionary 格式，
+        与 CuriosityQuestion 兼容）。
+        """
+        internal_qs = []
+        try:
+            from internal_thinker import InternalThinker
+            it = InternalThinker()
+            result = it.think()
+
+            # 存储洞察到思维图
+            for ins in result.get("insights", []):
+                if self._thought_graph is not None:
+                    self._thought_graph.add_thought(
+                        topic=ins.content[:60],
+                        content=ins.content,
+                        thought_type="insight",
+                        importance=ins.importance,
+                        source="internal_thinker",
+                    )
+
+            # 转换问题格式
+            for q in result.get("questions", []):
+                try:
+                    from curiosity_engine import CuriosityQuestion
+                    internal_qs.append(CuriosityQuestion(
+                        observation=f"[内在思考] 基于已有知识的自我提问",
+                        question=q["question"],
+                        importance=q.get("importance", 0.5),
+                        explore_action=q.get("explore_action", "explore"),
+                        target=q.get("target", ""),
+                        context={"source": "internal_thinker"},
+                        reason="系统主动思考已有知识",
+                    ))
+                except Exception:
+                    pass
+
+            if result.get("insights"):
+                print(f"  💭 内在思考: {len(result['insights'])} 条洞察")
+        except Exception as e:
+            print(f"  ⚠️ 内在思考异常: {e}")
+
+        return internal_qs
+
+    def _crawl_and_learn(self) -> None:
+        """
+        执行爬虫任务并学习结果。
+
+        每轮处理少量 pending 爬虫任务，将结果通过学习
+        桥接器评估后入库，供后续 _study_knowledge 学习。
+        """
+        task_file = self.data_dir / "crawler_tasks.json"
+        if not task_file.exists():
+            return
+
+        try:
+            tasks = json.loads(task_file.read_text(encoding="utf-8"))
+        except Exception:
+            return
+
+        if not tasks:
+            return
+
+        print(f"  🕷️ 爬虫队列: {len(tasks)} 个待处理，本轮执行 2 个")
+        try:
+            from ai_knowledge_crawler import AIKnowledgeCrawler
+            crawler = AIKnowledgeCrawler()
+            results = crawler.crawl_task_queue()
+            if results:
+                from crawler_learning_bridge import process_crawler_results
+                stats = process_crawler_results(results)
+                print(f"  📚 爬虫学习: 评估 {stats['evaluated']} 条, "
+                      f"学习 {stats['learned']} 条, "
+                      f"深挖 {stats['deep_dives']} 个主题")
+        except Exception as e:
+            print(f"  ⚠️ 爬虫执行异常: {e}")
+
     def _get_experience_tracker(self):
         """延迟初始化经验追踪器"""
         if self._experience_tracker is None:
@@ -273,6 +378,50 @@ class SelfThinkingAgent:
             from metacognitive_monitor import MetacognitiveMonitor
             self._metacognitive_monitor = MetacognitiveMonitor()
         return self._metacognitive_monitor
+
+    def _get_personality(self):
+        """延迟初始化人格状态"""
+        if self._personality is None:
+            from personality_state import PersonalityState
+            self._personality = PersonalityState()
+        return self._personality
+
+    def _get_layered_memory(self):
+        """延迟初始化分层记忆"""
+        if self._layered_memory is None:
+            from memory_layers import LayeredMemory
+            self._layered_memory = LayeredMemory()
+        return self._layered_memory
+
+    def _get_research_integration(self):
+        """延迟初始化研究集成"""
+        if self._research_integration is None:
+            from research_integration import ResearchIntegration
+            self._research_integration = ResearchIntegration()
+            self._research_integration.register_hooks(self)
+        return self._research_integration
+
+    def _get_capability_registry(self):
+        """延迟初始化能力注册表"""
+        if self._capability_registry is None:
+            from capability_registry import CapabilityRegistry
+            self._capability_registry = CapabilityRegistry()
+        return self._capability_registry
+
+    def _get_directed_crawler(self):
+        """延迟初始化定向爬虫并注册 hook"""
+        if self._directed_crawler is None:
+            from directed_crawl import DirectedCrawler
+            self._directed_crawler = DirectedCrawler()
+            self._directed_crawler.register_hooks(self)
+        return self._directed_crawler
+
+    def _get_gap_analyzer(self):
+        """延迟初始化差距分析器"""
+        if self._gap_analyzer is None:
+            from gap_analyzer import GapAnalyzer
+            self._gap_analyzer = GapAnalyzer()
+        return self._gap_analyzer
 
     def _get_daemon_stats(self) -> Dict[str, Any]:
         """获取守护进程运行时统计"""
@@ -389,6 +538,30 @@ class SelfThinkingAgent:
 
         # 捕获调整前的系统状态
         pre_state = self._capture_daemon_state(daemon)
+
+        # 从 PersonalityState 获取策略建议（从 Evolver 学习）
+        personality = self._get_personality()
+        strategy_hint = personality.suggest_strategy()
+        pre_state["personality"] = personality.all_params()
+        pre_state["suggested_strategy"] = strategy_hint
+
+        # 检查是否需要强制切换策略（从 MetacognitiveMonitor 信号去重）
+        try:
+            forced_strategy = self._get_metacognitive_monitor().force_strategy_switch()
+            if forced_strategy:
+                print(f"  🔄 强制策略切换: → {forced_strategy}")
+                # 强制切换影响人格参数
+                if forced_strategy == "innovate":
+                    personality.adjust("creativity", +0.2, reason="强制创新策略", force=True)
+                    personality.adjust("risk_tolerance", +0.15, reason="强制创新策略", force=True)
+                elif forced_strategy == "repair-only":
+                    personality.adjust("creativity", -0.2, reason="强制修复策略", force=True)
+                    personality.adjust("risk_tolerance", -0.2, reason="强制修复策略", force=True)
+                elif forced_strategy == "harden":
+                    personality.adjust("rigor", +0.2, reason="强制加固策略", force=True)
+                    personality.adjust("obedience", +0.1, reason="强制加固策略", force=True)
+        except Exception:
+            pass
 
         adjustments = []
         journal_entries = []
@@ -666,6 +839,18 @@ class SelfThinkingAgent:
                     )
                 print(f"  💡 本地深度思考: {len(result.insights)} 条洞察")
 
+                # 连续性后处理：链接洞察到父线程
+                if self._thought_continuity is not None and self._check_feature("thinking_continuity"):
+                    insight_dicts = [
+                        {"topic": ins.category, "summary": ins.content[:500],
+                         "importance": ins.importance}
+                        for ins in result.insights[:5]
+                    ]
+                    self._thought_continuity.post_process_results(
+                        results=insight_dicts,
+                        cycle_count=getattr(self, '_cycle_count', 0),
+                    )
+
             # 记录叙事
             narrative = result.narrative
             print(f"  📖 叙事摘要: {narrative.split(chr(10))[0][:80]}...")
@@ -709,6 +894,13 @@ class SelfThinkingAgent:
                 "trigger": "self_kb_coverage < 50%",
                 "default_depth": 3,
                 "icon": "📡",
+            },
+            "capability_audit": {
+                "name": "能力差距审计",
+                "description": "对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性",
+                "trigger": "capability_gaps > 3",
+                "default_depth": 3,
+                "icon": "📋",
             },
             "full_cycle": {
                 "name": "完整思考循环",
@@ -756,6 +948,8 @@ class SelfThinkingAgent:
             return self._run_quality_skill(effective_depth)
         elif skill_name == "self_scan":
             return self._run_self_scan_skill(effective_depth)
+        elif skill_name == "capability_audit":
+            return self._run_capability_audit_skill(effective_depth)
         else:
             # full_cycle → 所有问题类型一起跑（原逻辑）
             return self._run_full_cycle(effective_depth)
@@ -799,6 +993,67 @@ class SelfThinkingAgent:
             return []
         return self._explore_and_store(self_qs[:depth])
 
+    def _run_capability_audit_skill(self, depth: int) -> List[Dict]:
+        """能力差距审计：比较注册能力 vs 外部参考，生成差距报告"""
+        if not self._check_feature("capability_learning"):
+            print("  ⏭️ capability_learning 已禁用")
+            return []
+
+        from knowledge_base import KnowledgeBase
+        registry = self._get_capability_registry()
+        analyzer = self._get_gap_analyzer()
+        kb = KnowledgeBase()
+        refs = kb.get_knowledge_by_category("能力参考")
+
+        results = []
+
+        # 正向：已有能力在外部有更强实现吗？
+        for cap in registry.list():
+            analysis = analyzer.compare_capability_vs_knowledge(cap, refs)
+            for r in analysis[:depth]:
+                results.append({
+                    "type": "capability_gap",
+                    "capability": r.capability_name,
+                    "kb_topic": r.kb_entry_topic,
+                    "similarity": r.similarity_score,
+                    "suggestion": r.reason,
+                })
+
+        # 反向：外部有什么我完全没有的？
+        missing = analyzer.find_missing_capabilities(refs)
+        ranked = analyzer.rank_gaps_by_value(missing)
+        for gap in ranked[:depth]:
+            results.append({
+                "type": "missing_capability",
+                "topic": gap.topic,
+                "relevance": gap.relevance_score,
+                "impact": gap.potential_impact,
+                "cost": gap.implementation_cost,
+                "score": gap.overall_score,
+            })
+
+        print(f"  📋 能力差距审计完成: {len(results)} 项发现")
+        return results
+
+    def _get_capability_gap_context(self) -> Dict[str, Any]:
+        """返回能力差距摘要（用于自我认知 JSON）"""
+        if not self._check_feature("capability_learning"):
+            return {"total_gaps": 0, "top_gaps": []}
+        try:
+            from knowledge_base import KnowledgeBase
+            kb = KnowledgeBase()
+            refs = kb.get_knowledge_by_category("能力参考")
+            analyzer = self._get_gap_analyzer()
+            missing = analyzer.find_missing_capabilities(refs)
+            ranked = analyzer.rank_gaps_by_value(missing)
+            return {
+                "total_gaps": len(ranked),
+                "top_gaps": [g.topic for g in ranked[:5]],
+                "last_audit": datetime.now().isoformat(),
+            }
+        except Exception:
+            return {"total_gaps": 0, "top_gaps": []}
+
     def _explore_and_store(self, questions: List) -> List[Dict]:
         """通用探索+存储流程（被各个技能复用）
         单个问题失败不影响其他问题的探索
@@ -811,13 +1066,41 @@ class SelfThinkingAgent:
             print(f"  ❓ {q.question[:90]}")
             problem = q.target or q.question[:80]
             action = q.explore_action
+
+            # 经验引导（从 AgentEvolver Self-Navigating 学习）
+            try:
+                exp_ctx = et.get_experience_context(problem)
+                if exp_ctx:
+                    print(f"  📖 相关经验:\n{exp_ctx[:200]}")
+            except Exception:
+                pass
+
+            # 人格状态门控（从 Evolver PersonalityState 学习）
+            personality = self._get_personality()
+            if action in ("global_research", "deep_learning"):
+                q.importance = personality.gate_creativity(q.importance)
+
             try:
                 exploration = self._explore_question(q)
                 insight = self._generate_insight(q, exploration)
+                # 传递问题上下文（延续线程的 parent_thought_id 等）
+                ctx = getattr(q, 'context', None) or {}
+                if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
+                    insight['context'] = ctx
                 stored = self._store_insight(insight)
                 results.append(insight)
 
                 et.record(problem, action, "success", cycle=cycle)
+
+                # 技能结晶：从成功探索提取可复用技能
+                try:
+                    from skill_crystallizer import SkillCrystallizer
+                    sc = SkillCrystallizer()
+                    skill_id = sc.extract_skill(q, insight, cycle)
+                    if skill_id:
+                        print(f"  ⚡ 技能结晶: {skill_id}")
+                except Exception:
+                    pass
 
                 if action == "add_crawler_task":
                     added = self._add_crawler_tasks(q)
@@ -829,12 +1112,16 @@ class SelfThinkingAgent:
                 error_type = type(e).__name__
                 et.record(problem, action, "failure", error_type,
                           cycle, str(e)[:200])
-                results.append({
+                err_insight = {
                     "observation": q.observation,
                     "question": q.question,
                     "summary": f"探索失败: {e}",
                     "action_taken": "error",
-                })
+                }
+                ctx = getattr(q, 'context', None) or {}
+                if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
+                    err_insight['context'] = ctx
+                results.append(err_insight)
 
         self._log_thinking_cycle(results)
         return results
@@ -865,6 +1152,13 @@ class SelfThinkingAgent:
         print(f"{'='*60}")
 
         self._run_hooks(HookEvent.CYCLE_START, depth=depth, skill=skill)
+
+        # 确保定向爬虫 hook 已注册（惰性初始化，不阻塞）
+        if self._check_feature("capability_learning"):
+            try:
+                self._get_directed_crawler()
+            except Exception:
+                pass
 
         # 策略回顾：上次调整的效果如何？
         self._cycle_count += 1
@@ -922,6 +1216,21 @@ class SelfThinkingAgent:
                 self._build_self_awareness()
             self._run_hooks(HookEvent.POST_AWARENESS)
 
+        # 能力差距审计（当 gap 数量超过阈值时自动触发）
+        if self._check_feature("capability_learning"):
+            try:
+                from knowledge_base import KnowledgeBase
+                kb = KnowledgeBase()
+                refs = kb.get_knowledge_by_category("能力参考")
+                if refs:
+                    analyzer = self._get_gap_analyzer()
+                    missing = analyzer.find_missing_capabilities(refs)
+                    if len(missing) >= 3:
+                        print(f"  📋 能力差距 > 阈值 ({len(missing)} 项), 触发能力审计")
+                        self.run_skill("capability_audit", depth=2)
+            except Exception:
+                pass
+
         # 知识库自动整理（AutoDream 风格：24h + 5新条目 + 无冲突）
         if self._check_feature("auto_consolidation"):
             self._run_hooks(HookEvent.PRE_CONSOLIDATE)
@@ -940,6 +1249,23 @@ class SelfThinkingAgent:
             self._generate_questions()
             self._run_hooks(HookEvent.POST_QUESTIONS, questions=self.questions)
 
+        # ── 思考延续：从 ThoughtGraph 注入延续问题 ──
+        self._init_thinking_engine()  # 确保 continuity 已初始化
+        self._continuation_qs = []
+        if (self._thought_continuity is not None
+                and self._check_feature("thinking_continuity")
+                and self._thought_graph is not None):
+            try:
+                self._continuation_qs = self._thought_continuity.inject_continuation_questions(
+                    current_questions=self.questions,
+                    cycle_count=getattr(self, '_cycle_count', 0),
+                    snapshot=self.snapshot or {},
+                )
+                if self._continuation_qs and self._thought_continuity.should_reduce_new_questions():
+                    print(f"  📏 深度优先: 已有 {len(self._continuation_qs)} 个活跃线程，减少新问题")
+            except Exception as e:
+                print(f"  ⚠️ 思考延续异常: {e}")
+
         # 学习触发的行动和问题
         action_questions = []
         study_questions = []
@@ -955,8 +1281,27 @@ class SelfThinkingAgent:
             self._do_local_think()
             # ThinkingEngine 生成的 CuriosityQuestion 已合并到 self.questions
 
+        # ── 内在思考：主动分析已有知识 ──
+        internal_qs = self._internal_think()
+        if internal_qs:
+            self.questions.extend(internal_qs)
+            print(f"  💭 内在思考产生了 {len(internal_qs)} 个新问题")
+
+        # ── 执行爬虫任务并学习结果 ──
+        # 新 web_research 系统已取代旧爬虫队列，二者互斥
+        if self._check_feature("global_research") and not self._check_feature("web_research"):
+            self._crawl_and_learn()
+
+        # ── 自主研究集成（多源搜索+内容提取+综合） ──
+        if self._check_feature("web_research"):
+            self._get_research_integration()  # 确保 hooks 已注册
+
         # 按活跃目标重新排序问题（目标相关的优先探索）
         self.questions = self._prioritize_questions(self.questions)
+
+        # 排序后注入延续问题到队列头部（确保它们被本轮探索）
+        if getattr(self, '_continuation_qs', None):
+            self.questions = self._continuation_qs + self.questions
 
         # 始终记录学习行动（即使 0 个行动）
         self._log_study_actions(learned,
@@ -967,9 +1312,14 @@ class SelfThinkingAgent:
             self._run_hooks(HookEvent.CYCLE_END, result=[])
             return []
 
+        # 策略深度覆盖：如果当前策略指定了探索深度
+        effective_depth = depth
+        if hasattr(self, '_current_strategy') and self._current_strategy:
+            effective_depth = self._current_strategy.exploration_depth
+
         print(f"❓ 共 {len(self.questions)} 个好奇心问题")
-        self._run_hooks(HookEvent.PRE_EXPLORE, questions=self.questions[:depth])
-        results = self._explore_and_store(self.questions[:depth])
+        self._run_hooks(HookEvent.PRE_EXPLORE, questions=self.questions[:effective_depth])
+        results = self._explore_and_store(self.questions[:effective_depth])
         self._run_hooks(HookEvent.POST_EXPLORE, results=results)
 
         # 元认知记录：本轮探索结果 → 思考主题
@@ -988,25 +1338,96 @@ class SelfThinkingAgent:
                 daemon_stats=d_stats)
             # 方向3：基于元认知发现调整行为
             self._apply_metacognitive_adjustments(mc_findings)
+
+            # ── 策略选择：基于综合质量评分切换思考模式 ──
+            try:
+                from thinking_strategy import StrategyManager
+                if not hasattr(self, '_strategy_manager'):
+                    self._strategy_manager = StrategyManager()
+                quality_report = monitor.compute_quality_score(
+                    experience_tracker=et, thinking_stats=t_stats,
+                    daemon_stats=d_stats)
+                strategy = self._strategy_manager.select_strategy(
+                    quality_report, cycle_count=getattr(self, '_cycle_count', 0))
+                self._current_strategy = strategy
+                self._quality_report = quality_report
+
+                # 应用策略到 daemon 参数
+                daemon_sm = None
+                try:
+                    from thinking_daemon import get_daemon
+                    daemon_sm = get_daemon()
+                except Exception:
+                    pass
+                if daemon_sm:
+                    changes = self._strategy_manager.apply_to_daemon(daemon_sm)
+                    if changes:
+                        print(f"  ⚙️ 策略影响 daemon 参数:")
+                        for k, (old, new) in changes.items():
+                            print(f"    {k}: {old} → {new}")
+            except Exception as strat_err:
+                print(f"  ⚠️ 策略选择异常: {strat_err}")
         except Exception:
             pass
 
-        # 将探索结果写入思维图
+        # 将探索结果写入思维图 + 连续性后处理
         if self._thought_graph is not None and results:
-            for ins in results:
-                self._thought_graph.add_thought(
-                    topic=ins.get("topic", "未知"),
-                    content=ins.get("summary", ins.get("detail", ""))[:500],
-                    thought_type="insight",
-                    importance=ins.get("importance", 0.5),
-                    source="exploration",
+            if self._thought_continuity is not None and self._check_feature("thinking_continuity"):
+                self._thought_continuity.post_process_results(
+                    results=results,
+                    cycle_count=getattr(self, '_cycle_count', 0),
                 )
+            else:
+                for ins in results:
+                    self._thought_graph.add_thought(
+                        topic=ins.get("topic", "未知"),
+                        content=ins.get("summary", ins.get("detail", ""))[:500],
+                        thought_type="insight",
+                        importance=ins.get("importance", 0.5),
+                        source="exploration",
+                    )
 
         # 游标式逐轮记忆提取（extractMemories.ts 模式：每轮结束时执行）
         if self._check_feature("memory_extraction"):
             self._extract_memories()
 
         self._run_hooks(HookEvent.CYCLE_END, result=results)
+
+        # ── 分层记忆：归档本轮经验（从 GenericAgent L0-L4 学习） ──
+        try:
+            lm = self._get_layered_memory()
+            lm.add_to_index(
+                topic=f"思考循环 #{self._cycle_count}",
+                category="thinking_cycle",
+                summary=f"探索 {len(results)} 个问题",
+                ref=f"cycle_{self._cycle_count}",
+            )
+            lm.archive_session({
+                "cycle": self._cycle_count,
+                "results_count": len(results) if results else 0,
+            })
+        except Exception:
+            pass
+
+        # ── 背景审查：自动提取技能（从 Hermes Nudge Engine 学习） ──
+        try:
+            if results and self._cycle_count % 5 == 0:
+                from skill_crystallizer import SkillCrystallizer
+                sc = SkillCrystallizer()
+                activities = [{
+                    "tool_calls": len(results),
+                    "errors": [{"overcome": True}] if r.get("summary") else [],
+                    "action": r.get("action_taken", "explore"),
+                    "target": r.get("topic", ""),
+                    "steps": len(results),
+                    "complex_task": len(results) > 3,
+                } for r in results if isinstance(r, dict)]
+                candidates = sc.background_review(activities)
+                if candidates:
+                    print(f"  🔍 背景审查: {len(candidates)} 个值得结晶的活动")
+        except Exception:
+            pass
+
         return results
 
     def _scan_project(self):
@@ -1439,20 +1860,13 @@ class SelfThinkingAgent:
                 "imports": f.get("import_count", 0),
             })
 
-        # 2. 能力清单
-        capabilities = [
-            {"name": "代码扫描", "enabled": True, "module": "self_scanner.py"},
-            {"name": "好奇心提问", "enabled": True, "module": "curiosity_engine.py"},
-            {"name": "自我修改", "enabled": True, "module": "self_modification_engine.py"},
-            {"name": "知识学习", "enabled": True, "module": "knowledge_base.py"},
-            {"name": "网络爬虫", "enabled": True, "module": "ai_knowledge_crawler.py"},
-            {"name": "浏览器操控", "enabled": True, "module": "hands_engine.py"},
-            {"name": "内容生产", "enabled": True, "module": "content_studio.py"},
-            {"name": "市场监控", "enabled": True, "module": "trading_bot.py"},
-            {"name": "后台守护", "enabled": True, "module": "thinking_daemon.py"},
-            {"name": "自我评估", "enabled": True, "module": "self_thinking_agent.py"},
-            {"name": "目标追踪", "enabled": True, "module": "self_thinking_agent.py"},
-        ]
+        # 2. 能力清单（从注册表获取，自动发现 + 持久化）
+        try:
+            registry = self._get_capability_registry()
+            capabilities = registry.to_serializable_list()
+            print(f"  📋 能力清单: {len(capabilities)} 项 (已持久化)")
+        except Exception:
+            capabilities = []
 
         # 3. 改进历史（累积）
         prev_history = prev_awareness.get("improvement_history", [])
@@ -1501,6 +1915,7 @@ class SelfThinkingAgent:
                 "total_functions": total_funcs,
             },
             "capabilities": capabilities,
+            "capability_gaps": self._get_capability_gap_context(),
             "modification_stats": {
                 "attempted": mod_total,
                 "succeeded": mod_success,
@@ -1921,9 +2336,17 @@ class SelfThinkingAgent:
             if action in strat_effect:
                 exp = strat_effect[action] / 100.0
             elif action in ("read_file", "check_state"):
-                exp = 0.7  # 安全操作默认较高
+                exp = 0.7
             elif action in ("self_heal", "global_research"):
-                exp = 0.4  # 高风险操作默认较低
+                exp = 0.4
+
+            # 技能加分：匹配已知技能的问题提升经验因子
+            try:
+                from skill_crystallizer import SkillCrystallizer
+                sb = SkillCrystallizer().get_skill_boost(action, q.target or "")
+                exp = min(1.0, exp + sb)
+            except Exception:
+                pass
 
             # goal_alignment (0.20)
             align = 0.0
@@ -2158,7 +2581,12 @@ class SelfThinkingAgent:
             except Exception:
                 pass
 
-        all_questions = self.curiosity.generate_questions(self.snapshot, self.diff)
+        # 传入当前策略上下文（可选，不影响现有调用）
+        strategy_context = {}
+        if hasattr(self, '_strategy_manager') and self._strategy_manager:
+            strategy_context = self._strategy_manager.get_question_filter()
+        all_questions = self.curiosity.generate_questions(
+            self.snapshot, self.diff, strategy_context=strategy_context)
 
         # 过滤已发现的缺口
         filtered = []
@@ -2216,6 +2644,9 @@ class SelfThinkingAgent:
             if not self._check_feature("global_research"):
                 return {"note": f"global_research 已禁用，跳过: {target}"}
             return self._explore_global_research(q)
+        elif action == "web_research":
+            # 自主多源研究：替换原来的爬虫队列模式
+            return self._explore_web_research(q)
         elif action == "self_heal":
             if not self._check_feature("self_modification"):
                 return {"note": f"self_modification 已禁用，跳过修复: {target}"}
@@ -2224,6 +2655,8 @@ class SelfThinkingAgent:
             if not self._check_feature("self_modification"):
                 return {"note": f"self_modification 已禁用，跳过质量修复: {target}"}
             return self._explore_self_heal(q)
+        elif action == "deep_learning":
+            return self._explore_deep_learning(q)
         else:
             return {"note": f"未知探索动作: {action}"}
 
@@ -2342,7 +2775,22 @@ class SelfThinkingAgent:
             "categories": kb_data.get("category_breakdown", {}),
         }
 
-    def _explore_global_research(self, q) -> Dict[str, Any]:
+    def _explore_web_research(self, q) -> Dict[str, Any]:
+        """自主多源研究：即时搜索+读内容+综合答案"""
+        target = q.target or q.question
+        print(f"  🔬 自主研究: \"{target[:80]}\"")
+        try:
+            ri = self._get_research_integration()
+            result = ri.execute_research(target)
+            return result
+        except Exception as e:
+            print(f"  ⚠️ 研究失败: {e}")
+            return {
+                "observation": getattr(q, 'observation', ''),
+                "question": q.question,
+                "summary": f"研究执行异常: {e}",
+                "action_taken": "web_research_error",
+            }
         """全球研究：调爬虫和持续学习系统搜索全球资料"""
         ctx = q.context
         queries = ctx.get("research_queries", [])
@@ -2493,6 +2941,35 @@ class SelfThinkingAgent:
             "fix_results": fix_results,
         }
 
+    def _explore_deep_learning(self, q) -> Dict[str, Any]:
+        """
+        deep_learning 探索动作——原为无效的死代码路径。
+        现在路由到能力差距分析：检查 KB 能力参考与该问题的目标主题，
+        返回差距分析结果。
+        """
+        if not self._check_feature("capability_learning"):
+            return {"note": f"capability_learning 已禁用，跳过: {q.target}"}
+
+        target = q.target or q.question[:60]
+        from knowledge_base import KnowledgeBase
+        kb = KnowledgeBase()
+        refs = kb.get_knowledge_by_category("能力参考")
+        target_refs = [r for r in refs
+                       if target.lower() in r.get("topic", "").lower()] if refs else []
+
+        analyzer = self._get_gap_analyzer()
+        registry = self._get_capability_registry()
+        missing = analyzer.find_missing_capabilities(target_refs or refs)
+
+        return {
+            "observation": q.observation,
+            "question": q.question,
+            "topic": target[:100],
+            "summary": f"能力深度探索 [{target[:50]}]: 发现 {len(missing)} 个潜在能力差距",
+            "missing_capabilities": [m.topic for m in missing[:5]],
+            "action_taken": "deep_learning",
+        }
+
     # ---- 洞察生成与存储 ----
 
     def _generate_insight(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
@@ -2515,6 +2992,8 @@ class SelfThinkingAgent:
             return self._insight_from_global_research(q, exploration)
         elif q.explore_action in ("self_heal", "code_quality_heal"):
             return self._insight_from_self_heal(q, exploration)
+        elif q.explore_action == "deep_learning":
+            return self._insight_from_deep_learning(q, exploration)
         else:
             return {
                 "observation": q.observation,
@@ -2669,6 +3148,23 @@ class SelfThinkingAgent:
                 "fixes": fix_results,
                 "auto_applied": succeeded > 0,
             },
+        }
+
+    def _insight_from_deep_learning(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
+        """从能力深度探索生成洞察"""
+        missing = exploration.get("missing_capabilities", [])
+        topic = exploration.get("topic", q.target)
+        return {
+            "observation": q.observation,
+            "question": q.question,
+            "summary": exploration.get("summary", f"能力深度探索 [{topic}]"),
+            "topic": f"能力深度: {topic}",
+            "category": "能力参考",
+            "content": exploration.get("summary", ""),
+            "keywords": [topic] + missing[:5],
+            "findings": missing[:5],
+            "origin": "capability_audit",
+            "action_taken": "deep_learning",
         }
 
     def _store_insight(self, insight: Dict[str, Any]) -> bool:

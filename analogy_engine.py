@@ -13,6 +13,7 @@ class AnalogyEngine:
 
     def __init__(self, knowledge_graph=None):
         self._kg = knowledge_graph
+        self._sig_cache: Dict[str, Dict[str, Any]] = {}
 
     # ═══════════════════════════════════════════════
     # v1 兼容：特征向量指纹
@@ -79,6 +80,9 @@ class AnalogyEngine:
                 "relay_count": N,  # 作为桥接的次数
             }
         """
+        if eid in self._sig_cache:
+            return self._sig_cache[eid]
+
         entity = self._kg.get_entity(eid) if self._kg else None
         if not entity:
             return {}
@@ -103,12 +107,14 @@ class AnalogyEngine:
         # 生成子图哈希（2 跳）
         neighborhood = self._get_neighborhood_pattern(eid, depth)
 
-        return {
+        result = {
             "role_patterns": patterns,
             "neighborhood": neighborhood,
             "relay_count": relay_count,
             "pattern_count": len(patterns),
         }
+        self._sig_cache[eid] = result
+        return result
 
     def _get_neighborhood_pattern(self, eid: str, depth: int) -> str:
         """生成实体的 2 跳邻域拓扑模式字符串"""
@@ -249,10 +255,12 @@ class AnalogyEngine:
         types = list(by_type.keys())
         analogies = []
 
+        self._sig_cache.clear()  # 新鲜缓存，避免跨调用污染
+
         for i in range(len(types)):
             for j in range(i + 1, len(types)):
                 type_a, type_b = types[i], types[j]
-                for eid_a in by_type[type_a][:20]:
+                for eid_a in by_type[type_a][:10]:
                     if use_deep:
                         sig_a = self.relational_signature(eid_a)
                         if not sig_a.get("role_patterns"):
@@ -262,7 +270,7 @@ class AnalogyEngine:
                         if not fp_a:
                             continue
 
-                    for eid_b in by_type[type_b][:20]:
+                    for eid_b in by_type[type_b][:10]:
                         if use_deep:
                             sig_b = self.relational_signature(eid_b)
                             if not sig_b.get("role_patterns"):
