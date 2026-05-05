@@ -1,4 +1,6 @@
 ' 启动星期八自主思考守护进程（无窗口后台运行）
+' ⚠️ 安全警告：本脚本创建无窗口后台常驻进程，可通过 Windows 计划任务实现开机自启。
+' 使用 `taskkill /F /IM pythonw.exe` 停止所有后台进程。
 ' 由 Windows 计划任务调用，保证持久化运行
 
 Dim shell, pythonw, scriptPath, flagFile

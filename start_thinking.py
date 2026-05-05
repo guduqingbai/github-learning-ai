@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""星期八自主思考守护进程 — 永久启动入口"""
+"""星期八自主思考守护进程 — 唯一启动入口"""
 import os, sys, time
 from pathlib import Path
 
@@ -14,20 +14,42 @@ print("✅ 宪法完整性校验通过")
 
 from thinking_daemon import get_daemon
 
-PID_FILE = Path("data") / "thinking.pid"
-PID_FILE.parent.mkdir(exist_ok=True)
+LOCK_FILE = Path("data") / "thinking.lock"
+LOCK_FILE.parent.mkdir(exist_ok=True)
 
-# 单例检查
-if PID_FILE.exists():
+# 文件锁单例（原子操作，无 TOCTOU 竞态）
+lock_fd = None
+try:
+    # Windows 文件锁
+    import msvcrt
+    lock_fd = os.open(str(LOCK_FILE), os.O_CREAT | os.O_RDWR | os.O_TRUNC)
+    msvcrt.locking(lock_fd, msvcrt.LK_NBLCK, 1)
+except ImportError:
     try:
-        pid = int(PID_FILE.read_text().strip())
-        os.kill(pid, 0)
-        print(f"星期八已在运行中 (PID: {pid})")
-        sys.exit(0)
-    except (OSError, ValueError):
+        # Unix 文件锁
+        import fcntl
+        lock_fd = os.open(str(LOCK_FILE), os.O_CREAT | os.O_RDWR)
+        fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except ImportError:
         pass
+except (BlockingIOError, PermissionError, OSError):
+    print("星期八已在运行中（无法获取文件锁）")
+    if lock_fd is not None:
+        os.close(lock_fd)
+    sys.exit(0)
 
-PID_FILE.write_text(str(os.getpid()))
+if lock_fd is None:
+    # 降级：PID 文件（无文件锁支持时）
+    PID_FILE = Path("data") / "thinking.pid"
+    if PID_FILE.exists():
+        try:
+            pid = int(PID_FILE.read_text().strip())
+            os.kill(pid, 0)
+            print(f"星期八已在运行中 (PID: {pid})")
+            sys.exit(0)
+        except (OSError, ValueError):
+            pass
+    PID_FILE.write_text(str(os.getpid()))
 
 daemon = get_daemon()
 daemon.max_interval = 1800  # 30分钟一轮
@@ -50,5 +72,9 @@ except Exception as e:
     print(f"主循环异常: {e}", file=sys.stderr)
 finally:
     daemon.stop()
-    if PID_FILE.exists():
-        PID_FILE.unlink()
+    if lock_fd is not None:
+        os.close(lock_fd)
+    # 降级 PID 文件清理
+    pid_file = Path("data") / "thinking.pid"
+    if pid_file.exists():
+        pid_file.unlink()

@@ -1,4 +1,5 @@
 @echo off
+REM ⚠️ DEPRECATED — 请使用 python start_thinking.py 启动
 cd /d "%~dp0"
 
 :: 爬虫守护进程（pythonw = 无窗口后台运行）

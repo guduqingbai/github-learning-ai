@@ -1095,6 +1095,8 @@ class SelfThinkingAgent:
             try:
                 exploration = self._explore_question(q)
                 insight = self._generate_insight(q, exploration)
+                # 从问题继承重要性评分（供 daemon _apply_heals 使用）
+                insight["importance"] = getattr(q, 'importance', 0.5)
                 # 传递问题上下文（延续线程的 parent_thought_id 等）
                 ctx = getattr(q, 'context', None) or {}
                 if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
@@ -1129,6 +1131,7 @@ class SelfThinkingAgent:
                     "question": q.question,
                     "summary": f"探索失败: {e}",
                     "action_taken": "error",
+                    "importance": getattr(q, 'importance', 0.5),
                 }
                 ctx = getattr(q, 'context', None) or {}
                 if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
@@ -1169,6 +1172,13 @@ class SelfThinkingAgent:
         if self._check_feature("capability_learning"):
             try:
                 self._get_directed_crawler()
+            except Exception:
+                pass
+
+        # 确保 LLM 增强钩子已注册（惰性初始化，不阻塞）
+        if self._check_feature("local_thinking"):
+            try:
+                self._get_llm_integration()
             except Exception:
                 pass
 
@@ -2350,7 +2360,7 @@ class SelfThinkingAgent:
             elif action in ("read_file", "check_state"):
                 exp = 0.7
             elif action in ("self_heal", "global_research"):
-                exp = 0.4
+                exp = 0.6
 
             # 技能加分：匹配已知技能的问题提升经验因子
             try:
@@ -2395,7 +2405,7 @@ class SelfThinkingAgent:
                 if action in ("read_file", "check_state", "list_new_entries"):
                     meta = 0.8
                 elif action in ("self_heal", "global_research"):
-                    meta = 0.2
+                    meta = 0.5
             if trends.get("loop") == "worsening":
                 # 循环恶化：偏新颖操作
                 if action not in ("read_file", "check_state"):
@@ -3188,6 +3198,15 @@ class SelfThinkingAgent:
 
         summary = f"自我修复 [{target}]: 尝试 {attempted} 项修复，成功 {succeeded} 项\n" + "\n".join(detail_lines)
 
+        # 构建 findings：保留修复统计 + 附加问题关键词（供 daemon._apply_heals 匹配）
+        base_finding = f"修复 {succeeded}/{attempted} 项" if attempted > 0 else "无需修复"
+        issue_keywords = []
+        if "裸 except" in q.question or "bare except" in q.question.lower():
+            issue_keywords.append("裸 except")
+        if "文档" in q.question or "docstring" in q.question.lower():
+            issue_keywords.append("文档缺失")
+        findings = [base_finding] + issue_keywords
+
         return {
             "observation": q.observation,
             "question": q.question,
@@ -3196,7 +3215,7 @@ class SelfThinkingAgent:
             "category": "项目自身",
             "content": f"好奇心引擎发现代码问题并自动修复:\n\n问题: {q.question}\n观察: {q.observation}\n\n修复结果:\n" + "\n".join(detail_lines),
             "keywords": [Path(target).stem, "自我修复", "代码质量"],
-            "findings": [f"修复 {succeeded}/{attempted} 项" if attempted > 0 else "无需修复"],
+            "findings": findings,
             "origin": "self_thinking",
             "action_taken": "self_heal",
             "modification_proposal": {

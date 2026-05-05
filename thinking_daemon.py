@@ -2,6 +2,9 @@
 """
 🧠 自主思考守护进程 — 让系统在无人干预下持续自我思考
 每30分钟自动运行思考循环，将洞察转化为实际行动
+
+⚠️ 安全警告：本模块创建 24/7 常驻后台进程，在无人干预下自动执行
+思考循环和自我修改。请确保在可控环境中运行。
 """
 
 import time
@@ -116,8 +119,8 @@ class ThinkingDaemon:
 
         # 配置（可被自我修改调整）
         self.cycle_interval = 1800  # 30分钟
-        self.thinking_depth = 3
-        self.heal_threshold = 0.7   # 重要性超过此值的洞察触发自我修复
+        self.thinking_depth = 5     # 每轮探索问题数
+        self.heal_threshold = 0.6   # 重要性超过此值的洞察触发自我修复
 
         # ---- KAIROS Tick 系统 ----
         self._hooks: Dict[str, List[DaemonHook]] = {}
@@ -171,11 +174,6 @@ class ThinkingDaemon:
             return False
 
         self.is_running = True
-        # 更新锁文件中的 PID
-        try:
-            (self.data_dir / "daemon.lock").write_text(str(os.getpid()))
-        except Exception:
-            pass
         self._thread = threading.Thread(target=self._daemon_loop, daemon=True)
         self._thread.start()
         self._log("自主思考守护进程已启动")
@@ -728,6 +726,21 @@ class ThinkingDaemon:
                         else:
                             ek = result.get("error_kind", "unknown")
                             self._log(f"❌ 修复失败 [{ek}]: {filepath} - {result.get('error', '')}")
+
+                # 安全网：匹配 self_heal insight 的 "修复 X/Y 项" 格式
+                if "修复" in finding and "项" in finding:
+                    proposal = insight.get("modification_proposal", {})
+                    if proposal.get("auto_applied"):
+                        fixes = proposal.get("fixes", [])
+                        for fix in fixes:
+                            if fix.get("success"):
+                                applied += 1
+                                self.total_heal_attempts += 1
+                                self.total_heal_successes += 1
+                                self._log(f"✅ 确认修复 [{fix['type']}]: {fix['file']}")
+                            elif not fix.get("success"):
+                                self.total_heal_attempts += 1
+                                self._log(f"❌ 已知修复失败 [{fix['type']}]: {fix['file']}")
 
             # 检查 summary 中是否有可修复的问题
             if "裸 except" in summary or "bare except" in summary:

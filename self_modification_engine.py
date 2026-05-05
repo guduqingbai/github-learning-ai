@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 🔧 自我修改引擎 — 安全地修改自身代码
+
+⚠️ 安全警告：本模块允许系统自动修改项目代码文件。
+所有修改都经过 宪法 Gate → 风险评估 → AST 验证 → git commit 多层安全检查。
+部署到公开仓库时请注意：此模块的存在意味着系统可以自主编辑代码文件。"""
 基于 Security Gate Chain (from Claude Code Computer Use inputActionGates)
 + Mods Directory + Git Versioning 模式
 每个修改经过 Gate Chain: KILL_SWITCH → SCOPE → RISK → PRE_VALIDATE → BACKUP → EXECUTE → POST_VALIDATE → COMMIT

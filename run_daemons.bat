@@ -1,4 +1,5 @@
 @echo off
+REM ⚠️ DEPRECATED — 请使用 python start_thinking.py 启动
 cd /d "%~dp0"
 echo [%date% %time%] 启动所有守护进程...
 

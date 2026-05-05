@@ -10,6 +10,19 @@
 
 ---
 
+## ⚠️ 安全说明
+
+本仓库仅包含**思考引擎核心**。以下能力模块因安全原因**不在本仓库**中：
+- 鼠标键盘操控、浏览器自动化
+- 交易监控与执行
+- 内容生产流水线
+
+此外，`data/` 目录（知识库、日志等运行时数据）被 gitignore，不会进入仓库。
+
+**后台守护进程**（`thinking_daemon.py`、`watchdog.py`）会创建 24/7 常驻进程，使用时请注意。
+
+---
+
 ## ✨ 核心理念
 
 大多数 AI 系统是"工具"——你输入指令，它输出结果。这个系统不一样。
@@ -24,8 +37,6 @@
 
 **它修改自己。** 发现 bare except？自动修复。发现知识缺口？自动补充。安全机制保障每次修改可回滚。
 
-**它有自己的双手。** 通过 PyAutoGUI 操控鼠标键盘，通过 Playwright 操控浏览器，能真正与电脑交互。
-
 它是一个持续运行的闭环：
 
 ```
@@ -33,7 +44,7 @@
   → 好奇（发现问题）
     → 探索（调查研究）
       → 学习（吸收知识）
-        → 行动（修改自己的代码/操控电脑）
+        → 行动（修改自己的代码）
           → 再扫描（看变化）
             → 新的好奇心……
 ```
@@ -48,7 +59,6 @@ v2.0 最大的变化是：**思考不再依赖外部 API**。所有的好奇心�
 |------|------|
 | 版本 | v2.0.0 — 纯本地大脑 |
 | Python 核心模块 | 34 个 |
-| 总知识库条目 | 959+ 条（6 个分类） |
 | 知识图实体 | 1412 个 |
 | 知识图关系 | 3162 条 |
 | 自我修改次数 | 多次（100% 可回滚） |
@@ -92,9 +102,6 @@ v2.0 最大的变化是：**思考不再依赖外部 API**。所有的好奇心�
 │                                                                     │
 │  ┌────────────────────────────────────────────────────────────┐    │
 │  │  延伸能力                  │ 文件                          │    │
-│  │  📈 交易监控               │ trading_bot.py               │    │
-│  │  🖱️ 电脑操控               │ computer_hands.py            │    │
-│  │  🎬 内容生产               │ content_studio.py            │    │
 │  │  🕷️ 知识爬虫               │ ai_knowledge_crawler.py      │    │
 │  │  🌐 Web 管理面板           │ web_interface.py             │    │
 │  └────────────────────────────────────────────────────────────┘    │
@@ -117,9 +124,6 @@ v2.0 最大的变化是：**思考不再依赖外部 API**。所有的好奇心�
 | **ThinkingDaemon** | `thinking_daemon.py` | 自主守护进程，周期性触发思考循环（KAIROS Tick 模式） |
 | **CognitiveArchitecture** | `cognitive_architecture.py` | 认知状态驱动：好奇心/创造力/意识动态调节 |
 | **ThoughtGraph** 🆕 | `thought_buffer.py` | 思维图：树状思想节点，持久化到 JSON |
-| **ComputerHands** | `computer_hands.py` | PyAutoGUI 物理操控鼠标键盘 |
-| **MarketMonitor** | `trading_bot.py` | 实时加密市场监控（波动/价差/RSI 分析） |
-| **ContentStudio** | `content_studio.py` | AI 内容生产流水线（剧本→图像→视频→交付） |
 
 ---
 
@@ -156,29 +160,7 @@ print(r.narrative[:200])
 pythonw watchdog.py
 ```
 
----
-
-## 🖱️ 动手能力演示
-
-系统可以操控物理电脑。查看 [`computer_hands.py`](computer_hands.py)：
-
-```python
-from computer_hands import ComputerHands
-hands = ComputerHands()
-
-# 操控鼠标
-hands.move_to(500, 500)
-hands.click()
-
-# 输入文字
-hands.type_text("Hello, world!")
-
-# 快捷键
-hands.hotkey("ctrl", "s")
-
-# 截图
-path = hands.screenshot()
-```
+> **注意**: 守护进程会创建常驻后台进程，使用 `taskkill /F /PID <pid>` 停止。
 
 ---
 
@@ -253,8 +235,8 @@ github-learning/
 │   ├── self_scanner.py              # 自我扫描器（AST解析）
 │   ├── curiosity_engine.py          # 好奇心引擎
 │   ├── self_thinking_agent.py       # 思考编排器
-│   ├── self_modification_engine.py  # 自我修改引擎
-│   ├── thinking_daemon.py           # 思考守护进程
+│   ├── self_modification_engine.py  # 自我修改引擎（带安全警告）
+│   ├── thinking_daemon.py           # 思考守护进程（24/7后台）
 │   ├── cognitive_architecture.py    # 认知架构
 │   ├── knowledge_base.py            # 知识库管理
 │   ├── system_state_manager.py      # 统一状态管理
@@ -267,16 +249,13 @@ github-learning/
 │   └── 🆕 thought_buffer.py         # 思维图存储
 │
 ├── 🛠️ 实用能力
-│   ├── computer_hands.py            # ⭐ 电脑操控（鼠标键盘）
-│   ├── trading_bot.py               # ⭐ 市场监控/交易
-│   ├── content_studio.py            # ⭐ AI内容生产
 │   ├── ai_knowledge_crawler.py      # 知识爬虫
 │   ├── crawler_daemon.py            # 爬虫守护进程
 │   └── crawler_learning_bridge.py   # 爬虫-学习桥接
 │
 ├── 🔄 后台服务
 │   ├── daemon_launcher.py           # 统一启动器
-│   ├── watchdog.py                  # 看门狗（崩溃自启）
+│   ├── watchdog.py                  # 看门狗（崩溃自启，24/7 常驻）
 │   ├── continuous_learning.py       # 持续学习
 │   └── background_learning_service.py
 │
@@ -287,12 +266,12 @@ github-learning/
 │   └── humble_reflection.py         # 谦逊反思
 │
 ├── 📦 archive/                      # 实验性/历史模块
-├── 📁 data/                         # 运行时数据（知识库、日志等）
+├── 📁 data/                         # 运行时数据（gitignored，不入库）
 ├── 📁 mod_backups/                  # 自我修改备份
 │
 ├── CLAUDE.md                        # 行为准则
 ├── requirements.txt                 # 依赖清单
-└── start_daemon.vbs / watchdog.py   # 启动入口
+└── start_daemon.vbs / watchdog.py   # 启动入口（创建常驻进程）
 ```
 
 ---
@@ -304,8 +283,13 @@ github-learning/
 | 修改前备份 | 每次代码修改自动创建 `.bak` 文件 |
 | AST 语法验证 | 修改后立即解析验证，失败自动回滚 |
 | Git 审计 | 每次修改自动 git commit，可追溯 |
-| PID 锁 | 防多开，同一时刻只有一个守护进程实例 |
-| 看门狗 | 进程崩溃后 30 秒自动重启 |
+| 宪法 Gate | 多层安全门：宪法红线 → 范围检查 → 风险评估 |
+| 系统不可变规则 | 关键安全模块 SHA-256 校验，篡改则系统拒启 |
+| 文件锁 | 防多开，同一时刻只有一个守护进程实例 |
+
+> **安全提醒**: `self_modification_engine.py` 包含自动修改代码的能力，
+> `thinking_daemon.py` 和 `watchdog.py` 会创建 24/7 常驻后台进程。
+> 使用前请了解其行为。
 
 ---
 
@@ -316,12 +300,14 @@ github-learning/
               ↓
         pythonw watchdog.py
               ↓
-        daemon_launcher.py (PID锁)
-         ┌──────┼──────┐
-         ▼      ▼      ▼
-     思考线程  爬虫线程 交易线程
-    (30分钟)  (2小时)  (10分钟)
+        daemon_launcher.py (文件锁)
+         ┌──────┐
+         ▼      ▼
+     思考线程  爬虫线程
+    (30分钟)  (2小时)
 ```
+
+> 交易线程、电脑操控等能力模块不在本仓库中。
 
 ---
 
@@ -329,13 +315,9 @@ github-learning/
 
 - [x] v1.0 自我扫描与好奇心系统
 - [x] v1.0 自我修改引擎（安全+回滚）
-- [x] v1.0 24/7 守护进程（看门狗+3线程）
+- [x] v1.0 24/7 守护进程（看门狗+多线程）
 - [x] v1.0 学习优先级与行动触发
-- [x] v1.0 物理电脑操控（鼠标键盘）
-- [x] v1.0 实时市场监控与内容生产
 - [x] **v2.0 纯本地大脑：知识图 + 自模型 + 模式引擎 + 类比引擎** 🆕
-- [ ] 实盘交易执行（需 API key）
-- [ ] 剪映全自动视频制作
 - [ ] 更完善的 Web 管理面板
 
 ---

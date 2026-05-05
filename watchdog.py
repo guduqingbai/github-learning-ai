@@ -2,6 +2,9 @@
 """
 🛡️ 守护进程看门狗 — 进程挂了自动重启
 被开机自启调用，持续监控 daemon_launcher.py
+
+⚠️ 安全警告：本脚本创建 24/7 常驻后台进程，且支持崩溃自动重启。
+配合 start_daemon.vbs 可实现开机自启。使用前请了解其行为。
 """
 import os
 import sys
