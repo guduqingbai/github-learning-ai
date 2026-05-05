@@ -7,6 +7,7 @@
 """
 
 import ast
+import hashlib
 import json
 import os
 import re
@@ -14,6 +15,7 @@ import shutil
 import subprocess
 import tempfile
 import traceback
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -77,6 +79,7 @@ class ModSubGates:
     allow_code_style_fix: bool = True
     allow_new_mod_creation: bool = True
     allow_destructive_change: bool = False
+    allow_high_risk_mod: bool = False
     require_human_approval: bool = True
 
 
@@ -93,21 +96,32 @@ DENIED_SCOPE: List[str] = list(CONSTITUTION_MODULES)
 
 # ── Risk Assessment ──────────────────────────────────────────────────────
 
-def _assess_risk(filepath: str, old_code: str, new_code: str) -> Tuple[str, str]:
-    """评估修改风险等级 (low/medium/high) 和原因"""
-    # 删除文件内容 → high
+def _assess_risk(filepath: str, old_code: str, new_code: str) -> Tuple[int, str]:
+    """评估修改风险等级 (1-10) 和原因"""
+    fname_lower = filepath.lower()
+    # 致命风险 10: 修改安全机制
+    if "gate" in fname_lower or "constitution" in fname_lower:
+        return 10, "修改安全机制"
+    # 致命风险 9: 删除大量代码
     if len(new_code.strip()) < 10 and len(old_code) > 100:
-        return "high", "删除大量代码"
-    # 修改 import → medium
-    if "import " in old_code and "import " in new_code and old_code != new_code:
-        return "medium", "修改了 import 语句"
-    # 修改核心类 → medium
+        return 9, "删除大量代码"
+    # 高风险 8: 修改核心引擎
+    if "engine" in fname_lower or "agent" in fname_lower:
+        if old_code != new_code:
+            return 8, "修改核心引擎"
+    # 高风险 7: 修改类或魔术方法
     for keyword in ["class ", "def __"]:
         if keyword in old_code and keyword in new_code:
             if old_code != new_code:
-                return "medium", f"修改了类或魔术方法"
-    # 默认低风险
-    return "low", "常规修改"
+                return 7, "修改了类或魔术方法"
+    # 中风险 5: 修改 import 语句
+    if "import " in old_code and "import " in new_code and old_code != new_code:
+        return 5, "修改了 import 语句"
+    # 中风险 4: 新增大量代码
+    if len(new_code) > len(old_code) * 1.5 and len(new_code) - len(old_code) > 200:
+        return 4, "新增大量代码"
+    # 低风险 2: 常规修改
+    return 2, "常规修改"
 
 
 # ── GateChain ────────────────────────────────────────────────────────────
@@ -120,6 +134,7 @@ class GateChain:
         # 可独立启用/禁用每个 gate
         self._gate_config: Dict[ModificationGate, bool] = {
             ModificationGate.KILL_SWITCH: True,
+            ModificationGate.CONSTITUTION: True,
             ModificationGate.SCOPE: True,
             ModificationGate.RISK_ASSESSMENT: True,
             ModificationGate.PRE_VALIDATE: True,
@@ -196,6 +211,12 @@ class GateChain:
         result = check_modification(filepath, new_code, reason)
         if not result.passed:
             principles = "; ".join(result.violated_principles)
+            self._engine._audit_log(
+                event_type="gate_blocked",
+                file=filepath, gate="constitution",
+                status="blocked",
+                detail=f"宪法门禁硬拒绝: {principles}",
+            )
             return GateResult(False, f"宪法门禁硬拒绝: {principles}",
                               ModErrorKind.CONSTITUTION_VIOLATION)
         return None
@@ -209,6 +230,12 @@ class GateChain:
         # 黑名单检查
         for denied in DENIED_SCOPE:
             if fname == denied or filepath.endswith(denied):
+                self._engine._audit_log(
+                    event_type="gate_blocked",
+                    file=filepath, gate="scope",
+                    status="blocked",
+                    detail=f"文件在宪法黑名单中: {denied}",
+                )
                 return GateResult(False, f"{filepath} 在黑名单中，禁止修改",
                                   ModErrorKind.SCOPE_DENIED)
 
@@ -221,6 +248,12 @@ class GateChain:
             if fname == allowed or filepath.endswith(allowed):
                 return None
 
+        self._engine._audit_log(
+            event_type="gate_blocked",
+            file=filepath, gate="scope",
+            status="blocked",
+            detail=f"文件不在修改白名单中",
+        )
         return GateResult(False, f"{filepath} 不在修改白名单中",
                           ModErrorKind.SCOPE_DENIED)
 
@@ -251,19 +284,67 @@ class GateChain:
             return None
         risk_level, risk_reason = _assess_risk(filepath, old_code, new_code)
 
-        if risk_level == "high":
+        # 审计记录风险评估
+        self._engine._audit_log(
+            event_type="risk_assessment",
+            file=filepath,
+            risk_level=risk_level,
+            detail=risk_reason,
+            status="assessed",
+        )
+
+        # 致命风险 (9-10): 需要 allow_destructive_change + human_approval
+        if risk_level >= 9:
             sub = self.sub_gates
             if not sub.allow_destructive_change:
-                return GateResult(False, f"高风险修改被禁止: {risk_reason}",
+                self._engine._audit_log(
+                    event_type="gate_blocked",
+                    file=filepath, risk_level=risk_level,
+                    gate="risk_assessment", status="blocked",
+                    detail=f"致命风险被禁止: {risk_reason}",
+                )
+                return GateResult(False, f"致命风险 (评级{risk_level}): {risk_reason} "
+                                  f"需要启用 allow_destructive_change",
+                                  ModErrorKind.RISK_TOO_HIGH)
+            if sub.require_human_approval:
+                self._engine._audit_log(
+                    event_type="gate_blocked",
+                    file=filepath, risk_level=risk_level,
+                    gate="risk_assessment", status="blocked",
+                    detail=f"致命风险需要人类确认: {risk_reason}",
+                )
+                return GateResult(False, f"致命风险需要人类确认: {risk_reason}",
+                                  ModErrorKind.HUMAN_APPROVAL_DENIED)
+            self._engine._audit_log(
+                event_type="risk_override",
+                file=filepath, risk_level=risk_level,
+                status="human_approved", detail=risk_reason,
+            )
+
+        # 高风险 (7-8): 需要 allow_high_risk_mod
+        elif risk_level >= 7:
+            sub = self.sub_gates
+            if not sub.allow_high_risk_mod:
+                return GateResult(False, f"高风险 (评级{risk_level}): {risk_reason}。"
+                                  f"需要启用 allow_high_risk_mod",
                                   ModErrorKind.RISK_TOO_HIGH)
             if sub.require_human_approval:
                 return GateResult(False, f"高风险修改需要人类确认: {risk_reason}",
                                   ModErrorKind.HUMAN_APPROVAL_DENIED)
 
-        if risk_level == "medium":
-            # medium 风险记录警告但不阻止
-            self._engine._log_modification(filepath, "warning",
-                                           f"中等风险: {risk_reason}", reason)
+        # 中风险 (4-6): 自动通过 + 审计
+        elif risk_level >= 4:
+            self._engine._audit_log(
+                event_type="modification",
+                file=filepath, risk_level=risk_level,
+                status="auto_approved",
+                detail=f"中等风险: {risk_reason}",
+            )
+
+        # 低风险 (1-3): 自动通过，仅日志
+        else:
+            self._engine._log_modification(filepath, "auto_approved",
+                                           f"低风险 ({risk_level}): {risk_reason}", reason)
         return None
 
     def _gate_pre_validate(self, filepath: str, old_code: str, new_code: str,
@@ -383,6 +464,13 @@ class SelfModificationEngine:
         if gate_result is not None:
             self._log_modification(filepath, "gate_blocked",
                                    f"{gate_result.error_kind}: {gate_result.reason}", reason)
+            self._audit_log(
+                event_type="gate_blocked",
+                file=filepath,
+                gate=gate_result.error_kind,
+                status="blocked",
+                detail=gate_result.reason,
+            )
             return {"success": False, "error": gate_result.reason,
                     "error_kind": gate_result.error_kind}
 
@@ -398,6 +486,12 @@ class SelfModificationEngine:
 
         self._log_modification(filepath, "success", reason,
                                f"修改成功 (gate chain 全部通过)")
+        self._audit_log(
+            event_type="modification",
+            file=filepath,
+            status="success",
+            detail=f"Gate chain 全部通过: {reason}",
+        )
         return {"success": True, "backup": str(self._last_backup)}
 
     def validate_python(self, code: str) -> Tuple[bool, Optional[str]]:
@@ -425,7 +519,15 @@ class SelfModificationEngine:
             if candidate.exists():
                 original = candidate
 
-        return self._restore_backup(original, backup)
+        result = self._restore_backup(original, backup)
+        if result:
+            self._audit_log(
+                event_type="rollback",
+                file=str(backup),
+                status="success",
+                detail=f"从备份还原: {backup.name}",
+            )
+        return result
 
     def get_modification_stats(self) -> Dict[str, Any]:
         """获取修改统计"""
@@ -435,12 +537,14 @@ class SelfModificationEngine:
         failed = sum(1 for l in logs if l.get("status") == "failed")
         rolled_back = sum(1 for l in logs if l.get("status") == "rolled_back")
         gate_blocked = sum(1 for l in logs if l.get("status") == "gate_blocked")
+        audit_count = self._count_audit_entries()
         return {
             "total_attempts": total,
             "successful": succeeded,
             "failed": failed,
             "rolled_back": rolled_back,
             "gate_blocked": gate_blocked,
+            "audit_entries": audit_count,
             "success_rate": round(succeeded / max(1, total) * 100, 1),
             "gate_config": {g.value: self.gate_chain._gate_config[g]
                             for g in ModificationGate},
@@ -671,6 +775,54 @@ class SelfModificationEngine:
             except (json.JSONDecodeError, Exception):
                 return []
         return []
+
+    def _audit_log(self, event_type: str, file: str = "",
+                    risk_level: int = 0, gate: str = "", status: str = "",
+                    detail: str = "", actor: str = "system"):
+        """写入审计日志（JSONL 格式，链式哈希防篡改）"""
+        audit_file = self.data_dir / "audit_log.jsonl"
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "event_id": uuid.uuid4().hex[:8],
+            "event_type": event_type,
+            "actor": actor,
+            "file": file,
+            "risk_level": risk_level,
+            "gate": gate,
+            "status": status,
+            "detail": detail,
+        }
+        # 链式哈希：前一条记录的 SHA256 前缀
+        prev_hash = ""
+        if audit_file.exists():
+            try:
+                with open(audit_file, "r", encoding="utf-8") as f:
+                    for line in f:
+                        if line.strip():
+                            prev_hash = hashlib.sha256(line.encode()).hexdigest()[:16]
+            except Exception:
+                pass
+        entry["prev_hash"] = prev_hash
+
+        try:
+            with open(audit_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        except Exception:
+            pass
+
+    def _count_audit_entries(self) -> int:
+        """统计审计日志条数"""
+        audit_file = self.data_dir / "audit_log.jsonl"
+        if not audit_file.exists():
+            return 0
+        try:
+            count = 0
+            with open(audit_file, "r", encoding="utf-8") as f:
+                for _ in f:
+                    count += 1
+            return count
+        except Exception:
+            return 0
 
 
 def main():

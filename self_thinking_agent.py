@@ -416,6 +416,18 @@ class SelfThinkingAgent:
             self._directed_crawler.register_hooks(self)
         return self._directed_crawler
 
+    def _get_llm_integration(self):
+        """延迟初始化 LLM 思考增强"""
+        if not hasattr(self, '_llm_integration') or self._llm_integration is None:
+            try:
+                from llm_thinking import LLMThinkingIntegration
+                self._llm_integration = LLMThinkingIntegration()
+                self._llm_integration.register_hooks(self)
+            except Exception as e:
+                print(f"  ⚠️ LLM 增强初始化失败: {e}")
+                self._llm_integration = None
+        return self._llm_integration
+
     def _get_gap_analyzer(self):
         """延迟初始化差距分析器"""
         if self._gap_analyzer is None:
@@ -2657,6 +2669,10 @@ class SelfThinkingAgent:
             return self._explore_self_heal(q)
         elif action == "deep_learning":
             return self._explore_deep_learning(q)
+        elif action == "llm_analysis":
+            if not self._check_feature("local_thinking"):
+                return {"note": f"local_thinking 已禁用，跳过 LLM 分析: {target}"}
+            return self._explore_llm_analysis(q)
         else:
             return {"note": f"未知探索动作: {action}"}
 
@@ -3039,6 +3055,46 @@ class SelfThinkingAgent:
             "keywords": [file.replace(".py", ""), "模块分析"] + \
                         ([c["name"] for c in classes[:3]] if classes else []),
             "findings": findings,
+            "origin": "self_thinking",
+        }
+
+    def _explore_llm_analysis(self, q) -> Dict[str, Any]:
+        """LLM 深度分析：调用本地模型分析代码问题"""
+        try:
+            from llm_client import get_llm_client
+            from llm_prompts import get_prompt
+        except ImportError:
+            return {"note": "LLM 模块未安装，跳过分析"}
+
+        client = get_llm_client()
+        if not client.is_available():
+            return {"note": "LLM 不可用，跳过分析"}
+
+        target = getattr(q, 'target', '') or getattr(q, 'filepath', '') or ''
+        context = ""
+        if target and Path(target).exists():
+            lines = Path(target).read_text(encoding="utf-8").split("\n")
+            context = "\n".join(lines[:30])
+
+        prompt = get_prompt(
+            "llm_analysis",
+            question=getattr(q, 'question', '代码分析'),
+            target=target or '未知',
+            context=context or '无',
+        )
+        result = client.chat("你是一个代码分析助手。保持简洁。", prompt)
+
+        if not result.success:
+            return {"note": f"LLM 分析失败: {result.error}"}
+
+        return {
+            "observation": getattr(q, 'observation', ''),
+            "question": getattr(q, 'question', ''),
+            "summary": result.content[:200],
+            "topic": f"LLM 分析: {target or '通用'}",
+            "category": "llm_analysis",
+            "content": result.content,
+            "keywords": ["llm", target.replace('.py', '')] if target else ["llm"],
             "origin": "self_thinking",
         }
 

@@ -28,6 +28,9 @@ class ThinkingStrategy:
     # --- 影响认知焦点 ---
     reflection_focus: str               # 反思焦点：loop/quality/goal/balanced
     prefer_continuation: bool           # 是否优先延续已有思考线程
+    # --- 影响 LLM 使用 ---
+    llm_boost: float = 0.5              # LLM 使用程度（0.0=不用，1.0=最大使用）
+    llm_depth: int = 2                  # LLM 详细程度（1-3）
 
 
 # 四种预定义策略
@@ -45,6 +48,8 @@ STRATEGIES: Dict[str, ThinkingStrategy] = {
         heal_threshold=0.7,
         reflection_focus="loop",
         prefer_continuation=False,
+        llm_boost=0.6,
+        llm_depth=2,
     ),
     "deep_mining": ThinkingStrategy(
         name="deep_mining",
@@ -59,6 +64,8 @@ STRATEGIES: Dict[str, ThinkingStrategy] = {
         heal_threshold=0.6,
         reflection_focus="quality",
         prefer_continuation=True,
+        llm_boost=0.8,
+        llm_depth=3,
     ),
     "goal_driven": ThinkingStrategy(
         name="goal_driven",
@@ -73,6 +80,8 @@ STRATEGIES: Dict[str, ThinkingStrategy] = {
         heal_threshold=0.5,
         reflection_focus="goal",
         prefer_continuation=True,
+        llm_boost=0.5,
+        llm_depth=2,
     ),
     "rest_consolidate": ThinkingStrategy(
         name="rest_consolidate",
@@ -87,6 +96,8 @@ STRATEGIES: Dict[str, ThinkingStrategy] = {
         heal_threshold=0.9,
         reflection_focus="balanced",
         prefer_continuation=False,
+        llm_boost=0.3,
+        llm_depth=1,
     ),
 }
 
