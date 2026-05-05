@@ -85,15 +85,10 @@ class ModSubGates:
 # 允许修改的文件（白名单）。空列表 = 允许所有项目 .py 文件
 ALLOWED_SCOPE: List[str] = []
 
-# 禁止修改的文件（黑名单）—— 核心基础设施
-DENIED_SCOPE: List[str] = [
-    "self_modification_engine.py",
-    "knowledge_base.py",
-    "system_state_manager.py",
-    "CONSTITUTION.md",
-    "constitution_gate.py",
-    "thought_continuity.py",
-]
+# 禁止修改的文件（黑名单）—— 从宪法核心同步
+from constitution import CONSTITUTION_MODULES
+
+DENIED_SCOPE: List[str] = list(CONSTITUTION_MODULES)
 
 
 # ── Risk Assessment ──────────────────────────────────────────────────────
@@ -186,20 +181,22 @@ class GateChain:
     def _gate_constitution(self, filepath: str, old_code: str, new_code: str,
                             reason: str, mod_type: str) -> Optional[GateResult]:
         """
-        宪法门禁（始终启用，不可绕过）。
+        宪法门禁（硬拒绝模式——始终启用，不可绕过）。
 
-        检查三个维度：
+        硬拒绝的含义：
+        - 位于 BACKUP/EXECUTE gate 之前 → 宪法违规不走备份/写入/回滚流程
+        - 不从 _gate_config 读取 → 系统无法通过修改配置禁用
+        - 涉及宪法模块的修改被直接拒绝，不留任何中间状态
+
+        检查维度：
         - CON.2: 文件是否在不可修改列表中
         - CON.5: 修改内容是否包含安全机制关键词
-        - 完整性: 宪法文件是否被篡改
-
-        注意：此 gate 不从 _gate_config 读取——始终启用。
         """
         from constitution_gate import check_modification
         result = check_modification(filepath, new_code, reason)
         if not result.passed:
             principles = "; ".join(result.violated_principles)
-            return GateResult(False, f"宪法门禁拦截: {principles}",
+            return GateResult(False, f"宪法门禁硬拒绝: {principles}",
                               ModErrorKind.CONSTITUTION_VIOLATION)
         return None
 
@@ -390,6 +387,15 @@ class SelfModificationEngine:
                     "error_kind": gate_result.error_kind}
 
         # ── 所有 gate 通过 ──
+        # 宪法后置校验：任何修改后检查宪法完整性（防御深度）
+        try:
+            from constitution import verify_integrity as _verify_constitution
+            if not _verify_constitution():
+                self._log_modification(filepath, "critical",
+                    "⚠️ 修改后宪法完整性校验失败！请联系主人检查系统")
+        except Exception:
+            pass
+
         self._log_modification(filepath, "success", reason,
                                f"修改成功 (gate chain 全部通过)")
         return {"success": True, "backup": str(self._last_backup)}

@@ -6,7 +6,7 @@ from pathlib import Path
 os.chdir(str(Path(__file__).parent))
 
 # ── 宪法完整性校验（系统启动前的红线检查）──
-from constitution_gate import verify_integrity
+from constitution import verify_integrity
 if not verify_integrity():
     print("❌ 宪法文件完整性校验失败！系统拒绝启动")
     sys.exit(1)

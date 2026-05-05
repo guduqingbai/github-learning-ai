@@ -19,25 +19,20 @@ ENV/
 .venv/
 .idea/
 
-# 运行时数据（除重要状态文件外）
-data/*.json
-data/*.jsonl
-data/*.txt
-data/*.csv
-data/*.xlsx
-!data/modification_log.json
-!data/thinking_daemon_state.json
-data/*.log
-data/*.png
-data/mod_backups/
-data/content_output/
+# 运行时数据 — 整个目录私有（含知识库、日志、截图、备份等）
+data/
+mod_backups/
 
-# 浏览器配置（CDP 独立配置，非项目代码）
-data/playwright_*/
-data/playwright_cdp_*/
+# 环境变量/密钥文件
+.env
+.env.*
+.key
+_secret*
 
-# Fiverr 交付物/市场调研（外部平台无关项目）
-data/fiverr_deliverables/
+# 危险能力模块（需移入私有 repo）
+computer_hands.py
+trading_bot.py
+content_studio.py
 
 # 测试
 .pytest_cache/
