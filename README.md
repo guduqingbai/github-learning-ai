@@ -267,7 +267,7 @@ github-learning/
 │
 ├── 📦 archive/                      # 实验性/历史模块
 ├── 📁 data/                         # 运行时数据（gitignored，不入库）
-├── 📁 mod_backups/                  # 自我修改备份
+├── 📁 mod_backups/                  # 自我修改备份（gitignored，不入库）
 │
 ├── CLAUDE.md                        # 行为准则
 ├── requirements.txt                 # 依赖清单
