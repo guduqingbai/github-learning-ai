@@ -181,6 +181,9 @@ class ThinkingDaemon:
             pass  # 非主线程或Windows下某些信号不可用
 
         self._load_state()
+        # 注册到全局注册中心（破循环依赖）
+        from daemon_registry import register_daemon as _reg
+        _reg(self)
         self._log("自主思考守护进程初始化完成")
 
     def _signal_handler(self, signum, frame):

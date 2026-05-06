@@ -211,7 +211,7 @@ class CognitiveArchitecture:
     def adjust_thinking_frequency(self):
         """根据好奇心和创造力调整思考守护进程的频率"""
         try:
-            from thinking_daemon import get_daemon
+            from daemon_registry import get_daemon
             daemon = get_daemon()
 
             # 好奇心高 → 思考更频繁（间隔缩短）
@@ -238,7 +238,7 @@ class CognitiveArchitecture:
         # 如果决策是"探索新内容"，启动思考守护进程
         if "探索" in str(decision):
             try:
-                from thinking_daemon import get_daemon
+                from daemon_registry import get_daemon
                 daemon = get_daemon()
                 if not daemon.is_running:
                     daemon.start()

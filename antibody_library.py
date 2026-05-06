@@ -20,12 +20,14 @@ class FixStrategy:
 
     def __init__(self, name: str, description: str,
                  action: Callable, is_aggressive: bool = False):
+        """__init__"""
         self.name = name
         self.description = description
         self.action = action          # (engine, target) → result
         self.is_aggressive = is_aggressive
 
     def execute(self, engine, target: str) -> Dict:
+        """execute"""
         return self.action(engine, target)
 
 
@@ -35,11 +37,13 @@ class Buglog:
     """可搜索的 Bug 修复档案。修复成功后归档，下次遇到可以直接复用"""
 
     def __init__(self, data_dir: Path):
+        """__init__"""
         self._file = Path(data_dir) / "buglog.json"
         self._entries: List[Dict] = []
         self._load()
 
     def _load(self):
+        """_load"""
         if self._file.exists():
             try:
                 self._entries = json.loads(self._file.read_text(encoding="utf-8"))
@@ -47,6 +51,7 @@ class Buglog:
                 self._entries = []
 
     def _save(self):
+        """_save"""
         try:
             self._file.parent.mkdir(parents=True, exist_ok=True)
             self._file.write_text(
@@ -99,6 +104,7 @@ class Buglog:
         return False
 
     def get_statistics(self) -> Dict:
+        """get_statistics"""
         return {
             "total_fixes": len(self._entries),
             "unique_targets": len(set(e["target"] for e in self._entries)),
@@ -150,6 +156,7 @@ class Antibody:
         target_extractor: Optional[Callable] = None,
         verifier: Optional[Callable] = None,
     ):
+        """__init__"""
         self.name = name
         self.description = description
         self.triggers = triggers
@@ -167,22 +174,27 @@ class Antibody:
 
     @property
     def success_count(self) -> int:
+        """success_count"""
         return sum(1 for e in self.experience if e["success"])
 
     @property
     def failure_count(self) -> int:
+        """failure_count"""
         return sum(1 for e in self.experience if not e["success"])
 
     @property
     def total_attempts(self) -> int:
+        """total_attempts"""
         return len(self.experience)
 
     @property
     def success_rate(self) -> float:
+        """success_rate"""
         return self.success_count / self.total_attempts if self.total_attempts > 0 else 0.0
 
     @property
     def dominant_error(self) -> str:
+        """dominant_error"""
         errors: Dict[str, int] = {}
         for e in self.experience:
             if not e["success"]:
@@ -193,6 +205,7 @@ class Antibody:
     # ── 匹配 ──
 
     def matches(self, findings: List[str], summary: str) -> bool:
+        """matches"""
         if not self.is_active:
             return False
         for field, keyword in self.triggers:
@@ -299,6 +312,7 @@ class Antibody:
     # ── 状态 ──
 
     def to_dict(self) -> Dict:
+        """to_dict"""
         return {
             "name": self.name,
             "description": self.description,
@@ -317,6 +331,7 @@ class Antibody:
 # ── 工具函数 ────────────────────────────────────
 
 def _extract_file_from_insight(insight: Dict[str, Any]) -> Optional[str]:
+    """_extract_file_from_insight"""
     topic = insight.get("topic", "")
     if not topic:
         return None
@@ -337,6 +352,7 @@ class AntibodyLibrary:
     """抗体库：管理所有抗体及其策略升级"""
 
     def __init__(self, data_dir: Optional[Path] = None):
+        """__init__"""
         self._antibodies: List[Antibody] = []
         self._data_dir = Path(data_dir) if data_dir else Path("data")
         self._experience_file = self._data_dir / "antibody_experience.json"
@@ -390,6 +406,7 @@ class AntibodyLibrary:
     # ── 持久化 ──
 
     def _load(self):
+        """_load"""
         if not self._experience_file.exists():
             return
         try:
@@ -406,6 +423,7 @@ class AntibodyLibrary:
             pass
 
     def save_experience(self):
+        """save_experience"""
         data = {
             "antibodies": [ab.to_dict() for ab in self._antibodies],
             "deferred": self.deferred,
@@ -420,14 +438,17 @@ class AntibodyLibrary:
             pass
 
     def register(self, antibody: Antibody):
+        """register"""
         self._antibodies.append(antibody)
 
     # ── 匹配 ──
 
     def match(self, findings: List[str], summary: str) -> List[Antibody]:
+        """match"""
         return [ab for ab in self._antibodies if ab.matches(findings, summary)]
 
     def get_by_name(self, name: str) -> Optional[Antibody]:
+        """get_by_name"""
         for ab in self._antibodies:
             if ab.name == name:
                 return ab
@@ -456,6 +477,7 @@ class AntibodyLibrary:
         self.save_experience()
 
     def get_deferred_summary(self) -> str:
+        """get_deferred_summary"""
         if not self.deferred:
             return "  (暂无暂缓问题)"
         lines = [f"  ⏸️ 暂缓问题: {len(self.deferred)} 个"]
@@ -466,9 +488,11 @@ class AntibodyLibrary:
     # ── 统计 ──
 
     def get_statistics(self) -> List[Dict]:
+        """get_statistics"""
         return [ab.to_dict() for ab in self._antibodies]
 
     def get_summary(self) -> str:
+        """get_summary"""
         lines = [f"🧬 抗体库: {len(self._antibodies)} 个"]
         for ab in self._antibodies:
             icon = "✅" if ab.is_active else "⛔"

@@ -11,7 +11,6 @@ import os
 import time
 import ssl
 import urllib.request
-from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -21,120 +20,14 @@ from thought_buffer import ThoughtGraph
 from thought_continuity import ThoughtContinuityManager, ThoughtContinuityConfig
 from thinking_engine import ThinkingEngine
 
+# ── Hook 事件系统 ──
+from hook_system import HookEvent, Hook, ContentBlock, CycleMessage, build_cycle_messages
 
-# ---- Hook 事件系统（生命周期钩子，支持外部扩展） ----
+# ── 洞察生成器 ──
+from insight_generator import generate_insight, store_insight
 
-class HookEvent:
-    """思考循环生命周期事件"""
-    # 全局
-    CYCLE_START = "cycle_start"
-    CYCLE_END = "cycle_end"
-    # 扫描
-    PRE_SCAN = "pre_scan"
-    POST_SCAN = "post_scan"
-    # 学习
-    PRE_STUDY = "pre_study"
-    POST_STUDY = "post_study"
-    # 评估
-    PRE_EVALUATE = "pre_evaluate"
-    POST_EVALUATE = "post_evaluate"
-    # 自我认知
-    PRE_AWARENESS = "pre_awareness"
-    POST_AWARENESS = "post_awareness"
-    # 整理
-    PRE_CONSOLIDATE = "pre_consolidate"
-    POST_CONSOLIDATE = "post_consolidate"
-    # 反思
-    PRE_REFLECT = "pre_reflect"
-    POST_REFLECT = "post_reflect"
-    # 问题生成
-    PRE_QUESTIONS = "pre_questions"
-    POST_QUESTIONS = "post_questions"
-    # 探索
-    PRE_EXPLORE = "pre_explore"
-    POST_EXPLORE = "post_explore"
-
-
-class Hook:
-    """单个钩子：绑定到特定事件的处理函数"""
-
-    def __init__(self, event: str, handler, *, name: str = "", priority: int = 0):
-        self.event = event
-        self.handler = handler
-        self.name = name or getattr(handler, "__name__", "unnamed")
-        self.priority = priority
-
-    def __repr__(self):
-        return f"Hook(event={self.event}, name={self.name}, priority={self.priority})"
-
-
-# ---- 结构化会话（ContentBlock 模式，源自 claw-code session.rs） ----
-
-@dataclass
-class ContentBlock:
-    """结构化的内容块：带类型的可查询数据单元"""
-    type: str  # "observation", "question", "insight", "scan", "heal", "reflection", "error"
-    data: Dict[str, Any] = field(default_factory=dict)
-
-@dataclass
-class CycleMessage:
-    """思考循环中的一条消息，包含角色和内容块列表"""
-    role: str  # "system" | "assistant" | "tool"
-    blocks: List[ContentBlock] = field(default_factory=list)
-    timestamp: str = ""
-
-
-def build_cycle_messages(*,
-                         phase: str,
-                         scan_data: Optional[Dict] = None,
-                         study_data: Optional[List] = None,
-                         evaluation: Optional[Dict] = None,
-                         questions: Optional[List] = None,
-                         insights: Optional[List] = None,
-                         errors: Optional[List[str]] = None) -> List[CycleMessage]:
-    """
-    构建结构化的思考循环消息序列
-    每个阶段生成带类型的 ContentBlock，便于后续查询和分析
-    """
-    ts = datetime.now().isoformat()
-    messages = []
-
-    # System: cycle phase context
-    sys_blocks = [ContentBlock(type="phase", data={"phase": phase})]
-    if scan_data:
-        sys_blocks.append(ContentBlock(type="scan", data=scan_data))
-    if study_data:
-        sys_blocks.append(ContentBlock(type="study", data={"count": len(study_data), "topics": [s.get("topic", "")[:50] for s in study_data[:5]]}))
-    if evaluation:
-        sys_blocks.append(ContentBlock(type="evaluation", data=evaluation))
-    messages.append(CycleMessage(role="system", blocks=sys_blocks, timestamp=ts))
-
-    # Assistant: questions generated
-    if questions:
-        q_blocks = [ContentBlock(type="question", data={
-            "text": q.question[:100],
-            "action": q.explore_action,
-            "target": q.target,
-            "importance": q.importance,
-        }) for q in questions[:10]]
-        messages.append(CycleMessage(role="assistant", blocks=q_blocks, timestamp=ts))
-
-    # Tool: insights / actions taken
-    if insights:
-        i_blocks = []
-        for ins in insights:
-            i_type = ins.get("action_taken", "insight")
-            i_blocks.append(ContentBlock(type=i_type, data={
-                "topic": ins.get("topic", ""),
-                "summary": ins.get("summary", "")[:200],
-            }))
-        messages.append(CycleMessage(role="tool", blocks=i_blocks, timestamp=ts))
-
-    # Tool: errors
-    if errors:
-        messages.append(CycleMessage(role="tool", blocks=[ContentBlock(type="error", data={"errors": errors})], timestamp=ts))
-
-    return messages
+# ── 探索引擎 ──
+from explore_actions import ExploreEngine
 
 
 # ---- 自我思考Agent ----
@@ -168,6 +61,9 @@ class SelfThinkingAgent:
         # ── 行为反馈层（从观察代码 → 观察行为） ──
         from behavior_feedback import BehaviorFeedback
         self._behavior_feedback = BehaviorFeedback(data_dir=self.data_dir)
+
+        # ── 探索引擎（独立模块，依赖注入） ──
+        self._explorer = ExploreEngine(self)
 
         # ── 策略学习引擎（数据先行，再决策） ──
         self._strategy_learner = None  # 惰性初始化
@@ -445,7 +341,7 @@ class SelfThinkingAgent:
     def _get_daemon_stats(self) -> Dict[str, Any]:
         """获取守护进程运行时统计"""
         try:
-            from thinking_daemon import get_daemon
+            from daemon_registry import get_daemon
             d = get_daemon()
             return {
                 "cycle_count": d.cycle_count,
@@ -579,7 +475,7 @@ class SelfThinkingAgent:
 
         daemon = None
         try:
-            from thinking_daemon import get_daemon
+            from daemon_registry import get_daemon
             daemon = get_daemon()
         except Exception:
             pass
@@ -720,7 +616,7 @@ class SelfThinkingAgent:
         """捕获 daemon 当前状态快照，用于策略日志对比"""
         if daemon is None:
             try:
-                from thinking_daemon import get_daemon
+                from daemon_registry import get_daemon
                 daemon = get_daemon()
             except Exception:
                 pass
@@ -1130,7 +1026,7 @@ class SelfThinkingAgent:
 
             try:
                 exploration = self._explore_question(q)
-                insight = self._generate_insight(q, exploration)
+                insight = generate_insight(q, exploration)
                 # 从问题继承重要性评分（供 daemon _apply_heals 使用）
                 insight["importance"] = getattr(q, 'importance', 0.5)
                 if insight["importance"] <= 0.0:
@@ -1140,7 +1036,7 @@ class SelfThinkingAgent:
                 ctx = getattr(q, 'context', None) or {}
                 if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
                     insight['context'] = ctx
-                stored = self._store_insight(insight)
+                stored = store_insight(insight)
                 results.append(insight)
 
                 et.record(problem, action, "success", cycle=cycle)
@@ -1464,7 +1360,7 @@ class SelfThinkingAgent:
                 # 应用策略到 daemon 参数
                 daemon_sm = None
                 try:
-                    from thinking_daemon import get_daemon
+                    from daemon_registry import get_daemon
                     daemon_sm = get_daemon()
                 except Exception:
                     pass
@@ -2918,652 +2814,10 @@ class SelfThinkingAgent:
             "updated": datetime.now().isoformat(),
         }, ensure_ascii=False, indent=2))
 
-    # ---- 探索方法 ----
+    # ---- 探索方法（委托到 ExploreEngine） ----
 
     def _explore_question(self, q) -> Dict[str, Any]:
-        """根据问题类型执行探索"""
-        action = q.explore_action
-        target = q.target
-
-        # 经验记忆守卫：同一问题+策略失败 >= 3 次则跳过
-        et = self._get_experience_tracker()
-        problem = target or q.question[:80]
-        if et.should_retry(problem, action, max_failures=3):
-            alt_strategies = et.get_successful_strategies(problem)
-            if alt_strategies:
-                print(f"  ⏭️ '{problem[:40]}' 的 '{action}' 已失败多次，尝试替代策略: {alt_strategies[0]}")
-                action = alt_strategies[0]
-            else:
-                print(f"  ⏭️ '{problem[:40]}' 的 '{action}' 已失败多次，跳过")
-                return {"note": f"经验记忆跳过: {action} 对 {problem} 已失败 3+ 次"}
-
-        if action == "read_file":
-            return self._explore_read_file(target)
-        elif action == "compare_files":
-            files = target.split(",")
-            if len(files) == 2:
-                return self._explore_compare_files(files[0], files[1])
-            return {"error": "need 2 files for comparison"}
-        elif action == "add_crawler_task":
-            if not self._check_feature("network_crawler"):
-                return {"note": f"network_crawler 已禁用，跳过: {target}"}
-            return self._explore_check_gap(q)
-        elif action == "check_state":
-            return self._explore_check_state(target)
-        elif action == "list_new_entries":
-            return self._explore_list_new_entries(q)
-        elif action == "global_research":
-            if not self._check_feature("global_research"):
-                return {"note": f"global_research 已禁用，跳过: {target}"}
-            return self._explore_global_research(q)
-        elif action == "web_research":
-            # 自主多源研究：替换原来的爬虫队列模式
-            return self._explore_web_research(q)
-        elif action == "self_heal":
-            if not self._check_feature("self_modification"):
-                return {"note": f"self_modification 已禁用，跳过修复: {target}"}
-            return self._explore_self_heal(q)
-        elif action == "code_quality_heal":
-            if not self._check_feature("self_modification"):
-                return {"note": f"self_modification 已禁用，跳过质量修复: {target}"}
-            return self._explore_self_heal(q)
-        elif action == "deep_learning":
-            return self._explore_deep_learning(q)
-        elif action == "llm_analysis":
-            if not self._check_feature("local_thinking"):
-                return {"note": f"local_thinking 已禁用，跳过 LLM 分析: {target}"}
-            return self._explore_llm_analysis(q)
-        else:
-            return {"note": f"未知探索动作: {action}"}
-
-    def _explore_read_file(self, filepath: str) -> Dict[str, Any]:
-        """读取文件，提取结构信息"""
-        full_path = Path(filepath)
-        if not full_path.exists():
-            full_path = Path.cwd() / filepath
-        if not full_path.exists():
-            return {"error": f"文件不存在: {filepath}"}
-
-        try:
-            import ast
-            code = full_path.read_text(encoding="utf-8")
-            tree = ast.parse(code)
-
-            classes = []
-            for node in ast.walk(tree):
-                if isinstance(node, ast.ClassDef):
-                    methods = [n.name for n in node.body if isinstance(n, ast.FunctionDef)]
-                    classes.append({"name": node.name, "methods": methods})
-
-            funcs = [n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
-            imports = []
-            for n in ast.walk(tree):
-                if isinstance(n, ast.Import):
-                    imports.extend(a.name for a in n.names)
-                elif isinstance(n, ast.ImportFrom):
-                    if n.module:
-                        imports.append(n.module)
-
-            # 提取模块文档
-            docstring = ast.get_docstring(tree) or ""
-
-            top_imports = sorted(set(i.split(".")[0] for i in imports))
-            return {
-                "file": filepath,
-                "lines": len(code.splitlines()),
-                "classes": classes,
-                "top_functions": funcs[:10],
-                "function_count": len(funcs),
-                "imports": top_imports,
-                "import_count": len(top_imports),
-                "docstring": docstring[:200] if docstring else "(无模块文档)",
-                "has_main": any(
-                    isinstance(n, ast.If) and
-                    isinstance(n.test, ast.Compare) and
-                    isinstance(n.test.left, ast.Name) and
-                    n.test.left.id == "__name__"
-                    for n in ast.walk(tree)
-                ),
-            }
-        except SyntaxError as e:
-            return {"error": f"语法错误: {e}"}
-
-    def _explore_compare_files(self, file_a: str, file_b: str) -> Dict[str, Any]:
-        """对比两个文件的结构"""
-        info_a = self._explore_read_file(file_a)
-        info_b = self._explore_read_file(file_b)
-
-        if "error" in info_a or "error" in info_b:
-            return {"error": "无法比较"}
-
-        imports_a = set(info_a.get("imports", []))
-        imports_b = set(info_b.get("imports", []))
-
-        overlap = imports_a & imports_b
-        jaccard = len(overlap) / max(1, len(imports_a | imports_b))
-
-        return {
-            "file_a": file_a,
-            "file_b": file_b,
-            "import_overlap": list(overlap),
-            "jaccard_similarity": round(jaccard, 2),
-            "classes_a": len(info_a.get("classes", [])),
-            "classes_b": len(info_b.get("classes", [])),
-            "conclusion": "可能重复" if jaccard > 0.6 else "不太可能重复",
-        }
-
-    def _explore_check_gap(self, q) -> Dict[str, Any]:
-        """检查知识缺口详情"""
-        ctx = q.context
-        domain = ctx.get("domain", q.target)
-        missing = ctx.get("missing", [])
-
-        return {
-            "domain": domain,
-            "missing_topics": missing,
-            "gap_count": len(missing),
-            "suggested_queries": [f"{t} 教程" if "基础" in t or "入门" in t else t
-                                  for t in missing[:5]],
-        }
-
-    def _explore_check_state(self, target: str) -> Dict[str, Any]:
-        """检查系统状态"""
-        try:
-            from system_state_manager import SystemStateManager
-            sm = SystemStateManager()
-            return {"state": sm.get_global_state()}
-        except Exception as e:
-            return {"error": str(e)}
-
-    def _explore_list_new_entries(self, q) -> Dict[str, Any]:
-        """列出新条目/待探索模块"""
-        ctx = q.context
-        undocumented = ctx.get("undocumented", [])
-        if undocumented:
-            return {
-                "type": "undocumented_modules",
-                "modules": undocumented,
-                "count": len(undocumented),
-            }
-        kb_data = self.snapshot.get("knowledge_base", {})
-        return {
-            "type": "kb_summary",
-            "categories": kb_data.get("category_breakdown", {}),
-        }
-
-    def _explore_web_research(self, q) -> Dict[str, Any]:
-        """自主多源研究：即时搜索+读内容+综合答案"""
-        target = q.target or q.question
-        print(f"  🔬 自主研究: \"{target[:80]}\"")
-        try:
-            ri = self._get_research_integration()
-            result = ri.execute_research(target)
-            return result
-        except Exception as e:
-            print(f"  ⚠️ 研究失败: {e}")
-            return {
-                "observation": getattr(q, 'observation', ''),
-                "question": q.question,
-                "summary": f"研究执行异常: {e}",
-                "action_taken": "web_research_error",
-            }
-        """全球研究：调爬虫和持续学习系统搜索全球资料"""
-        ctx = q.context
-        queries = ctx.get("research_queries", [])
-        results = []
-
-        print(f"   🌐 全球研究: 发起 {len(queries)} 个搜索查询")
-
-        # 1. 添加爬虫任务到队列
-        task_file = self.data_dir / "crawler_tasks.json"
-        existing_tasks = []
-        if task_file.exists():
-            with open(task_file, encoding="utf-8") as f:
-                existing_tasks = json.load(f)
-        existing_queries = {t.get("query", "") for t in existing_tasks}
-
-        added = 0
-        for query in queries:
-            if query not in existing_queries:
-                existing_tasks.append({
-                    "query": query,
-                    "domain": "自思考架构研究",
-                    "reason": f"好奇心引擎全球研究: {q.question[:80]}",
-                    "priority": "high",
-                })
-                existing_queries.add(query)
-                added += 1
-
-        if added > 0:
-            with open(task_file, "w", encoding="utf-8") as f:
-                json.dump(existing_tasks, f, ensure_ascii=False, indent=2)
-
-        # 2. 同时尝试直接调爬虫实时获取
-        try:
-            from ai_knowledge_crawler import AIKnowledgeCrawler
-            crawler = AIKnowledgeCrawler()
-            # 用前3个查询搜索GitHub（最重要的）
-            for query in queries[:3]:
-                try:
-                    search_term = query.replace(" ", "+")
-                    url = f"https://api.github.com/search/repositories?q={search_term}&sort=stars&per_page=3"
-                    req = urllib.request.Request(url, headers={
-                        "User-Agent": "Mozilla/5.0 (compatible; SelfThinkingBot/1.0)"
-                    })
-                    with urllib.request.urlopen(req, timeout=10, context=ssl._create_unverified_context()) as resp:
-                        data = json.loads(resp.read().decode())
-                        for repo in data.get("items", [])[:3]:
-                            results.append({
-                                "title": repo["full_name"],
-                                "description": (repo.get("description") or "")[:200],
-                                "stars": repo.get("stargazers_count", 0),
-                                "url": repo["html_url"],
-                                "source": "GitHub",
-                            })
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"   ⚠️  搜索 '{query}' 失败: {e}")
-        except Exception as e:
-            print(f"   ⚠️  实时搜索异常: {e}")
-
-        # 3. 尝试arXiv搜索
-        try:
-            for query in queries[:2]:
-                try:
-                    url = f"http://export.arxiv.org/api/query?search_query=all:{query.replace(' ', '+')}&sortBy=relevance&max_results=3"
-                    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-                    with urllib.request.urlopen(req, timeout=15, context=ssl._create_unverified_context()) as resp:
-                        xml = resp.read().decode("utf-8")
-                        import re as re_mod
-                        titles = re_mod.findall(r"<title>(.*?)</title>", xml, re_mod.DOTALL)
-                        for i, t in enumerate(titles[1:4], 1):
-                            results.append({
-                                "title": t.strip().replace("\n", " ")[:150],
-                                "description": f"arXiv论文: {query}",
-                                "stars": 0,
-                                "url": f"https://arxiv.org/search/?query={query}",
-                                "source": "arXiv",
-                            })
-                    time.sleep(3)
-                except Exception:
-                    pass
-        except Exception:
-            pass
-
-        return {
-            "research_topic": q.target,
-            "queries_scheduled": len(queries),
-            "crawler_tasks_added": added,
-            "real_time_results": len(results),
-            "sample_results": results[:5],
-            "note": f"已添加 {added} 个爬虫任务，实时获取 {len(results)} 条结果。更多结果将在后台爬取。"
-        }
-
-    # ---- 自我修复探索 ----
-
-    def _explore_self_heal(self, q) -> Dict[str, Any]:
-        """探索并尝试修复代码问题"""
-        from self_modification_engine import SelfModificationEngine
-        engine = SelfModificationEngine()
-
-        # 应用 feature flag 守卫到 sub_gates
-        engine.configure_sub_gates(
-            allow_bare_except_fix=self._check_feature("modification_bare_except"),
-            allow_docstring_add=self._check_feature("modification_docstring"),
-            allow_unused_import_remove=self._check_feature("modification_unused_import"),
-            allow_destructive_change=self._check_feature("modification_destructive"),
-        )
-
-        fix_results = []
-        ctx = q.context or {}
-        fix_type = ctx.get("type", "bare_except")
-        files = [f.strip() for f in q.target.split(",") if f.strip()]
-
-        if fix_type == "bare_except":
-            for file in files:
-                result = engine.fix_bare_excepts(file)
-                fix_results.append({
-                    "type": "fix_bare_except",
-                    "file": file,
-                    "success": result.get("success", False),
-                    "detail": result.get("error", "已修复"),
-                    "error_kind": result.get("error_kind", ""),
-                })
-
-        elif fix_type == "missing_doc":
-            for file in files:
-                module_name = Path(file).stem
-                result = engine.add_module_docstring(file, f"{module_name} module")
-                fix_results.append({
-                    "type": "add_docstring",
-                    "file": file,
-                    "success": result.get("success", False),
-                    "detail": result.get("error", "已修复"),
-                    "error_kind": result.get("error_kind", ""),
-                })
-
-        if not fix_results:
-            fix_results.append({
-                "type": "inspection",
-                "file": q.target,
-                "success": False,
-                "detail": "未找到可自动修复的问题",
-            })
-
-        return {
-            "target": q.target,
-            "fixes_attempted": len(fix_results),
-            "fixes_succeeded": sum(1 for r in fix_results if r["success"]),
-            "fix_results": fix_results,
-        }
-
-    def _explore_deep_learning(self, q) -> Dict[str, Any]:
-        """
-        deep_learning 探索动作——原为无效的死代码路径。
-        现在路由到能力差距分析：检查 KB 能力参考与该问题的目标主题，
-        返回差距分析结果。
-        """
-        if not self._check_feature("capability_learning"):
-            return {"note": f"capability_learning 已禁用，跳过: {q.target}"}
-
-        target = q.target or q.question[:60]
-        from knowledge_base import KnowledgeBase
-        kb = KnowledgeBase()
-        refs = kb.get_knowledge_by_category("能力参考")
-        target_refs = [r for r in refs
-                       if target.lower() in r.get("topic", "").lower()] if refs else []
-
-        analyzer = self._get_gap_analyzer()
-        registry = self._get_capability_registry()
-        missing = analyzer.find_missing_capabilities(target_refs or refs)
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "topic": target[:100],
-            "summary": f"能力深度探索 [{target[:50]}]: 发现 {len(missing)} 个潜在能力差距",
-            "missing_capabilities": [m.topic for m in missing[:5]],
-            "action_taken": "deep_learning",
-        }
-
-    # ---- 洞察生成与存储 ----
-
-    def _generate_insight(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        """从探索结果生成洞察"""
-        if "error" in exploration:
-            return {
-                "observation": q.observation,
-                "question": q.question,
-                "summary": f"探索失败: {exploration['error']}",
-                "action_taken": "error",
-                "exploration": exploration,
-            }
-
-        if q.explore_action == "read_file":
-            return self._insight_from_file(q, exploration)
-        elif q.explore_action == "compare_files":
-            return self._insight_from_comparison(q, exploration)
-        elif q.explore_action == "add_crawler_task":
-            return self._insight_from_gap(q, exploration)
-        elif q.explore_action == "global_research":
-            return self._insight_from_global_research(q, exploration)
-        elif q.explore_action in ("self_heal", "code_quality_heal"):
-            return self._insight_from_self_heal(q, exploration)
-        elif q.explore_action == "deep_learning":
-            return self._insight_from_deep_learning(q, exploration)
-        else:
-            return {
-                "observation": q.observation,
-                "question": q.question,
-                "summary": f"探索 {q.target} 完成",
-                "exploration": exploration,
-            }
-
-    def _insight_from_file(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        """从文件探索生成洞察"""
-        file = exploration.get("file", q.target)
-        classes = exploration.get("classes", [])
-        funcs = exploration.get("top_functions", [])
-        imports = exploration.get("imports", [])
-        doc = exploration.get("docstring", "")
-        lines = exploration.get("lines", 0)
-
-        # 根据代码结构自动生成摘要
-        parts = []
-        if classes:
-            class_desc = ", ".join(f"{c['name']}({len(c['methods'])}方法)" for c in classes[:5])
-            parts.append(f"定义了 {len(classes)} 个类: {class_desc}")
-        if funcs:
-            parts.append(f"包含 {exploration.get('function_count', 0)} 个函数")
-        if imports:
-            parts.append(f"依赖 {exploration.get('import_count', 0)} 个外部模块")
-
-        primary_purpose = doc[:100] if doc and doc != "(无模块文档)" else "模块文档缺失"
-        summary = f"{file} ({lines}行): {primary_purpose}。{'; '.join(parts)}。"
-
-        # 模块文档缺失本身也是一个发现
-        findings = []
-        if doc == "(无模块文档)":
-            findings.append("模块级文档缺失")
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": summary,
-            "topic": f"{file.replace('.py', '')} 模块分析",
-            "category": "项目自身",
-            "content": f"{summary}\n\n结构:\n- 类: {json.dumps(classes, ensure_ascii=False)}\n- 主要函数: {funcs}\n- imports: {imports}",
-            "keywords": [file.replace(".py", ""), "模块分析"] + \
-                        ([c["name"] for c in classes[:3]] if classes else []),
-            "findings": findings,
-            "origin": "self_thinking",
-        }
-
-    def _explore_llm_analysis(self, q) -> Dict[str, Any]:
-        """LLM 深度分析：调用本地模型分析代码问题"""
-        try:
-            from llm_client import get_llm_client
-            from llm_prompts import get_prompt
-        except ImportError:
-            return {"note": "LLM 模块未安装，跳过分析"}
-
-        client = get_llm_client()
-        if not client.is_available():
-            return {"note": "LLM 不可用，跳过分析"}
-
-        target = getattr(q, 'target', '') or getattr(q, 'filepath', '') or ''
-        context = ""
-        if target and Path(target).exists():
-            lines = Path(target).read_text(encoding="utf-8").split("\n")
-            context = "\n".join(lines[:30])
-
-        prompt = get_prompt(
-            "llm_analysis",
-            question=getattr(q, 'question', '代码分析'),
-            target=target or '未知',
-            context=context or '无',
-        )
-        result = client.chat("你是一个代码分析助手。保持简洁。", prompt)
-
-        if not result.success:
-            return {"note": f"LLM 分析失败: {result.error}"}
-
-        return {
-            "observation": getattr(q, 'observation', ''),
-            "question": getattr(q, 'question', ''),
-            "summary": result.content[:200],
-            "topic": f"LLM 分析: {target or '通用'}",
-            "category": "llm_analysis",
-            "content": result.content,
-            "keywords": ["llm", target.replace('.py', '')] if target else ["llm"],
-            "origin": "self_thinking",
-        }
-
-    def _insight_from_comparison(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        s = exploration.get("jaccard_similarity", 0)
-        a = exploration.get("file_a", "")
-        b = exploration.get("file_b", "")
-        conclusion = exploration.get("conclusion", "")
-
-        summary = f"对比 {a} 和 {b}: import 相似度 {s:.0%}，{conclusion}。"
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": summary,
-            "topic": f"{a} vs {b} 相似度分析",
-            "category": "项目自身",
-            "content": summary,
-            "keywords": [a.replace(".py", ""), b.replace(".py", ""), "相似度分析"],
-            "findings": [],
-            "origin": "self_thinking",
-        }
-
-    def _insight_from_gap(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        domain = exploration.get("domain", q.target)
-        missing = exploration.get("missing_topics", [])
-
-        summary = f"发现知识缺口: {domain} 领域缺 {len(missing)} 个子话题，已生成爬虫任务。"
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": summary,
-            "topic": f"知识缺口: {domain}",
-            "category": "项目自身",
-            "content": f"领域 {domain} 缺少以下知识: {', '.join(missing)}。已生成定向爬虫任务。",
-            "keywords": [domain, "知识缺口"],
-            "findings": [f"缺失 {len(missing)} 个话题"],
-            "origin": "self_thinking",
-            "action_taken": "add_crawler_tasks",
-        }
-
-    def _insight_from_global_research(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        """从全球研究生成洞察"""
-        topic = exploration.get("research_topic", "global")
-        results = exploration.get("sample_results", [])
-        tasks = exploration.get("crawler_tasks_added", 0)
-        realtime = exploration.get("real_time_results", 0)
-
-        # 从实时结果提炼要点
-        top_results = ""
-        for r in results[:3]:
-            top_results += f"- [{r['source']}] {r['title']} ({r.get('stars', 0)}⭐) {r.get('description', '')[:80]}\n"
-
-        summary = f"全球研究 [{topic}]: 已调度 {tasks} 个爬虫任务"
-        if results:
-            summary += f"，实时获取 {len(results)} 条结果\n{top_results[:200]}"
-
-        content = (
-            f"好奇心驱动全球研究: {q.question}\n\n"
-            f"搜索查询:\n"
-            + "\n".join(f"- {qq}" for qq in q.context.get("research_queries", []))
-            + f"\n\n实时结果:\n{top_results}"
-            + f"\n爬虫将持续在后台上获取更多资料。"
-        )
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": summary,
-            "topic": f"全球研究: {topic}",
-            "category": "项目自身",
-            "content": content,
-            "keywords": [topic, "全球研究", "架构探索"],
-            "findings": [f"调度了 {tasks} 个爬虫任务", f"实时获取 {realtime} 条结果"],
-            "origin": "self_thinking",
-            "action_taken": "global_research",
-        }
-
-    def _insight_from_self_heal(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        """从自我修复探索生成洞察"""
-        target = exploration.get("target", q.target)
-        attempted = exploration.get("fixes_attempted", 0)
-        succeeded = exploration.get("fixes_succeeded", 0)
-        fix_results = exploration.get("fix_results", [])
-
-        detail_lines = []
-        for fix in fix_results:
-            status = "✅" if fix["success"] else "❌"
-            detail_lines.append(f"  {status} [{fix['type']}] {fix['file']}: {fix['detail']}")
-
-        summary = f"自我修复 [{target}]: 尝试 {attempted} 项修复，成功 {succeeded} 项\n" + "\n".join(detail_lines)
-
-        # 构建 findings：保留修复统计 + 附加问题关键词（供 daemon._apply_heals 匹配）
-        base_finding = f"修复 {succeeded}/{attempted} 项" if attempted > 0 else "无需修复"
-        issue_keywords = []
-        if "裸 except" in q.question or "bare except" in q.question.lower():
-            issue_keywords.append("裸 except")
-        if "文档" in q.question or "docstring" in q.question.lower():
-            issue_keywords.append("文档缺失")
-        if "类型" in q.question or "type hint" in q.question.lower():
-            issue_keywords.append("类型提示")
-        findings = [base_finding] + issue_keywords
-
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": summary,
-            "topic": f"{Path(target).stem} 自我修复",
-            "category": "项目自身",
-            "content": f"好奇心引擎发现代码问题并自动修复:\n\n问题: {q.question}\n观察: {q.observation}\n\n修复结果:\n" + "\n".join(detail_lines),
-            "keywords": [Path(target).stem, "自我修复", "代码质量"],
-            "findings": findings,
-            "origin": "self_thinking",
-            "action_taken": "self_heal",
-            "modification_proposal": {
-                "file": target,
-                "fixes": fix_results,
-                "auto_applied": succeeded > 0,
-            },
-        }
-
-    def _insight_from_deep_learning(self, q, exploration: Dict[str, Any]) -> Dict[str, Any]:
-        """从能力深度探索生成洞察"""
-        missing = exploration.get("missing_capabilities", [])
-        topic = exploration.get("topic", q.target)
-        return {
-            "observation": q.observation,
-            "question": q.question,
-            "summary": exploration.get("summary", f"能力深度探索 [{topic}]"),
-            "topic": f"能力深度: {topic}",
-            "category": "能力参考",
-            "content": exploration.get("summary", ""),
-            "keywords": [topic] + missing[:5],
-            "findings": missing[:5],
-            "origin": "capability_audit",
-            "action_taken": "deep_learning",
-        }
-
-    def _store_insight(self, insight: Dict[str, Any]) -> bool:
-        """将洞察存入知识库"""
-        try:
-            from knowledge_base import KnowledgeBase
-            kb = KnowledgeBase()
-
-            topic = insight.get("topic", "")
-            if not topic:
-                return False
-
-            # 先检查是否已存在
-            existing = kb.get_all_knowledge()
-            if any(item.get("topic") == topic for item in existing):
-                return False
-
-            entry = {
-                "topic": topic,
-                "category": insight.get("category", "项目自身"),
-                "content": insight.get("content", insight.get("summary", "")),
-                "source": "自我思考",
-                "keywords": insight.get("keywords", []),
-                "references": [],
-                "importance": 0.9,
-                "learning_time": datetime.now().isoformat(),
-            }
-            return kb.add_knowledge(entry)
-        except Exception as e:
-            print(f"⚠️  知识库存储失败: {e}")
-            return False
+        return self._explorer.explore_question(q)
 
     def _add_crawler_tasks(self, q) -> bool:
         """为知识缺口添加爬虫任务"""

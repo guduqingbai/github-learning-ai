@@ -15,6 +15,11 @@ from typing import Dict, List, Optional
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
 
+def _playwright_profile_path(name: str = "playwright_profile") -> str:
+    """Playwright 用户数据目录 — 用临时目录，避免 data/ 膨胀"""
+    import tempfile
+    return str(Path(tempfile.gettempdir()) / f"github_learning_{name}")
+
 
 class HandsEngine:
     """手眼系统 — 看得见、摸得着"""
@@ -57,7 +62,7 @@ class HandsEngine:
         ctx_kwargs = {
             "headless": headless,
             "viewport": {"width": 1280, "height": 800},
-            "user_data_dir": user_data_dir or str(DATA_DIR / "playwright_profile"),
+            "user_data_dir": user_data_dir or _playwright_profile_path(),
         }
         if chrome_exe and "chrome" in chrome_exe.lower():
             ctx_kwargs["channel"] = "chrome"
@@ -129,7 +134,7 @@ class HandsEngine:
 
         if user_data_dir is None:
             if running:
-                user_data_dir = str(DATA_DIR / f"playwright_{browser}_profile")
+                user_data_dir = _playwright_profile_path(f"playwright_{browser}")
                 self.log(f"ℹ️ {browser} 正在运行，使用独立 profile")
             else:
                 user_data_dir = browser_data_dirs.get(browser, browser_data_dirs["chrome"])

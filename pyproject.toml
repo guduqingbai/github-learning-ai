@@ -1,0 +1,7 @@
+[project]
+name = "github-learning"
+description = "自主思考AI系统"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
