@@ -853,6 +853,13 @@ class SelfThinkingAgent:
                 "default_depth": 4,
                 "icon": "🧠",
             },
+            "computer_use": {
+                "name": "电脑操作",
+                "description": "使用 Agent-S 直接操作电脑 GUI：打开应用、点击、输入、文件操作",
+                "trigger": "manual",
+                "default_depth": 1,
+                "icon": "🖥️",
+            },
         }
 
     def list_skills(self) -> List[Dict[str, Any]]:
@@ -894,6 +901,8 @@ class SelfThinkingAgent:
             return self._run_self_scan_skill(effective_depth)
         elif skill_name == "capability_audit":
             return self._run_capability_audit_skill(effective_depth)
+        elif skill_name == "computer_use":
+            return self._run_agent_s_skill(effective_depth)
         else:
             # full_cycle → 所有问题类型一起跑（原逻辑）
             return self._run_full_cycle(effective_depth)
@@ -1100,6 +1109,32 @@ class SelfThinkingAgent:
 
         self._log_thinking_cycle(results)
         return results
+
+    def _run_agent_s_skill(self, depth: int) -> List[Dict]:
+        """Agent-S 电脑操作技能：执行 GUI 自动化任务"""
+        print("\n  🖥️ 电脑操作技能启动")
+        try:
+            from agent_s_bridge import AgentSBridge
+            bridge = AgentSBridge()
+            # 简单交互：读取指令，执行
+            tasks = getattr(self, '_agent_s_tasks', [])
+            if not tasks:
+                print("  ⚠️ 没有待执行的电脑操作任务")
+                return []
+            results = []
+            for task in tasks[:depth]:
+                print(f"  🎯 执行: {task[:80]}")
+                result = bridge.execute(task)
+                results.append(result)
+                status = "✅" if result.get("success") else "❌"
+                print(f"  {status} 完成: {result.get('actions_taken', 0)} 步")
+            return results
+        except ImportError as e:
+            print(f"  ⚠️ Agent-S 未安装: {e}")
+            return []
+        except Exception as e:
+            print(f"  ⚠️ 电脑操作失败: {e}")
+            return []
 
     def _run_full_cycle(self, depth: int) -> List[Dict]:
         """完整思考循环：所有问题类型一起探索（原默认逻辑）"""

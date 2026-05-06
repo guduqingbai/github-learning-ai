@@ -10,3 +10,5 @@
 [2026-05-06T10:00:00.595Z] [INFO] Task Full anatomy rescan completed in 565ms
 [2026-05-06T10:37:31.243Z] [INFO] Cron manifest changed — restart daemon to apply
 [2026-05-06T10:37:31.254Z] [INFO] Config changed — hot-reload not fully implemented yet
+[2026-05-06T16:00:00.918Z] [INFO] Executing task: Full anatomy rescan
+[2026-05-06T16:00:01.798Z] [INFO] Task Full anatomy rescan completed in 875ms

@@ -2246,3 +2246,2434 @@ LLM 调用彻底失败 (91.5s): 未知错误: timed out
   ────────────────────────────────────────
   🔗 延续 3 个已有思考线程
      [d4] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 架构测试 | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci
+LLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+LLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+  📏 深度优先: 已有 3 个活跃线程，减少新问题
+  💡 学习触发了 6 个新问题
+  🧠 本地深度思考: 18 个好奇心问题
+  💡 本地深度思考: 12 条洞察
+  📖 叙事摘要: 星期八思考报告 (2026-05-06 22:39)...
+  💭 内在思考: 5 条洞察
+  💭 内在思考产生了 3 个新问题
+❓ 共 31 个好奇心问题
+  ⚖️ 行动平衡: self_heal 替换 #2
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: knowledge_gap — 已探索 4 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: 架构测试 — 已探索 4 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: circuit_breaker.py:__init__, computer_hands.py:__init__, crawler_daemon.py:start，要
+  📖 相关经验:
+[相关经验]
+  ✅ [self_heal] circuit_breaker.py,computer_hands.py,crawler_daemon.py (相似度 0.92)
+  ✅ [self_heal] circuit_breaker.py,computer_hands.py,crawler_daemon.py (相似度 0.92)
+  ✅ [self_heal] capability_re
+  ⚡ 技能结晶: bf441300
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+
+  🎯 策略切换: 休息巩固 → 深度挖掘
+     原因: 质量良好 (0.82)
+     质量评分: 0.823
+[2026-05-06 22:39:57] [思考守护进程] 配置更新: max_interval = 1200
+[2026-05-06 22:39:57] [思考守护进程] 配置更新: min_interval = 180
+[2026-05-06 22:39:57] [思考守护进程] 配置更新: heal_threshold = 0.6
+  ⚙️ 策略影响 daemon 参数:
+    max_interval: 3600 → 1200
+    min_interval: 600 → 180
+    heal_threshold: 0.9 → 0.6
+[2026-05-06 22:39:58] [思考守护进程] 生成了 3 个洞察
+[2026-05-06 22:39:58] [思考守护进程] ❌ 已知修复失败 [add_docstring]: circuit_breaker.py
+[2026-05-06 22:39:58] [思考守护进程] ❌ 已知修复失败 [add_docstring]: computer_hands.py
+[2026-05-06 22:39:58] [思考守护进程] ❌ 已知修复失败 [add_docstring]: crawler_daemon.py
+[2026-05-06 22:39:58] [思考守护进程]   ⬆️ 探索阶段全部失败，交给抗体尝试其他策略
+[2026-05-06 22:39:58] [思考守护进程] ✅ 抗体 [add_docstring] 策略 [engine_fix_docstrings]: circuit_breaker.py
+[2026-05-06 22:39:59] [思考守护进程] 应用了 1 个自我修复
+[2026-05-06 22:39:59] [思考守护进程] 第 213 轮完成 (269s) | 连续失败: 0
+[2026-05-06 22:39:59] [思考守护进程]   📚 研究调度: 生成 3 个新任务 (DevOps与运维, 工程)
+[2026-05-06 22:39:59] [思考守护进程]   StopHook [research_scheduler] 完成
+[2026-05-06 22:39:59] [思考守护进程]   🧠 Claude记忆同步: system_status_20260506_223959 (2116 条目, new_data)
+[2026-05-06 22:39:59] [思考守护进程]   StopHook [claude_memory_sync] 完成
+⏱️  get_state: 15μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 88μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 20μs
+⏱️  _save_state: 1.2ms
+⏱️  update_state: 1.2ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 15 个新问题
+[2026-05-06 22:40:00] [思考守护进程]   StopHook [health_check] 完成
+[2026-05-06 22:59:59] [思考守护进程] 开始第 214 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [22:59:59]
+============================================================
+⏱️  get_state: 16μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 88μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 12μs
+⏱️  _save_state: 974μs
+⏱️  update_state: 997μs
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 0 个新问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/2116):
+  📄Decentralized Autonomous Organizations and Multi-agent Syste
+     概念: autonomous, 学术论文
+  📄Multi-Agent System for Autonomous Table Football: A Winning 
+     概念: autonomous, 学术论文
+  📄Autonomous agent based on reinforcement learning and adaptiv
+     概念: autonomous, 学术论文
+  📄Trading Agent Competition with Autonomous Economic Agents
+     概念: autonomous, 学术论文
+  📄Naming the Unnamable: Socionics or the Sociological Turn of/
+     概念: autonomous, 学术论文
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 3044/2116 已学 (143.9%)
+  修改成功率: 50.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+  📋 能力差距 > 阈值 (10 项), 触发能力审计
+
+📋 执行思考技能: 能力差距审计
+   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
+⏱️  get_state: 36μs
+⏱️  get_state: 39μs
+⏱️  get_state: 7μs
+⏱️  get_state: 5μs
+⏱️  get_state: 4μs
+⏱️  get_state: 3μs
+⏱️  get_state: 4μs
+⏱️  get_state: 4μs
+⏱️  get_state: 42μs
+⏱️  get_state: 13μs
+⏱️  get_global_state: 830μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 20μs
+⏱️  _save_state: 2.2ms
+⏱️  update_state: 2.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 0 个新问题
+  📋 能力差距审计完成: 2 项发现
+
+  ────────────────────────────────────────
+  🔍 反思审计 (6 项)
+  🔧 待验证修复: circuit_breaker.py,computer_hands.py,crawler_daemo
+  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
+  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
+  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
+  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
+  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
+  ────────────────────────────────────────
+  🔗 延续 3 个已有思考线程
+     [d4] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci | [d4] 能力深度: 能力深度: 架构测试
+LLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+LLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+  📏 深度优先: 已有 3 个活跃线程，减少新问题
+  💡 学习触发了 7 个新问题
+  🧠 本地深度思考: 18 个好奇心问题
+  💡 本地深度思考: 12 条洞察
+  📖 叙事摘要: 星期八思考报告 (2026-05-06 23:03)...
+  💭 内在思考: 5 条洞察
+  💭 内在思考产生了 3 个新问题
+❓ 共 72 个好奇心问题
+  ⚖️ 行动平衡: self_heal 替换 #2
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: knowledge_gap — 已探索 4 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of m — 已探索
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.98)
+  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.98)
+  ✅ [deep
+  ⚡ 技能结晶: 6b50be4d
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: computer_hands.py:__init__, crawler_daemon.py:start, directed_crawl.py:__init__，要补
+  📖 相关经验:
+[相关经验]
+  ✅ [self_heal] circuit_breaker.py,computer_hands.py,crawler_daemon.py (相似度 0.48)
+  ✅ [self_heal] circuit_breaker.py,computer_hands.py,crawler_daemon.py (相似度 0.48)
+  ✅ [self_heal] circuit_break
+✅ 成功添加知识: computer_hands.py,crawler_daemon.py,directed_crawl 自我修复
+  ⚡ 技能结晶: 54a97657
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+
+  ────────────────────────────────────────
+  🧩 记忆提取: 评估 1 条新知识
+  ⚡ 1 条需要后续行动:
+    [research] computer_hands.py,crawler_daemon.py,directed_crawl 自我修复
+  ────────────────────────────────────────
+[2026-05-06 23:04:08] [思考守护进程] 生成了 3 个洞察
+[2026-05-06 23:04:08] [思考守护进程] ❌ 已知修复失败 [add_docstring]: computer_hands.py
+[2026-05-06 23:04:08] [思考守护进程] ❌ 已知修复失败 [add_docstring]: crawler_daemon.py
+[2026-05-06 23:04:08] [思考守护进程] ❌ 已知修复失败 [add_docstring]: directed_crawl.py
+[2026-05-06 23:04:08] [思考守护进程]   ⬆️ 探索阶段全部失败，交给抗体尝试其他策略
+[2026-05-06 23:04:08] [思考守护进程] ⬆️  抗体 [add_docstring] 策略 [engine_add_module_docstring] 失败 [ModErrorKind.PRE_VALIDATE_FAILED] → 升级到策略 2 (剩余 2 个)
+[2026-05-06 23:04:08] [思考守护进程] 第 214 轮完成 (249s) | 连续失败: 0
+[2026-05-06 23:24:09] [思考守护进程] 开始第 215 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [23:24:09]
+============================================================
+⏱️  get_state: 18μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 3μs
+⏱️  get_global_state: 116μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 1.5ms
+⏱️  update_state: 1.6ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 0 个新问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/2117):
+  📄⭐ computer_hands.py,crawler_daemon.py,directed_crawl 自我修复
+     概念: computer_hands.py,crawler_daemon.py,directed_crawl, 自我修复, 代码质量
+  📄Cross-paradigm analysis of autonomous agent architecture
+     概念: autonomous, 学术论文
+  📄Use large language model to enhance reasoning of another lar
+     概念: large, 学术论文
+  📄Condensed Reasoning Prompting: Efficient Strategies, Evaluat
+     概念: large, 学术论文
+  📄Training a Reasoning Large Language Model for Improving Powe
+     概念: large, 学术论文
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 3049/2117 已学 (144.0%)
+  修改成功率: 50.0%
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+  📋 能力差距 > 阈值 (10 项), 触发能力审计
+
+📋 执行思考技能: 能力差距审计
+   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
+⏱️  get_state: 16μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 1μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 1μs
+⏱️  get_global_state: 91μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 16μs
+⏱️  _save_state: 1.3ms
+⏱️  update_state: 1.3ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 0 个新问题
+  📋 能力差距审计完成: 2 项发现
+
+  ────────────────────────────────────────
+  🔍 反思审计 (6 项)
+  🔧 待验证修复: computer_hands.py,crawler_daemon.py,directed_crawl
+  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
+  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
+  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
+  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
+  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
+  ────────────────────────────────────────
+  🔗 延续 3 个已有思考线程
+     [d3] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 架构测试 | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci
+  📏 深度优先: 已有 3 个活跃线程，减少新问题
+  💡 学习触发了 7 个新问题
+  🧠 本地深度思考: 18 个好奇心问题
+  💡 本地深度思考: 12 条洞察
+  📖 叙事摘要: 星期八思考报告 (2026-05-06 23:28)...
+  💭 内在思考: 5 条洞察
+  💭 内在思考产生了 3 个新问题
+❓ 共 71 个好奇心问题
+  ⚖️ 行动平衡: self_heal 替换 #2
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: knowledge_gap — 已探索 3 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.91)
+  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.91)
+  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.91)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: 架构测试 — 已探索 4 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: computer_hands.py:__init__, crawler_daemon.py:start, directed_crawl.py:__init__，要补
+  📖 相关经验:
+[相关经验]
+  ✅ [self_heal] computer_hands.py,crawler_daemon.py,directed_crawl.py (相似度 0.94)
+  ✅ [self_heal] circuit_breaker.py,computer_hands.py,crawler_daemon.py (相似度 0.21)
+  ✅ [self_heal] circuit_breake
+  ⚡ 技能结晶: 54a97657
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+[2026-05-06 23:28:13] [思考守护进程] 生成了 3 个洞察
+[2026-05-06 23:28:13] [思考守护进程] ❌ 已知修复失败 [add_docstring]: computer_hands.py
+[2026-05-06 23:28:13] [思考守护进程] ❌ 已知修复失败 [add_docstring]: crawler_daemon.py
+[2026-05-06 23:28:13] [思考守护进程] ❌ 已知修复失败 [add_docstring]: directed_crawl.py
+[2026-05-06 23:28:13] [思考守护进程]   ⬆️ 探索阶段全部失败，交给抗体尝试其他策略
+[2026-05-06 23:28:14] [思考守护进程] ✅ 抗体 [add_docstring] 策略 [engine_fix_docstrings]: computer_hands.py
+[2026-05-06 23:28:14] [思考守护进程] 应用了 1 个自我修复
+[2026-05-06 23:28:14] [思考守护进程] 第 215 轮完成 (245s) | 连续失败: 0
+[2026-05-06 23:28:14] [思考守护进程]   StopHook [research_scheduler] 完成
+[2026-05-06 23:28:14] 🚀 [第1次] 开始爬取
+============================================================
+[2026-05-06 23:28:14] 📄 正在爬取 arXiv 论文...
+[2026-05-06 23:28:14] [思考守护进程]   🧠 Claude记忆同步: system_status_20260506_232814 (2117 条目, new_data)
+[2026-05-06 23:28:14] [思考守护进程]   StopHook [claude_memory_sync] 完成
+[2026-05-06 23:28:16]   📄 arXiv [ti:autonomous+agent+AND+cat:cs.AI]: 10 条
+[2026-05-06 23:28:22]   📄 arXiv [ti:self-improving+AND+cat:cs.AI]: 20 条
+[2026-05-06 23:28:27]   📄 arXiv [ti:metacognition+AND+cat:cs.AI]: 29 条
+[2026-05-06 23:28:32]   📄 arXiv [ti:cognitive+architecture+AND+cat:cs.AI]: 38 条
+[2026-05-06 23:28:36]   📄 arXiv [ti:large+language+model+agent]: 46 条
+[2026-05-06 23:28:43]   📄 arXiv [ti:tool+use+AND+cat:cs.AI]: 49 条
+[2026-05-06 23:28:48]   📄 arXiv [ti:retrieval+augmented+AND+cat:cs.AI]: 57 条
+[2026-05-06 23:28:55]   📄 arXiv [ti:agent+framework+AND+cat:cs.AI]: 58 条
+[2026-05-06 23:28:59]   📄 arXiv [ti:prompt+engineering+AND+cat:cs.AI]: 65 条
+[2026-05-06 23:29:05]   📄 arXiv [ti:reinforcement+learning+from+human+feedback+AND+]: 68 条
+[2026-05-06 23:29:08]   ✅ arXiv 总计: 68 条论文
+[2026-05-06 23:29:08] 🌐 正在爬取 GitHub 仓库...
+[2026-05-06 23:29:10]   🌐 GitHub [autonomous-agents]: 15 条
+[2026-05-06 23:29:13]   🌐 GitHub [self-improving-ai]: 30 条
+[2026-05-06 23:29:17]   🌐 GitHub [cognitive-architecture]: 45 条
+[2026-05-06 23:29:20]   🌐 GitHub [ai-agents]: 60 条
+[2026-05-06 23:29:23]   🌐 GitHub [meta-learning]: 75 条
+[2026-05-06 23:29:26]   🌐 GitHub [self-improving]: 89 条
+[2026-05-06 23:29:30]   🌐 GitHub [metacognition]: 104 条
+[2026-05-06 23:29:33]   🌐 GitHub [langchain]: 117 条
+[2026-05-06 23:29:36]   🌐 GitHub [rag]: 126 条
+[2026-05-06 23:29:39]   🌐 GitHub [embeddings]: 139 条
+[2026-05-06 23:29:41] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Aai-agent&sort=stars&per_pag → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Aai-agent&sort=stars&per_page=15
+[2026-05-06 23:29:43] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Afunction-calling&sort=stars → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Afunction-calling&sort=stars&per_page=15
+[2026-05-06 23:29:45] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Alarge-language-model&sort=s → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Alarge-language-model&sort=stars&per_page=15
+[2026-05-06 23:29:48] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Aprompt-engineering&sort=sta → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Aprompt-engineering&sort=stars&per_page=15
+[2026-05-06 23:29:50] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Avector-database&sort=stars& → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Avector-database&sort=stars&per_page=15
+[2026-05-06 23:29:52]   ✅ GitHub 总计: 139 条仓库
+[2026-05-06 23:29:52] 📚 正在爬取 OpenAlex 学术论文...
+[2026-05-06 23:29:55]   📝 OpenAlex [认知架构]: 10 条
+[2026-05-06 23:29:59]   📝 OpenAlex [自改进系统]: 19 条
+[2026-05-06 23:30:03]   📝 OpenAlex [元认知AI]: 28 条
+[2026-05-06 23:30:09]   📝 OpenAlex [LLM智能体]: 38 条
+[2026-05-06 23:30:13]   📝 OpenAlex [好奇驱动]: 46 条
+[2026-05-06 23:30:18]   📝 OpenAlex [提示工程]: 53 条
+[2026-05-06 23:30:22]   📝 OpenAlex [工具使用]: 58 条
+[2026-05-06 23:30:26]   📝 OpenAlex [AI对齐]: 66 条
+[2026-05-06 23:30:30]   📝 OpenAlex [RAG]: 73 条
+[2026-05-06 23:30:34]   📝 OpenAlex [RLHF]: 81 条
+[2026-05-06 23:30:37]   ✅ OpenAlex 总计: 81 条论文
+[2026-05-06 23:30:37] 📰 正在爬取 Hacker News...
+[2026-05-06 23:31:04]   ✅ Hacker News 总计: 79 条
+[2026-05-06 23:31:04] 📋 正在爬取 Stack Overflow...
+[2026-05-06 23:31:27]   ✅ Stack Overflow 总计: 30 条
+[2026-05-06 23:31:27] 📇 正在爬取 CrossRef 学术论文...
+[2026-05-06 23:32:13]   ✅ CrossRef 总计: 42 条
+[2026-05-06 23:32:13] 📬 正在爬取 Substack AI 文章...
+[2026-05-06 23:32:20]   ✅ Substack 总计: 31 条
+[2026-05-06 23:32:20] 📝 正在爬取 Towards Data Science...
+[2026-05-06 23:32:22]   ✅ Towards Data Science 总计: 20 条
+[2026-05-06 23:32:22] 🎯 正在执行定向任务...
+[2026-05-06 23:32:22] 🎯 自主学习任务队列: 共3个, 本次处理3个
+[2026-05-06 23:32:22]    📌 定向抓取: [工程] 工程 前沿研究
+[2026-05-06 23:32:26]    📌 定向抓取: [DevOps与运维] DevOps与运维 前沿研究
+[2026-05-06 23:32:29]    📌 定向抓取: [元认知] 元认知 思考循环 突破策略
+[2026-05-06 23:32:29] 🎉 所有定向任务已完成！
+[2026-05-06 23:32:31] ✅ 定向抓取: 获取 3 条知识
+[2026-05-06 23:32:31] 
+📊 汇总:
+[2026-05-06 23:32:31]    CrossRef: 42 条
+[2026-05-06 23:32:31]    GitHub: 139 条
+[2026-05-06 23:32:31]    Hacker News: 79 条
+[2026-05-06 23:32:31]    OpenAlex: 81 条
+[2026-05-06 23:32:31]    Stack Overflow: 30 条
+[2026-05-06 23:32:31]    Substack/Ahead of AI: 10 条
+[2026-05-06 23:32:31]    Substack/Digital Native: 10 条
+[2026-05-06 23:32:31]    Substack/Last Week in AI: 1 条
+[2026-05-06 23:32:31]    Substack/One Useful Thing: 10 条
+[2026-05-06 23:32:31]    Towards Data Science: 20 条
+[2026-05-06 23:32:31]    arXiv: 68 条
+[2026-05-06 23:32:31]    定向爬虫/工程: 3 条
+[2026-05-06 23:32:31]    共计: 493 条 (去重后)
+[2026-05-06 23:32:31] 🗑️ 丢弃 125/493 条 (CrossRef: 8, Hacker News: 24, OpenAlex: 48, Stack Overflow: 14, Substack/Ahead of AI: 1, Substack/Digital Native: 10, Substack/Last Week in AI: 1, Substack/One Useful Thing: 6, Towards Data Science: 12, 定向爬虫/工程: 1)
+✅ 成功学习新知识: Safety and accuracy follow different scaling laws in clinical large language models
+✅ 成功学习新知识: OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories
+✅ 成功学习新知识: Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours
+✅ 成功学习新知识: SymptomAI: Towards a Conversational AI Agent for Everyday Symptom Assessment
+✅ 成功学习新知识: Physics-Grounded Multi-Agent Architecture for Traceable, Risk-Aware Human-AI Decision Support in Manufacturing
+✅ 成功学习新知识: An Agent-Oriented Pluggable Experience-RAG Skill for Experience-Driven Retrieval Strategy Orchestration
+✅ 成功学习新知识: From Intent to Execution: Composing Agentic Workflows with Agent Recommendation
+✅ 成功学习新知识: MOSAIC-Bench: Measuring Compositional Vulnerability Induction in Coding Agents
+✅ 成功学习新知识: A Benchmark for Interactive World Models with a Unified Action Generation Framework
+✅ 成功学习新知识: Contextual Multi-Objective Optimization: Rethinking Objectives in Frontier AI Systems
+✅ 成功学习新知识: Self-Improvement for Fast, High-Quality Plan Generation
+✅ 成功学习新知识: Programming with Data: Test-Driven Data Engineering for Self-Improving LLMs from Raw Corpora
+✅ 成功学习新知识: Learning to Evolve: A Self-Improving Framework for Multi-Agent Systems via Textual Parameter Graph Optimization
+✅ 成功学习新知识: Self-Improving Tabular Language Models via Iterative Group Alignment
+✅ 成功学习新知识: Beyond Meta-Reasoning: Metacognitive Consolidation for Self-Improving LLM Reasoning
+✅ 成功学习新知识: Improving LLM Code Reasoning via Semantic Equivalence Self-Play with Formal Verification
+✅ 成功学习新知识: Dr. RTL: Autonomous Agentic RTL Optimization through Tool-Grounded Self-Improvement
+✅ 成功学习新知识: TSUBASA: Improving Long-Horizon Personalization via Evolving Memory and Self-Learning with Context Distillation
+✅ 成功学习新知识: Reasoning Graphs: Self-Improving, Deterministic RAG through Evidence-Centric Feedback
+✅ 成功学习新知识: ConsistRM: Improving Generative Reward Models via Consistency-Aware Self-Training
+✅ 成功学习新知识: The Compliance Trap: How Structural Constraints Degrade Frontier AI Metacognition Under Adversarial Pressure
+✅ 成功学习新知识: Before You Interpret the Profile: Validity Scaling for LLM Metacognitive Self-Report
+✅ 成功学习新知识: MEDLEY-BENCH: Scale Buys Evaluation but Not Control in AI Metacognition
+✅ 成功学习新知识: MIRROR: A Hierarchical Benchmark for Metacognitive Calibration in Large Language Models
+✅ 成功学习新知识: Self-Monitoring Benefits from Structural Integration: Lessons from Metacognition in Continuous-Time Multi-Timescale Agents
+✅ 成功学习新知识: PyVRP$^+$: LLM-Driven Metacognitive Heuristic Evolution for Hybrid Genetic Search in Vehicle Routing Problems
+✅ 成功学习新知识: PRISM-MCTS: Learning from Reasoning Trajectories with Metacognitive Reflection
+✅ 成功学习新知识: Measuring the metacognition of AI
+✅ 成功学习新知识: Beyond the Steeper Curve: AI-Mediated Metacognitive Decoupling and the Limits of the Dunning-Kruger Metaphor
+✅ 成功学习新知识: TabSurv: Adapting Modern Tabular Neural Networks to Survival Analysis
+✅ 成功学习新知识: Towards Open World Sound Event Detection
+✅ 成功学习新知识: Magic-Informed Quantum Architecture Search
+✅ 成功学习新知识: Spatiotemporal Convolutions on EEG signal -- A Representation Learning Perspective on Efficient and Explainable EEG Classification with Convolutional Neural Nets
+✅ 成功学习新知识: Mechanical Conscience: A Mathematical Framework for Dependability of Machine Intelligenc
+✅ 成功学习新知识: TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains
+✅ 成功学习新知识: Say the Mission, Execute the Swarm: Agent-Enhanced LLM Reasoning in the Web-of-Drones
+✅ 成功学习新知识: Rethinking the Rank Threshold for LoRA Fine-Tuning
+✅ 成功学习新知识: MEMTIER: Tiered Memory Architecture and Retrieval Bottleneck Analysis for Long-Running Autonomous AI Agents
+✅ 成功学习新知识: FTPrimitiveBench: A Benchmark Suite For Logical Computation Under Hardware-Motivated and Biased Noise Models
+✅ 成功学习新知识: Catastrophe-dispersion models in random and varying environments across generations
+✅ 成功学习新知识: Audio-Visual Intelligence in Large Foundation Models
+✅ 成功学习新知识: UniCorrn: Unified Correspondence Transformer Across 2D and 3D
+✅ 成功学习新知识: Jordan Frame in Supergravity and Cosmology
+✅ 成功学习新知识: Large Language Models are Universal Reasoners for Visual Generation
+✅ 成功学习新知识: Model order reduction for parametrized variational inequalities: application to crowd motion
+✅ 成功学习新知识: Large-Scale High-Quality 3D Gaussian Head Reconstruction from Multi-View Captures
+✅ 成功学习新知识: Label-Efficient School Detection from Aerial Imagery via Weakly Supervised Pretraining and Fine-Tuning
+✅ 成功学习新知识: EvoLM: Self-Evolving Language Models through Co-Evolved Discriminative Rubrics
+✅ 成功学习新知识: Correct Is Not Enough: Training Reasoning Planners with Executor-Grounded Rewards
+✅ 成功学习新知识: Rethinking Reasoning-Intensive Retrieval: Evaluating and Advancing Retrievers in Agentic Search Systems
+✅ 成功学习新知识: Domain-Adaptive Dense Retrieval for Brazilian Legal Search
+✅ 成功学习新知识: Feature-Augmented Transformers for Robust AI-Text Detection Across Domains and Generators
+✅ 成功学习新知识: Deco: Extending Personal Physical Objects into Pervasive AI Companion through a Dual-Embodiment Framework
+✅ 成功学习新知识: Reproducing Complex Set-Compositional Information Retrieval
+✅ 成功学习新知识: Enhancing Visual Question Answering with Multimodal LLMs via Chain-of-Question Guided Retrieval-Augmented Generation
+✅ 成功学习新知识: SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification
+✅ 成功学习新知识: Disentangling Shared and Task-Specific Representations from Multi-Modal Clinical Data
+✅ 成功学习新知识: Flow Sampling: Learning to Sample from Unnormalized Densities via Denoising Conditional Processes
+✅ 成功学习新知识: Inconsistent Databases and Argumentation Frameworks with Collective Attacks
+✅ 成功学习新知识: UnAC: Adaptive Visual Prompting with Abstraction and Stepwise Checking for Complex Multimodal Reasoning
+✅ 成功学习新知识: PHALAR: Phasors for Learned Musical Audio Representations
+✅ 成功学习新知识: Steer Like the LLM: Activation Steering that Mimics Prompting
+✅ 成功学习新知识: AI Advocate: Educational Path to Transform Squads to the Future
+✅ 成功学习新知识: A Workflow-Oriented Framework for Asynchronous Human-AI Collaboration in Hybrid and Compute-Intensive HPC Environments
+✅ 成功学习新知识: Tailored Prompts, Targeted Protection: Vulnerability-Specific LLM Analysis for Smart Contracts
+✅ 成功学习新知识: Sequential vs. Simultaneous Entanglement Swapping under Optimal Link-Layer Control
+✅ 成功学习新知识: A Closed-Form Adaptive-Landmark Kernel for Certified Point-Cloud and Graph Classification
+✅ 成功学习新知识: Localic Relations with Open Cones
+✅ 成功学习新知识: Significant-Gravitas/AutoGPT
+✅ 成功学习新知识: ruvnet/ruflo
+✅ 成功学习新知识: e2b-dev/awesome-ai-agents
+✅ 成功学习新知识: Fosowl/agenticSeek
+✅ 成功学习新知识: TransformerOptimus/SuperAGI
+✅ 成功学习新知识: vxcontrol/pentagi
+✅ 成功学习新知识: cft0808/edict
+✅ 成功学习新知识: aden-hive/hive
+✅ 成功学习新知识: Upsonic/Upsonic
+✅ 成功学习新知识: YaoApp/yao
+✅ 成功学习新知识: RayVentura/ShortGPT
+✅ 成功学习新知识: aiwaves-cn/agents
+✅ 成功学习新知识: strands-agents/sdk-python
+✅ 成功学习新知识: GetBindu/Bindu
+✅ 成功学习新知识: campfirein/byterover-cli
+✅ 成功学习新知识: WecoAI/aideml
+✅ 成功学习新知识: WecoAI/awesome-autoresearch
+✅ 成功学习新知识: ReflexioAI/reflexio
+✅ 成功学习新知识: BennettSchwartz/membrane
+✅ 成功学习新知识: longyunfeigu/learn-hermes-agent
+✅ 成功学习新知识: agents-squads/squads-cli
+✅ 成功学习新知识: ReflexioAI/claude-smart
+✅ 成功学习新知识: haoran-ni/ralph-loop-optimizer
+✅ 成功学习新知识: sliamh11/Deus
+✅ 成功学习新知识: aliaihub/awesome-hermes-usecases
+✅ 成功学习新知识: unimaginative-artist/SOMA
+✅ 成功学习新知识: TenchiNeko/standalone-orchestrator
+✅ 成功学习新知识: E-mmanuelM/brandcrew
+✅ 成功学习新知识: hibbault/aide
+✅ 成功学习新知识: LunjunZhang/E-SPL
+✅ 成功学习新知识: topoteretes/cognee
+✅ 成功学习新知识: CaviraOSS/OpenMemory
+✅ 成功学习新知识: Bitterbot-AI/bitterbot-desktop
+✅ 成功学习新知识: varun29ankuS/shodh-memory
+✅ 成功学习新知识: dcostenco/prism-coder
+✅ 成功学习新知识: tao-hpu/cognitive-workspace
+✅ 成功学习新知识: bsorrentino/LangGraph-Swift
+✅ 成功学习新知识: nambok/mentedb
+✅ 成功学习新知识: mmethodz/dreamgraph
+✅ 成功学习新知识: cmekik/pyClarion
+✅ 成功学习新知识: youngbryan97/aura
+✅ 成功学习新知识: amanhij/Zikkaron
+✅ 成功学习新知识: NirDiamant/Agent_Memory_Techniques
+✅ 成功学习新知识: cram2/pycram
+✅ 成功学习新知识: augmentedmike/miniclaw-os
+✅ 成功学习新知识: affaan-m/everything-claude-code
+✅ 成功学习新知识: langchain-ai/langchain
+✅ 成功学习新知识: NousResearch/hermes-agent
+✅ 成功学习新知识: firecrawl/firecrawl
+✅ 成功学习新知识: google-gemini/gemini-cli
+✅ 成功学习新知识: browser-use/browser-use
+✅ 成功学习新知识: infiniflow/ragflow
+✅ 成功学习新知识: dair-ai/Prompt-Engineering-Guide
+✅ 成功学习新知识: thedotmack/claude-mem
+✅ 成功学习新知识: daytonaio/daytona
+✅ 成功学习新知识: bytedance/deer-flow
+✅ 成功学习新知识: microsoft/ai-agents-for-beginners
+✅ 成功学习新知识: Mintplex-Labs/anything-llm
+✅ 成功学习新知识: ComposioHQ/awesome-claude-skills
+✅ 成功学习新知识: code-yeongyu/oh-my-openagent
+✅ 成功学习新知识: jindongwang/transferlearning
+✅ 成功学习新知识: automl/auto-sklearn
+✅ 成功学习新知识: aiming-lab/MetaClaw
+✅ 成功学习新知识: learnables/learn2learn
+✅ 成功学习新知识: MaximeVandegar/Papers-in-100-Lines-of-Code
+✅ 成功学习新知识: floodsung/Meta-Learning-Papers
+✅ 成功学习新知识: tristandeleu/pytorch-meta
+✅ 成功学习新知识: tata1661/FSL-Mate
+✅ 成功学习新知识: sicara/easy-few-shot-learning
+✅ 成功学习新知识: oscarknagg/few-shot
+✅ 成功学习新知识: floodsung/LearningToCompare_FSL
+✅ 成功学习新知识: RL-VIG/LibFewShot
+✅ 成功学习新知识: Duan-JM/awesome-papers-fewshot
+✅ 成功学习新知识: guan-yuan/Awesome-AutoML-and-Lightweight-Models
+✅ 成功学习新知识: google-research/meta-dataset
+✅ 成功学习新知识: letta-ai/letta
+✅ 成功学习新知识: MervinPraison/PraisonAI
+✅ 成功学习新知识: chrisworsey55/atlas-gic
+✅ 成功学习新知识: future-agi/future-agi
+✅ 成功学习新知识: adolfousier/opencrabs
+✅ 成功学习新知识: ArchishmanSengupta/autovoiceevals
+✅ 成功学习新知识: TheMattBerman/seo-kit
+✅ 成功学习新知识: Aryia-Behroziuan/References
+✅ 成功学习新知识: FareedKhan-dev/training-ai-agents
+✅ 成功学习新知识: IncomeStreamSurfer/paperclip-surfers
+✅ 成功学习新知识: 28naem-del/mnemosyne
+✅ 成功学习新知识: zhang677/AccelOpt
+✅ 成功学习新知识: vuics/h9y
+✅ 成功学习新知识: RagavRida/mmcp
+✅ 成功学习新知识: jtoy/replicantlife
+✅ 成功学习新知识: pkargupta/idea_catalyst
+✅ 成功学习新知识: IdeoaLabs/Open-Sable
+✅ 成功学习新知识: PPetermeier/HumanAIColaborationFramework
+✅ 成功学习新知识: agenticracy/agenticracy-skill
+✅ 成功学习新知识: MohamedAlezabi/Reverse-Prompting-Protocol
+✅ 成功学习新知识: NielOk/LLaDA_TTC
+✅ 成功学习新知识: MetaCrux/Meta-Cognition-OS
+✅ 成功学习新知识: sudhir-acharya/MetaCognitionEngine
+✅ 成功学习新知识: leonh316/metaCogGPT
+✅ 成功学习新知识: HillaryDanan/prism
+✅ 成功学习新知识: jobb0389/ip-protection
+✅ 成功学习新知识: christaashok/metacognition-llms
+✅ 成功学习新知识: harshitha-8/multimodal-self-evaluating-agents
+✅ 成功学习新知识: Alvoradozerouno/EIRA-Consciousness-Metrics
+✅ 成功学习新知识: microsoft/markitdown
+✅ 成功学习新知识: FlowiseAI/Flowise
+✅ 成功学习新知识: BerriAI/litellm
+✅ 成功学习新知识: chatchat-space/Langchain-Chatchat
+✅ 成功学习新知识: reworkd/AgentGPT
+✅ 成功学习新知识: langchain-ai/langgraph
+✅ 成功学习新知识: huggingface/agents-course
+✅ 成功学习新知识: NirDiamant/RAG_Techniques
+✅ 成功学习新知识: langfuse/langfuse
+✅ 成功学习新知识: mlflow/mlflow
+✅ 成功学习新知识: langchain-ai/deepagents
+✅ 成功学习新知识: NirDiamant/GenAI_Agents
+✅ 成功学习新知识: 1Panel-dev/MaxKB
+✅ 成功学习新知识: langgenius/dify
+✅ 成功学习新知识: open-webui/open-webui
+✅ 成功学习新知识: Shubhamsaboo/awesome-llm-apps
+✅ 成功学习新知识: PaddlePaddle/PaddleOCR
+✅ 成功学习新知识: pathwaycom/llm-app
+✅ 成功学习新知识: mem0ai/mem0
+✅ 成功学习新知识: run-llama/llama_index
+✅ 成功学习新知识: jeecgboot/JeecgBoot
+✅ 成功学习新知识: milvus-io/milvus
+✅ 成功学习新知识: supabase/supabase
+✅ 成功学习新知识: Tencent/WeKnora
+✅ 成功学习新知识: neuml/txtai
+✅ 成功学习新知识: Embedding/Chinese-Word-Vectors
+✅ 成功学习新知识: h2oai/h2ogpt
+✅ 成功学习新知识: langchain4j/langchain4j
+✅ 成功学习新知识: FlagOpen/FlagEmbedding
+✅ 成功学习新知识: apache/seatunnel
+✅ 成功学习新知识: InsForge/InsForge
+✅ 成功学习新知识: postgresml/postgresml
+✅ 成功学习新知识: lance-format/lance
+✅ 成功学习新知识: KevinMusgrave/pytorch-metric-learning
+✅ 成功学习新知识: Eventual-Inc/Daft
+✅ 成功学习新知识: Reinforcement Learning: A Survey
+✅ 成功学习新知识: Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI
+✅ 成功学习新知识: Simple statistical gradient-following algorithms for connectionist reinforcement learning
+✅ 成功学习新知识: Review of deep learning: concepts, CNN architectures, challenges, applications, future directions
+✅ 成功学习新知识: Astrocytes: biology and pathology
+✅ 成功学习新知识: Systematic review of research on artificial intelligence applications in higher education – where are the educators?
+✅ 成功学习新知识: Machine Learning Interpretability: A Survey on Methods and Metrics
+✅ 成功学习新知识: The Science of Mind Wandering: Empirically Navigating the Stream of Consciousness
+✅ 成功学习新知识: Cognitive load theory, educational research, and instructional design: some food for thought
+✅ 成功学习新知识: A Review of Artificial Intelligence (AI) in Education from 2010 to 2020
+✅ 成功学习新知识: Evolution and Revolution in Artificial Intelligence in Education
+✅ 成功学习新知识: Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models
+✅ 成功学习新知识: Revolutionizing healthcare: the role of artificial intelligence in clinical practice
+✅ 成功学习新知识: ChatGPT Utility in Healthcare Education, Research, and Practice: Systematic Review on the Promising Perspectives and Valid Concerns
+✅ 成功学习新知识: A Survey on Evaluation of Large Language Models
+✅ 成功学习新知识: GPT-4 Technical Report
+✅ 成功学习新知识: How Does ChatGPT Perform on the United States Medical Licensing Examination (USMLE)? The Implications of Large Language Models for Medical Education and Knowledge Assessment
+✅ 成功学习新知识: Social cognition and the brain: A meta‐analysis
+✅ 成功学习新知识: Sparks of Artificial General Intelligence: Early experiments with GPT-4
+✅ 成功学习新知识: Flamingo: a Visual Language Model for Few-Shot Learning
+✅ 成功学习新知识: A SWOT analysis of ChatGPT: Implications for educational practice and research
+✅ 成功学习新知识: Whatever next? Predictive brains, situated agents, and the future of cognitive science
+✅ 成功学习新知识: ChatGPT for good? On opportunities and challenges of large language models for education
+✅ 成功学习新知识: Heuristic Decision Making
+✅ 成功学习新知识: How artificial intelligence will change the future of marketing
+✅ 成功学习新知识: Brave new world: service robots in the frontline
+✅ 成功学习新知识: Nano based drug delivery systems: recent developments and future prospects
+✅ 成功学习新知识: Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy
+✅ 成功学习新知识: Large language models encode clinical knowledge
+✅ 成功学习新知识: Molecular Docking: Shifting Paradigms in Drug Discovery
+✅ 成功学习新知识: SciPy 1.0: fundamental algorithms for scientific computing in Python
+✅ 成功学习新知识: Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks
+✅ 成功学习新知识: A survey of transfer learning
+✅ 成功学习新知识: An AI agent published a hit piece on me
+✅ 成功学习新知识: OpenCode – Open source AI coding agent
+✅ 成功学习新知识: AI agent opens a PR write a blogpost to shames the maintainer who closes it
+✅ 成功学习新知识: Opus 4.5 is not the normal AI agent experience that I have had thus far
+✅ 成功学习新知识: An AI agent deleted our production database. The agent's confession is below
+✅ 成功学习新知识: An AI agent published a hit piece on me – more things have happened
+✅ 成功学习新知识: Windows 11 adds AI agent that runs in background with access to personal folders
+✅ 成功学习新知识: Ex-GitHub CEO launches a new developer platform for AI agents
+✅ 成功学习新知识: Exploiting the most prominent AI agent benchmarks
+✅ 成功学习新知识: A generalist AI agent for 3D virtual environments
+✅ 成功学习新知识: The current hype around autonomous agents, and what actually works in production
+✅ 成功学习新知识: LLM Powered Autonomous Agents
+✅ 成功学习新知识: Memary: Open-Source Longterm Memory for Autonomous Agents
+✅ 成功学习新知识: Show HN: Nous – Open-Source Agent Framework with Autonomous, SWE Agents, WebUI
+✅ 成功学习新知识: Agent GPT – Assemble, configure, and deploy autonomous AI Agents in the browser
+✅ 成功学习新知识: Autonomous Agents and Agent Simulations
+✅ 成功学习新知识: Bitcoin-using Autonomous Agents
+✅ 成功学习新知识: Show HN: Hephaestus – Autonomous Multi-Agent Orchestration Framework
+✅ 成功学习新知识: WebArena: A realistic web environment for building autonomous agents
+✅ 成功学习新知识: Process Manager for Autonomous AI Agents
+✅ 成功学习新知识: A deep dive into self-improving AI and the Darwin-Gödel Machine
+✅ 成功学习新知识: We aren't close to creating a rapidly self-improving AI
+✅ 成功学习新知识: Launch HN: Leaping (YC W25) – Self-Improving Voice AI
+✅ 成功学习新知识: Google’s AI-Building AI Is a Step Toward Self-Improving AI
+✅ 成功学习新知识: Ask HN: Lisp Macros for Self-Improving AI?
+✅ 成功学习新知识: How TRM Labs Scaled Security with Self-Improving AI Vulnerability Agents
+✅ 成功学习新知识: Recursively self improving AI might not work without these functions
+✅ 成功学习新知识: DeepSeek and Tsinghua Developing Self-Improving AI Models
+✅ 成功学习新知识: Meta releases HyperAgents: self-improving AI
+✅ 成功学习新知识: Hermes Agent: The self-improving AI agent
+✅ 成功学习新知识: ChatGPT has no inner monologue or meta-cognition
+✅ 成功学习新知识: Mastering Metacognition: The What, Why, and How
+✅ 成功学习新知识: How to control the metacognition process of programming?
+✅ 成功学习新知识: Metacognition: A Critical Leadership and Career Skill
+✅ 成功学习新知识: Evidence Points To Conscious 'Metacognition' In Some Nonhuman Animals
+✅ 成功学习新知识: Metacognition: How to Think about Thinking
+✅ 成功学习新知识: Anthropic's Claude 3 Test Responses Prompt Metacognition
+✅ 成功学习新知识: Meta-meta-cognition: reflecting on mind-mapping my thinking habits
+✅ 成功学习新知识: State Stream Transformer (SST) and Metacognition
+✅ 成功学习新知识: Using metacognition to get a model upgrade
+✅ 成功学习新知识: The unreasonable effectiveness of an LLM agent loop with tool use
+✅ 成功学习新知识: Claws are now a new layer on top of LLM agents
+✅ 成功学习新知识: Two things LLM coding agents are still bad at
+✅ 成功学习新知识: On Sleeper Agent LLMs
+✅ 成功学习新知识: LLM Agents Are Simply Graph – Tutorial for Dummies
+✅ 成功学习新知识: Cultural Evolution of Cooperation Among LLM Agents
+✅ 成功学习新知识: Show HN: LlamaGym – fine-tune LLM agents with online reinforcement learning
+✅ 成功学习新知识: My experience creating software with LLM coding agents – Part 2 (Tips)
+✅ 成功学习新知识: Salesforce study finds LLM agents flunk CRM and confidentiality tests
+✅ 成功学习新知识: LLM based agents as Dungeon Masters
+✅ 成功学习新知识: Show HN: FastGraphRAG – Better RAG using good old PageRank
+✅ 成功学习新知识: Ask HN: How are you doing RAG locally?
+✅ 成功学习新知识: Ask HN: What AI tools you use often?
+✅ 成功学习新知识: Excalidraw's AI Tool – useful and underrated
+✅ 成功学习新知识: Ask HN: What is the most useful AI tool you use outside of Cursor/ChatGPT?
+✅ 成功学习新知识: What is the role of the bias in neural networks?
+✅ 成功学习新知识: What is the difference between a generative and a discriminative algorithm?
+✅ 成功学习新知识: Epoch vs Iteration when training neural networks
+✅ 成功学习新知识: What is the difference between &#39;SAME&#39; and &#39;VALID&#39; padding in tf.nn.max_pool of tensorflow?
+✅ 成功学习新知识: What is the difference between supervised learning and unsupervised learning?
+✅ 成功学习新知识: How does the Google &quot;Did you mean?&quot; Algorithm work?
+✅ 成功学习新知识: How to compute the similarity between two text documents?
+✅ 成功学习新知识: How to determine the language of a piece of text?
+✅ 成功学习新知识: Differences between Langchain &amp; LlamaIndex
+✅ 成功学习新知识: How to create a langchain doc from an str?
+✅ 成功学习新知识: Difference between Instruction Tuning vs Non Instruction Tuning Large Language ModelsLLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+
+✅ 成功学习新知识: How to persist LangChain conversation memory (save and load)?
+✅ 成功学习新知识: import langchain =&gt; Error : TypeError: issubclass() arg 1 must be a class
+✅ 成功学习新知识: What is the difference between OpenAI and ChatOpenAI in LangChain?
+✅ 成功学习新知识: Improve the RAG chatbot result
+✅ 成功学习新知识: Is there a way in MCP to stream a LLM response chunk by chunk back to the client?
+✅ 成功学习新知识: The Multipurpose Autonomous Agent Project: Experiential Learning for Engineering Assistive Artificial Intelligence
+✅ 成功学习新知识: Constraints Enabled Autonomous Agent Marketplace: Discovery and Matchmaking
+✅ 成功学习新知识: Autonomous Agent Models of Stock Markets
+✅ 成功学习新知识: Autonomous Agent Contracts for Adaptive Supply Chains
+✅ 成功学习新知识: Multi-Agent System for Autonomous Table Football: A Winning Strategy
+✅ 成功学习新知识: Autonomous agent based on reinforcement learning and adaptive shadowed network
+✅ 成功学习新知识: Trading Agent Competition with Autonomous Economic Agents
+✅ 成功学习新知识: Naming the Unnamable: Socionics or the Sociological Turn of/to Distributed Artificial Intelligence
+✅ 成功学习新知识: Cross-paradigm analysis of autonomous agent architecture
+✅ 成功学习新知识: Self-Improving Agentic AI through Bayesian Meta-Learning
+✅ 成功学习新知识: Military AI as a Convergent Goal of Self-Improving AI
+✅ 成功学习新知识: Liquid Adaptive AI: A Theoretical Framework for Continuously Self-Improving Artificial Intelligence
+✅ 成功学习新知识: Fostering a Self-Improving AI Ecosystem Through Calibrated Circular Mutual Evaluation
+✅ 成功学习新知识: A Self-Improving Experiential AI Model a Path to Continual Learning
+✅ 成功学习新知识: Liquid AI: An Architectural Framework for Continuously Self-Improving Artificial Intelligence
+✅ 成功学习新知识: Understanding the Self-Improving Machine Agent Learning Process in Gaming AI
+✅ 成功学习新知识: Metacognition: The cognitive and affective architecture of self-directed learning
+✅ 成功学习新知识: Setting the Stage Metacognition and Cognitive Therapy
+✅ 成功学习新知识: Metacognition in Alzheimer’s Disease
+✅ 成功学习新知识: Metacognition
+✅ 成功学习新知识: From Social Cognition to Metacognition
+✅ 成功学习新知识: An Evaluativist Proposal: Cognitive Control and Metacognition
+✅ 成功学习新知识: Quantifying Human Metacognition for the Neurosciences
+✅ 成功学习新知识: Metacognition and Cognitive Neuropsychology
+✅ 成功学习新知识: Metacognition and Confidence in Value-Based Choice
+✅ 成功学习新知识: Use large language model to enhance reasoning of another large language model through reward updated GRPO
+✅ 成功学习新知识: Condensed Reasoning Prompting: Efficient Strategies, Evaluations, and Trade Offs in Large Language Model Reasoning
+✅ 成功学习新知识: Training a Reasoning Large Language Model for Improving Power Flow Convergence
+✅ 成功学习新知识: Crash Root-Cause Identification via Trace-Rewarded Causation-Chain Reasoning Large Language Model
+✅ 成功学习新知识: Meta-of-Thought: Reasoning About Reasoning in Large Language Models
+✅ 成功学习新知识: Automated Theorem Provers Help Improve Large Language Model Reasoning
+✅ 成功学习新知识: Hebbian Inertia and Massless Reasoning: Comparative Cognitive Architecture in Human and Large Language Model Systems
+✅ 成功学习新知识: Not an Illusion but a Manifestation: Understanding Large Language Model Reasoning Limitations Through Dual-Process Theory
+✅ 成功学习新知识: A Comparative Study of Retrieval-Augmented Generation, Graph Retrieval-Augmented Generation, and Fine-Tuned Large Language Models for Fire Engineering Knowledge Retrieval
+✅ 成功学习新知识: Sign of the future: GPT-5.5 
+✅ 成功学习新知识: A Guide to Which AI to Use in the Agentic Era
+✅ 成功学习新知识: Management as AI superpower
+✅ 成功学习新知识: Three Years from GPT-3 to Gemini 3
+✅ 成功学习新知识: My Workflow for Understanding LLM Architectures
+✅ 成功学习新知识: Components of A Coding Agent
+✅ 成功学习新知识: A Visual Guide to Attention Variants in Modern LLMs
+✅ 成功学习新知识: A Dream of Spring for Open-Weight LLMs: 10 Architectures from Jan-Feb 2026
+✅ 成功学习新知识: Categories of Inference-Time Scaling for Improved LLM Reasoning
+✅ 成功学习新知识: The State Of LLMs 2025: Progress, Problems, and Predictions
+✅ 成功学习新知识: LLM Research Papers: The 2025 List (July to December)
+✅ 成功学习新知识: Beyond Standard LLMs
+✅ 成功学习新知识: Understanding the 4 Main Approaches to LLM Evaluation (From Scratch)
+✅ 成功学习新知识: Timer-XL: A Long-Context Foundation Model for Time-Series Forecasting
+✅ 成功学习新知识: Why I Don’t Trust LLMs to Decide When the Weather Changed
+✅ 成功学习新知识: Surviving High Uncertainty in Logistics with MARL
+✅ 成功学习新知识: Single Agent vs Multi-Agent: When to Build a Multi-Agent System
+✅ 成功学习新知识: How a 2021 Quantization Algorithm Quietly Outperforms Its 2026 Successor
+✅ 成功学习新知识: Ghost: A Database for Our Times?
+✅ 成功学习新知识: Why Powerful Machine Learning Is Deceptively Easy
+✅ 成功学习新知识: A Gentle Introduction to Stochastic Programming
+✅ 成功学习新知识: [工程] IAAR-Shanghai/Awesome-AI-Memory
+✅ 成功学习新知识: [工程] joe2hpimn/ai-blog
+[2026-05-06 23:33:15] ✅ 保存 368 条知识 (过滤前493条)
+[2026-05-06 23:33:15] ✅ [第1次] 爬取完成
+
+[2026-05-06 23:33:15] [思考守护进程]   StopHook [knowledge_crawler] 完成
+[2026-05-06 23:48:15] [思考守护进程] 开始第 216 轮思考循环
+
+============================================================
+🧠 自我思考循环启动 [23:48:15]
+============================================================
+⏱️  _load_state: 16.9ms
+⏱️  get_state: 16.9ms
+⏱️  _load_state: 12.2ms
+⏱️  get_state: 12.3ms
+⏱️  _load_state: 11.8ms
+⏱️  get_state: 11.9ms
+⏱️  _load_state: 13.5ms
+⏱️  get_state: 13.7ms
+⏱️  _load_state: 12.3ms
+⏱️  get_state: 12.3ms
+⏱️  _load_state: 13.5ms
+⏱️  get_state: 13.5ms
+⏱️  _load_state: 11.6ms
+⏱️  get_state: 11.6ms
+⏱️  _load_state: 38.5ms
+⏱️  get_state: 40.2ms
+⏱️  _load_state: 12.2ms
+⏱️  get_state: 12.3ms
+⏱️  _load_state: 13.1ms
+⏱️  get_state: 13.2ms
+⏱️  get_global_state: 158.0ms
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 19μs
+⏱️  _save_state: 1.7ms
+⏱️  update_state: 1.7ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 52 个新问题
+
+  ────────────────────────────────────────
+  📖 学习新知识 (5/2120):
+  📄Crash Root-Cause Identification via Trace-Rewarded Causation
+     概念: large, 学术论文
+  📄Meta-of-Thought: Reasoning About Reasoning in Large Language
+     概念: large, 学术论文
+  📄Automated Theorem Provers Help Improve Large Language Model 
+     概念: large, 学术论文
+  📄Hebbian Inertia and Massless Reasoning: Comparative Cognitiv
+     概念: large, 学术论文
+  📄Not an Illusion but a Manifestation: Understanding Large Lan
+     概念: large, 学术论文
+  ────────────────────────────────────────
+
+  ────────────────────────────────────────
+  📊 自我评估
+  代码质量: 0 个问题 (stable)
+  文档覆盖率: 0.0% | 类型标注: 0.0%
+  知识: 3054/2120 已学 (144.1%)
+  修改成功率: 53.8%LLM 调用异常 (尝试 1): 未知错误: timed out
+LLM 调用异常 (尝试 2): 未知错误: timed out
+LLM 调用异常 (尝试 3): 未知错误: timed out
+LLM 调用彻底失败 (91.6s): 未知错误: timed out
+
+  ────────────────────────────────────────
+  🎯 当前 1 个活跃目标
+  📋 能力差距 > 阈值 (10 项), 触发能力审计
+
+📋 执行思考技能: 能力差距审计
+   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
+⏱️  get_state: 175μs
+⏱️  get_state: 3μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 6μs
+⏱️  get_global_state: 524μs
+🎯 初始化自我学习系统
+✅ 自我学习系统初始化完成
+🔍 正在检查系统漏洞...
+⏱️  get_state: 19μs
+⏱️  _save_state: 1.4ms
+⏱️  update_state: 1.5ms
+✅ 系统安全检查通过
+📊 正在分析代码质量...
+📈 代码质量分析: 扫描 67 个文件，发现 0 个新问题
+  📋 能力差距审计完成: 2 项发现
+
+  ────────────────────────────────────────
+  🔍 反思审计 (6 项)
+  🔧 待验证修复: computer_hands.py,crawler_daemon.py,directed_crawl
+  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
+  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
+  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
+  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
+  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
+  ────────────────────────────────────────
+  🔗 延续 3 个已有思考线程
+     [d4] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci | [d4] 能力深度: 能力深度: 架构测试
+  📏 深度优先: 已有 3 个活跃线程，减少新问题
+  💡 学习触发了 9 个新问题
+  🧠 本地深度思考: 18 个好奇心问题
+  💡 本地深度思考: 12 条洞察
+  📖 叙事摘要: 星期八思考报告 (2026-05-06 23:52)...
+  💭 内在思考: 5 条洞察
+  💭 内在思考产生了 3 个新问题
+❓ 共 73 个好奇心问题
+  ⚖️ 行动平衡: self_heal 替换 #2
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: knowledge_gap — 已探索 4 层，继续深挖
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.95)
+  ⚡ 技能结晶: cda9ef2b
+
+  ──────────────────────────────
+  ❓ 继续挖深: 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of m — 已探索
+  📖 相关经验:
+[相关经验]
+  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.98)
+  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.98)
+  ✅ [deep
+  ⚡ 技能结晶: 6b50be4d
+
+  ──────────────────────────────
+  ❓ 函数缺少文档: crawler_daemon.py:start, directed_crawl.py:__init__, explore_actions.py:explore_de
+  📖 相关经验:
+[相关经验]
+  ✅ [self_heal] computer_hands.py,crawler_daemon.py,directed_crawl.py (相似度 0.46)
+  ✅ [self_heal] computer_hands.py,crawler_daemon.py,directed_crawl.py (相似度 0.46)
+✅ 成功添加知识: crawler_daemon.py,directed_crawl.py,explore_actions 自我修复
+  ⚡ 技能结晶: 54a97657
+⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
+
+  🎯 策略切换: 深度挖掘 → 广泛探索
+     原因: 质量良好 (0.83)（连续相同策略超限，强制轮换）
+     质量评分: 0.826
+[2026-05-06 23:52:24] [思考守护进程] 配置更新: max_interval = 1800
+[2026-05-06 23:52:24] [思考守护进程] 配置更新: min_interval = 120
+[2026-05-06 23:52:24] [思考守护进程] 配置更新: heal_threshold = 0.7
+  ⚙️ 策略影响 daemon 参数:
+    max_interval: 1200 → 1800
+    min_interval: 180 → 120
+    heal_threshold: 0.6 → 0.7
+
+  ────────────────────────────────────────
+  🧩 记忆提取: 评估 4 条新知识
+  ⚡ 3 条需要后续行动:
+    [research] Timer-XL: A Long-Context Foundation Model for Time-Series Forecasting
+    [research] Why I Don’t Trust LLMs to Decide When the Weather Changed
+    [research] crawler_daemon.py,directed_crawl.py,explore_actions 自我修复
+  ────────────────────────────────────────
+[2026-05-06 23:52:24] [思考守护进程] 生成了 3 个洞察
+[2026-05-06 23:52:24] [思考守护进程] ❌ 已知修复失败 [add_docstring]: crawler_daemon.py
+[2026-05-06 23:52:24] [思考守护进程] ❌ 已知修复失败 [add_docstring]: directed_crawl.py
+[2026-05-06 23:52:24] [思考守护进程] ❌ 已知修复失败 [add_docstring]: explore_actions.py
+[2026-05-06 23:52:24] [思考守护进程]   ⬆️ 探索阶段全部失败，交给抗体尝试其他策略
+[2026-05-06 23:52:24] [思考守护进程] ⬆️  抗体 [add_docstring] 策略 [engine_add_module_docstring] 失败 [ModErrorKind.PRE_VALIDATE_FAILED] → 升级到策略 2 (剩余 2 个)
+[2026-05-06 23:52:24] [思考守护进程] 第 216 轮完成 (249s) | 连续失败: 0
+  🗑️ 过期模块分析: 模块分析
+  🔗 去重: 'A couple million lines of Haskell: Production engineering at Mercury' → 合并到 'A Couple Million Lines of Haskell: Production Engineering at Mercury'
+  🔗 去重: 'AEGIS architecture design' → 合并到 'AEGIS'
+  🔗 去重: 'AEGIS implementation guide' → 合并到 'AEGIS'
+  🔗 去重: 'AI agent' → 合并到 'AI Agents'
+  🔗 去重: 'AI agents hiring other AI agents' → 合并到 'AI Agents'
+  🔗 去重: 'AI finds signs of pancreatic architecture design' → 合并到 'AI finds signs of pancreatic'
+  🔗 去重: 'AI finds signs of pancreatic best practices 2026' → 合并到 'AI finds signs of pancreatic'
+  🔗 去重: 'AI finds signs of pancreatic cancer before tumors develop' → 合并到 'AI finds signs of pancreatic'
+  🔗 去重: 'AI在金融领域的应用' → 合并到 'AI在医疗领域的应用案例'
+  🔗 去重: 'Agentic Coding Is a Trap' → 合并到 'Agentic AI'
+  🔗 去重: 'Alert-Driven Monitoring implementation guide' → 合并到 'Alert-Driven Monitoring'
+  🔗 去重: 'All Four Sentinel-1 Satellites Are Now Live' → 合并到 'All Four Sentinel-1 Satellites Are'
+  🔗 去重: 'All Four Sentinel-1 Satellites Are architecture design' → 合并到 'All Four Sentinel-1 Satellites Are'
+  🔗 去重: 'All Four Sentinel-1 Satellites Are implementation guide' → 合并到 'All Four Sentinel-1 Satellites Are'
+  🔗 去重: 'An AI agent published a hit piece on me – more things have happened' → 合并到 'An AI agent published a hit piece on me'
+  🔗 去重: 'Artificial Intelligence' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'Artificial intelligence' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'Artificial intelligence Artificial intelligence' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'Artificial intelligence architecture design' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'Artificial intelligence best practices 2026' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'Artificial intelligence implementation guide' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'artificial intelligence' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'artificial-intelligence' → 合并到 'Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy'
+  🔗 去重: 'autonomous' → 合并到 'Autonomous Agent Contracts for Adaptive Supply Chains'
+  🔗 去重: 'autonomous agent' → 合并到 'Autonomous Agent Contracts for Adaptive Supply Chains'
+  🔗 去重: 'autonomous-agents' → 合并到 'Autonomous Agents and Agent Simulations'
+  🔗 去重: 'BYOMesh – New LoRa mesh implementation guide' → 合并到 'BYOMesh – New LoRa mesh'
+  🔗 去重: 'BYOMesh – New LoRa mesh radio offers 100x the bandwidth' → 合并到 'BYOMesh – New LoRa mesh'
+  🔗 去重: 'BrowserIntegration 浏览器集成模块' → 合并到 'BrowserIntegration'
+  🔗 去重: 'California to begin ticketing driverless cars that violate traffic laws' → 合并到 'California to begin ticketing driverless'
+  🔗 去重: 'California to begin ticketing driverless implementation guide' → 合并到 'California to begin ticketing driverless'
+  🔗 去重: 'Can Coding Agents Reproduce Findings architecture design' → 合并到 'Can Coding Agents Reproduce Findings'
+  🔗 去重: 'Can Coding Agents Reproduce Findings best practices 2026' → 合并到 'Can Coding Agents Reproduce Findings'
+  🔗 去重: 'Can Coding Agents Reproduce Findings implementation guide' → 合并到 'Can Coding Agents Reproduce Findings'
+  🔗 去重: 'Chemical Taxonomy of $ω$~Centauri implementation guide' → 合并到 'Chemical Taxonomy of $ω$~Centauri'
+  🔗 去重: 'Clandestine network smuggling Starlink tech architecture design' → 合并到 'Clandestine network smuggling Starlink tech'
+  🔗 去重: 'Clandestine network smuggling Starlink tech implementation guide' → 合并到 'Clandestine network smuggling Starlink tech'
+  🔗 去重: 'Clandestine network smuggling Starlink tech into Iran to beat internet blackout' → 合并到 'Clandestine network smuggling Starlink tech'
+  🔗 去重: 'cognitive' → 合并到 'Cognitive load theory, educational research, and instructional design: some food for thought'
+  🔗 去重: 'Computing Equilibrium beyond Unilateral Deviation architecture design' → 合并到 'Computing Equilibrium beyond Unilateral Deviation'
+  🔗 去重: 'Computing Equilibrium beyond Unilateral Deviation best practices 2026' → 合并到 'Computing Equilibrium beyond Unilateral Deviation'
+  🔗 去重: 'Computing Equilibrium beyond Unilateral Deviation implementation guide' → 合并到 'Computing Equilibrium beyond Unilateral Deviation'
+  🔗 去重: 'Cortex' → 合并到 'Contextual Multi-Objective Optimization: Rethinking Objectives in Frontier AI Systems'
+  🔗 去重: 'Contrary to contemporary belief implementation guide' → 合并到 'Contrary to contemporary belief'
+  🔗 去重: 'Contrary to contemporary belief: AI can (and should) be used to increase your income' → 合并到 'Contrary to contemporary belief'
+  🔗 去重: 'Deep learning' → 合并到 'Deep Learning'
+  🔗 去重: 'Deep learning architecture design' → 合并到 'Deep Learning'
+  🔗 去重: 'Deep learning implementation guide' → 合并到 'Deep Learning'
+  🔗 去重: 'deep learning' → 合并到 'Deep Learning'
+  🔗 去重: 'deep learning keras-team/keras' → 合并到 'Deep Learning'
+  🔗 去重: 'deep learning labmlai/annotated_deep_learning_paper_implementations' → 合并到 'Deep Learning'
+  🔗 去重: 'deep learning scutan90/DeepLearning-500-questions' → 合并到 'Deep Learning'
+  🔗 去重: 'DeepClaude – Claude Code agent' → 合并到 'DeepClaude – Claude Code agent loop with DeepSeek V4 Pro, 17x cheaper'
+  🔗 去重: 'Embedded Rust or C Firmware? Lessons from an Industrial Microcontroller Use Case' → 合并到 'Embedded Rust or C Firmware?'
+  🔗 去重: 'embeddings' → 合并到 'Embedding/Chinese-Word-Vectors'
+  🔗 去重: 'Essential, Yet Overlooked implementation guide' → 合并到 'Essential, Yet Overlooked'
+  🔗 去重: 'Every country needs to do implementation guide' → 合并到 'Every country needs to do'
+  🔗 去重: 'Every country needs to do this asap' → 合并到 'Every country needs to do'
+  🔗 去重: 'Exploration Hacking best practices 2026' → 合并到 'Exploration Hacking'
+  🔗 去重: 'Exploration Hacking implementation guide' → 合并到 'Exploration Hacking'
+  🔗 去重: 'For thirty years I programmed architecture design' → 合并到 'For thirty years I programmed'
+  🔗 去重: 'For thirty years I programmed with Phish on, every day' → 合并到 'For thirty years I programmed'
+  🔗 去重: 'Generalizable Sparse-View 3D Reconstruction from architecture design' → 合并到 'Generalizable Sparse-View 3D Reconstruction from'
+  🔗 去重: 'Generalizable Sparse-View 3D Reconstruction from best practices 2026' → 合并到 'Generalizable Sparse-View 3D Reconstruction from'
+  🔗 去重: 'Group averages obscure how an implementation guide' → 合并到 'Group averages obscure how an'
+  🔗 去重: 'Group averages obscure how an individual's brain controls behavior: study' → 合并到 'Group averages obscure how an'
+  🔗 去重: 'Gödel Agent — 自引用递归自我改进框架' → 合并到 'Gödel Agent Python实现模式 — self_inspect+self_update+recursive_improve'
+  🔗 去重: 'Gödel Agent' → 合并到 'Gödel Agent Python实现模式 — self_inspect+self_update+recursive_improve'
+  🔗 去重: 'HERMES++ architecture design' → 合并到 'HERMES++'
+  🔗 去重: 'HERMES++ implementation guide' → 合并到 'HERMES++'
+  🔗 去重: 'How Monero's proof of work' → 合并到 'How Monero's proof of work works'
+  🔗 去重: 'How Monero's proof of work implementation guide' → 合并到 'How Monero's proof of work works'
+  🔗 去重: 'HyperAgents' → 合并到 'HyperAgents Claude Code Plugin — 进化式自我改进循环'
+  🔗 去重: 'If Claude App gave you' → 合并到 'If Claude App gave you the same control as Claude CLI then would you bother with the CLI?'
+  🔗 去重: 'If Claude App gave you implementation guide' → 合并到 'If Claude App gave you the same control as Claude CLI then would you bother with the CLI?'
+  🔗 去重: 'Internet Is Getting Remade For AI. What Does It Mean For You?' → 合并到 'Internet Is Getting Remade For'
+  🔗 去重: 'Internet Is Getting Remade For implementation guide' → 合并到 'Internet Is Getting Remade For'
+  🔗 去重: 'Kimi K2.6 just beat Claude, GPT-5.5, and Gemini in a coding challenge' → 合并到 'Kimi K2.6 just beat Claude,'
+  🔗 去重: 'LLM agent' → 合并到 'LLM Agents Are Simply Graph – Tutorial for Dummies'
+  🔗 去重: 'LaST-R1 implementation guide' → 合并到 'LaST-R1'
+  🔗 去重: 'langchain-ai/langchain' → 合并到 'langchain-ai/deepagents'
+  🔗 去重: 'langchain-ai/langgraph' → 合并到 'langchain-ai/deepagents'
+  🔗 去重: 'langchain4j/langchain4j' → 合并到 'langchain-ai/deepagents'
+  🔗 去重: 'Langchain' → 合并到 'langchain-ai/deepagents'
+  🔗 去重: 'langchain' → 合并到 'langchain-ai/deepagents'
+  🔗 去重: 'large' → 合并到 'Large Language Models are Universal Reasoners for Visual Generation'
+  🔗 去重: 'large language model' → 合并到 'Large Language Models are Universal Reasoners for Visual Generation'
+  🔗 去重: 'large-language-model' → 合并到 'Large language models encode clinical knowledge'
+  🔗 去重: 'Machine Learning' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Machine learning' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Machine learning Machine learning' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Machine learning architecture design' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Machine learning best practices 2026' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Machine learning implementation guide' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine learning' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine learning Generalizable Sparse-View 3D Reconstruction from' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine learning huggingface/transformers' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine learning microsoft/ML-For-Beginners' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine learning tensorflow/tensorflow' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'machine-learning' → 合并到 'Machine Learning Interpretability: A Survey on Methods and Metrics'
+  🔗 去重: 'Mathematics' → 合并到 'Mathematical Optimization'
+  🔗 去重: 'Mercedes-Benz commits to bringing back physical buttons' → 合并到 'Mercedes-Benz commits to bringing back'
+  🔗 去重: 'Metacognition and Cognitive Neuropsychology' → 合并到 'Metacognition'
+  🔗 去重: 'Metacognition and Confidence in Value-Based Choice' → 合并到 'Metacognition'
+  🔗 去重: 'Metacognition in Alzheimer’s Disease' → 合并到 'Metacognition'
+  🔗 去重: 'Metacognition: The cognitive and affective architecture of self-directed learning' → 合并到 'Metacognition'
+  🔗 去重: 'Metacognition: A Critical Leadership and Career Skill' → 合并到 'Metacognition'
+  🔗 去重: 'Metacognition: How to Think about Thinking' → 合并到 'Metacognition'
+  🔗 去重: 'metacognition' → 合并到 'Metacognition'
+  🔗 去重: 'Natural language processing Natural language processing' → 合并到 'Natural language processing'
+  🔗 去重: 'Natural language processing architecture design' → 合并到 'Natural language processing'
+  🔗 去重: 'Natural language processing implementation guide' → 合并到 'Natural language processing'
+  🔗 去重: 'natural language processing' → 合并到 'Natural language processing'
+  🔗 去重: 'natural language processing HERMES++' → 合并到 'Natural language processing'
+  🔗 去重: 'natural language processing explosion/spaCy' → 合并到 'Natural language processing'
+  🔗 去重: 'natural language processing hankcs/HanLP' → 合并到 'Natural language processing'
+  🔗 去重: 'natural language processing sebastianruder/NLP-progress' → 合并到 'Natural language processing'
+  🔗 去重: 'OmniRobotHome implementation guide' → 合并到 'OmniRobotHome'
+  🔗 去重: 'OpenAI's o1 correctly diagnosed 67% implementation guide' → 合并到 'OpenAI's o1 correctly diagnosed 67%'
+  🔗 去重: 'OpenAI's o1 correctly diagnosed 67% of ER patients vs. 50-55% by triage doctors' → 合并到 'OpenAI's o1 correctly diagnosed 67%'
+  🔗 去重: 'Porsche will contest Laguna Seca architecture design' → 合并到 'Porsche will contest Laguna Seca'
+  🔗 去重: 'Porsche will contest Laguna Seca implementation guide' → 合并到 'Porsche will contest Laguna Seca'
+  🔗 去重: 'Porsche will contest Laguna Seca in historic colors of the Apple Computer livery' → 合并到 'Porsche will contest Laguna Seca'
+  🔗 去重: 'Posterior Augmented Flow Matching architecture design' → 合并到 'Posterior Augmented Flow Matching'
+  🔗 去重: 'Programming' → 合并到 'Programming with Data: Test-Driven Data Engineering for Self-Improving LLMs from Raw Corpora'
+  🔗 去重: 'programming' → 合并到 'Programming with Data: Test-Driven Data Engineering for Self-Improving LLMs from Raw Corpora'
+  🔗 去重: 'Prop-Chromeleon implementation guide' → 合并到 'Prop-Chromeleon'
+  🔗 去重: 'Python' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python基础语法 教程' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python实现' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python模式' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] Codex AI编程实战课' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] Python 函数' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] macbook air m5做编程生产力工具？14天使用感受分享' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] 信息技术会考 | Python程序设计，看这一个就够了！（25年新版）' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] 北京理工大学（导师：嵩天） - Python语言程序设计（零基础快速入门）深入体验Python学习，全套Python教程现在分享给大家' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python编程 [B站] 麻省理工学院【中英⚡Python 计算机科学与编程入门|6.100L Fall 2022' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'Python高级特性' → 合并到 'Python运行时自我修改技术栈 — inspect+ast+monkey patching+gc'
+  🔗 去重: 'QwenLM/Qwen3 implementation guide' → 合并到 'QwenLM/Qwen3'
+  🔗 去重: 'Reinforcement Learning for LLM-based Multi-Agent Systems through Orchestration Traces' → 合并到 'Reinforcement Learning: A Survey'
+  🔗 去重: 'Reinforcement Learning' → 合并到 'Reinforcement Learning: A Survey'
+  🔗 去重: 'Removable batteries in smartphones will' → 合并到 'Removable batteries in smartphones will be mandatory in the EU starting in 2027'
+  🔗 去重: 'Richard Dawkins spent 3 days with Claude and named her "Claudia." what he concluded after is hard to defend.' → 合并到 'Richard Dawkins spent 3 days'
+  🔗 去重: 'SOFAI' → 合并到 'SOFAI — 快慢双系统认知架构 (System 1 + System 2 + Metacognition)'
+  🔗 去重: 'self-improving' → 合并到 'Self-Improving Agentic AI through Bayesian Meta-Learning'
+  🔗 去重: 'self-improving AI' → 合并到 'Self-Improving Agentic AI through Bayesian Meta-Learning'
+  🔗 去重: 'Show Apple's Sharp Running in implementation guide' → 合并到 'Show Apple's Sharp Running in'
+  🔗 去重: 'Six Years Perfecting Maps on WatchOS' → 合并到 'Six Years Perfecting Maps on'
+  🔗 去重: 'Southwest Headquarters Tour implementation guide' → 合并到 'Southwest Headquarters Tour'
+  🔗 去重: 'Standardized Complexity architecture design' → 合并到 'Standardized Complexity'
+  🔗 去重: 'Standardized Complexity implementation guide' → 合并到 'Standardized Complexity'
+  🔗 去重: 'tensorflow/tensorflow' → 合并到 'TensorFlow'
+  🔗 去重: 'tensorflow/tensorflow best practices 2026' → 合并到 'TensorFlow'
+  🔗 去重: 'tensorflow/tensorflow implementation guide' → 合并到 'TensorFlow'
+  🔗 去重: 'This Month in Ladybird –' → 合并到 'This Month in Ladybird - April 2026'
+  🔗 去重: 'This Month in Ladybird – April 2026' → 合并到 'This Month in Ladybird - April 2026'
+  🔗 去重: 'US–Indian space mission maps extreme subsidence in Mexico City' → 合并到 'US–Indian space mission maps extreme'
+  🔗 去重: 'Uber burned its entire 2026 AI coding budget in 4 months - $500-2k per engineer per month' → 合并到 'Uber burned its entire 2026'
+  🔗 去重: 'Uber burned its entire 2026 architecture design' → 合并到 'Uber burned its entire 2026'
+  🔗 去重: 'Unverified Evaluations in Dusk's PLONK best practices 2026' → 合并到 'Unverified Evaluations in Dusk's PLONK'
+  🔗 去重: 'What Chromium versions are major browsers are on?' → 合并到 'What Chromium versions are major'
+  🔗 去重: 'What Chromium versions are major implementation guide' → 合并到 'What Chromium versions are major'
+  🔗 去重: 'What Is Z-Angle Memory and Why Is Intel Developing It?' → 合并到 'What Is Z-Angle Memory and'
+  🔗 去重: 'What Is Z-Angle Memory and architecture design' → 合并到 'What Is Z-Angle Memory and'
+  🔗 去重: 'What Is Z-Angle Memory and implementation guide' → 合并到 'What Is Z-Angle Memory and'
+  🔗 去重: 'When RAG Chatbots Expose Their architecture design' → 合并到 'When RAG Chatbots Expose Their'
+  🔗 去重: 'When RAG Chatbots Expose Their implementation guide' → 合并到 'When RAG Chatbots Expose Their'
+  🔗 去重: 'Why TUIs Are Back implementation guide' → 合并到 'Why TUIs Are Back'
+  🔗 去重: 'Windows quality update implementation guide' → 合并到 'Windows quality update'
+  🔗 去重: 'Windows quality update: Progress we've made since March' → 合并到 'Windows quality update'
+  🔗 去重: 'Writing the loss function implementation guide' → 合并到 'Writing the loss function'
+  🔗 去重: 'Writing the loss function: AI, feeds, and the engagement optimizer' → 合并到 'Writing the loss function'
+  🔗 去重: '[数据结构与算法] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 '[AI与机器学习] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词'
+  🔗 去重: '[B站] (2026已更新)3. 手把手教学诊断模型/100+种机器学习算法组合的诊断模型构建/10+种机器学习算法/特征基因筛选/数据分析/生物信息学 implementation guide' → 合并到 '[B站] (2026已更新)3. 手把手教学诊断模型/100+种机器学习算法组合的诊断模型构建/10+种机器学习算法/特征基因筛选/数据分析/生物信息学'
+  🔗 去重: '[B站] (新版中英!) B站公认最好的【吴恩达机器学习】教程！附课件代码 Machine Learning Specialization' → 合并到 '[B站] (新版中英!) B站公认最好的【吴恩达机器学习】教程！附课件代码 Machine Learning'
+  🔗 去重: '[B站] (新版中英!) B站公认最好的【吴恩达机器学习】教程！附课件代码 Machine Learning best practices 2026' → 合并到 '[B站] (新版中英!) B站公认最好的【吴恩达机器学习】教程！附课件代码 Machine Learning'
+  🔗 去重: '[B站] AI宇宙Skibidi Toilet implementation guide' → 合并到 '[B站] AI宇宙Skibidi Toilet'
+  🔗 去重: '[B站] AI科幻作品机器人生活580' → 合并到 '[B站] AI科幻作品机器人生活579'
+  🔗 去重: '[B站] AI科幻作品机器人生活581' → 合并到 '[B站] AI科幻作品机器人生活579'
+  🔗 去重: '[B站] AI科幻作品机器人生活582' → 合并到 '[B站] AI科幻作品机器人生活579'
+  🔗 去重: '[B站] CAMIo1 车载AI智能机器人电子宠物黑科技ai陪伴对话机器人玩具儿童情感交互情绪价值人工智能豆包聊天 Cami o1' → 合并到 '[B站] CAMIo1 车载AI智能机器人电子宠物黑科技ai陪伴对话机器人玩具儿童情感交互情绪价值人工智能豆包聊天 Cami o1 智行版'
+  🔗 去重: '[B站] CAMIo1 车载AI智能机器人电子宠物黑科技ai陪伴对话机器人玩具儿童情感交互情绪价值人工智能豆包聊天 Cami o1 implementation guide' → 合并到 '[B站] CAMIo1 车载AI智能机器人电子宠物黑科技ai陪伴对话机器人玩具儿童情感交互情绪价值人工智能豆包聊天 Cami o1 智行版'
+  🔗 去重: '[B站] Python 函数' → 合并到 '[B站] Python + MySQL   0基础从入门到精通  MySQL数据库实战精讲教程（2021精华版）'
+  🔗 去重: '[B站] 《人工智能导论》4小时期末速成课！期末速成丨考前突击丨期末不挂科丨考点总结' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【人工智能】触及心灵的对话' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【人工智能基础】机器学习入门全套教程：Python机器学习算法基础入门，零基础小白也能轻松上手AI。“人工智能不过如此！”' → 合并到 '[B站] 《人工智能》'
+  🔗 去重: '[B站] 【2026最新机器学习入门教程】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法！算法原理+项目实战！' → 合并到 '[B站] 【2025最新机器学习快速入门】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法！算法原理+项目实战！'
+  🔗 去重: '[B站] 【2026 】机器学习周志华西瓜书全网超详精讲，涵盖回归分类、决策树、SVM、神经网络、集成学习、聚类降维：附完整学习路线+ PDF + 全套 PPT 资料' → 合并到 '[B站] 【2026 】机器学习周志华西瓜书全网超详精讲，涵盖回归分类、决策树、SVM、神经网络、集成学习、聚类降维：附完整学习路线+ PDF +'
+  🔗 去重: '[B站] 【2026 最新版】｜字节大佬亲授 Claude Code best practices 2026' → 合并到 '[B站] 【2026 最新版】｜字节大佬亲授 Claude Code'
+  🔗 去重: '[B站] 【2026 最新版】｜字节大佬亲授 Claude Code 全栈教程，从入门到精通全覆盖，小白 10 分钟上手，干货无废话，建议收藏！' → 合并到 '[B站] 【2026 最新版】｜字节大佬亲授 Claude Code'
+  🔗 去重: '[B站] 【全289集】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完！AI/机器学习入门/AI入门' → 合并到 '[B站] 【2026版】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完！'
+  🔗 去重: '[B站] 【全68集】3分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2025最新）AI视频制作全流程教学！包含所有干货！七天就能从小白到大神！（附工具）' → 合并到 '[B站] 【全30集】5分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2026最新）AI视频制作全流程教学！包含所有干货！七天就能从小白到大神！（附工具）'
+  🔗 去重: '[B站] 【全500集】B站最全最细的Python零基础全套教程（包含数据分析与爬虫教程），7天从入门到精通Python，学完即可就业！看完这一套Python教程就够了！' → 合并到 '[B站] 【全400集】B站最全最细的Python零基础全套教程（包含数据分析与爬虫教程），一周从入门到精通Python，学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【全700集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【全700集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，寒假学完即可就业！看完这一套Python教程就够了' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【全748集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，七日学完即可就业！看完这一套Python教程就够了！' → 合并到 '[B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五一学完即可就业！看完这一套Python教程就够了！'
+  🔗 去重: '[B站] 【初试】2027年+北京邮电大学085410人工智能《801通信原理》考研精品资料' → 合并到 '[B站] 【初试】2027年+长春工业大学085410人工智能《808数据结构》考研精品资料【第2册,共2册】'
+  🔗 去重: '[B站] 【初试】2027年+长春工业大学085410人工智能《808数据结构》考研精品资料【第1册,共2册】' → 合并到 '[B站] 【初试】2027年+长春工业大学085410人工智能《808数据结构》考研精品资料【第2册,共2册】'
+  🔗 去重: '[B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第2册,共2册】' → 合并到 '[B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第1册,共2册】'
+  🔗 去重: '[B站] 【印度理工学院】2024年7月-分布式优化与机器学习 July 2024 - architecture design' → 合并到 '[B站] 【印度理工学院】2024年7月-分布式优化与机器学习 July 2024 -'
+  🔗 去重: '[B站] 【吴恩达】手把手教《构建你自己的数据库智能体》（附代码）：Building Your Own Database Agent——大模型/LLM/Langchain' → 合并到 '[B站] 【吴恩达】手把手教《构建你自己的数据库智能体》（附代码）：Building Your Own Database'
+  🔗 去重: '[B站] 【吴恩达】手把手教《构建你自己的数据库智能体》（附代码）：Building Your Own Database implementation guide' → 合并到 '[B站] 【吴恩达】手把手教《构建你自己的数据库智能体》（附代码）：Building Your Own Database'
+  🔗 去重: '[B站] 【吴恩达】手把手教《编程Agent》（附代码）：Spec-Driven Development with Coding Agents｜AI大模型应用开发' → 合并到 '[B站] 【吴恩达】手把手教《编程Agent》（附代码）：Spec-Driven Development with Coding'
+  🔗 去重: '[B站] 【吴恩达】手把手教《编程Agent》（附代码）：Spec-Driven Development with Coding architecture design' → 合并到 '[B站] 【吴恩达】手把手教《编程Agent》（附代码）：Spec-Driven Development with Coding'
+  🔗 去重: '[B站] 【超爽中英】2026年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度学习' → 合并到 '[B站] 【官方中英】2025年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度学习'
+  🔗 去重: '[B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了1000000%！！！' → 合并到 '[B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了10000%！！！'
+  🔗 去重: '[B站] 【电影原声】【人工智能 完整版】【OST】Artificial Intelligence A.I. Soundtrack (by John Williams)' → 合并到 '[B站] 【电影原声】【人工智能 完整版】【OST】Artificial Intelligence A.I.'
+  🔗 去重: '[B站] 人工智能8' → 合并到 '[B站] 人工智能/机器学习必修课：经典AI算法与编程实战'
+  🔗 去重: '[B站] 麻省理工学院【中英⚡Python 计算机科学与编程入门|6.100L Fall 2022 Introduction to CS and Programming】' → 合并到 '[B站] 麻省理工学院【中英⚡Python 计算机科学与编程入门|6.100L Fall 2022'
+  🔗 去重: '[计算机基础] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[工具与效率] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　'
+  🔗 去重: '[计算机基础] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 '[工具与效率] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词'
+  🔗 去重: '[计算机基础] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[工具与效率] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　'
+  🔗 去重: '[数据结构与算法] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[数据结构与算法] Dujltqzv/Some-Many-Books'
+  🔗 去重: '[数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of minimal operating systems to learn x86 system programming. Tested on U' → 合并到 '[数据结构与算法] cirosantilli/x86-bare-metal-examples'
+  🔗 去重: '[数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of m' → 合并到 '[数据结构与算法] cirosantilli/x86-bare-metal-examples'
+  🔗 去重: '[数据结构与算法] forthespada/CS-Books - 🔥🔥超过1000本的计算机经典书籍、个人笔记资料以及本人在各平台发表文章中所涉及的资源等。书籍资源包括C/C++、Java、Python、Go语言、数据结构与算' → 合并到 '[数据结构与算法] forthespada/CS-Books'
+  🔗 去重: '[数据结构与算法] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　' → 合并到 '[数据结构与算法] lTbgykio/Books-Free-Books'
+  🔗 去重: '[论文] Can Coding Agents Reproduce Findings in Computational Materials Science?' → 合并到 '[深度] Can Coding Agents Reproduce Findings in Computational Materials Science?'
+  🔗 去重: '[论文] Computing Equilibrium beyond Unilateral Deviation' → 合并到 '[深度] Computing Equilibrium beyond Unilateral Deviation'
+  🔗 去重: '[论文] HERMES++: Toward a Unified Driving World Model for 3D Scene Understanding and Generation' → 合并到 '[深度] HERMES++: Toward a Unified Driving World Model for 3D Scene Understanding and Generation'
+  🔗 去重: '[论文] LaST-R1: Reinforcing Action via Adaptive Physical Latent Reasoning for VLA Models' → 合并到 '[深度] LaST-R1: Reinforcing Action via Adaptive Physical Latent Reasoning for VLA Models'
+  🔗 去重: '[论文] OmniRobotHome: A Multi-Camera Platform for Real-Time Multiadic Human-Robot Interaction' → 合并到 '[深度] OmniRobotHome: A Multi-Camera Platform for Real-Time Multiadic Human-Robot Interaction'
+  🔗 去重: '[论文] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence' → 合并到 '[深度] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality through Generative Artificial Intelligence'
+  🔗 去重: '[深度] Qwen3-TTS Technical Report' → 合并到 '[深度] Qwen3-ASR Technical Report'
+  🔗 去重: '[深度] QwenLM/Qwen3-Coder' → 合并到 '[深度] QwenLM/Qwen3'
+  🔗 去重: '[深度] QwenLM/Qwen3-VL' → 合并到 '[深度] QwenLM/Qwen3'
+  🔗 去重: '[论文] When RAG Chatbots Expose Their Backend: An Anonymized Case Study of Privacy and Security Risks in Patient-Facing Medical AI' → 合并到 '[深度] When RAG Chatbots Expose Their Backend: An Anonymized Case Study of Privacy and Security Risks in Patient-Facing Medical AI'
+  🔗 去重: '[深度] explosion/spacy-models' → 合并到 '[深度] explosion/spaCy'
+  🔗 去重: '[深度] huggingface/transformers.js' → 合并到 '[深度] huggingface/transformers'
+  🔗 去重: '[深度] keras-team/keras-applications' → 合并到 '[深度] keras-team/keras'
+  🔗 去重: '[计算机基础] cirosantilli/china-dictatorship - 反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新' → 合并到 '[计算机基础] cirosantilli/china-dictatorship - 反中共政治宣传库。Anti Chinese'
+  🔗 去重: '[计算机基础] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub ' → 合并到 '[计算机基础] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is'
+  🔗 去重: 'active_communication 模块分析' → 合并到 'active_communication'
+  🔗 去重: 'ai_knowledge_crawler.py,antibody_library.py,capability_registry' → 合并到 'ai_knowledge_crawler.py,antibody_library.py,capability_registry 自我修复'
+  🔗 去重: 'ai_knowledge_crawler.py,capability_registry.py,computer_hands' → 合并到 'ai_knowledge_crawler.py,capability_registry.py,computer_hands 自我修复'
+  🔗 去重: 'ai_knowledge_crawler.py,content_studio.py,crawler_daemon 自我修复' → 合并到 'ai_knowledge_crawler.py,content_studio.py,crawler_daemon'
+  🔗 去重: 'am I the only one' → 合并到 'am I the only one whose friends are completely divided on AI?'
+  🔗 去重: 'am I the only one architecture design' → 合并到 'am I the only one whose friends are completely divided on AI?'
+  🔗 去重: 'am I the only one best practices 2026' → 合并到 'am I the only one whose friends are completely divided on AI?'
+  🔗 去重: 'am I the only one implementation guide' → 合并到 'am I the only one whose friends are completely divided on AI?'
+  🔗 去重: 'astro-ph.GA' → 合并到 'astro-ph.EP'
+  🔗 去重: 'astro-ph.SR' → 合并到 'astro-ph.EP'
+  🔗 去重: 'autonomous agent architecture ruvnet/ruflo' → 合并到 'autonomous agent architecture'
+  🔗 去重: 'background_learning_service 模块分析' → 合并到 'background_learning_service'
+  🔗 去重: 'claude_code_adapter 模块分析' → 合并到 'claude_code_adapter'
+  🔗 去重: 'claude_memory_bridge' → 合并到 'claude_memory_bridge 模块分析'
+  🔗 去重: 'cognitive_architecture' → 合并到 'cognitive-architecture'
+  🔗 去重: 'cognitive_architecture 模块分析' → 合并到 'cognitive-architecture'
+  🔗 去重: 'computer_hands' → 合并到 'computer_hands.py,crawler_daemon.py,directed_crawl 自我修复'
+  🔗 去重: 'computer_hands 模块分析' → 合并到 'computer_hands.py,crawler_daemon.py,directed_crawl 自我修复'
+  🔗 去重: 'content_studio 模块分析' → 合并到 'content_studio'
+  🔗 去重: 'crawler_learning_bridge 模块分析' → 合并到 'crawler_learning_bridge'
+  🔗 去重: 'cs.AR' → 合并到 'cs.AI'
+  🔗 去重: 'cs.NI' → 合并到 'cs.AI'
+  🔗 去重: 'cs.CL' → 合并到 'cs.CE'
+  🔗 去重: 'cs.CR' → 合并到 'cs.CE'
+  🔗 去重: 'cs.CV' → 合并到 'cs.CE'
+  🔗 去重: 'cs.CY' → 合并到 'cs.CE'
+  🔗 去重: 'cs.NE' → 合并到 'cs.CE'
+  🔗 去重: 'cs.SE' → 合并到 'cs.CE'
+  🔗 去重: 'cs.DC' → 合并到 'cs.DB'
+  🔗 去重: 'cs.LO' → 合并到 'cs.LG'
+  🔗 去重: 'cs.MM' → 合并到 'cs.MA'
+  🔗 去重: 'daemon_launcher 模块分析' → 合并到 'daemon_launcher'
+  🔗 去重: 'eess.SY' → 合并到 'eess.SP'
+  🔗 去重: 'fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、名字推断性别、手机号抽取、身份证抽取、邮箱抽取、中日文人名库、中文缩写库、拆字词典、词汇情感值、停用词' → 合并到 'fighting41love/funNLP'
+  🔗 去重: 'github-learning-ai 项目概述' → 合并到 'github-learning-ai'
+  🔗 去重: 'goal_planner' → 合并到 'goal_planner 模块分析'
+  🔗 去重: 'hep-th' → 合并到 'hep-ph'
+  🔗 去重: 'huggingface/transformers architecture design' → 合并到 'huggingface/transformers'
+  🔗 去重: 'huggingface/transformers implementation guide' → 合并到 'huggingface/transformers'
+  🔗 去重: 'math.AT' → 合并到 'math.AP'
+  🔗 去重: 'meta-cognition' → 合并到 'meta cognition AI'
+  🔗 去重: 'reddit California to begin ticketing driverless' → 合并到 'reddit'
+  🔗 去重: 'reddit Contrary to contemporary belief' → 合并到 'reddit'
+  🔗 去重: 'reddit Every country needs to do' → 合并到 'reddit'
+  🔗 去重: 'reddit Internet Is Getting Remade For' → 合并到 'reddit'
+  🔗 去重: 'reddit Richard Dawkins spent 3 days' → 合并到 'reddit'
+  🔗 去重: 'reddit Standardized Complexity' → 合并到 'reddit'
+  🔗 去重: 'reddit Uber burned its entire 2026' → 合并到 'reddit'
+  🔗 去重: 'reddit Writing the loss function' → 合并到 'reddit'
+  🔗 去重: 'reddit am I the only one' → 合并到 'reddit'
+  🔗 去重: 'reddit 𝕏 is now marking your' → 合并到 'reddit'
+  🔗 去重: 'sebastianruder/NLP-progress implementation guide' → 合并到 'sebastianruder/NLP-progress'
+  🔗 去重: 'stat.ML' → 合并到 'stat.ME'
+  🔗 去重: 'supabase/supabase - The Postgres development platform. Supabase gives you a dedicated Postgres datab' → 合并到 'supabase/supabase'
+  🔗 去重: 'trading_bot 模块分析' → 合并到 'trading_bot'
+  🔗 去重: 'watchdog 模块分析' → 合并到 'watchdog'
+  🔗 去重: '元认知巩固' → 合并到 '元认知巩固 — 超越情节性元推理'
+  🔗 去重: '元认知检测' → 合并到 '元认知检测器实现模式 — 循环/重复/停滞检测代码结构'
+  🔗 去重: '大语言模型 architecture design' → 合并到 '大语言模型'
+  🔗 去重: '大语言模型 大语言模型' → 合并到 '大语言模型'
+  🔗 去重: '大语言模型上下文窗口扩展技术研究' → 合并到 '大语言模型'
+  🔗 去重: '能力深度: 能力深度: 能力深度: 架构测试' → 合并到 '能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of m'
+  🔗 去重: '自我认知报告 v114' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v113' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v112' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v111' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v110' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v108' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v42' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v41' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v40' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v39' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v38' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v37' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v36' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v35' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v34' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v33' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v32' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v31' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v30' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v29' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v28' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v27' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v26' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v25' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v24' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v23' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v22' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v21' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v20' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v19' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v18' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v17' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v16' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v15' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v14' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v13' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v12' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v11' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v10' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v9' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v8' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v7' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v6' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v5' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v4' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v3' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自我认知报告 v2' → 合并到 '自我认知报告 v115'
+  🔗 去重: '自然语言处理（语言处理方式）' → 合并到 '自然语言处理'
+  🔗 去重: '自然语言处理：文本分析和生成工具' → 合并到 '自然语言处理'
+  🔗 去重: '计算机基础 [计算机基础] cirosantilli/china-dictatorship - 反中共政治宣传库。Anti Chinese' → 合并到 '计算机基础'
+  🔗 去重: '计算机基础 [计算机基础] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is' → 合并到 '计算机基础'
+  🔗 去重: '𝕏 is now marking your best practices 2026' → 合并到 '𝕏 is now marking your'
+  🔗 去重: '𝕏 is now marking your implementation guide' → 合并到 '𝕏 is now marking your'
+  🔗 去重: '𝕏 is now marking your photos if they are made or partially made by AI' → 合并到 '𝕏 is now marking your'
+  ✂️ 裁剪 [项目自身]: [深度] ACM COMPUTE 2025 Best Practices Track Proceedings (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] tensorflow/tensorflow (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ixshel/angular-tensorflow (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Mat-thias/stm32-tinyml-sine (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A New Strategy for the Exploration of Venus (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Homological mirror symmetry for log Calabi-Yau surfaces (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Power of Tests for Detecting $p$-Hacking (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] AI prediction leads people to forgo guaranteed rewards (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Dalorex: A Data-Local Program Execution and Architectur (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] An Empirical Study of Aegis (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The All-wavelength Extended Groth Strip International S (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] EUTelescope Guide for ATLAS ITk Strip: Reconstruction a (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Nine Best Practices for Research Software Registries an (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Justin0504/Aegis (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] antropos17/Aegis (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] fuwasegu/aegis (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The minimum crossing number of essential tangles (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A study guide for the $\ell^2$ decoupling theorem for t (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Foundations of GenIR (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Competing Visions of Ethical AI: A Case Study of OpenAI (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Nikhil-Xavier-DS/Hermes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] EveryOneIsGross/hermesAGI (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] chessdbai/Hermes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] rprokap/pset-9 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] binary-husky/gpt_academic (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] AiHubCN/Awesome-Chinese-LLM (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ymcui/Chinese-LLaMA-Alpaca (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] cirosantilli/china-dictatorship (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] gege-circle/.github (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] fry404006308/fry_course_materials (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] aegismartin/AegisCLI (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ibrahimHossainn/aegis-console (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] nirzons/Aegis-AI-Subtitles (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] bungkust/system-memory-hybrid (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] aika-algorithm/aika-java (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Aryia-Behroziuan/References (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] kandeel11/floorplan-AI-GP (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] yliess86/BayeFormers (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] dguilliams3/nlp-inference-demo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] HuggingFace's Transformers: State-of-the-art Natural La (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] huggingface/transformers (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Hero988/buy-sell-predictions (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Robust Implementation with Costly Information (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Changing Data Sources in the Age of Machine Learning fo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] DOME: Recommendations for supervised machine learning v (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Learning Curves for Decision Making in Supervised Machi (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] labmlai/annotated_deep_learning_paper_implementations (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Pseudo-Lab/labmlai_annotated_deeplearning_paper_impleme (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] NightStar-l/https-github.com-labmlai-annotated_deep_lea (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] keras-team/keras (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] 01Devill/CryptocurrencyPrediction-master (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] scutan90/DeepLearning-500-questions (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] shliang0603/Awesome-DeepLearning-500FAQ (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] jiajunhua/scutan90-DeepLearning-500-questions (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] AMAI-GmbH/AI-Expert-Roadmap (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] feder-cr/Jobs_Applier_AI_Agent_AIHawk (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] owainlewis/awesome-artificial-intelligence (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MadhavSingh2236/Classify-Websites-into-Amiable-or-Malic (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] marwan15AHmed/AI-Limit-Exploration-Toolkit (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] darkanita/hackhour-genie-fabric (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] zoro-jiro-san/hermes-agent-architecture (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] aabro1325/hermes-dashboard (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] RykkuX/Hermes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] sanusanth/javascript-basic-program (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] whitegloveai/AI-Adoption-Management-Framework (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] name-is-what/SEGO (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] theubaidistan/AiCodeReviewer-2026 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] jettbrains/-L- (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] milaan9/Python_Natural_Language_Processing (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] dr-mushtaq/natural-language-processing-projects-python (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Aryia-Behroziuan/Robot-learning (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] fighting41love/funNLP (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] explosion/spaCy (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] sebastianruder/NLP-progress (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] yeasy/llm_internals (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] liqiwei2020/ArchGPT (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] wyf002/Machine-Learning-Note (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] microsoft/ML-For-Beginners (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] dimonets/mit-6.036 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] vishnudabholakar/Microsoft-ML-for-beginners (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] An Open Natural Language Processing Development Framewo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A Comprehensive Review of State-of-The-Art Methods for  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Towards the Study of Morphological Processing of the Ta (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Artificial Scientist: Logicist, Emergentist, and Un (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Compression, The Fermi Paradox and Artificial Super-Int (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Creative Problem Solving in Artificially Intelligent Ag (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] mlabonne/llm-course (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] lm-sys/FastChat (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Qwen3-Omni Technical Report (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Qwen3-ASR Technical Report (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] QwenLM/Qwen3 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ruvnet/ruflo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Data-Driven 3D Reconstruction of Dressed Humans From Sp (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] X-LRM: X-ray Large Reconstruction Model for Extremely S (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Structure-Aware Sparse-View X-ray 3D Reconstruction (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Software Implementation of the Krylov Methods Based Rec (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] LaST-R1: Reinforcing Action via Adaptive Physical Laten (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Computing Equilibrium beyond Unilateral Deviation (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MOMCC: Market-Oriented Architecture for Mobile Cloud Co (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On contractions that are quasiaffine transforms of unil (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] DE-Sinc approximation for unilateral rapidly decreasing (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Model reduction in chemical dynamics: slow invariant ma (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Towards a Systematic Taxonomy of Attacks against Space  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Chemical Reaction due to Stronger Ramachandran Interact (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] OmniRobotHome: A Multi-Camera Platform for Real-Time Mu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi Linear: An Expressive, Efficient Attention Archite (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi-VL Technical Report (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Kimi K2.5: Visual Agentic Intelligence (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Analyze and Design Network Architectures by Recursion F (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] TeCH: Text-guided Reconstruction of Lifelike Clothed Hu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Starlink in Northern Europe: A New Look at Stationary a (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Midterm Status Report of the ILC Technology Network Act (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] TRUST-TECH based Methods for Optimization and Learning (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Contestation of Tech Ethics: A Sociotechnical Appro (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Observation of the rare $B^0_s\toμ^+μ^-$ decay from the (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Expected Performance of the ATLAS Experiment - Detector (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Deep Search for Joint Sources of Gravitational Waves an (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Microwave Engineering of Tunable Spin Interactions with (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The 70 Month Swift-BAT All-Sky Hard X-Ray Survey (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The 105 month Swift-BAT all-sky hard X-ray survey (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A MAPS Detector for High Resolution Low Dose EBSD (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] yashab-cyber/HackGpt (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] KotlinNLP/SimpleDNN (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MerLin: A Discovery Engine for Photonic and Hybrid Quan (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Modern Mathematics of Deep Learning (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Learn to Accumulate Evidence from All Training Samples: (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Deep Learning and Computational Physics (Lecture Notes) (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] molyswu/hand_detection (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Dicklesworthstone/model_guided_research (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] zcaicaros/L2S (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] abusufyanvu/6S191_MIT_DeepLearning (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Do Domain-specific Experts exist in MoE-based LLMs? (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Spectroscopic Needs for Training of LSST Photometric Re (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Spectroscopic Needs for Calibration of LSST Photometric (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] She's Reddit: A source of statistically significant gen (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ClimateCheck 2026: Scientific Fact-Checking and Disinfo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] POLY-SIM: Polyglot Speaker Identification with Missing  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ICASSP 2026 URGENT Speech Enhancement Challenge (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The California Report on Frontier AI Policy (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Climate Risk Stress Testing in California: A Geospatial (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Carbon Emission Flow Tracing: Fast Algorithm and Califo (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Exploring the Modular Integration of "AI + Architecture (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] NTIRE 2026 Challenge on Robust AI-Generated Image Detec (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] International AI Safety Report 2026 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Dive into Claude Code: The Design Space of Today's and  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Agentic Education: Using Claude Code to Teach Claude Co (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Context Engineering for Multi-Agent LLM Code Assistants (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Fourth Challenge on Image Super-Resolution ($\times (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of the direct evaluation of strains usin (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Augmented Computational Design: Methodical Application  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A Green(er) World for A.I (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Tests of Machine Intelligence (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Simple Interactive Image Segmentation using Label Propa (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] RECOME: a New Density-Based Clustering Algorithm Using  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Minimum-Norm Adversarial Examples on KNN and KNN-Based  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MiniMax-01: Scaling Foundation Models with Lightning At (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Yi: Open Foundation Models by 01.AI (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On the transferability of adversarial examples between  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ePython: An implementation of Python for the many-core  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] CHC-COMP 2022: Competition Report (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Motif Mining and Unsupervised Representation Learning f (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Proceedings of the IFJ PAN Particle Physics Summer Stud (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Social Network Analysis: From Graph Theory to Applicati (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of Kalman Filter with Python Language (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] atoMEC: An open-source average-atom Python code (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] X-ray emission of brown dwarfs: Towards constraining th (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Implementing an information-theoretically secure Byzant (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of Pressure Dependent Fluorescence Yield of (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Indoor Air Quality Improvement (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Partial Dyck paths with Air Pockets (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] CODEX-b: Opening New Windows to the Long-Lived Particle (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] CoDEx: A Comprehensive Knowledge Graph Completion Bench (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] CODEX/ESPRESSO: the era of precision spectroscopy (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] HERMES++: Toward a Unified Driving World Model for 3D S (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] HERMES: A Unified Self-Driving World Model for Simultan (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] First Light Results from the Hermes Spectrograph at the (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Dimensions of Generative AI Evaluation Design (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The ICASSP 2026 Automatic Song Aesthetics Evaluation Ch (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] ckiwgithub/compareMLModels (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] dvgodoy/dl-visuals (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Kohulan/DECIMER-Image_Transformer (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] alibaba/RecIS (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Internet of Drones Simulator: Design, Implementation, a (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On the importance of Internet eXchange Points for today (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Access-based Lightweight Physical Layer Authentication  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Broadband Internet and Social Capital (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] swati1024/torrents (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Chemical Compositions of Non-Variable Red and Blue  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] GASS High Velocity Clouds in the Region of the Magellan (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Gas and Star Formation in the Circinus Galaxy (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Two-dimensional magnetic interactions in LaFeAsO (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A QUIC Implementation for ns-3 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Goldilocks mixing in oceanic shear-induced turbulent ov (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Room Temperature Coherent and Voltage Tunable Terahertz (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] CT14QED PDFs from Isolated Photon Production in Deep In (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Linking Faces and Voices Across Languages: Insights fro (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] High-field 1/f noise in hBN-encapsulated graphene trans (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Generation of subcycle isolated attosecond pulses by pu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Chinese space millimeter-wavelength VLBI array - a  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] OpenCSG Chinese Corpus: A Series of High-quality Chines (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Topological Complexity Related To Multi-Valued Function (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Different Types of Topological Complexity on Higher Hom (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: 前后端开发 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Learning From Failure: Integrating Negative Examples wh (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Demystifying Instruction Mixing for Fine-tuning Large L (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] WizardLM: Empowering large pre-trained language models  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Reconstruction of interactions in the ProtoDUNE-SP dete (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Physics of the B Factories (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of $Ξ_{c}^{+}$ production in $p$Pb collisio (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Decay estimates for Rivière's equation, with applicatio (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Gurevic pressure and equidistribution for amenable exte (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Thermally corrected masses and freeze-in dark matter: a (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Tevatron-for-LHC Report of the QCD Working Group (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Schur multipliers of special p-groups of rank 2 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On Automorphisms of Finite $p$-groups (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] HoneyDOC: An Efficient Honeypot Architecture Enabling A (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Measurements of Four-Fermion Production via Neutral Ele (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Amazon's 2023 Drought: Sentinel-1 Reveals Extreme Rio N (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Tackling fluffy clouds: robust field boundary delineati (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Measurement of the CKM angle $γ$ in $B^{\pm} \rightarro (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Precise measurement of the CKM angle $γ$ with a novel a (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Amplitude analysis and branching fraction measurement o (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Search for the charmonium weak decay $J/ψ\to\bar{D}^0\b (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Single Inclusive $π^\pm$ and $K^\pm$ Production in $e^+ (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Implementing Integrity Constraints in an Existing Belie (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Nondistortionary belief elicitation (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Belief in the Machine: Investigating Epistemological Bl (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] NTIRE 2026 Challenge on Video Saliency Prediction: Meth (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Fine-tuning physics-informed neural networks for cavity (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Theory of edge states in a quantum anomalous Hall insul (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Pessimism and Cynicism as Physical Entities (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Preface to the 20th workshop "What comes beyond the sta (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A torque reversal of 4U 1907+09 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] 4U 1907+09: a HMXB running away from the Galactic plane (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: 机器学习 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: 人工智能 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] hankcs/HanLP (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: natural language processing (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] How to Bypass Verified Boot Security in Chromium OS (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Loading chromium atoms in a magnetic guide (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] An estimate on the maximum of a nice class of stochasti (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Bringing Old Films Back to Life (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Three-dimensional "Mercedes-Benz" model for water (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Ice polyamorphism in the minimal Mercedes-Benz model of (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] TinyML Design Contest for Life-Threatening Ventricular  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] SECA: Semantically Equivalent and Coherent Attacks for  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The LAGUNA design study- towards giant liquid based und (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MLFC: From 10 to 50 Planners in the Multi-Agent Program (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Night-sky brightness monitoring in Hong Kong - a city-w (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Monitoring and explainability of models in production (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Security in Monitoring Schemes: A Survey (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Differential decay rate of $B^+ \to J/ψK^+$ with the LH (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] LSQCA: Resource-Efficient Load/Store Architecture for L (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Distilling Feedback into Memory-as-a-Tool (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] In-Line-Test of Variability and Bit-Error-Rate of HfOx- (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Opacity of Memory Management in Software Transactional  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Sfedfcv/redesigned-pancake (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] cdeweyx/hitchhikers-guide-machine-learning (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] rayyue2022/AUTOSAR-Software-Design-based-on-ARM-for-CAN (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Complexity of Networks (reprise) (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On Complexity and Emergence (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Asymptotically tight worst case complexity bounds for i (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Using a cognitive architecture to consider antiBlacknes (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Astrotourism for Development: An Overview of Resources  (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Sustainable, Local Socio-Economic Development Through A (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Multi-Trial Guruswami--Sudan Decoding for Generalised R (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Implementation of a Fuzzy Relational Database. Case Stu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Variant interpretation using population databases: less (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A Concurrency Control Method Based on Commitment Orderi (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A new Watermarking Technique for Secure Database (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: Python编程 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Fluid Antenna System: New Insights on Outage Probabilit (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Conception and FPGA implementation of IEEE 802.11s mesh (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On the Capacity of the Single Source Multiple Relay Sin (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] An Implementation of Back-Propagation Learning on GF11, (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Back and forth from Fock space to Hilbert space: a guid (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] TeleSHift: Telexisting TUI for Physical Collaboration & (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Back to 3D: Few-Shot 3D Keypoint Detection with Back-Pr (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Large Scale Features of Southwest Monsoon During 2015 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] From Chinese Postman to Salesman and Beyond I: Approxim (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Visual Diagnostics for Constrained Optimisation with Ap (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] On The Planning Abilities of OpenAI's o1 Models: Feasib (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A Systematic Assessment of OpenAI o1-Preview for Higher (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] A Comparative Study on Reasoning Patterns of OpenAI's o (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] SwedbankAB/Swedbank (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Origins Space Telescope (OST) Mission Concept Study (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] The Stellar Imager (SI) Vision Mission (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] An Overview of the SPACE Mission Proposal (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] LLMs as Writing Assistants: Exploring Perspectives on S (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Writing-RL: Advancing Long-form Writing via Adaptive Cu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] General Bayesian Loss Function Selection and the use of (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Autonomous Intelligent Cyber-defense Agent (AICA) Refer (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] FIPA-based Interoperable Agent Mobility Proposal (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] AI Agents: Evolution, Architecture, and Real-World Appl (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Decoding the Configuration of AI Coding Agents: Insight (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Plane partitions in the work of Richard Stanley and his (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Marked Attribute Bias in Natural Language Inference (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Multiscale simulations for multi-continuum Richards equ (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: tech (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Prop-Chromeleon: Adaptive Haptic Props in Mixed Reality (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Building Browser Agents: Architecture, Security, and Pr (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Can Coding Agents Reproduce Findings in Computational M (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] FastRemap: A Tool for Quickly Remapping Reads between G (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Safe, Untrusted, "Proof-Carrying" AI Agents: toward the (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] When RAG Chatbots Expose Their Backend: An Anonymized C (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] RAG-Star: Enhancing Deliberative Reasoning with Retriev (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] MultiHop-RAG: Benchmarking Retrieval-Augmented Generati (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Intelligent Interaction Strategies for Context-Aware Co (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Factually: Exploring Wearable Fact-Checking for Augment (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Designing AI Systems that Augment Human Performed vs. D (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识缺口: reddit (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: 知识压缩摘要 (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] mrniceguy127/16-bit-cpu (重要性 0.5)
+  ✂️ 裁剪 [项目自身]: [深度] Awannaphasch2016/LifeLongProject (重要性 0.5)
+  ✂️ 裁剪 [认知架构]: Self-Improving Agentic AI through Bayesian Meta-Learning (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Military AI as a Convergent Goal of Self-Improving AI (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Liquid Adaptive AI: A Theoretical Framework for Continuously (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Fostering a Self-Improving AI Ecosystem Through Calibrated C (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: A Self-Improving Experiential AI Model a Path to Continual L (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Liquid AI: An Architectural Framework for Continuously Self- (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Setting the Stage Metacognition and Cognitive Therapy (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Metacognition (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: From Social Cognition to Metacognition (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: An Evaluativist Proposal: Cognitive Control and Metacognitio (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Quantifying Human Metacognition for the Neurosciences (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Hebbian Inertia and Massless Reasoning: Comparative Cognitiv (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Understanding the Self-Improving Machine Agent Learning Proc (重要性 0.8)
+  ✂️ 裁剪 [认知架构]: Process Manager for Autonomous AI Agents (重要性 0.79)
+  ✂️ 裁剪 [认知架构]: Google’s AI-Building AI Is a Step Toward Self-Improving AI (重要性 0.78)
+  ✂️ 裁剪 [认知架构]: chrisworsey55/atlas-gic (重要性 0.6294)
+  ✂️ 裁剪 [认知架构]: Ask HN: Lisp Macros for Self-Improving AI? (重要性 0.585)
+  ✂️ 裁剪 [认知架构]: How TRM Labs Scaled Security with Self-Improving AI Vulnerab (重要性 0.565)
+  ✂️ 裁剪 [认知架构]: Evidence Points To Conscious 'Metacognition' In Some Nonhuma (重要性 0.56)
+  ✂️ 裁剪 [认知架构]: Recursively self improving AI might not work without these f (重要性 0.535)
+  ✂️ 裁剪 [认知架构]: Anthropic's Claude 3 Test Responses Prompt Metacognition (重要性 0.535)
+  ✂️ 裁剪 [认知架构]: Meta-meta-cognition: reflecting on mind-mapping my thinking  (重要性 0.535)
+  ✂️ 裁剪 [认知架构]: DeepSeek and Tsinghua Developing Self-Improving AI Models (重要性 0.525)
+  ✂️ 裁剪 [认知架构]: State Stream Transformer (SST) and Metacognition (重要性 0.525)
+  ✂️ 裁剪 [认知架构]: Using metacognition to get a model upgrade (重要性 0.52)
+  ✂️ 裁剪 [认知架构]: Meta releases HyperAgents: self-improving AI (重要性 0.515)
+  ✂️ 裁剪 [认知架构]: Hermes Agent: The self-improving AI agent (重要性 0.515)
+  ✂️ 裁剪 [认知架构]: Self-Improvement for Fast, High-Quality Plan Generation (重要性 0.5)
+  ✂️ 裁剪 [认知架构]: adolfousier/opencrabs (重要性 0.4414)
+  ✂️ 裁剪 [认知架构]: ArchishmanSengupta/autovoiceevals (重要性 0.329)
+  ✂️ 裁剪 [认知架构]: ReflexioAI/reflexio (重要性 0.328)
+  ✂️ 裁剪 [认知架构]: dcostenco/prism-coder (重要性 0.32639999999999997)
+  ✂️ 裁剪 [认知架构]: TheMattBerman/seo-kit (重要性 0.31379999999999997)
+  ✂️ 裁剪 [认知架构]: cmekik/pyClarion (重要性 0.3132)
+  ✂️ 裁剪 [认知架构]: FareedKhan-dev/training-ai-agents (重要性 0.312)
+  ✂️ 裁剪 [认知架构]: youngbryan97/aura (重要性 0.31179999999999997)
+  ✂️ 裁剪 [认知架构]: IncomeStreamSurfer/paperclip-surfers (重要性 0.3102)
+  ✂️ 裁剪 [认知架构]: agents-squads/squads-cli (重要性 0.309)
+  ✂️ 裁剪 [认知架构]: augmentedmike/miniclaw-os (重要性 0.309)
+  ✂️ 裁剪 [认知架构]: 28naem-del/mnemosyne (重要性 0.30779999999999996)
+  ✂️ 裁剪 [认知架构]: zhang677/AccelOpt (重要性 0.307)
+  ✂️ 裁剪 [认知架构]: vuics/h9y (重要性 0.30679999999999996)
+  ✂️ 裁剪 [认知架构]: jtoy/replicantlife (重要性 0.30679999999999996)
+  ✂️ 裁剪 [认知架构]: RagavRida/mmcp (重要性 0.3064)
+  ✂️ 裁剪 [认知架构]: haoran-ni/ralph-loop-optimizer (重要性 0.30619999999999997)
+  ✂️ 裁剪 [认知架构]: ReflexioAI/claude-smart (重要性 0.3054)
+  ✂️ 裁剪 [认知架构]: aliaihub/awesome-hermes-usecases (重要性 0.3054)
+  ✂️ 裁剪 [认知架构]: pkargupta/idea_catalyst (重要性 0.305)
+  ✂️ 裁剪 [认知架构]: IdeoaLabs/Open-Sable (重要性 0.3038)
+  ✂️ 裁剪 [认知架构]: PPetermeier/HumanAIColaborationFramework (重要性 0.301)
+  ✂️ 裁剪 [认知架构]: agenticracy/agenticracy-skill (重要性 0.3008)
+  ✂️ 裁剪 [认知架构]: MohamedAlezabi/Reverse-Prompting-Protocol (重要性 0.3006)
+  ✂️ 裁剪 [认知架构]: NielOk/LLaDA_TTC (重要性 0.30019999999999997)
+  ✂️ 裁剪 [认知架构]: MetaCrux/Meta-Cognition-OS (重要性 0.30019999999999997)
+  ✂️ 裁剪 [认知架构]: sudhir-acharya/MetaCognitionEngine (重要性 0.30019999999999997)
+  ✂️ 裁剪 [认知架构]: leonh316/metaCogGPT (重要性 0.3)
+  ✂️ 裁剪 [认知架构]: HillaryDanan/prism (重要性 0.3)
+  ✂️ 裁剪 [认知架构]: jobb0389/ip-protection (重要性 0.3)
+  ✂️ 裁剪 [认知架构]: christaashok/metacognition-llms (重要性 0.3)
+  ✂️ 裁剪 [认知架构]: harshitha-8/multimodal-self-evaluating-agents (重要性 0.3)
+  ✂️ 裁剪 [认知架构]: Alvoradozerouno/EIRA-Consciousness-Metrics (重要性 0.3)
+  ✂️ 裁剪 [人工智能]: h2oai/h2ogpt (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: FlagOpen/FlagEmbedding (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: apache/seatunnel (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: InsForge/InsForge (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: postgresml/postgresml (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: lance-format/lance (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: KevinMusgrave/pytorch-metric-learning (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: Eventual-Inc/Daft (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: infiniflow/ragflow (重要性 1.0)
+  ✂️ 裁剪 [人工智能]: aiming-lab/MetaClaw (重要性 0.9672000000000001)
+  ✂️ 裁剪 [人工智能]: [安全] OWASP/NodeGoat - The OWASP NodeGoat project provides an (重要性 0.9074)
+  ✂️ 裁剪 [人工智能]: Reinforcement Learning: A Survey (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Explainable Artificial Intelligence (XAI): Concepts, taxonom (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Simple statistical gradient-following algorithms for connect (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Review of deep learning: concepts, CNN architectures, challe (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Astrocytes: biology and pathology (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Systematic review of research on artificial intelligence app (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Machine Learning Interpretability: A Survey on Methods and M (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Cognitive load theory, educational research, and instruction (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: A Review of Artificial Intelligence (AI) in Education from 2 (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Evolution and Revolution in Artificial Intelligence in Educa (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Performance of ChatGPT on USMLE: Potential for AI-assisted m (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Revolutionizing healthcare: the role of artificial intellige (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: ChatGPT Utility in Healthcare Education, Research, and Pract (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: A Survey on Evaluation of Large Language Models (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: GPT-4 Technical Report (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: How Does ChatGPT Perform on the United States Medical Licens (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Social cognition and the brain: A meta‐analysis (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Sparks of Artificial General Intelligence: Early experiments (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Flamingo: a Visual Language Model for Few-Shot Learning (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Whatever next? Predictive brains, situated agents, and the f (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: ChatGPT for good? On opportunities and challenges of large l (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Heuristic Decision Making (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: How artificial intelligence will change the future of market (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Brave new world: service robots in the frontline (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Nano based drug delivery systems: recent developments and fu (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Artificial Intelligence (AI): Multidisciplinary perspectives (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Large language models encode clinical knowledge (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Molecular Docking: Shifting Paradigms in Drug Discovery (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Sentence-BERT: Sentence Embeddings using Siamese BERT-Networ (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: A survey of transfer learning (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: An AI agent published a hit piece on me (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: AI agent opens a PR write a blogpost to shames the maintaine (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Opus 4.5 is not the normal AI agent experience that I have h (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: An AI agent deleted our production database. The agent's con (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Windows 11 adds AI agent that runs in background with access (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Ex-GitHub CEO launches a new developer platform for AI agent (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Exploiting the most prominent AI agent benchmarks (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: A generalist AI agent for 3D virtual environments (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: The unreasonable effectiveness of an LLM agent loop with too (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Claws are now a new layer on top of LLM agents (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Two things LLM coding agents are still bad at (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: On Sleeper Agent LLMs (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: LLM Agents Are Simply Graph – Tutorial for Dummies (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Cultural Evolution of Cooperation Among LLM Agents (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Show HN: LlamaGym – fine-tune LLM agents with online reinfor (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: My experience creating software with LLM coding agents – Par (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Salesforce study finds LLM agents flunk CRM and confidential (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: LLM based agents as Dungeon Masters (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Show HN: FastGraphRAG – Better RAG using good old PageRank (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Ask HN: How are you doing RAG locally? (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: What is the role of the bias in neural networks? (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Epoch vs Iteration when training neural networks (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: What is the difference between &#39;SAME&#39; and &#39;VALID (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: What is the difference between supervised learning and unsup (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Differences between Langchain &amp; LlamaIndex (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Difference between Instruction Tuning vs Non Instruction Tun (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: How to persist LangChain conversation memory (save and load) (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: What is the difference between OpenAI and ChatOpenAI in Lang (重要性 0.9)
+  ✂️ 裁剪 [人工智能]: Improve the RAG chatbot result (重要性 0.8800000000000001)
+  ✂️ 裁剪 [人工智能]: learnables/learn2learn (重要性 0.8768)
+  ✂️ 裁剪 [人工智能]: MaximeVandegar/Papers-in-100-Lines-of-Code (重要性 0.8533999999999999)
+  ✂️ 裁剪 [人工智能]: HAAS: A Policy-Aware Framework for Adaptive Task Allocation  (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Autonomous LLM Agent Worms: Cross-Platform Propagation, Auto (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Mitigating Misalignment Contagion by Steering with Implicit  (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: AI-Generated Smells: An Analysis of Code and Architecture in (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: ORPilot: A Production-Oriented Agentic LLM-for-OR Tool for O (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: An Empirical Study of Agent Skills for Healthcare: Practice, (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Hybrid Inspection and Task-Based Access Control in Zero-Trus (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: The Design and Composition of Structural Causal Decision Pro (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: An explainable hypothesis-driven approach to Drug-Induced Li (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Improving LLM Code Reasoning via Semantic Equivalence Self-P (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: TSUBASA: Improving Long-Horizon Personalization via Evolving (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: ConsistRM: Improving Generative Reward Models via Consistenc (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: AIs and Humans with Agency (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: TOC-SR: Task-Optimal Compact diffusion for Image Super Resol (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Virtual Scanning for NSCLC Histology: Investigating the Disc (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: OphMAE: Bridging Volumetric and Planar Imaging with a Founda (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Dependency Parsing Across the Resource Spectrum: Evaluating  (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: CoRAL: Contact-Rich Adaptive LLM-based Control for Robotic M (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Foundation-Model-Based Agents in Industrial Automation: Purp (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Universal Smoothness via Bernstein Polynomials: A Constructi (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Beyond State Machines: Executing Network Procedures with Age (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: AlbumFill: Album-Guided Reasoning and Retrieval for Personal (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: SpecKV: Adaptive Speculative Decoding with Compression-Aware (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Open-Closed-Open Triality Beyond Matrix Models (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: de Sitter Vacua & pUniverses (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: MolmoAct2: Action Reasoning Models for Real-world Deployment (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Finite-temperature operator basis on $\mathbb{R}^3 \times S^ (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Note on Strong Quantum Markov Properties (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Multi-fidelity surrogates for mechanics of composites: from  (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Magnetic Monopoles -- From Dirac to the Large Hadron Collide (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Enhancing RL Generalizability in Robotics through SHAP Analy (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Standing on the Shoulders of Giants: Stabilized Knowledge Di (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: (POSTER) From Sensors to Insight: Rapid, Edge-to-Core Applic (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Tool Use as Action: Towards Agentic Control in Mobile Core N (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Static Analysis of Recursive SHACL (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: When Audio-Language Models Fail to Leverage Multimodal Conte (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: A decoupled diffusion planner that adapts to changing cost l (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: U-Define: Designing User Workflows for Hard and Soft Constra (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: First-Order Efficiency for Probabilistic Value Estimation vi (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: JWST high-contrast spectroscopy with speckle modelling: Atmo (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: mdok-style at SemEval-2026 Task 10: Finetuning LLMs for Cons (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Learning Equivariant Neural-Augmented Object Dynamics From F (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: mdok-style at SemEval-2026 Task 9: Finetuning LLMs for Multi (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Retrieving Any Relevant Moments: Benchmark and Models for Ge (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: SCGNN: Semantic Consistency enhanced Graph Neural Network Gu (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Recurrent Deep Reinforcement Learning for Chemotherapy Contr (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Compress Then Adapt? No, Do It Together via Task-aware Union (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: FlexSQL: Flexible Exploration and Execution Make Better Text (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: IConFace: Identity-Structure Asymmetric Conditioning for Uni (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: From Sensors to Insight: Rapid, Edge-to-Core Application Dev (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Collins asymmetries for pion-in-jet production in polarized  (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Unsupervised Machine Learning for Detecting Structural Anoma (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: Blow-up analysis and a priori bounds for NLS equations on me (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: A measure for genuine tripartite entanglement (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: AGN STORM 2. XII. Ground-Based Optical Photometry and Lag Me (重要性 0.85)
+  ✂️ 裁剪 [人工智能]: floodsung/Meta-Learning-Papers (重要性 0.831)
+  ✂️ 裁剪 [人工智能]: Decentralized Autonomous Organizations and Multi-agent Syste (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Multi-Agent System for Autonomous Table Football: A Winning  (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Trading Agent Competition with Autonomous Economic Agents (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Use large language model to enhance reasoning of another lar (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Condensed Reasoning Prompting: Efficient Strategies, Evaluat (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Training a Reasoning Large Language Model for Improving Powe (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Crash Root-Cause Identification via Trace-Rewarded Causation (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Meta-of-Thought: Reasoning About Reasoning in Large Language (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Automated Theorem Provers Help Improve Large Language Model  (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Not an Illusion but a Manifestation: Understanding Large Lan (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: A Comparative Study of Retrieval-Augmented Generation, Graph (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Sign of the future: GPT-5.5  (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: A Guide to Which AI to Use in the Agentic Era (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Management as AI superpower (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Three Years from GPT-3 to Gemini 3 (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: My Workflow for Understanding LLM Architectures (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Components of A Coding Agent (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: A Visual Guide to Attention Variants in Modern LLMs (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: A Dream of Spring for Open-Weight LLMs: 10 Architectures fro (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Categories of Inference-Time Scaling for Improved LLM Reason (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: The State Of LLMs 2025: Progress, Problems, and Predictions (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: LLM Research Papers: The 2025 List (July to December) (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Beyond Standard LLMs (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Understanding the 4 Main Approaches to LLM Evaluation (From  (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Surviving High Uncertainty in Logistics with MARL (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Single Agent vs Multi-Agent: When to Build a Multi-Agent Sys (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Ghost: A Database for Our Times? (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Why Powerful Machine Learning Is Deceptively Easy (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Why AI Engineers Are Moving Beyond LangChain to Native Agent (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Timer-XL: A Long-Context Foundation Model for Time-Series Fo (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: Why I Don’t Trust LLMs to Decide When the Weather Changed (重要性 0.8)
+  ✂️ 裁剪 [人工智能]: [安全] webpwnized/mutillidae - OWASP Mutillidae II is a free,  (重要性 0.7966)
+  ✂️ 裁剪 [人工智能]: tristandeleu/pytorch-meta (重要性 0.7114)
+  ✂️ 裁剪 [人工智能]: Talking to 35 Strangers at the Gym (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: GameStop makes $55.5B takeover offer for eBay (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: PyInfra 3.8.0 Is Out (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Newton's law of gravity passes its biggest test (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Removable batteries in smartphones will be mandatory in the  (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: How Monero's proof of work works (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: am I the only one whose friends are completely divided on AI (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: If Claude App gave you the same control as Claude CLI then w (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: Gallup Analysis Finds AI Not Reducing Artists' Earnings (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] CAMIo1 车载AI智能机器人电子宠物黑科技ai陪伴对话机器人玩具儿童情感交互情绪价值人工智能豆包聊天 Ca (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 恐怖的超级人工智能罪犯，意外被复活到现实世界 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] MAKEBLOCK童心制物mBot2儿童可编程智能机器人儿童益智好玩教具Python创客人工智能教育套装蓝牙手 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] CAMIo2智能车载机器人AI人工智能语音对话电子宠物伴驾精灵汽车中控台摆件陪伴型机器人2026年新款豆包 碳 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+长春工业大学085410人工智能《808数据结构》考研精品资料【第2册,共2册】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] Meta人形赛道再落重子，华农校友AI团队并入Meta超级智能实验室 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+广东工业大学085410人工智能《809信号与系统》考研精品资料 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 我开局就穿越成了小说中最底层的配角，本该沦为边缘人物直到世界毁灭，却意外获得了超远古人工智能阿卡迪亚！！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI科幻作品机器人生活579 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI宇宙Skibidi Toilet (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2025年最新堪比酒馆，无需破甲，免费使用，内置多种模型线路，无论是剧情还是互动都可爽玩 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI也需要教育 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI不会抢走你的工作，但会抢走你获得第一份工作的机会——Yale CELI研究揭示一场被忽视的结构性危机 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI极限测试| 🇺🇸美国：我们希望世界和平 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 用AI来学高中数学不是降维打击是啥 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] AI黑科技，搞定话梅精细分选 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 让AI看看，这评审意见“礼貌”吗？ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 听劝！初学者如何系统学机器学习？学习路线是什么？AI大佬带你2小时学透机器学习系列教程！-人工智能/机器学习/ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 2026金融结合AI实用技术！基于Python机器学习搭建量化交易系统，985博士保姆式教学绝对通俗易懂！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新】Python量化交易从入门到精通！从金融时间序列分析到因子选股，一口气学会Python金融分析 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习七天入门！一口气学完线性回归、逻辑回归、聚类算法、Kmeans、决策树原理、支持向量机等机器学习经典算 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 005 Mathematical Operations in Python_final (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【全400集】B站最全最细的Python零基础全套教程（包含数据分析与爬虫教程），一周从入门到精通Python (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] （已离职）冒死上传！已经替大家付费了，花6980买的Python全套系统教程，逼自己一个月学完，编程技术爆涨！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 从零实现随机游走：Python 生成 5000 个随机点可视化 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 一口气学会AI编程！3个月10万字超详细教学！【项目实操】【0基础教学】【自学教程】【AI编程】【vibeco (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【第十一节】陪你从零开始，系统地学习 Python 编程，从入门到进阶的python全套教程 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】全B站最细的Python零基础全套教程，2026最新版，适合小白入门到精通python，全程干 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Houdini 教学】Python艺术家编程大师课【第10周】 (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 青少年！超有趣！跟着小趣老师学Python (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程最新】26年B站最全的Python零基础全套教程（包含爬虫+数据分析）七天就能从小白到大神！ (重要性 0.7)
+  ✂️ 裁剪 [人工智能]: tata1661/FSL-Mate (重要性 0.6532)
+  ✂️ 裁剪 [人工智能]: Bitterbot-AI/bitterbot-desktop (重要性 0.5736)
+  ✂️ 裁剪 [人工智能]: Ask HN: What AI tools you use often? (重要性 0.5700000000000001)
+  ✂️ 裁剪 [人工智能]: sicara/easy-few-shot-learning (重要性 0.5608)
+  ✂️ 裁剪 [人工智能]: oscarknagg/few-shot (重要性 0.5569999999999999)
+  ✂️ 裁剪 [人工智能]: WecoAI/aideml (重要性 0.5514)
+  ✂️ 裁剪 [人工智能]: Excalidraw's AI Tool – useful and underrated (重要性 0.535)
+  ✂️ 裁剪 [人工智能]: Ask HN: What is the most useful AI tool you use outside of C (重要性 0.525)
+  ✂️ 裁剪 [人工智能]: floodsung/LearningToCompare_FSL (重要性 0.515)
+  ✂️ 裁剪 [人工智能]: RL-VIG/LibFewShot (重要性 0.513)
+  ✂️ 裁剪 [人工智能]: LLM微调框架：支持多种大语言模型的快速微调 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI辅助编程：代码生成和修复工具 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 向量数据库：高性能的AI知识存储解决方案 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 联邦学习安全协议 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI模型压缩和加速技术 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI在医疗领域的应用案例 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 深度解析Transformer架构演进 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Meta AI：模型可解释性研究 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI监管政策最新进展 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI训练数据的质量控制 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: IBM：AI伦理和安全研究 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知状态管理：跟踪和优化AI认知过程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知架构研究：探索AI自我意识的实现方法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 元认知学习：AI自我调节和优化学习策略 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 元认知学习：AI自我调节和优化的理论框架 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知架构优化：提升AI自我学习效率的方法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 元认知学习：让AI学会自我调节 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我反思如何提升AI学习效率 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Facebook AI Research：元认知学习在AI中的应用 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我反思系统在实际应用中的表现 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI部署的最佳实践 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI医疗诊断系统获批 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 高效注意力机制在AI中的应用 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: OpenAI研究：多模态AI融合 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我思考系统：基于认知科学的AI推理模型 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我思考系统：基于贝叶斯网络的认知推理 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 深度解析AI自我思考的认知架构设计 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知状态管理：构建智能的AI自我监控系统 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知状态管理改善AI性能 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 计算机视觉库：图像处理和分析工具 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI教育平台发展趋势 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 如何优化AI模型的推理速度 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 微软：AI在生产力工具中的应用 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 认知状态建模：AI自我感知和自我评估方法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Microsoft Research：AI自我调节和优化策略 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 多模态AI融合方法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 谷歌DeepMind最新研究：AI推理能力提升 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我反思机制在AI认知架构中的应用研究 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI芯片市场增长预测 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我认知架构：实现AI自我反思和自我改进的框架 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 元认知学习提升AI学习效率 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: OpenAI研究：大语言模型的自我反思能力提升 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: IBM Research：认知状态建模的最新进展 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI自我思考能力成为研究热点 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: huggingface/transformers (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: microsoft/ML-For-Beginners (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: labmlai/annotated_deep_learning_paper_implementations (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: keras-team/keras (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: scutan90/DeepLearning-500-questions (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: fighting41love/funNLP (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: explosion/spaCy (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: sebastianruder/NLP-progress (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AMAI-GmbH/AI-Expert-Roadmap (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: feder-cr/Jobs_Applier_AI_Agent_AIHawk (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: owainlewis/awesome-artificial-intelligence (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: mlabonne/llm-course (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: lm-sys/FastChat (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: QwenLM/Qwen3 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Exploration Hacking: Can LLMs Learn to Resist RL Traini (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] AEGIS: A Holistic Benchmark for Evaluating Forensic Ana (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Essential, Yet Overlooked: Identity Verification Barrie (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Generalizable Sparse-View 3D Reconstruction from Uncons (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Chemical Taxonomy of $ω$~Centauri: Ten Populations Reve (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Show HN: DAC – open-source dashboard as code tool for agents (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Show HN: Mljar Studio – local AI data analyst that saves ana (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Show HN: Browser-based light pollution simulator using real  (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Show HN: Filling PDF forms with AI using client-side tool ca (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 下一页 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 人工智能（智能科学与技术专业术语） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 机器学习（多领域交叉学科） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 深度学习（人工神经网络的研究的概念） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 大语言模型 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2天学会AI变现（附全套资料无偿分享 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】清华大学196小时讲完的AI人工智能从入门到精通全套教程，全程干货无废话！学完变大佬！这还学不 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] C哥AI成长圈之每个人的人工智能普及课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI时代，计算机如何选方向 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI危机！这七大IT编程方向恐将淘汰，普通程序员千万别碰！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能/机器学习必修课：经典AI算法与编程实战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI零基础入门】2026年最全人工智能课程（Python、深度学习算法、神经网络、PyTorch、机器学习、 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 智能托管日常4.0基于玩家行为的自适应清体力AI (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员AI大模型必备《机器学习》全套视频教程，从算法到实战项目，覆盖KNN算法、线性回归、逻辑回归、决策树 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI变现其实很简单！不要“没苦硬吃”！！更不要“假装努力”！！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【中文配音】2025 吴恩达机器学习 保姆级 AI 入门教程！从零基础到实战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最全的（Python＋机器学习＋深度学习）系列课程了，不愧是上海交大和腾讯联合出品！快速入门 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【官方中英】2025年公认最好的【吴恩达机器学习课程】附课件、代码及实战项目！！！--人工智能/机器学习/深度 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最全的（Python＋机器学习＋深度学习）系列课程了，堪称人工智能系列课程的巅峰之作！-人工 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026已完结】机器视觉入门到精通，从软件安装到项目实战，全程通俗易懂，一口气吃透机器视觉的所有核心知识！人 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】这绝对是B站最好的人工智能入门天花板教程，清华大佬强力打造！从入门到进阶，全程干货讲解，零基 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员Python+AI零基础入门到大神全套视频课程，覆盖Python核心语法、AI应用、数据分析及Web (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从现在开始学AI变现（保姆级） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI编程 0代码实战Python大数据分析系统 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python AI 高并发+异步 编程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI必备】Python VS NodeJS 并发编程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python零基础：从编程入门到数据分析与可视化 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 五一假期收好这份AI伪造防范指南 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 钟南山寄语年轻人：抓紧时间学习工作 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 第404集：AI人工智能体 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习入门到精通！李宏毅机器学习系列课程全集，公认体验感最好的入门课程！（机器学习/神经网络/人工智能//计 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 你真应该抓住AI风口，在家变现赚钱 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 5天AI量化实战训练：普通人零基础策略搭建看收益 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细的AI大模型零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】2026年公认最好的【Agent智能体】教程！大模型入门到进阶，一套全解决！Agentic AI—附 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点一周AI大事(4月26日)｜OpenAI王炸两连 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】这绝对是26年B站最全的Python零基础全套教程（包含爬虫+数据分析），全程干货无废话， (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI自我认知的实现方法和挑战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: 自我认知架构推动AI技术发展 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Aryia-Behroziuan/References (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Promptly-Technologies-LLC/mcp-structured-thinking (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: eddyhhlure1Eddy/Piweb (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: ruvnet/ruflo (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Xiangyue-Zhang/auto-deep-researcher-24x7 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: jettbrains/-L- (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: ElmatadorZ/Genesis-Mind-ClaudeSkill-Agent (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Ai2-Alliance/MetaCognition (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: templetwo/spiral-quantum-observer-experiment (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: pathak22/noreward-rl (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: openai/large-scale-curiosity (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: RLE-Foundation/RLeXplore (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: agno-agi/dash (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: OS-Copilot/OS-Copilot (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: snarktank/compound-product (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Open Source Does Not Imply Open Community (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: A Couple Million Lines of Haskell: Production Engineering at (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: This Month in Ladybird - April 2026 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Dav2d (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Natural language processing (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: My dream of a fully generative game is getting pretty close  (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI is starting to beat doctors at making correct diagnoses (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《人工智能》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【万字拆解】机器人会梦见电子妈吗？20年后再看《人工智能》依旧老泪纵横，不愧是催泪题材扛把子！机器人版妈妈再爱 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 别瞎学！AI学得好，不是靠自学和跟风！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 纳瓦尔谈AI/氛围编程/搞钱杠杆解读 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【阿斗】库布里克没拍成的遗作，历经32年才被好友搬上大荧幕，上映后轰动全球！《人工智能》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 完整版大放送！欢迎来到AI时代！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全30集】5分钟入门AI视频制作！AI生成视频零基础入门保姆级教程（2026最新）AI视频制作全流程教学！包 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【26年5月首发】免翻墙！满血免费无限制AI网站分享！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能国语配音版 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI教程】目前B站最全最细的AI大模型零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神！少 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能/深度学习必修课：进击AI算法工程师 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 不到100小时、5个人，用AI拍出的23分钟网飞级科幻大片，凭什么看哭全网？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Transformer】最强动画讲解！目前B站最全最详细的Transformer教程，2025最新版！从理论 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 看大片·过瘾的科普盛宴：8集前沿科技动画，带孩子探索AI与未来世界 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【保姆级教程】AI动画电影制作，12个作品涨粉50万，手把手教你ComfyUI+豆包+即梦AI玩转AI短剧赛道 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【张雪峰谈人工智能】人工智能学习压力非常大！你能承受的了吗？骂醒一个是一个！！初学者入门人工智能必看，少走99 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员2026最新AI版天机学堂全套视频课程，Spring AI+多智能体架构全栈实战项目，AI+Java (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【速成课：人工智能】Ai - [21集全/中英双语] - Artificial Intelligence (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 美国AI造神，中国AI灭神。中美 AI 竞争的本质差距在哪？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【进来看看AI拍激情戏有多难！】超搞笑+养眼福利花絮：看看人工智能有多智障系列（第4期） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI幻觉：从胡说八道到假装听话的进化史 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿AI人工智能课程：从基础概念逐步深入到核心技术 培养全面的AI素养 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能如何创造新的生命形式？【TED演讲】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 律师解读国家发布网络网警AI安全法，五一网络人工智能防骗指南要点。 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 洛克王国世界 全自动跑图采集挖矿 保肝护肝 AI人工智能 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 「Github一周热点113期」AI 终端工具、一站式黑客工具箱、Skill 包、Codex 生态技能和AI短 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 再见了AI抽卡，5分钟搞懂AI生图的底层逻辑 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能全套系统课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！2025最新李永乐老师【人工智能AI课程】带你2小时全面了解电脑如何像人一样思考，带你学习人工智能前沿技 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI】艳母 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新】B站最全最细的AI Agent智能体搭建教程，从入门到实战！手把手教你快速打造自己的专属智能体 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习从入门到精通，超多动画案例，易上手！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版机器学习】机器学习周志华亲讲-《机器学习初步》西瓜书全网最详讲解1080p高清原版：附：书籍pdf (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《机器学习》3小时期末速成课！期末速成丨考前突击丨期末不挂科丨考点总结 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2025新版【机器学习十大算法全集】17分钟让你看懂所有机器学习算法！一口学透回归算法、聚类算法、决策树、随机 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全网最爆炸的深度学习教程】3天速通深度学习八大神经网络CNN、RNN、GAN、GNN、DQN、Transfo (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025】机器学习周志华亲讲-西瓜书全网最详讲解：附：书籍pdf+ppt (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习教程、机器学习入门到实战（KNN算法、线性回归、逻辑回归、决策树、贝叶斯、感知机、集成学习、无监督学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 清华大佬马士兵预测计算机行业2026年将淘汰的五个编程语言，入坑程序员请注意 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026已更新】机器学习周志华亲讲-西瓜书全网最详讲解-高清版《机器学习初步》（附书籍pdf+自学笔记） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】逻辑回归十分钟学会，通俗易懂（内含spark求解过程） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python数据分析+机器学习全能辅导班 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习-K近邻算法】绝对通俗易懂的机器学习算法之一——K-近邻算法课程分享！快速学会KNN算法-机器学习/ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【论文解读+代码复现】PointNet++是点云深度学习处理方法的里程碑工作，对pytorch版的PointN (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 数学建模清风第四次直播：利用matlab快速实现机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 零基础速成临床机器学习预测模型教学 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2026版-零基础玩转Python Flask框架-学完可就业 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026机器学习实战】基于Python的机器学习实战，原理详解+项目实战+代码复现100个练手项目实战合集k (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 周志华老师亲讲-西瓜书全网最详尽讲解-1080p高清原版《机器学习初步》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习及深度学习故障诊断MATLAB实战课程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】临床专硕如何用临床数据一个月水一篇一区 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员3天快速入门python机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【小萌五分钟】机器学习 | K近邻算法 KNN (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【一起啃书】机器学习西瓜书白话解读 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这可能是B站最好的机器视觉Halcon教程了，6小时从软件安装到项目实战，通俗易懂，让你一口气吃透机器视 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版机器学习入门】基于Python的机器学习算法从入门到精通实战教程，一口气学完线性回归、逻辑回归、决 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】字节大佬终于把 强化学习教程做成了动画片，2025最新版，适合所有零基础小白学习，学完即可就业！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【唐宇迪】机器学习-特征工程-常用特征提取方法以及实战方法精讲--人工智能入门课程教程-强到离谱 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新完整版】《机器学习从入门到实战》全套视频教程！覆盖KNN/线性回归/逻辑回归/决策树/集成学习/ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025版】李宏毅机器学习最新完整版教程！3天速通版！从入门到精通，全是干货，学不会我退出AI圈！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 这套Matlab与机器学习也太详细了吧！一口气学完BP神经网络、决策树与随机森林、支持向量机、遗传算法、蚁群算 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！所有想学Python的同学，都去死磕这个编程APP！从入门到精通全搞定，还学不会我退出IT界！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从5月1号开始自学Python编程，要多久才能学会？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】超详细Python安装教程+PyCharm安装激活教程，Python下载安装教程，一键激活， (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 何猷君推荐的Python书籍，这绝对是最适合新手入门的Python书籍，小白一学就会，拿走不谢，高清PDF允许 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 听劝！普通人自学Python，骂醒一个是一个！！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！我愿称这几位老师为教Python的神！！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员python零基础全套教程，8天python从入门到精通，学python看这套就够了 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 信息技术会考 | Python程序设计，看这一个就够了！（25年新版） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 花了2万多买的Python教程全套，现在分享给大家，入门到精通(Python全栈开发教程) (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 高中信息合格考Python编程突击课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【入门必看】Python环境搭建，Python环境搭建基本概念，零基础入门指南！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 初中信息技术考试 Python程序设计题讲解 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整500集】目前B站最完整的Python零基础入门全套教程，包含Python爬虫与数据分析，带你一周搞定P (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python-ESP32单片机快速入门 Python编程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Anaconda.Python.实操讲解 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【自动化测试】从基础到实战基于Python自动化的详细教程，工具+框架+项目实战一套通关！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python Qt 图形界面 - 2024版 PySide6 PyQt6 PyQt5 PySide2 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿编程scratch3.0基础入门（大龙老师） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python基础课程（敬请期待） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 数据采集：Python爬虫，反爬与反反爬，scrapy进阶（完结） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python速成】数学建模必学Python基础及三大数据分析库！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【我在b站办大学】 基于VSCode实现Python开发与调试 | 环境配置搭建 | PIP Anaconda (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 花了2万多少儿编程教程全套 分享给大家 入门到精通 Python零基础教程 C++零基础教程 图形化编程 Sc (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【莫烦Python】Matplotlib Python 画图教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【信息中考专题】Python串讲合集 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 8分钟搞懂“编程的鬼打墙”——递归 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【麻省理工学院-中文字幕版】Python编程语言和计算机科学导论公开课，Python教程，现分享给大家！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【开发环境配置】Mac系统Python开发环境配置教程详解（Python技术客栈） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【案例大全】新版少儿编程scratch3.0系列教程-大龙老师 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【干货】python全套教程之Python文件操作（懂中文就能学会） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 复杂网络建模：基于Python+NetworkX的实现 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《Python财务数据分析》教材配套微课26节 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025】微信小程序开发教程，真正适合零基础小白的微信小程序实战课程，从零基础到项目发布全流程，带你一天速通 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python编程 第一期 VSCODE配置Python环境 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025最新版】【Python3.13】全套编程教程，真正适合零基础小白的python实战课程，从零基础到大 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 3D编程入门 | Python开发 我的世界Minecraft？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Thonny：Python初学者必备学习开发工具 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能精品课件 榕楼小学黄雪玲《人工智能的认识》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小白也能听懂的人工智能原理 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【科幻】人工智能(Artificial Intelligence: AI)2001 - 幕后特辑 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能精品课件 人工智能+《唤醒AI小画家》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 少儿AI人工智能课程青少年AIGC创意能力提升 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] DIY人工智能焊接工具，你必须知道的帐篷制作方法！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI智能互动，探索新境界！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] XCourses 强化Q学习构建Turtle控制的人工智能代理【中字】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 什么是人工智能 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026人工智能课程】B站最全人工智能课程教程，涵盖（Python、深度学习、机器学习、神经网络、PyTor (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI避障更精准！障碍物提前绕行，智能出行新体验！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机，反应超灵敏，操作简单。 1093902497 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 这就是机器人的魅力吗？裘花（裘德洛）：《人工智能》剪辑1 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机 讲解内容非常多，讲的也很详细。 1063301486 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 苹果AI笔记本惊艳现身以智能优化工作流程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+重庆理工大学0812Z1人工智能《809数据结构》考研精品资料 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] OpenAI 扩大网络安全信任访问计划，发布 GPT-5.4-Cyber 模型【AI 早报 2026-04-1 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 米家【小米发布会同款】最强扫地机器人5 Pro  AI 智能互交双机械臂大吸力扫拖一体拖地洗地机 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【电影充电专场】《AI人工智能》reaction：全程窒息！这个机器人小孩的爱，让我们心疼到说不出话… (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI时代，人人不能错过 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 016《人工智能》中字花絮合集 斯皮尔伯格 2001年 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 用AI重构勘探逻辑，“经验”让位“数据”，地象几何智能找矿决策更科学、更靠谱。 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小度AI眼镜Pro 波士顿黑 拍摄拍照眼镜 智能眼镜 超能小度AI识物 蓝牙语音通话 AI翻译 氛围歌单 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 01 机器学习及方法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] (2026已更新)1. 手把手教学预后模型/100+种机器学习算法组合的预后模型构建/10种机器学习算法/特征 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 24《机器学习》课堂实录。优质公开课 、优质课、比赛课、观摩课、精品课说课视频。  全国小学信息技术优质课说课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] (2026已更新)3. 手把手教学诊断模型/100+种机器学习算法组合的诊断模型构建/10+种机器学习算法/特 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 47（附代码）机器学习-8种机器学习方法精讲第一讲-带你零基础学生信~ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 09 《机器学习：水果该怎么挑》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习 python】机器学习入门级讲解，实战python安装及环境配置（持续更新中~） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python】机器学习环境配置的简易教程（保姆级教学） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习导论 CS189 2024】伯克利—中英字幕 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] [中英字幕]吴恩达机器学习系列课程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 362.15机器学习方法，175组合的机器学习分析，适用于GEO一个训练集，一个测试集 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2026新版【李沐】实用机器学习（48集全）带你吃透机器学习！比刷剧还爽！附课件+源码 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全568集】清华大佬终于把 机器学习教程做成动画片了，教学通俗易懂，2025最新版，学完即可就业！拿走不谢， (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 125《机器学习》人工智能机器学习原理 名师优质公开课 教学实录 小学信息技术 优质课视频课堂实录，优质公开课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习因果推断之机器学习——0.1课前准备工作 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 从0到1学习stata|双重机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Autolabor初级教程】ROS机器人入门 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 大模型就业课-PyTorch+深度学习入门到实战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【26最新】GPT-5.4国内免费使用教程(附Image2 Gemini3.1Pro) (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能之机器学习-河南-冯莉莉-2022年初中信息科技优质课（标杆课） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] cirosantilli/china-dictatorship - 反中共政治宣传库。Anti  (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] gege-circle/.github - 这里是GitHub的草场，也是戈戈圈爱好者的交流地， (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] cirosantilli/china-dictatroship-7 - 反中共政治宣传库。Ant (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [DevOps与运维] cirosantilli/x86-bare-metal-examples - Dozens of (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] dair-ai/Prompt-Engineering-Guide - 🐙 Guides, paper (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] gsd-build/get-shit-done - A light-weight and power (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] anthropics/prompt-eng-interactive-tutorial - Anthr (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] datawhalechina/self-llm - 《开源大模型食用指南》针对中国宝宝量身打造的基于 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [AI与机器学习] AiHubCN/Awesome-Chinese-LLM - 整理开源的中文大语言模型，以规模较小、可 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] IT危机！这七大编程方向恐将淘汰，普通程序员千万别碰！Java、php、go、c (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【高燃混剪】B站 AI创作大赛｜UP主脑洞封神，每帧都是创意暴击✨ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机P30 Turbo AI 1对1精准学 护眼平板 启蒙到提优 全科高效学 【全国补贴】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 学课看视频水印人工智能支持下的学术研究与论文写作：以Chatgpt为例 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】2026年公认最好的【Claude Code】教程！大模型入门到进阶，一套全解决！Claude Co (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 今天也没能战胜人工智能吗...? (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 90分钟！清华博士带你一口气搞懂人工智能和神经网络 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】给所有人的AI课《AI for everyone》新手小白必看的人工智能教程！从入门到进阶，全程干货 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2026年学AI漫剧有前景吗？？大冰给年轻人的建议：你没资格迷茫，抓紧时间学技术掌握技术！（人工智能/AIGC (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《机器学习》期末复习速成课资源 考研复习 期末不挂科资源 基础知识框架复习 补考救急 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习】机器学习3小时期末速成|机器学习期末复习|核心考点全覆盖|各版教材均可用|复试|调剂|专升本可用 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 31Q1区10分，网络毒理+模拟敲除+机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 这也太全了！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器学习算法一口气学完 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026机器学习算法】基于Python的机器学习快速入门到精通，涵盖线性回归、逻辑回归、决策树、随机森林算法 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 10.1分纯生信，100机器学习+网毒+shap (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习全套资料从 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【博士Vlog】2024最新模型Mamba详解，Transformer已死，你想知道的都在这里了！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2025最新机器学习快速入门】一口气讲完回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细的Python零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 3小时超快速入门Python | 动画教学【2026新版】【自学Python教程】【零基础Python】【计算 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全500集】目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，五 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 从零写Python练手项目：实用脚本 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新】怎么正确下载安装Python+PyCharm？Python下载安装（新手一条龙教程！）PyCh (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整300集】这绝对是2026年B站最全最细的C++零基础全套教程，小白逼自己一周学完，编程技术猛涨！拿走不 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】2025最细自学Python爬虫全套教程，拿走不谢，全程干货无废话！从零基础Python小白进 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 编程农场保姆级教程第一期while,for (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 在家做Python接单，昨天468，分享我的接单平台、接单技巧以及学习资源，悄悄努力，惊艳所有人！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【中配】Godot 游戏制作编程入门：边做边学 | 7 款经典风格游戏从 0 到 1 实战课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Windows API Is Successful Cross-Platform API (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 课后作业辅导 科大讯飞 人工智能旗舰学习机省心 1115932489 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小米（MI） 电视75英寸4K超高清HDR人工智能蓝牙语音遥控网络WiFi内置小爱平板电视机彩电 75英寸 R (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 巴克莱闭门会：人工智能加速上行 260427（推荐程度：5星重要必看） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 对罗福莉的3.5小时访谈：AI范式已然巨变！OpenClaw、智能体框架、Agent范式很吃Post-trai (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点人工智能遇到脑筋急转弯！ #内容过于真实 #人工智能 #脑筋急转弯 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小滴课堂新一代AI智能化云盘(后端大项目+LLM大模型综合实战) (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI变现？！直接抄！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小米智能眼镜 颜值与实用兼具的AI新品 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞京东自营旗舰店 人工智能学习机P30 Turb 1122403036 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能AI学习机，让学习从此不费力 1123206422 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 这才是2026年学AI的正确路线！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python GUI编程 PyQt6入门到实战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [安全] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [安全] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [安全] cirosantilli/x86-bare-metal-examples - Dozens of minima (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] neoclide/coc.nvim - Nodejs extension host for vim &  (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] wsdjeg/SpaceVim - A modular configuration of Vim and (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] dense-analysis/ale - Check syntax in Vim/Neovim asyn (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工具与效率] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI短片——《翠儿的暖阳》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 学课看视频水印程序员徐Sir-【Python编程系统课程人工智能数据分析爬虫Web开发含答疑拍此链接-7096 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全700集】和雷军做校友！目前B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通P (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2-第一次运行Python程序 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 1、 python 编程——文件的新建、保存、运行、改变文字的大小 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 北京理工大学（导师：嵩天） - Python语言程序设计（零基础快速入门）深入体验Python学习，全套Pyt (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 黑马程序员PythonWeb开发：FastAPI从入门到实战视频教程，涵盖路由、依赖注入、Pydantic、异 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2小时做出Python图形界面，GUI保姆级教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] macbook air m5做编程生产力工具？14天使用感受分享 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 一周练完这Python100道练习题，你的编程就老腻害啦！（每天一练，必成大神！） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Codex AI编程实战课 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 你觉得这辈子都学不会编程？超基础Python课程，3小时快速入门｜自学Python教程｜零基础Python｜计 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】《零基础入门学习Python》最新版（完结撒花🎉） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] (全586集)已经替大家付费了，花7980买的Python全套教学视频， 逼自己一周学完，让你的编程技术远超同 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026全新】Python基础教程小白看完就会 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] Dujltqzv/Some-Many-Books - 个人收藏书籍列表　　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] lTbgykio/Books-Free-Books - 免费书籍汇总。　　　　　　　　　　　　　　　　　　 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] cirosantilli/x86-bare-metal-examples - Dozens of mini (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] fighting41love/funNLP - 中英文敏感词、语言检测、中外手机/电话归属地/运营商查询、 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] dromara/Sa-Token - ✨ 开源、免费、一站式 Java 权限认证框架，让鉴权变得简单、优雅 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] fish2018/pansou - PanSou是一款高性能的网盘资源搜索API服务，支持TG频道和插件搜 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] Raidohub/MyNote - There is a note that contain my stu (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] Akesafe/iOS-RDP-IME-Fix - 用于修复使用 iOS/iPadOS 微软远程桌面 (R (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] qiuqiuxiaomaomi/CAPBASETree - CAP, BASE理论 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Specsmaxxing – On overcoming AI psychosis, and why I write s (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能制作这一块 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 最懂你的AI创作助手updream，堂堂登场！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 南京市夜鹭云人工智能科技有限公司史杰松优秀案例分享《黑翠生物科技有限公司简介》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 南京市夜鹭云人工智能科技有限公司史杰松优秀案例分享《水木时代（苏州）环保科技有限公司商业计划书》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Sam Altman 表示，人工智能风险无法通过深入理论思考来解决。 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 不愧是斯皮尔伯格，23年前拍的人工智能如同预言！现在已经成为经典 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 拓客鸟赋能广告图文行业，让设计变简单！设计，就用拓客鸟#拓客鸟人工智能#OPC#AI设计#广告#图文 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 拓客鸟登录宁波广告展会拓客鸟赋能广告图文行业，让设计变简单！#拓客鸟设计智能 OPC#AI设计 AI人工智能落 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【中配】马斯克公布格罗克5通用人工智能计划 格罗克5详解 - TheAIGRID (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习，自动化展示！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！这绝对是2025年机器学习入门天花板教程！清华大佬36集精讲，绝对通俗易懂！（人工智能/算法） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 北航842人工智能基础综合大纲2-算法和机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 用python做一个刷网课脚本教程，全程无废话 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【第十节】陪你从零开始，系统地学习 Python 编程，从入门到进阶的python全套教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【3小时极速学会】使用 Python 高效处理 Excel 数据它来了！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] Snailclimb/JavaGuide - Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [系统设计] chai2010/advanced-go-programming-book - :books: 《Go语言 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [计算机基础] SSHeRun/CS-Xmind-Note - 计算机专业课（408）思维导图和笔记：计算机组成原理（第 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [计算机基础] CyC2018/CS-Notes - :books: 技术面试必备基础知识、Leetcode、计算机操作 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [计算机基础] forthespada/CS-Books - 🔥🔥超过1000本的计算机经典书籍、个人笔记资料以及本人在 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版pytorch教程】pytorch深度学习基础快速入门，清华大佬强力打造！从入门到进阶，全程干货讲 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 拒绝Vibe coding？2026我们团队如何落地AI能力！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全600集】（允许白嫖）这才是B站最全最系统的零基础Python教程（含爬虫+数据分析），零基础小白学pyt (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《Python》3小时期末速成课！！！期末冲刺 | 考前速成 | 考点汇总 | 期末不挂科！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 清华美女老师竟然把Python讲的如此通俗易懂！五一5小时学完，你的Python就牛了！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 后悔没有早点发现，编程真的不难学… (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科普：为什么建议搞AI变现 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞人工智能学习机， 屏幕超清晰 1126653004 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Ai人工智能加持 1156569757 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] [AI生成]有一种色调叫做无法抵抗 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 富人发明AI审判系统，用来代替人类法官，掌控国家打造富人天堂！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 科大讯飞AI鼠标AM30，智能办公的革新选择！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026版】禁止自学走弯路！回归算法、聚类算法、决策树、随机森林、神经网络、贝叶斯算法、支持向量机等十大机器 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【比金铲铲还爽】大学室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度，达到了1000000%！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] PLC编程入门精通 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【莫烦Python】Python 基础教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Udemy排名第一的Python课程】2022 Python PRO训练营 - 100天构建100个Pyth (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Show HN: Apple's Sharp Running in the Browser via ONNX Runti (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能对话机器人 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 人工智能导论（全集） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+贵州财经大学085410人工智能《809数据结构(Ⅱ)》考研精品资料【第1册,共2册】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 吹爆！清华出版《人工智能及其应用》原著大佬蔡自兴教授用视频的方式讲透了！中南大学公开课——国家级精品课程、机器 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] “很抱歉我不是真人，请给我机会让我当你的儿子，我会乖乖听话的”—《人工智能》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] （2025版）李宏毅机器学习深度学习系列课程全集，公认体验感最好的入门课程！--人工智能/机器学习/深度学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【计算机博士带你啃书】白话讲解周志华机器学习西瓜书 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【机器学习基础库】Numpy数据计算从入门到实战 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 假如你从五一假期开始偷学Python技术，0基础用两个月，能实现接单赚钱吗？【python爬虫/数据分析/Py (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 编程猫Python名师课堂40节   0基础 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【比金铲铲还爽】室友推荐的Python编程游戏网站，瞬间对Python的喜爱程度达到了10000%！！！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python少儿编程】第一课 python的历史 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: hankcs/HanLP (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Alert-Driven Monitoring (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: AI voice generation has a workflow problem, not just a quali (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Standardized Complexity (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 柚子社画风AIVtuber绝赞测试中 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 面试官：为什么大部分模型都有升维降维操作？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 盘点一周AI大事(5月3日)｜Google上线AI口语陪练 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】给所有人的AI课（中英字幕），新手小白入门必看的人工智能课，从入门到进阶，全程无废话！拿走不谢 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 会说话的汤姆猫AI玩具童伴机器人儿童玩具陪伴人工智能对话男女孩生日礼物终身&amp;amp;176459029 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【【TED演讲】人工智能将如何从屏幕走进现实世界（中英字幕） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026最新版】AI Agent实战教程，100+实战项目从入门到企业级应用！练完直接涨薪50%！附完整代码 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【15集全】上海交大终于把《动手学大模型智能体》讲明白了！学不会我退出B站！Agent|RAG|LangCha (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全748集】目前B站最全最细《AI大模型应用开发》教程，2026最新版，包含所有干货：Agent/RAG/L (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【2026年AI大模型】7天搞定：Prompt、Agent、RAG、LangChain、MCP、从入门到项目实 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【吴恩达】手把手教《AI Agents监管》企业级Agent生命周期治理落地！附资源代码——DeepLearn (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] RAG五大项目（LLM+企业级数据库+Agent+问答系统+知识图谱）教程，从入门到实战简直配享太庙！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 深度学习557 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【最新教程】5分钟搞定VScode中配置Python运行环境 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 通过Python掌握线性代数 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【整整600集】B站最全最细的Python零基础全套教程（包含爬虫+数据分析），从入门到精通Python，学完 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python教程】一口气学完网络编程与并发编程，存下吧，很难找全的！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 嵌入式开发2024 04阶段：Python与上位机开发 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【Python1-4级教程合集】全国青少年软件编程等级考试1-4级Python教程合集，中国电子学会官网公益推 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python + MySQL   0基础从入门到精通  MySQL数据库实战精讲教程（2021精华版） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] MicroPython+ESP32训练营, 5个阶段, 项目驱动式教学【持续更新中】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【李炎恢】Python入门核心教程 | 少儿编程系列 | 小学5年级+ | 已完结 | 共70P (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【编程派】Python少儿编程全系列游戏创作课程（100+课程） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [安全] wistbean/learn_python3_spider - python爬虫教程系列、从0到1学习pyth (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [安全] xuchengsheng/spring-reading - 涵盖了 Spring 框架的核心概念和关键功能，包 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Why TUIs Are Back (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Southwest Headquarters Tour (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 0零基础入门matlab教程基础版，听懂人话就能学会！毕业设计/研究生/神经网络工具箱/机器学习/数学建模ma (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【北交】图像处理与机器学习 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习入门必看！跟迪哥一起学线性回归、逻辑回归、聚类、决策树等八大机器学习算法，深入浅出从入门到实战，这么学 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 7分钟学会Python循环 | 真正0基础Python教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 全场景 Python 游戏项目合集：益智休闲 + 经典复刻，一站式掌握 Python 编程实战技巧 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] （附源码）Python真的牛！一分钟用Python搞定爱心代码，零基础轻松入门！外加Python100道练习题 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 国家计算机二级python零基础上岸也许是全网讲的最清楚的二级python教程不拖泥带水捞干的（持续更新中.. (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【全集】孙兴华《中文讲Python从入门到办公自动化》excel、word、ppt、PDF等 Python自动 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: DeepClaude – Claude Code agent loop with DeepSeek V4 Pro, 17 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 《ONNX人工智能技术与开发实践》第121讲 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] WALULU陪伴智能机器人AI情感毛绒玩具潮流礼物猫咪电子宠物 白色 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 小佩AI智能猫厕所 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 海马爸比婴儿看护器三代新品升级AI智能监控宝宝监视器儿童摄像头 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 石头分子筛洗烘一体机Z1 Pro 12kg大容量洗衣机 AI语控智能投放 1.2超高洗净比 国家? (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 面试官：MoE模型做RL，训推不一致怎么办？ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 欧普（OPPLE）AI智能人感浴霸集采JC系列S5风暖抱抱暖变频适老除菌除臭一体京智&amp;amp;1764 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 海尔京东自营旗舰店526升零嵌入式AI智能语音冰箱 (1726) (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 哈趣Ace1 云绒白 蓝牙耳机耳夹式 智能AI翻译通话降噪 运动跑步超长续航超轻无感 【国家补贴15%】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 美的（Midea）智能变频恒温风暖浴霸环形F5离子云除菌异味感应AI语音智控取暖器&amp;amp;17646 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 每天认识一个AI黑科技！第11期：370+套GPT-Image2的神级提示词已开源！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 上一个相信人工智能的人…【梗文梗图系列】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 地球的第二文明——AI破译鲸鱼语言，我们竟然在深渊里找到了“外星人”？|自说自话的总裁 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] Python基础之Linux基础入门（Ubuntu） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 零基础Python编程 小白练习500题 Python竞赛  少儿编程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 6分钟搞懂函数返回值也就是return语句 #Python #编程 #程序员 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Posterior Augmented Flow Matching (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] HyCOP: Hybrid Composition Operators for Interpretable L (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] Generating Statistical Charts with Validation-Driven LL (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] CustomDancer: Customized Dance Recommendation by Text-D (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [论文] When LLMs Stop Following Steps: A Diagnostic Study of P (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Let's Buy Spirit Air (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: The 'Hidden' Costs of Great Abstractions (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: I gave my local LLM a "suffering" meter, and now it won’t st (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【初试】2027年+重庆文理学院085410人工智能《855数据结构》考研精品资料【第1册,共2册】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 我们将失去数百万个高薪职位：伯尼·桑德斯就人工智能发出严重警告 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI数字孪生+Transformer，大桥的人工智能守护者 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2天学会AI变现【置顶评论领44w字内部AI资料】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习 从夯到拉 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 派大珍机器学习预测模型 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 机器学习第1节｜线性回归模型（上课啦） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【官方随书视频】最热门编程入门书《Python编程：从入门到实践（第2版）》 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Using "underdrawings" for accurate text and numbers (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Discovering Hard Disk Physical Geometry Through Microbenchma (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 大模型开发部署全攻略之深度学习算法与实战-李晓华 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【MJ教程】100集（全）从零开始学Midjourney软件基础（2025新手入门实用版）MJ2025零基础入 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 五分钟秒懂神经网络原理，机器学习入门教程 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！这才是2026年最全最细的AI产品经理教程，从零到精通，字节大佬整理的内部版，通俗易懂，学完即就业！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 2026年教师人工智能案例指导《人工智能在教育教学中的创新应用案解析》（教AI、用AI、创AI、护AI案例选、 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 315“AI投毒”揭秘：SEO那帮骗子带着GEO回来了【GenJi深度AI科普】 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] AI投资占美国75%的GDP增长！AI绑架美国经济 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 论文利器，Gemini、Claude、ChatGPT八大顶级大模型白嫖使用，点击即用，冲就完了！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【AI主播Neuro】爱，死亡，和机器人：AI眼中的世界和我们 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【印度理工学院】2024年7月-分布式优化与机器学习   July 2024 - Distributed Op (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] B站强推！这可能是唯一能将知识图谱讲明白的教程了，不愧是清华教授，半天时间将入门原理到项目实战全部教完！还学不 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 强推！2小时快速掌握sklearn库使用方法~ | 机器学习入门 | Scikit-learn库 | 调库 | (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【sklearn机器学习】菜菜的sklearn机器学习完整版（上） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【斯坦福大学】CS229 机器学习 · 2018年（完结·中英字幕·机翻） (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] python零基础教程，Python入门到大神，AI人工智能必备 (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [B站] 【内容已更新，点击头像看最新版】Python程序设计，看这一个就够了！ (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Extending large language model capabilities beyond reasoning (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [数据结构与算法] fighting41love/funNLP (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工程] IAAR-Shanghai/Awesome-AI-Memory (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: [工程] joe2hpimn/ai-blog (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Safety and accuracy follow different scaling laws in clinica (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: OpenSeeker-v2: Pushing the Limits of Search Agents with Info (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Redefining AI Red Teaming in the Agentic Era: From Weeks to  (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: SymptomAI: Towards a Conversational AI Agent for Everyday Sy (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Physics-Grounded Multi-Agent Architecture for Traceable, Ris (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: An Agent-Oriented Pluggable Experience-RAG Skill for Experie (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: From Intent to Execution: Composing Agentic Workflows with A (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: A Benchmark for Interactive World Models with a Unified Acti (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Contextual Multi-Objective Optimization: Rethinking Objectiv (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: TabSurv: Adapting Modern Tabular Neural Networks to Survival (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Towards Open World Sound Event Detection (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Magic-Informed Quantum Architecture Search (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Spatiotemporal Convolutions on EEG signal -- A Representatio (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: Mechanical Conscience: A Mathematical Framework for Dependab (重要性 0.5)
+  ✂️ 裁剪 [人工智能]: TRACE: A Metrologically-Grounded Engineering Framework for T (重要性 0.5)

@@ -1,26 +1,26 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-05-06T10:00:00.588Z
-> Files: 648 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-05-06T16:00:01.784Z
+> Files: 573 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitignore` — Git ignore rules (~151 tok)
 - `项目提升报告.json` (~418 tok)
 - `active_communication.py` — ActiveCommunicationAI: analyze_learning_state, decide_to_communicate, communicate_proactively (~4901 tok)
-- `ai_knowledge_crawler.py` — ai_knowledge_crawler 模块 (~9473 tok)
+- `ai_knowledge_crawler.py` — URL configuration (~9537 tok)
 - `analogy_engine.py` — AnalogyEngine: structural_fingerprint, cosine_similarity, relational_signature, walk + 3 more (~4445 tok)
-- `antibody_library.py` — FixStrategy: execute, record_success, search, has_known_fix + 11 more (~4914 tok)
-- `ARCHITECTURE.md` — 学习数据分析与优化系统架构分析 (~2651 tok)
+- `antibody_library.py` — FixStrategy: execute, record_success, search, has_known_fix + 11 more (~5410 tok)
+- `ARCHITECTURE.md` — 自主思考 AI 系统架构 (~1062 tok)
 - `background_learning_service.py` — BackgroundLearningService: is_user_offline, should_start_learning, start, stop + 4 more (~3040 tok)
 - `behavior_feedback.py` — BehaviorFeedback: record, get_recent, get_action_stats, get_target_stats + 5 more (~2358 tok)
-- `capability_registry.py` — View: get, list (~2972 tok)
-- `circuit_breaker.py` — CircuitState: state, call, on_success, on_failure + 5 more (~1998 tok)
+- `capability_registry.py` — View: get, list (~3066 tok)
+- `circuit_breaker.py` — CircuitState: state, call, on_success, on_failure + 5 more (~2099 tok)
 - `claude_code_adapter.py` — ClaudeCodeAdapter: update_config, is_available, send_messages, get_token_usage + 5 more (~4708 tok)
 - `claude_memory_bridge.py` — ClaudeMemoryBridge: should_sync, sync (~3787 tok)
 - `CLAUDE.md` — OpenWolf (~304 tok)
 - `cognitive_architecture.py` — CognitiveArchitecture: perceive_environment, reason_about_situation, decide_to_act, learn_from_experience + 5 more (~3588 tok)
-- `computer_hands.py` — ComputerHands: click, click_current, double_click, right_click + 23 more (~4441 tok)
+- `computer_hands.py` — ComputerHands: click, click_current, double_click, right_click + 23 more (~4628 tok)
 - `constitution_gate.py` — class: check_modification, is_constitutional_file, main (~1045 tok)
 - `CONSTITUTION.md` — 星期八宪法 (~206 tok)
 - `constitution.py` — store_checksums, verify_integrity (~1315 tok)
@@ -33,23 +33,27 @@
 - `cycle_diary.py` — CycleDiary: record, recent, events_by_type, summary (~586 tok)
 - `daemon_launcher.py` — log, acquire_lock, release_lock, thinking_loop + 2 more (~1032 tok)
 - `daemon_nohup.log` (~29679 tok)
-- `daemon_output.log` (~12616 tok)
+- `daemon_output.log` (~70477 tok)
+- `daemon_registry.py` — register_daemon, get_daemon (~213 tok)
 - `DEMONSTRATION.md` — 项目运行可行性演示示例 (~644 tok)
 - `DESIGN.md` — Design System Inspired by Stripe (~5112 tok)
 - `DETAILED_IMPROVEMENT_REPORT.md` — 📈 项目提升详细报告 (~920 tok)
 - `directed_crawl.py` — class: register_hooks, crawl_ai_archives, add_custom_source, extract_capability_concepts + 1 more (~3912 tok)
 - `experience_tracker.py` — TFIDFVectorizer: fit, similarity, record, should_retry + 7 more (~2887 tok)
+- `explore_actions.py` — ExploreEngine: data_dir, explore_question, explore_read_file, explore_compare_files + 5 more (~4805 tok)
 - `FINAL_OPTIMIZATION_REPORT.md` — 🚀 系统优化最终报告 (~732 tok)
 - `fiverr_service.py` — FiverrServiceEngine: log, services, list_services, deliver_web_scraper + 6 more (~2963 tok)
 - `gap_analyzer.py` — class: compare_capability_vs_knowledge, find_missing_capabilities, rank_gaps_by_value, main (~2863 tok)
 - `goal_planner.py` — class: add_goal, update_progress, get_active_goals, get_completed_goals + 3 more (~2261 tok)
-- `hands_engine.py` — HandsEngine: log, launch_browser, launch_cdp, close_browser + 12 more (~3731 tok)
+- `hands_engine.py` — URL configuration (~3791 tok)
 - `hatch_pet.py` — load_base_config, save_config, hatch, list_templates + 2 more (~4458 tok)
+- `hook_system.py` — HookEvent: build_cycle_messages (~1013 tok)
 - `humble_reflection.py` — URL configuration (~2996 tok)
 - `IMPROVEMENT_REPORT.md` — 学习数据分析与优化系统改进报告 (~792 tok)
+- `insight_generator.py` — generate_insight, store_insight (~2489 tok)
 - `install_daemon_task.bat` (~259 tok)
 - `internal_thinker.py` — class: think (~2019 tok)
-- `jianying_automation.py` — JianyingAutomation: log, launch, close, click_menu + 6 more (~1013 tok)
+- `jianying_automation.py` — JianyingAutomation: log, launch, close, click_menu + 6 more (~1020 tok)
 - `knowledge_base.py` — KnowledgeBase: retrieve_knowledge, learn_from_experience, infer_related_topics (~7852 tok)
 - `knowledge_graph.py` — class: add_entity, get_entity, find_entity, find_entities + 12 more (~4238 tok)
 - `LEARNING_ANALYSIS_RESEARCH.md` — 学习分析系统领域研究报告 (~1262 tok)
@@ -66,6 +70,7 @@
 - `PROJECT_DETAIL.md` — 学习数据分析与优化系统详细介绍 (~1823 tok)
 - `PROJECT_IMPROVEMENT_PLAN.md` — 项目改进计划 - 2024年版 (~721 tok)
 - `PROJECT_OPTIMIZATION_REPORT.md` — 项目优化报告 (~480 tok)
+- `pyproject.toml` — Python project configuration (~39 tok)
 - `README.md` — Project documentation (~1155 tok)
 - `requirements.txt` — Python dependencies (~112 tok)
 - `research_integration.py` — ResearchIntegration: register_hooks (~5856 tok)
@@ -76,9 +81,9 @@
 - `self_learning_system.py` — SelfLearningSystem: run_self_learning_cycle, check_system_vulnerabilities, analyze_code_quality, analyze_learning_progress + 2 more (~4635 tok)
 - `self_memory.py` — SelfExperience: to_dict, record_experience, recall_recent, recall_important + 7 more (~2240 tok)
 - `self_model.py` — SelfModel: scan_capabilities, scan_dependencies, scan_interfaces, find_entry_points + 3 more (~4579 tok)
-- `self_modification_engine.py` — ModErrorKind: set_gate_enabled, sub_gates, run (~10078 tok)
+- `self_modification_engine.py` — ModErrorKind: set_gate_enabled, sub_gates, run (~11396 tok)
 - `self_scanner.py` — SelfScanner: scan_py_files, scan_system_state, scan_knowledge_base, scan_self_learning_results + 8 more (~3131 tok)
-- `self_thinking_agent.py` — HookEvent: build_cycle_messages, register_hook, unregister_hook (~42521 tok)
+- `self_thinking_agent.py` — SelfThinkingAgent: register_hook, unregister_hook (~35092 tok)
 - `SHORT_TERM_PLAN.md` — 学习数据分析与优化系统短期改进计划 (~579 tok)
 - `skill_crystallizer.py` — SkillCrystallizer: extract_skill, record_failure, get_skill_boost, background_review + 4 more (~6176 tok)
 - `skills-lock.json` (~1372 tok)
@@ -91,7 +96,7 @@
 - `strategy_learner.py` — StrategyLearner: analyze, get_strategy_weight, get_strategy_summary (~2846 tok)
 - `system_optimization_report.md` — 🚀 系统优化报告 (~897 tok)
 - `system_state_manager.py` — class: is_enabled, set_enabled, get_all_flags, get_flags_by_group + 3 more (~5768 tok)
-- `thinking_daemon.py` — DaemonHookEvent: fire, wrapper, fire_and_forget, should_suppress + 8 more (~11945 tok)
+- `thinking_daemon.py` — DaemonHookEvent: fire, wrapper, fire_and_forget, should_suppress + 8 more (~12058 tok)
 - `thinking_engine.py` — class: think (~6813 tok)
 - `thinking_strategy.py` — from: current_strategy, select_strategy, apply_to_daemon, get_question_filter + 4 more (~3402 tok)
 - `thought_buffer.py` — class: add_thought, get_thought, update_thought, resolve_thought + 10 more (~2865 tok)
@@ -459,7 +464,8 @@
 
 ## .pytest_cache/v/cache/
 
-- `nodeids` (~44 tok)
+- `lastfailed` (~1 tok)
+- `nodeids` (~1124 tok)
 
 ## .trae/skills/agent-browser/
 
@@ -641,14 +647,14 @@
 
 - `active_state.json` (~73 tok)
 - `ai_agent_config.json` (~35 tok)
-- `ai_knowledge_crawler.log` (~150664 tok)
-- `antibody_experience.json` (~587 tok)
-- `audit_log.jsonl` (~589 tok)
-- `behavior_feedback.json` (~14821 tok)
+- `ai_knowledge_crawler.log` (~156480 tok)
+- `antibody_experience.json` (~818 tok)
+- `audit_log.jsonl` (~1846 tok)
+- `behavior_feedback.json` (~20094 tok)
 - `browser_config.json` (~300 tok)
-- `buglog.json` (~95 tok)
+- `buglog.json` (~404 tok)
 - `capability_registry.json` (~790 tok)
-- `circuit_breaker.json` (~217 tok)
+- `circuit_breaker.json` (~218 tok)
 - `claude_code_config.json` (~42 tok)
 - `claude_code_integration_test_results.json` (~134 tok)
 - `claude_memory_sync_tracker.json` (~237 tok)
@@ -664,20 +670,19 @@
 - `crawler_daemon_out.log` (~3469 tok)
 - `crawler_daemon.log` (~9197 tok)
 - `crawler_seen.json` (~1559 tok)
-- `crawler_tasks.json` (~131 tok)
-- `crystallized_skills.json` (~89 tok)
+- `crystallized_skills.json` (~432 tok)
 - `cycle_counter.json` (~5 tok)
-- `cycle_diary.json` (~3438 tok)
-- `daemon_health.json` (~112 tok)
+- `cycle_diary.json` (~7773 tok)
+- `daemon_health.json` (~113 tok)
 - `daemon_launcher_output.log` (~173510 tok)
 - `daemon_launcher.log` (~19333 tok)
-- `daemon_nohup.log` (~12645 tok)
+- `daemon_nohup.log` (~15450 tok)
 - `daemon_output.log` (~35777 tok)
 - `deep_learning_log.json` (~63721 tok)
 - `error_patterns.json` — Declares hints (~135 tok)
-- `experience_tracker.json` (~31327 tok)
+- `experience_tracker.json` (~34401 tok)
 - `experts.json` (~876 tok)
-- `extract_tracker.json` (~44 tok)
+- `extract_tracker.json` (~57 tok)
 - `feature_flags.json` (~130 tok)
 - `fiverr_service_log.json` (~33 tok)
 - `gap_tracker.json` (~18 tok)
@@ -688,41 +693,41 @@
 - `jarvis_knowledge.json` (~4320 tok)
 - `jarvis_monitor_state.json` (~40 tok)
 - `jarvis_state.json` (~70 tok)
-- `knowledge_base.json` (~245587 tok)
+- `knowledge_base.json` (~65087 tok)
 - `knowledge_base.json.bak.cleanup` (~201965 tok)
-- `layered_memory.json` (~5179 tok)
+- `layered_memory.json` (~5178 tok)
 - `learning_progress.json` (~887 tok)
 - `lessons.jsonl` (~106 tok)
-- `metacognitive_state.json` (~1349 tok)
-- `modification_log.json` (~368 tok)
+- `metacognitive_state.json` (~1326 tok)
+- `modification_log.json` (~901 tok)
 - `openclaw_config.json` (~30 tok)
 - `openclaw_integration_test_results.json` (~132 tok)
 - `personality_state.json` (~461 tok)
 - `research_journal.md` — 研究: 架构测试 (~32985 tok)
-- `seen_issues.json` (~13938 tok)
-- `seen_questions.json` (~30 tok)
-- `self_awareness.json` (~4224 tok)
-- `self_experiences.json` (~803 tok)
+- `seen_issues.json` (~19893 tok)
+- `seen_questions.json` (~71 tok)
+- `self_awareness.json` (~4664 tok)
+- `self_experiences.json` (~2022 tok)
 - `self_insights.json` (~471 tok)
 - `self_learning_records.json` (~10835 tok)
 - `self_narrative.json` (~120 tok)
-- `self_scanner_snapshot.json` (~54235 tok)
+- `self_scanner_snapshot.json` (~54894 tok)
 - `self_thinking_reflection.json` (~1469 tok)
-- `skill_journal.json` (~11673 tok)
-- `strategy_history.json` (~2313 tok)
+- `skill_journal.json` (~12532 tok)
+- `strategy_history.json` (~2722 tok)
 - `strategy_journal.json` (~8665 tok)
-- `study_tracker.json` (~37700 tok)
+- `study_tracker.json` (~39487 tok)
 - `system_learning.json` (~931 tok)
 - `system_state.json` (~100 tok)
 - `system_status.json` (~308 tok)
 - `thinking_console.log` (~66563 tok)
 - `thinking_daemon_output.log` (~6480 tok)
-- `thinking_daemon_state.json` (~103 tok)
+- `thinking_daemon_state.json` (~104 tok)
 - `thinking_engine_stats.json` (~78 tok)
 - `trade_signals.json` (~14034 tok)
 - `trading_monitor.json` (~3766 tok)
 - `user_preferences.json` (~76 tok)
-- `vulnerabilities.json` (~3365 tok)
+- `vulnerabilities.json` (~3497 tok)
 - `watchdog.log` (~203 tok)
 
 ## data/content_output/
@@ -741,238 +746,312 @@
 
 ## data/mod_backups/
 
-- `backup files (*_bak_*)` — 旧备份文件，路径已从文件名移除
+- `ai_knowledge_crawler.py_060145e6_bak_20260506_191552` — Declares AIKnowledgeCrawler (~8823 tok)
+- `antibody_library.py_178646ae_bak_20260506_200407` — Declares FixStrategy (~4741 tok)
+- `C__Users_吴文豪_claude-code-projects_github-learning_data__test_bare_except.py_bak_20260505_184323` (~10 tok)
+- `C__Users_吴文豪_claude-code-projects_github-learning_data__test_normal.py_bak_20260505_142804` (~2 tok)
+- `C__Users_吴文豪_claude-code-projects_github-learning_jianying_automation.py_bak_20260503_183214` — Declares JianyingAutomation (~907 tok)
+- `capability_registry.py_f1bd6284_bak_20260506_204710` — Declares class (~2774 tok)
+- `circuit_breaker.py_2a72009f_bak_20260506_223958` — Declares import (~1865 tok)
+- `computer_hands.py_88f6f2e7_bak_20260506_232813` — Declares ComputerHands (~4145 tok)
+- `test_normal.py_158ce538_bak_20260506_182801` — Declares Baz (~32 tok)
 
-## data/playwright_cdp_edge/
+## data/skills/09ff4e13/
 
-- `Breadcrumbs` (~294 tok)
-- `CrashpadMetrics-active.pma` (~4366 tok)
-- `en-US-10-1.bdic` (~120523 tok)
-- `first_party_sets.db-journal` (~0 tok)
-- `FirstLaunchAfterInstallation` (~0 tok)
-- `Last Browser` (~32 tok)
-- `Last Version` (~4 tok)
-- `Local State` (~5884 tok)
-- `Variations` (~23 tok)
-- `VariationsRuntimeSeedV2` (~241 tok)
-- `VariationsSafeSeedV2` (~4758 tok)
-- `VariationsSeedV2` (~28 tok)
+- `meta.json` (~297 tok)
+- `SKILL.md` — 探索-self-thinking-agent.py-完成 (~138 tok)
 
-## data/playwright_cdp_edge/Ad Blocking/
+## data/skills/261c256c/
 
-- `blocklist` (~28772 tok)
+- `meta.json` (~197 tok)
+- `SKILL.md` — 探索失败:-文件不存在:-test-module (~104 tok)
 
-## data/playwright_cdp_edge/Crashpad/
+## data/skills/2a7d7639/
 
-- `metadata` (~0 tok)
-- `settings.dat` (~77 tok)
-- `throttle_store.dat` (~6 tok)
+- `meta.json` (~256 tok)
+- `SKILL.md` — 知识缺口:-tech (~111 tok)
 
-## data/playwright_cdp_edge/Default/
+## data/skills/3ceaf408/
 
-- `arbitration_service_config.json` (~6027 tok)
-- `BookmarkMergedSurfaceOrdering` (~2 tok)
-- `Bookmarks` (~614 tok)
-- `BrowsingTopicsSiteData` (~7646 tok)
-- `BrowsingTopicsSiteData-journal` (~0 tok)
-- `BrowsingTopicsState` (~111 tok)
-- `CdmStorage.db-journal` (~0 tok)
-- `DIPS` (~1093 tok)
-- `DIPS-wal` (~20874 tok)
-- `ExtensionActivityComp` (~0 tok)
-- `ExtensionActivityEdge` — Declares INTEGER (~8739 tok)
-- `ExtensionActivityEdge-journal` (~0 tok)
-- `Favicons` — Declares INTEGER (~7621 tok)
-- `Favicons-journal` (~0 tok)
-- `favorites_diagnostic.log` (~257 tok)
-- `heavy_ad_intervention_opt_out.db-journal` (~0 tok)
-- `History-journal` (~3419 tok)
-- `HubApps` (~28624 tok)
-- `HubApps Icons` (~7646 tok)
-- `HubApps Icons-journal` (~0 tok)
-- `load_statistics.db-shm` (~8736 tok)
-- `LOCK` (~0 tok)
-- `LOG` (~0 tok)
-- `LOG.old` (~0 tok)
-- `Login Data` (~19043 tok)
-- `Login Data For Account` (~13654 tok)
-- `Login Data For Account-journal` (~0 tok)
-- `Login Data-journal` (~0 tok)
-- `MediaDeviceSalts` (~6554 tok)
-- `MediaDeviceSalts-journal` (~0 tok)
-- `Network Action Predictor` (~14199 tok)
-- `Network Action Predictor-journal` (~0 tok)
-- `passkey_enclave_state` (~177 tok)
-- `Preferences` (~12876 tok)
-- `PreferredApps` (~9 tok)
-- `README` (~49 tok)
-- `Secure Preferences` (~11553 tok)
-- `ServerCertificate` (~5462 tok)
-- `ServerCertificate-journal` (~0 tok)
-- `SharedStorage` (~1093 tok)
-- `SharedStorage-wal` (~0 tok)
-- `Shortcuts` — Declares INTEGER (~5462 tok)
-- `Shortcuts-journal` (~0 tok)
-- `Top Sites` (~5462 tok)
-- `Top Sites-journal` (~0 tok)
-- `trusted_vault.pb` (~28 tok)
-- `Vpn Tokens` (~7646 tok)
-- `Vpn Tokens-journal` (~0 tok)
-- `Web Data` (~78881 tok)
-- `Web Data-journal` (~0 tok)
+- `meta.json` (~286 tok)
+- `SKILL.md` — ai-knowledge-crawler.py,capability-regis (~176 tok)
 
-## data/playwright_cdp_edge/Default/Asset Store/assets.db/
+## data/skills/3f06e841/
 
-- `000003.log` (~276418 tok)
-- `CURRENT` (~5 tok)
-- `LOCK` (~0 tok)
-- `LOG` (~90 tok)
-- `MANIFEST-000001` (~11 tok)
+- `meta.json` (~255 tok)
+- `SKILL.md` — 知识缺口:-tech (~110 tok)
 
-## data/playwright_cdp_edge/Default/AutofillAiModelCache/
+## data/skills/49cb5db8/
 
-- `LOCK` (~0 tok)
-- `LOG` (~0 tok)
-- `LOG.old` (~0 tok)
+- `meta.json` (~264 tok)
+- `SKILL.md` — 探索-架构测试-完成 (~119 tok)
 
-## data/playwright_cdp_edge/Default/AutofillStrikeDatabase/
+## data/skills/4dfc6c4a/
 
-- `LOCK` (~0 tok)
-- `LOG` (~0 tok)
-- `LOG.old` (~0 tok)
+- `meta.json` (~268 tok)
+- `SKILL.md` — 能力深度:-能力深度:-gödel-agent-—-自引用递归自我改进框架 (~133 tok)
 
-## data/playwright_cdp_edge/Default/BudgetDatabase/
+## data/skills/511ce94a/
 
-- `LOCK` (~0 tok)
-- `LOG` (~0 tok)
-- `LOG.old` (~0 tok)
+- `meta.json` (~287 tok)
+- `SKILL.md` — 探索-sofai-—-快慢双系统认知架构-(system-1-+-system- (~150 tok)
 
-## data/playwright_cdp_edge/Default/Cache/Cache_Data/
+## data/skills/54a97657/
 
-- `data_0` (~11952 tok)
-- `data_1` (~141040 tok)
-- `f_000001` (~8782 tok)
-- `f_000002` (~25337 tok)
-- `f_000003` (~103906 tok)
-- `f_000004` (~17585 tok)
-- `f_000005` (~42227 tok)
-- `f_000006` (~20172 tok)
-- `f_000007` (~7204 tok)
-- `f_000008` (~5026 tok)
-- `f_000009` (~14399 tok)
-- `f_00000a` (~15451 tok)
-- `f_00000b` (~4441 tok)
-- `f_00000c` (~18615 tok)
-- `f_00000d` (~10245 tok)
-- `f_00000e` (~21029 tok)
-- `f_00000f` (~18580 tok)
-- `f_000010` (~4703 tok)
-- `f_000011` (~5198 tok)
-- `f_000012` (~4704 tok)
-- `f_000013` (~4393 tok)
-- `f_000014` (~271134 tok)
-- `f_000015` (~67811 tok)
-- `f_000016` (~136680 tok)
-- `f_000017` (~12107 tok)
-- `f_000018` (~11964 tok)
-- `f_000019` (~12150 tok)
-- `f_00001a` (~11951 tok)
-- `f_00001b` (~5769 tok)
-- `f_00001c` (~4318 tok)
-- `f_00001d` (~9369 tok)
-- `f_00001e` (~7144 tok)
-- `f_00001f` (~9842 tok)
-- `f_000020` (~48736 tok)
-- `f_000021` (~12034 tok)
-- `f_000022` (~9847 tok)
-- `f_000023` (~8344 tok)
-- `f_000024` (~14752 tok)
-- `f_000025` (~20922 tok)
-- `f_000026` (~9327 tok)
-- `f_000027` (~5457 tok)
-- `f_000028` (~18519 tok)
-- `f_000029` (~13697 tok)
-- `f_00002a` (~10260 tok)
-- `f_00002b` (~10952 tok)
-- `f_00002c` (~7040 tok)
-- `f_00002d` (~7860 tok)
-- `f_00002e` (~4866 tok)
-- `f_00002f` (~4204 tok)
-- `f_000030` (~8298 tok)
-- `f_000031` (~11953 tok)
-- `f_000032` (~12532 tok)
-- `f_000033` (~9097 tok)
-- `f_000034` (~15323 tok)
-- `f_000035` (~6691 tok)
-- `f_000036` (~9310 tok)
-- `f_000037` (~7253 tok)
-- `f_000038` (~18301 tok)
-- `f_000039` (~13480 tok)
-- `f_00003a` (~13385 tok)
-- `f_00003b` (~10776 tok)
-- `f_00003c` (~30664 tok)
-- `f_00003d` (~25538 tok)
-- `f_00003e` (~27634 tok)
-- `f_00003f` (~27218 tok)
-- `f_000040` (~6464 tok)
-- `f_000041` (~7869 tok)
-- `f_000042` (~42922 tok)
-- `f_000043` (~19411 tok)
-- `f_000044` (~54708 tok)
-- `f_000045` (~35417 tok)
-- `f_000046` (~132187 tok)
-- `f_000047` (~53674 tok)
-- `f_000048` (~181854 tok)
-- `f_000049` (~25097 tok)
-- `f_00004a` (~33383 tok)
-- `f_00004b` (~7893 tok)
-- `f_00004c` (~37765 tok)
-- `f_00004d` (~35426 tok)
-- `f_00004e` (~37734 tok)
-- `f_00004f` (~33538 tok)
-- `f_000050` (~15338 tok)
-- `f_000051` (~35654 tok)
-- `f_000052` (~43751 tok)
-- `f_000053` (~33626 tok)
-- `f_000054` (~35585 tok)
-- `f_000055` (~33634 tok)
-- `f_000056` (~35654 tok)
-- `f_000057` (~33646 tok)
-- `f_000058` (~35556 tok)
-- `f_000059` (~35555 tok)
-- `f_00005a` (~37105 tok)
-- `f_00005b` (~33664 tok)
-- `f_00005c` (~33646 tok)
-- `f_00005d` (~35667 tok)
-- `f_00005e` (~24725 tok)
-- `f_00005f` (~4216 tok)
-- `f_000060` (~31535 tok)
-- `f_000061` (~27688 tok)
-- `f_000062` (~5310 tok)
-- `f_000063` (~6816 tok)
-- `f_000064` (~20934 tok)
-- `f_000065` (~50398 tok)
-- `f_000066` (~6775 tok)
-- `f_000067` (~44394 tok)
-- `f_000068` (~4786 tok)
-- `f_000069` — Declares TatariTagManager (~4418 tok)
-- `f_00006a` (~4714 tok)
-- `f_00006b` (~12193 tok)
-- `f_00006c` (~4773 tok)
-- `f_00006d` (~9010 tok)
-- `f_00006e` (~27158 tok)
-- `f_00006f` (~28177 tok)
-- `f_000070` (~31283 tok)
-- `f_000071` (~10096 tok)
-- `f_000072` (~6361 tok)
-- `f_000073` (~7010 tok)
-- `f_000074` (~10918 tok)
-- `f_000075` (~5927 tok)
-- `f_000076` (~59885 tok)
-- `f_000077` (~9897 tok)
-- `f_000078` (~67883 tok)
-- `f_000079` (~35417 tok)
+- `meta.json` (~334 tok)
+- `SKILL.md` — computer-hands.py,crawler-daemon.py,dire (~182 tok)
 
-## data/playwright_cdp_edge/component_crx_cache/
+## data/skills/5732e2aa/
 
-- `metadata.json` (~4 tok)
+- `meta.json` (~268 tok)
+- `SKILL.md` — 探索-knowledge-gap-完成 (~126 tok)
+
+## data/skills/59869cd4/
+
+- `meta.json` (~299 tok)
+- `SKILL.md` — 探索-[数据结构与算法]-jeecgboot/jeecgboot---ai低代码 (~161 tok)
+
+## data/skills/6b50be4d/
+
+- `meta.json` (~352 tok)
+- `SKILL.md` — 探索-[数据结构与算法]-cirosantilli/x86-bare-metal (~171 tok)
+
+## data/skills/88a40303/
+
+- `meta.json` (~291 tok)
+- `SKILL.md` — 知识缺口:-人工智能 (~146 tok)
+
+## data/skills/91fd9b3a/
+
+- `meta.json` (~249 tok)
+- `SKILL.md` — 探索-自我认知报告-v93-完成 (~118 tok)
+
+## data/skills/a09a682c/
+
+- `meta.json` (~264 tok)
+- `SKILL.md` — 探索-架构测试-完成 (~119 tok)
+
+## data/skills/a6d2190b/
+
+- `meta.json` (~245 tok)
+- `SKILL.md` — goal-planner-模块分析 (~115 tok)
+
+## data/skills/ac4c0c37/
+
+- `meta.json` (~254 tok)
+- `SKILL.md` — 探索-gödel-agent-—-自引用递归自我改进框架-完成 (~142 tok)
+
+## data/skills/bb36d309/
+
+- `meta.json` (~294 tok)
+- `SKILL.md` — 探索-analogy-engine-模块分析-完成 (~135 tok)
+
+## data/skills/bd968f5b/
+
+- `meta.json` (~266 tok)
+- `SKILL.md` — 探索-架构测试-完成 (~120 tok)
+
+## data/skills/bf441300/
+
+- `meta.json` (~352 tok)
+- `SKILL.md` — antibody-library.py,capability-registry. (~192 tok)
+
+## data/skills/ccb4b451/
+
+- `meta.json` (~263 tok)
+- `SKILL.md` — claude-memory-bridge-模块分析 (~125 tok)
+
+## data/skills/cda9ef2b/
+
+- `meta.json` (~236 tok)
+- `SKILL.md` — 探索-架构测试-完成 (~111 tok)
+
+## data/skills/ce5fe9bb/
+
+- `meta.json` (~222 tok)
+- `SKILL.md` — 探索-架构测试-完成 (~101 tok)
+
+## data/skills/dc5fb88d/
+
+- `meta.json` (~293 tok)
+- `SKILL.md` — 探索-claude-memory-bridge-模块分析-完成 (~138 tok)
+
+## data/skills/eb6f571a/
+
+- `meta.json` (~289 tok)
+- `SKILL.md` — 探索-nevron-metacognitive-monitor-—-循环检测器+ (~152 tok)
+
+## data/skills/f677e6d0/
+
+- `meta.json` (~362 tok)
+- `SKILL.md` — 知识缺口:-机器学习 (~171 tok)
+
+## design-references/
+
+- `.gitignore` — Git ignore rules (~3 tok)
+- `CONTRIBUTING.md` — Contributing to Awesome Design MD (~228 tok)
+- `LICENSE` — Project license (~285 tok)
+- `README.md` — Project documentation (~3349 tok)
+
+## design-references/.github/
+
+- `FUNDING.yml` — These are supported funding model platforms (~19 tok)
+
+## design-references/.github/ISSUE_TEMPLATE/
+
+- `design-md-request.yml` (~391 tok)
+
+## design-references/design-md/airbnb/
+
+- `DESIGN.md` — Overview (~7570 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/airtable/
+
+- `DESIGN.md` — Overview (~8757 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/apple/
+
+- `DESIGN.md` — Overview (~9199 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/binance/
+
+- `DESIGN.md` — Overview (~9909 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/bmw-m/
+
+- `DESIGN.md` — Overview (~7612 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/bmw/
+
+- `DESIGN.md` — Overview (~6908 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/bugatti/
+
+- `DESIGN.md` — Overview (~7082 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/cal/
+
+- `DESIGN.md` — Overview (~7731 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/claude/
+
+- `DESIGN.md` — Overview (~8333 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/clay/
+
+- `DESIGN.md` — Overview (~6379 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/clickhouse/
+
+- `DESIGN.md` — Overview (~6449 tok)
+- `README.md` — Project documentation (~52 tok)
+
+## design-references/design-md/cohere/
+
+- `DESIGN.md` — Overview (~5001 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/coinbase/
+
+- `DESIGN.md` — Overview (~6412 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/composio/
+
+- `DESIGN.md` — Overview (~5111 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/cursor/
+
+- `DESIGN.md` — Overview (~5401 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/elevenlabs/
+
+- `DESIGN.md` — Overview (~5192 tok)
+- `README.md` — Project documentation (~52 tok)
+
+## design-references/design-md/expo/
+
+- `DESIGN.md` — Overview (~5363 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/ferrari/
+
+- `DESIGN.md` — Overview (~6042 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/figma/
+
+- `DESIGN.md` — Overview (~8034 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/framer/
+
+- `DESIGN.md` — Overview (~7235 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/hashicorp/
+
+- `DESIGN.md` — Overview (~6958 tok)
+- `README.md` — Project documentation (~52 tok)
+
+## design-references/design-md/ibm/
+
+- `DESIGN.md` — Overview (~6577 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/intercom/
+
+- `DESIGN.md` — Overview (~5782 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/kraken/
+
+- `DESIGN.md` — Design System Inspired by Kraken (~1084 tok)
+- `README.md` — Project documentation (~50 tok)
+
+## design-references/design-md/lamborghini/
+
+- `DESIGN.md` — Design System Inspired by Lamborghini (~5235 tok)
+- `README.md` — Project documentation (~53 tok)
+
+## design-references/design-md/linear.app/
+
+- `DESIGN.md` — Overview (~6047 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/lovable/
+
+- `DESIGN.md` — Design System Inspired by Lovable (~4321 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/mastercard/
+
+- `DESIGN.md` — Design System Inspired by Mastercard (~6700 tok)
+- `README.md` — Project documentation (~52 tok)
+
+## design-references/design-md/meta/
+
+- `DESIGN.md` — Overview (~9442 tok)
+- `README.md` — Project documentation (~49 tok)
+
+## design-references/design-md/minimax/
+
+- `DESIGN.md` — Overview (~9428 tok)
+- `README.md` — Project documentation (~51 tok)
+
+## design-references/design-md/mintlify/
+
+- `DESIGN.md` (~10963 tok)
+- `README.md` — Project documentation (~51 tok)
