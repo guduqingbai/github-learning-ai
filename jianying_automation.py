@@ -19,7 +19,7 @@ try:
 except ImportError:
     HAVE_PYAUTO = False
 
-JIANYING_PATH = r"C:\Users\吴文豪\AppData\Local\JianyingPro\Apps\JianyingPro.exe"
+JIANYING_PATH = os.environ.get("JIANYING_PRO_PATH", r"C:\Program Files\JianyingPro\Apps\JianyingPro.exe")
 
 
 class JianyingAutomation:

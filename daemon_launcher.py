@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-🚀 统一守护进程启动器 — PID锁防多开，思考+爬虫+交易三守护
+🚀 统一守护进程启动器 — PID锁防多开，思考+监控双守护
+（爬虫已集成到思考守护进程的 StopHook 中）
 """
 import os
 import sys
@@ -77,20 +78,6 @@ def thinking_loop():
             time.sleep(1)
 
 
-def crawler_loop():
-    """爬虫守护进程主循环：首次立即执行，之后每2小时"""
-    from crawler_daemon import CrawlerDaemon
-    daemon = CrawlerDaemon()
-    log("🕷️ 爬虫守护进程启动")
-    # 首次立即执行
-    daemon.run_crawl_task()
-    # 之后每2小时
-    while True:
-        for _ in range(7200):  # 2小时 = 7200秒
-            time.sleep(1)
-        daemon.run_crawl_task()
-
-
 def trading_loop():
     """交易监控守护进程：每10分钟扫描一次市场"""
     try:
@@ -124,14 +111,11 @@ def main():
         t1.start()
         time.sleep(0.5)
 
-        t2 = threading.Thread(target=crawler_loop, daemon=True)
+        t2 = threading.Thread(target=trading_loop, daemon=True)
         t2.start()
-
-        t3 = threading.Thread(target=trading_loop, daemon=True)
-        t3.start()
         time.sleep(0.5)
 
-        log("✅ 所有守护进程已启动，主线程保活中...")
+        log("✅ 思考+监控守护进程已启动，主线程保活中...")
 
         # 主线程监控保活
         while True:
@@ -141,13 +125,9 @@ def main():
                 t1 = threading.Thread(target=thinking_loop, daemon=True)
                 t1.start()
             if not t2.is_alive():
-                log("⚠️ 爬虫线程死亡，重启")
-                t2 = threading.Thread(target=crawler_loop, daemon=True)
+                log("⚠️ 监控线程死亡，重启")
+                t2 = threading.Thread(target=trading_loop, daemon=True)
                 t2.start()
-            if not t3.is_alive():
-                log("⚠️ 交易线程死亡，重启")
-                t3 = threading.Thread(target=trading_loop, daemon=True)
-                t3.start()
 
     except KeyboardInterrupt:
         log("用户中断")

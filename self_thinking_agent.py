@@ -165,6 +165,13 @@ class SelfThinkingAgent:
         self._thinking_engine: Optional[ThinkingEngine] = None
         self._last_local_think_cycle: int = -1  # -1 = 从未运行
 
+        # ── 行为反馈层（从观察代码 → 观察行为） ──
+        from behavior_feedback import BehaviorFeedback
+        self._behavior_feedback = BehaviorFeedback(data_dir=self.data_dir)
+
+        # ── 策略学习引擎（数据先行，再决策） ──
+        self._strategy_learner = None  # 惰性初始化
+
         # ── 经验记忆 ──
         self._experience_tracker = None
 
@@ -531,6 +538,35 @@ class SelfThinkingAgent:
         except Exception:
             self._self_profile = {}
         return self._self_profile
+
+    def _load_self_context(self):
+        """加载自我记忆中的状态（情绪、经历、暂缓问题），影响后续思考"""
+        self._mood = "平静"
+        self._recent_lessons = []
+        self._deferred_targets = []
+
+        try:
+            from self_memory import SelfMemory
+            from pathlib import Path
+            mem = SelfMemory(Path("data"))
+            self._mood = mem.get_mood()
+            lessons = mem.recall_lessons(3)
+            self._recent_lessons = [l.get("lesson", "") for l in lessons]
+            important = mem.recall_important(0.7)
+            if important:
+                print(f"  🧠 自我状态: 情绪={self._mood}, "
+                      f"深刻记忆={len(important)}条, 沉淀认知={len(lessons)}条")
+        except Exception:
+            pass
+
+        try:
+            from antibody_library import AntibodyLibrary
+            lib = AntibodyLibrary(Path("data"))
+            if lib.deferred:
+                self._deferred_targets = [d["target"] for d in lib.deferred[-5:]]
+                print(f"  ⏸️  暂缓问题: {len(lib.deferred)} 个等待新策略")
+        except Exception:
+            pass
 
     def _apply_metacognitive_adjustments(self, findings: List) -> None:
         """
@@ -1097,6 +1133,9 @@ class SelfThinkingAgent:
                 insight = self._generate_insight(q, exploration)
                 # 从问题继承重要性评分（供 daemon _apply_heals 使用）
                 insight["importance"] = getattr(q, 'importance', 0.5)
+                if insight["importance"] <= 0.0:
+                    print(f"  ⚠️ 问题重要性为 0: {q.question[:80]}")
+                    insight["importance"] = 0.3  # 兜底：至少 0.3
                 # 传递问题上下文（延续线程的 parent_thought_id 等）
                 ctx = getattr(q, 'context', None) or {}
                 if isinstance(ctx, dict) and any(k in ctx for k in ('parent_thought_id',)):
@@ -1105,6 +1144,19 @@ class SelfThinkingAgent:
                 results.append(insight)
 
                 et.record(problem, action, "success", cycle=cycle)
+
+                # ── 行为反馈：记录成功探索 ──
+                try:
+                    self._behavior_feedback.record(
+                        cycle=cycle,
+                        action_type=action,
+                        target=q.target or problem,
+                        question=q.question[:200],
+                        result="success",
+                        detail=insight.get("summary", "")[:200],
+                    )
+                except Exception:
+                    pass
 
                 # 技能结晶：从成功探索提取可复用技能
                 try:
@@ -1126,6 +1178,18 @@ class SelfThinkingAgent:
                 error_type = type(e).__name__
                 et.record(problem, action, "failure", error_type,
                           cycle, str(e)[:200])
+                # ── 行为反馈：记录失败探索 ──
+                try:
+                    self._behavior_feedback.record(
+                        cycle=cycle,
+                        action_type=action,
+                        target=q.target or problem,
+                        question=q.question[:200],
+                        result="failure",
+                        detail=f"{error_type}: {str(e)[:200]}",
+                    )
+                except Exception:
+                    pass
                 err_insight = {
                     "observation": q.observation,
                     "question": q.question,
@@ -1265,7 +1329,10 @@ class SelfThinkingAgent:
             self._self_reflect()
         self._run_hooks(HookEvent.POST_REFLECT)
 
-        # 好奇心引擎生成问题（基于扫描数据）
+        # 读取自我状态（情绪、经历、暂缓问题），用于影响问题生成
+        self._load_self_context()
+
+        # 好奇心引擎生成问题（基于扫描数据 + 自我状态）
         if self._check_feature("curiosity_engine"):
             self._run_hooks(HookEvent.PRE_QUESTIONS)
             self._generate_questions()
@@ -1340,6 +1407,26 @@ class SelfThinkingAgent:
             effective_depth = self._current_strategy.exploration_depth
 
         print(f"❓ 共 {len(self.questions)} 个好奇心问题")
+
+        # ── 行动平衡：确保至少 1 个自修复问题被选中 ──
+        # 优先 self_heal，其次才是读文件
+        top_n = self.questions[:effective_depth]
+        HEALABLE = {"self_heal", "code_quality_heal"}
+        has_heal = any(q.explore_action in HEALABLE for q in top_n)
+        if not has_heal:
+            # 先找 self_heal，找不到再找 read_file/check_state
+            for target_type in (HEALABLE, {"read_file", "check_state"}):
+                for i, q in enumerate(self.questions[effective_depth:]):
+                    if q.explore_action in target_type:
+                        swap = effective_depth - 1
+                        self.questions[swap], self.questions[effective_depth + i] = \
+                            self.questions[effective_depth + i], self.questions[swap]
+                        print(f"  ⚖️ 行动平衡: {q.explore_action} 替换 #{swap}")
+                        break
+                else:
+                    continue
+                break
+
         self._run_hooks(HookEvent.PRE_EXPLORE, questions=self.questions[:effective_depth])
         results = self._explore_and_store(self.questions[:effective_depth])
         self._run_hooks(HookEvent.POST_EXPLORE, results=results)
@@ -2189,6 +2276,47 @@ class SelfThinkingAgent:
             import traceback
             findings.append(f"⚠️ 元认知监控异常: {traceback.format_exc()[:100]}")
 
+        # 6. 行为反馈分析：从历史行为中学习
+        try:
+            bf = self._behavior_feedback
+            failing = bf.get_failing_targets()
+            for f in failing[:2]:
+                findings.append(
+                    f"🔁 行为反馈: '{f['target']}' "
+                    f"失败 {f['failures']}/{f['attempts']} 次 "
+                    f"({f['fail_rate']:.0%}) — 应减少此方向投入")
+                self._log_reflection_finding(
+                    "behavior_failure", f"{f['target']}|{f['fail_rate']:.0%}")
+
+            successful = bf.get_successful_targets()
+            for s in successful[:2]:
+                findings.append(
+                    f"✅ 行为反馈: '{s['target']}' "
+                    f"成功 {s['successes']}/{s['attempts']} 次 "
+                    f"({s['success_rate']:.0%}) — 可继续深入")
+                self._log_reflection_finding(
+                    "behavior_success", f"{s['target']}|{s['success_rate']:.0%}")
+        except Exception as e:
+            findings.append(f"⚠️ 行为反馈分析异常: {e}")
+
+        # 7. 策略学习分析（数据先行阶段，只记录不干预）
+        if hasattr(self, '_behavior_feedback') and len(self._behavior_feedback.records) >= 10:
+            try:
+                if self._strategy_learner is None:
+                    from strategy_learner import StrategyLearner
+                    self._strategy_learner = StrategyLearner(self._behavior_feedback)
+                cycle = getattr(self, '_cycle_count', 0)
+                result = self._strategy_learner.analyze(cycle)
+                if result.get("status") == "analyzed":
+                    findings.append(
+                        f"🧠 策略学习: {result.get('summary', '')}")
+                    # 打印策略清单到日志
+                    s_summary = self._strategy_learner.get_strategy_summary()
+                    if s_summary:
+                        print(f"\n  {s_summary}")
+            except Exception as e:
+                pass  # 策略学习是可选的，不影响主流程
+
         if findings:
             print(f"\n  {'─'*40}")
             print(f"  🔍 反思审计 ({len(findings)} 项)")
@@ -2315,13 +2443,16 @@ class SelfThinkingAgent:
 
     def _prioritize_questions(self, questions: List) -> List:
         """
-        5 因子加权评分：对好奇心问题重新排序。
+        6 因子加权评分：对好奇心问题重新排序。
 
-        final_score = 0.30 * base_importance
+        final_score = 0.25 * base_importance
                      + 0.20 * experience_factor
                      + 0.20 * goal_alignment
                      + 0.15 * knowledge_gap_severity
-                     + 0.15 * metacognitive_urgency
+                     + 0.10 * metacognitive_urgency
+                     + 0.10 * behavior_bias
+
+        behavior_bias 来自行为反馈层：成功方向 +0.3, 失败方向 -0.3
         """
         if not questions:
             return questions
@@ -2349,7 +2480,7 @@ class SelfThinkingAgent:
 
         scored = []
         for q in questions:
-            # base_importance (0.30)
+            # base_importance (0.25)
             base = q.importance
 
             # experience_factor (0.20)
@@ -2361,6 +2492,19 @@ class SelfThinkingAgent:
                 exp = 0.7
             elif action in ("self_heal", "global_research"):
                 exp = 0.6
+
+            # behavior_bias (0.10) — 基于历史行为的方向偏好
+            behavior_bias = self._behavior_feedback.get_bias(
+                action_type=action, target=q.target or "") if hasattr(self, '_behavior_feedback') else 0.0
+
+            # strategy_weight (参考值，暂不计入总分) — 策略学习引擎
+            strategy_weight = 0.0
+            if hasattr(self, '_strategy_learner') and self._strategy_learner is not None:
+                cycle = getattr(self, '_cycle_count', 0)
+                strategy_weight = self._strategy_learner.get_strategy_weight(
+                    action_type=action, target=q.target or "", current_cycle=cycle)
+            if strategy_weight != 0.0 and hasattr(q, 'context') and isinstance(q.context, dict):
+                q.context['strategy_weight'] = strategy_weight
 
             # 技能加分：匹配已知技能的问题提升经验因子
             try:
@@ -2398,7 +2542,7 @@ class SelfThinkingAgent:
             if action in ("add_crawler_task", "global_research", "deep_learning"):
                 gap = max(gap, 0.6)
 
-            # metacognitive_urgency (0.15)
+            # metacognitive_urgency (0.10)
             meta = 0.3
             if confidence < 0.4:
                 # 低置信度：偏安全操作
@@ -2416,11 +2560,12 @@ class SelfThinkingAgent:
                     meta = max(meta, 0.7)
 
             final = (
-                0.30 * base
+                0.25 * base
                 + 0.20 * exp
                 + 0.20 * align
                 + 0.15 * gap
-                + 0.15 * meta
+                + 0.10 * meta
+                + 0.20 * behavior_bias
             )
             scored.append((final, q))
 
@@ -2619,6 +2764,151 @@ class SelfThinkingAgent:
                     continue
                 known_gaps.add(gap_key)
             filtered.append(q)
+
+        # 行为反馈过滤：长期失败的方向转为诊断修复，不直接跳过
+        if not hasattr(self, '_diagnosed_actions'):
+            self._diagnosed_actions: set = set()
+        if hasattr(self, '_behavior_feedback') and len(self._behavior_feedback.records) >= 5:
+            bias_filtered = []
+            skip_counts: Dict[str, int] = {}
+            for q in filtered:
+                bias = self._behavior_feedback.get_bias(
+                    action_type=q.explore_action, target=q.target or "")
+                if bias <= -0.2:
+                    action = q.explore_action
+                    skip_counts[action] = skip_counts.get(action, 0) + 1
+                    # 首次失败：生成诊断问题，不直接跳过
+                    if action not in self._diagnosed_actions:
+                        self._diagnosed_actions.add(action)
+                        from curiosity_engine import CuriosityQuestion
+                        recent = self._behavior_feedback.get_recent(20)
+                        errors = [r.get("detail", "") for r in recent
+                                  if r.get("action_type") == action and r.get("result") == "failure"]
+                        error_sample = "; ".join(e for e in errors[:3] if e)[:150]
+                        diag_q = CuriosityQuestion(
+                            observation=f"行为反馈显示 '{action}' 操作反复失败",
+                            question=f"搜索解决方案: '{action}' 操作反复失败，错误: {error_sample}",
+                            importance=0.85,
+                            explore_action="web_research",
+                            target=f"修复 {action} 失败 {error_sample}",
+                            reason=f"行为反馈全网诊断: {action} 连续失败",
+                        )
+                        bias_filtered.insert(0, diag_q)  # 诊断放最前面优先处理
+                        skip_counts[action] = skip_counts.get(action, 0) - 1  # 不算跳过，算诊断
+                    continue
+                bias_filtered.append(q)
+            if skip_counts:
+                # 真正跳过的 = 已经是重复失败且已诊断过的
+                real_skip = {k: v for k, v in skip_counts.items() if v > 0}
+                new_diag = [k for k, v in skip_counts.items()
+                           if k in self._diagnosed_actions and v <= 0]
+                parts = []
+                if real_skip:
+                    parts.append(f"跳过 {sum(real_skip.values())} 个")
+                if new_diag:
+                    parts.append(f"诊断 {len(new_diag)} 个方向")
+                if parts:
+                    print(f"  🧠 行为反馈: {'，'.join(parts)}")
+            filtered = bias_filtered
+
+        # ── 每轮代码质量扫描：生成自修复问题 ──
+        # 不依赖 learned 是否为空，确保 self_heal 问题每轮都有机会出现
+        try:
+            import ast
+            code_issues = {"bare_excepts": [], "no_module_doc": []}
+            for py_file in Path.cwd().glob("*.py"):
+                code = py_file.read_text(encoding="utf-8")
+                tree = ast.parse(code)
+                # 裸 except 扫描
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.Try):
+                        for handler in node.handlers:
+                            if handler.type is None:
+                                code_issues["bare_excepts"].append(py_file.name)
+                # 模块级文档扫描（与 add_module_docstring 匹配）
+                if not ast.get_docstring(tree):
+                    code_issues["no_module_doc"].append(py_file.name)
+            from curiosity_engine import CuriosityQuestion
+            if code_issues["bare_excepts"]:
+                uf = sorted(set(code_issues["bare_excepts"]))[:3]
+                filtered.append(CuriosityQuestion(
+                    observation=f"发现 {len(code_issues['bare_excepts'])} 处裸 except",
+                    question=f"有文件用了裸 except: {', '.join(uf)}，修吗？",
+                    importance=0.9, explore_action="self_heal",
+                    target=",".join(uf),
+                    context={"source": "code_scan", "type": "bare_except"}))
+            if code_issues["no_module_doc"]:
+                ff = code_issues["no_module_doc"][:3]
+                filtered.append(CuriosityQuestion(
+                    observation=f"发现 {len(code_issues['no_module_doc'])} 个文件缺模块文档",
+                    question=f"模块缺文档: {', '.join(ff)}，补吗？",
+                    importance=0.7, explore_action="self_heal",
+                    target=",".join(ff),
+                    context={"source": "code_scan", "type": "missing_doc"}))
+        except Exception:
+            pass  # 代码扫描失败不影响主流程
+
+        # ── 每轮代码质量扩展扫描：长函数检测 ──
+        try:
+            import ast as _ast2
+            code_issues_long = []
+            for py_file in Path.cwd().glob("*.py"):
+                code = py_file.read_text(encoding="utf-8")
+                tree = _ast2.parse(code)
+                for node in _ast2.walk(tree):
+                    if isinstance(node, (_ast2.FunctionDef, _ast2.AsyncFunctionDef)):
+                        start = node.lineno
+                        end = getattr(node, 'end_lineno', start)
+                        body_lines = end - start
+                        if body_lines > 100:
+                            code_issues_long.append(f"{py_file.name}:{node.name}({body_lines}行)")
+            if code_issues_long:
+                from curiosity_engine import CuriosityQuestion
+                # 最多报5个
+                long_samples = code_issues_long[:5]
+                filtered.append(CuriosityQuestion(
+                    observation=f"发现 {len(code_issues_long)} 个超长函数(>100行)",
+                    question=f"超长函数: {', '.join(long_samples[:3])}，需要拆分重构吗？",
+                    importance=0.65,
+                    explore_action="read_file",
+                    target=long_samples[0].split(":")[0],
+                    context={"source": "code_scan", "type": "long_function", "functions": long_samples},
+                ))
+        except Exception:
+            pass
+
+        # ── 问题去重：同一(操作,目标)不无限循环 ──
+        seen_file = self.data_dir / "seen_questions.json"
+        dedup_limits = {
+            "deep_learning": 30,    # 30轮内不重复问同一个KB条目
+            "global_research": 20,  # 20轮内不重复研究
+        }
+        try:
+            seen_data = {} if not seen_file.exists() else json.loads(
+                seen_file.read_text(encoding="utf-8"))
+            cycle = getattr(self, '_cycle_count', 0)
+
+            deduped = []
+            for q in filtered:
+                limit = dedup_limits.get(q.explore_action, 0)
+                if limit > 0:
+                    key = f"{q.explore_action}:{q.target}"
+                    last_seen = seen_data.get(key, -limit)
+                    if cycle - last_seen < limit:
+                        continue  # 冷却期内，跳过
+                deduped.append(q)
+
+            # 记录本轮选中问题
+            for q in deduped:
+                limit = dedup_limits.get(q.explore_action, 0)
+                if limit > 0:
+                    key = f"{q.explore_action}:{q.target}"
+                    seen_data[key] = cycle
+
+            seen_file.write_text(json.dumps(seen_data, ensure_ascii=False), encoding="utf-8")
+            filtered = deduped
+        except Exception:
+            pass
 
         self.questions = filtered
 
@@ -3005,6 +3295,7 @@ class SelfThinkingAgent:
                 "observation": q.observation,
                 "question": q.question,
                 "summary": f"探索失败: {exploration['error']}",
+                "action_taken": "error",
                 "exploration": exploration,
             }
 

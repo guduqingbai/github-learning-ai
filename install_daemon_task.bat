@@ -3,7 +3,7 @@ REM 安装星期八自主思考守护进程为 Windows 计划任务
 REM 实现：开机自启 + 每30分钟检查（崩溃自动重启）
 REM 以管理员身份运行！
 
-set VBS_SCRIPT="C:\Users\吴文豪\claude-code-projects\github-learning\start_daemon.vbs"
+set VBS_SCRIPT="%~dp0start_daemon.vbs"
 set TASK_NAME="XingQiBa Thinking Daemon"
 
 echo ==========================================

@@ -1,23 +1,73 @@
 #!/usr/bin/env python3
-"""
-🤖 AI知识自动爬虫 - 真实数据版
-使用免费公开API获取全球AI相关资料
-"""
 
-import os, sys, time, json, re, urllib.request, urllib.parse, ssl
+"""ai_knowledge_crawler 模块"""
+
+
+
+"""ai_knowledge_crawler 模块"""
+
+
+"""
+🤖 AI知识自动爬虫 - 精爬版
+专注 4 个高质量源：arXiv API + GitHub Topics + Papers With Code + Hacker News
+过滤层 + 增量去重 + 礼貌爬取
+"""
+import os, sys, time, json, re
 import threading, schedule
 from datetime import datetime
 from typing import List, Dict, Any
 from pathlib import Path
 
+import requests
+from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+import warnings
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# 跳过SSL验证（某些环境需要）
-ctx = ssl._create_unverified_context()
+# 请求会话（连接复用 + 统一超时）
+_http = requests.Session()
+_http.headers.update({"User-Agent": "Mozilla/5.0 (compatible; LearningBot/1.0)"})
+_http.headers.update({"From": "learning-bot@local"})  # 爬虫身份标识
 
 
 class AIKnowledgeCrawler:
-    """AI知识自动爬虫 - 真实数据版"""
+    """AI知识自动爬虫 — 精爬版"""
+
+    # ─── 源可信度 ────────────────────────────────────────────────
+    SOURCE_TRUST = {
+        "arXiv": 0.9, "GitHub": 0.9, "定向爬虫": 0.8,
+        "OpenAlex": 0.8, "Stack Overflow": 0.8,
+        "CrossRef": 0.8, "Substack": 0.7,
+        "Towards Data Science": 0.7,
+        "Hacker News": 0.6,
+    }
+    DEFAULT_TRUST = 0.4
+
+    # ─── 相关性关键词组 ────────────────────────────────────────────
+    RELEVANCE_GROUPS = {
+        "核心AI": [
+            "artificial intelligence", "machine learning", "deep learning",
+            "neural network", "nlp", "natural language processing",
+            "llm", "large language model", "transformer", "attention mechanism",
+            "gpt", "diffusion", "reinforcement learning", "foundation model",
+            "computer vision", "data mining", "knowledge graph",
+            "人工智能", "机器学习", "深度学习", "大语言模型",
+        ],
+        "自主系统": [
+            "self-improv", "self improvement", "self-modif", "self-aware",
+            "self-think", "self-evolv",
+            "autonomous agent", "cognitive architecture", "cognitive", "cognition",
+            "meta-cognit", "metacognit",
+            "curiosity", "self-reflect", "self-correct", "recursive self",
+            "自主", "自我改进", "元认知", "认知架构", "智能体", "agent",
+        ],
+        "工程实现": [
+            "python", "algorithm", "data structure", "software architecture",
+            "system design", "code generation", "programming", "api design",
+            "算法", "数据结构", "软件架构", "系统设计", "编程",
+        ],
+    }
 
     def __init__(self):
         self.is_running = False
@@ -26,9 +76,22 @@ class AIKnowledgeCrawler:
         self.data_dir.mkdir(exist_ok=True)
         self.session_count = 0
         self.last_results = []
-        self.headers = {"User-Agent": "Mozilla/5.0 (compatible; LearningBot/1.0)"}
-        self._log_buffer = []  # 日志缓冲，减少文件I/O
+        self._log_buffer = []
 
+        # 本次爬取去重（按标题前缀，不跨次持久化）
+        self._seen_titles: set = set()
+
+    def _is_new(self, title: str) -> bool:
+        """爬取中去重：同一次爬取中标题前缀完全相同的跳过"""
+        if not title:
+            return False
+        key = title[:80].lower().strip()
+        if key in self._seen_titles:
+            return False
+        self._seen_titles.add(key)
+        return True
+
+    # ─── 日志 ────────────────────────────────────────────────────
     def log(self, msg):
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         line = f"[{ts}] {msg}"
@@ -47,270 +110,262 @@ class AIKnowledgeCrawler:
         finally:
             self._log_buffer.clear()
 
-    # ─── 1. GitHub Trending ─────────────────────────────────────
-    def crawl_github(self) -> List[Dict]:
-        """从GitHub API获取热门AI仓库 + 自思考架构相关项目"""
-        results = []
-        queries = [
-            "machine+learning",
-            "deep+learning",
-            "natural+language+processing",
-            "artificial+intelligence",
-            "large+language+model",
-            "self+thinking+AI",
-            "autonomous+agent+architecture",
-            "meta+cognition+AI",
-            "curiosity+driven+learning",
-            "self+improving+systems",
-        ]
-        for q in queries:
-            try:
-                url = f"https://api.github.com/search/repositories?q={q}&sort=stars&per_page=3"
-                req = urllib.request.Request(url, headers=self.headers)
-                with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
-                    data = json.loads(resp.read().decode())
-                    for repo in data.get("items", [])[:3]:
-                        results.append({
-                            "title": repo["full_name"],
-                            "content": repo.get("description", "") or "暂无描述",
-                            "source": "GitHub",
-                            "importance": min(1.0, repo.get("stargazers_count", 0) / 10000),
-                            "link": repo["html_url"],
-                            "keywords": [q.replace("+", " ")],
-                        })
-                time.sleep(1)  # 避免API限流
-            except Exception as e:
-                self.log(f"⚠️ GitHub搜索失败 [{q}]: {e}")
-        return results
+    # ─── 通用工具 ────────────────────────────────────────────────
+    @staticmethod
+    def _rate_limit(delay: float = 2.5):
+        """礼貌爬取间隔"""
+        time.sleep(delay)
 
-    # ─── 2. arXiv论文 ──────────────────────────────────────────
-    def crawl_arxiv(self) -> List[Dict]:
-        """从arXiv API获取最新AI论文"""
-        results = []
-        queries = ["AI", "machine+learning", "natural+language+processing"]
-        for q in queries:
-            try:
-                url = f"http://export.arxiv.org/api/query?search_query=all:{q}&sortBy=submittedDate&sortOrder=descending&max_results=3"
-                req = urllib.request.Request(url, headers=self.headers)
-                with urllib.request.urlopen(req, timeout=20, context=ctx) as resp:
-                    xml = resp.read().decode("utf-8")
-                    # 简单解析XML提取标题
-                    titles = re.findall(r"<title>(.*?)</title>", xml, re.DOTALL)
-                    ids = re.findall(r"<id>(.*?)</id>", xml)
-                    summaries = re.findall(r"<summary>(.*?)</summary>", xml, re.DOTALL)
-                    for i in range(min(len(titles), 5)):
-                        if i == 0:
-                            continue  # 跳过feed标题
-                        title = titles[i].strip().replace("\n", " ")[:200]
-                        summary = (summaries[i-1].strip().replace("\n", " ")[:300]
-                                   if i-1 < len(summaries) else "")
-                        link = ids[i].strip() if i < len(ids) else url
-                        results.append({
-                            "title": f"[论文] {title}",
-                            "content": summary,
-                            "source": "arXiv",
-                            "importance": 0.85,
-                            "link": link,
-                            "keywords": [q.replace("+", " ")],
-                        })
-                time.sleep(3)  # arXiv要求至少3秒间隔
-            except Exception as e:
-                self.log(f"⚠️ arXiv搜索失败 [{q}]: {e}")
-        return results
-
-    # ─── 3. Hacker News ────────────────────────────────────────
-    def crawl_hackernews(self) -> List[Dict]:
-        """Hacker News — 被墙快速跳过"""
-        body = self._try_source("https://hacker-news.firebaseio.com/v0/topstories.json", 3)
-        if not body:
-            return []
-        results = []
+    def _fetch(self, url: str, timeout: int = 30) -> str:
+        """GET 请求，失败返回空字符串"""
         try:
-            story_ids = json.loads(body)[:6]
-            for sid in story_ids:
-                item = json.loads(self._try_source(
-                    f"https://hacker-news.firebaseio.com/v0/item/{sid}.json", 3) or "{}")
-                if item.get("title"):
-                    results.append({
-                        "title": item["title"],
-                        "content": (item.get("text") or item.get("url") or "HN")[:300],
-                        "source": "Hacker News", "importance": 0.7,
-                        "link": item.get("url", f"https://news.ycombinator.com/item?id={sid}"),
-                        "keywords": ["tech"],
-                    })
-            self.log(f"✅ Hacker News: {len(results)} 条")
-        except Exception:
-            pass
-        return results
-
-    # ─── 4. 已知被墙源快速探测 ────────────────────────────
-    def _try_source(self, url: str, timeout: int = 2) -> str:
-        """快速探测源是否可访问，1秒内没回应就放弃"""
-        try:
-            req = urllib.request.Request(url, headers=self.headers)
-            with urllib.request.urlopen(req, timeout=timeout, context=ctx) as resp:
-                return resp.read().decode(errors="replace")
-        except Exception:
+            r = _http.get(url, timeout=timeout)
+            r.raise_for_status()
+            return r.text
+        except Exception as e:
+            self.log(f"⚠️ 请求失败: {url[:80]} → {e}")
             return ""
 
-    def crawl_wikipedia(self) -> List[Dict]:
-        """Wikipedia — 被墙快速跳过"""
-        test = self._try_source("https://en.wikipedia.org/api/rest_v1/page/summary/Artificial_intelligence", 2)
-        if not test:
-            return []
-        topics = ["Artificial_intelligence", "Machine_learning", "Deep_learning", "Natural_language_processing"]
+    # ─── 1. arXiv API（最高优先级）───────────────────────────────
+    def crawl_arxiv(self) -> List[Dict]:
+        """arXiv API 抓取自主系统和 AI Agent 相关论文"""
+        queries = [
+            # 标题搜索（精度高）
+            'ti:autonomous+agent+AND+cat:cs.AI',
+            'ti:self-improving+AND+cat:cs.AI',
+            'ti:metacognition+AND+cat:cs.AI',
+            'ti:cognitive+architecture+AND+cat:cs.AI',
+            'ti:large+language+model+agent',
+            # 能力/技能方向
+            'ti:tool+use+AND+cat:cs.AI',
+            'ti:retrieval+augmented+AND+cat:cs.AI',
+            'ti:agent+framework+AND+cat:cs.AI',
+            'ti:prompt+engineering+AND+cat:cs.AI',
+            'ti:reinforcement+learning+from+human+feedback+AND+cat:cs.AI',
+        ]
         results = []
-        for topic in topics:
-            try:
-                data = json.loads(self._try_source(
-                    f"https://en.wikipedia.org/api/rest_v1/page/summary/{topic}", 3) or "{}")
-                if not data.get("title"):
-                    continue
-                results.append({
-                    "title": data["title"], "content": (data.get("extract") or "")[:400],
-                    "source": "Wikipedia", "importance": 0.8,
-                    "link": data.get("content_urls", {}).get("desktop", {}).get("page",
-                           f"https://en.wikipedia.org/wiki/{topic}"),
-                    "keywords": [topic.replace("_", " ")],
-                })
-            except Exception:
-                continue
-        if results:
-            self.log(f"✅ Wikipedia: {len(results)} 条")
-        return results
-
-    # ─── 5. Reddit (双协议) ────────────────────────────────────
-    def crawl_reddit(self) -> List[Dict]:
-        """Reddit — 被墙快速跳过"""
-        body = self._try_source("https://www.reddit.com/r/artificial/hot.json?limit=5", 2)
-        if not body:
-            return []
-        try:
-            data = json.loads(body)
-            results = []
-            for p in data.get("data", {}).get("children", [])[:5]:
-                d = p.get("data", {})
-                results.append({
-                    "title": d.get("title", ""),
-                    "content": (d.get("selftext") or "")[:200] or "Reddit讨论",
-                    "source": "Reddit", "importance": 0.7,
-                    "link": f"https://reddit.com{d.get('permalink', '')}",
-                    "keywords": ["reddit"],
-                })
-            return results
-        except Exception:
-            return []
-
-    # ─── 6. 百度百科 (国内版 Wikipedia) ──────────────────────────
-    def crawl_baike(self) -> List[Dict]:
-        """百度百科AI词条 — 国内可正常访问"""
-        results = []
-        topics = {
-            "人工智能": "https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
-            "机器学习": "https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0",
-            "深度学习": "https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0",
-            "自然语言处理": "https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86",
-            "大语言模型": "https://baike.baidu.com/item/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B",
-        }
-        for name, url in topics.items():
-            try:
-                req = urllib.request.Request(url, headers=self.headers)
-                with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
-                    html = resp.read().decode("utf-8", errors="replace")
-                    # 提取摘要
-                    desc_match = re.search(r'<meta[^>]*name="description"[^>]*content="([^"]+)"', html)
-                    desc = desc_match.group(1)[:400] if desc_match else f"百度百科词条: {name}"
-                    # 提取标题
-                    title_match = re.search(r'<title>([^<]+)</title>', html)
-                    title = title_match.group(1).replace("_百度百科", "") if title_match else name
-                    results.append({
-                        "title": title.strip(),
-                        "content": desc,
-                        "source": "百度百科",
-                        "importance": 0.8,
-                        "link": url,
-                        "keywords": [name],
-                    })
-                self.log(f"✅ 百度百科: [{name}] 获取成功")
-                time.sleep(0.5)
-            except Exception as e:
-                self.log(f"⚠️ 百度百科抓取失败 [{name}]: {e}")
-        return results
-
-    # ─── 7. 哔哩哔哩 (搜索科技区) ──────────────────────────
-    def crawl_bilibili(self) -> List[Dict]:
-        """B站搜索AI相关视频"""
-        results = []
-        queries = ["人工智能", "机器学习", "Python编程"]
-        browser_hdrs = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://search.bilibili.com/",
-            "Origin": "https://search.bilibili.com",
-        }
-        ai_keywords = ["AI", "人工智能", "机器学习", "深度学习", "Python",
-                       "教程", "算法", "模型", "编程", "数据"]
         for q in queries:
-            try:
-                url = f"https://search.bilibili.com/all?keyword={urllib.parse.quote(q)}&from_source=webtop_search"
-                req = urllib.request.Request(url, headers=browser_hdrs)
-                with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
-                    html = resp.read().decode("utf-8", errors="replace")
-                    # 提取所有视频标题（B站服务端渲染的标题在 title 属性中）
-                    all_titles = re.findall(r'title="([^"]{4,80})"', html)
-                    seen = set()
-                    for t in all_titles:
-                        t = t.strip()
-                        if not t or len(t) < 5 or t in seen:
-                            continue
-                        seen.add(t)
-                        # 只保留与AI/技术相关的标题
-                        if any(kw in t for kw in ai_keywords):
-                            results.append({
-                                "title": f"[B站] {t}",
-                                "content": f"B站AI学习视频: {q}",
-                                "source": "B站",
-                                "importance": 0.7,
-                                "link": url,
-                                "keywords": [q],
-                            })
-                self.log(f"✅ B站[{q}]: 获取到 {len(results)} 个视频")
-                time.sleep(1)
-            except Exception as e:
-                self.log(f"⚠️ B站搜索失败 [{q}]: {e}")
+            body = self._fetch(
+                f"http://export.arxiv.org/api/query"
+                f"?search_query={q}&start=0&max_results=10"
+                f"&sortBy=submittedDate&sortOrder=descending",
+                timeout=30)
+            if not body:
+                self._rate_limit(3)
+                continue
+
+            soup = BeautifulSoup(body, "xml" if "lxml" in str(type(body)) else "html.parser")
+            entries = soup.find_all("entry") if soup.find("entry") else []
+            # 退回到正则解析（BeautifulSoup 的 XML 解析可能不如正则可靠）
+            if not entries:
+                entries = re.findall(r'<entry>(.*?)</entry>', body, re.DOTALL)
+                entries = [BeautifulSoup(e, "html.parser") for e in entries]
+
+            for entry in entries:
+                title = entry.find("title")
+                title = (title.get_text(strip=True) if title else "")[:200]
+                title = re.sub(r'\s+', ' ', title).strip()
+
+                summary = entry.find("summary")
+                summary = (summary.get_text(strip=True) if summary else "")[:400]
+                summary = re.sub(r'\s+', ' ', summary).strip()
+
+                eid = entry.find("id")
+                url = eid.get_text(strip=True) if eid else ""
+
+                cats = entry.find_all("category")
+                cat_terms = [c.get("term", "") for c in cats if c.get("term")]
+
+                if not title:
+                    continue
+                if not self._is_new(title):
+                    continue
+
+                results.append({
+                    "title": title,
+                    "content": summary,
+                    "source": "arXiv",
+                    "importance": 0.85,
+                    "link": url,
+                    "keywords": cat_terms + [q.split(":")[0] for q in q.split("+AND+")],
+                })
+
+            self.log(f"  📄 arXiv [{q.split('&')[0][:50]}]: {len(results)} 条")
+            self._rate_limit(3.5)  # arXiv 要求至少 3 秒
+
+        self.log(f"  ✅ arXiv 总计: {len(results)} 条论文")
         return results
 
-    # ─── 8. 百度新闻热搜 ───────────────────────────────────
-    def crawl_baidu_news(self) -> List[Dict]:
-        """百度实时热搜中的科技新闻"""
+    # ─── 2. GitHub API ───────────────────────────────────────────
+    def crawl_github(self) -> List[Dict]:
+        """GitHub API 搜索 AI 能力/技能相关仓库"""
         results = []
-        try:
-            url = "https://top.baidu.com/board?tab=realtime"
-            req = urllib.request.Request(url, headers=self.headers)
-            with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
-                html = resp.read().decode("utf-8", errors="replace")
-                # 提取热搜标题
-                items = re.findall(r'"word":"([^"]+)"', html)
-                for item in items[:20]:
-                    kw = ["AI", "人工", "模型", "智能", "算法", "数据", "学习",
-                          "编程", "代码", "科技", "芯片", "手机", "电脑", "软件",
-                          "数字", "网络", "GPT", "苹果", "华为", "微软", "谷歌"]
-                    if any(k in item for k in kw):
-                        results.append({
-                            "title": item,
-                            "content": "百度实时热搜",
-                            "source": "百度热搜",
-                            "importance": 0.7,
-                            "link": f"https://www.baidu.com/s?wd={urllib.parse.quote(item)}",
-                            "keywords": ["科技", "热搜"],
-                        })
-            self.log(f"✅ 百度热搜: 获取到 {len(results)} 条科技相关热搜")
-        except Exception as e:
-            self.log(f"⚠️ 百度热搜抓取失败: {e}")
+        gh_headers = {"Accept": "application/vnd.github.v3+json"}
+        queries = [
+            # 研究方向
+            ("topic:autonomous-agents", "autonomous-agents"),
+            ("topic:self-improving-ai", "self-improving-ai"),
+            ("topic:cognitive-architecture", "cognitive-architecture"),
+            ("topic:ai-agents", "ai-agents"),
+            ("topic:meta-learning", "meta-learning"),
+            ("self-improving+AI+agent", "self-improving"),
+            ("metacognition+framework", "metacognition"),
+            # 能力/技能（AI 工具链）
+            ("topic:langchain", "langchain"),
+            ("topic:rag", "rag"),
+            ("topic:embeddings", "embeddings"),
+            ("topic:ai-agent", "ai-agent"),
+            ("topic:function-calling", "function-calling"),
+            ("topic:large-language-model", "llm"),
+            ("topic:prompt-engineering", "prompt-engineering"),
+            ("topic:vector-database", "vector-database"),
+        ]
+        for q, label in queries:
+            body = self._fetch(
+                f"https://api.github.com/search/repositories"
+                f"?q={requests.utils.quote(q)}&sort=stars&per_page=15",
+                timeout=15)
+            if not body:
+                self._rate_limit(2)
+                continue
+            try:
+                data = json.loads(body)
+                for repo in data.get("items", [])[:15]:
+                    full_name = repo["full_name"]
+                    link = repo["html_url"]
+                    if not self._is_new(full_name):
+                        continue
+                    results.append({
+                        "title": full_name,
+                        "content": (repo.get("description") or "暂无描述")[:400],
+                        "source": "GitHub",
+                        "importance": min(1.0, repo.get("stargazers_count", 0) / 5000 + 0.3),
+                        "link": link,
+                        "keywords": [label],
+                    })
+            except (json.JSONDecodeError, KeyError) as e:
+                self.log(f"  ⚠️ GitHub API 解析失败 [{q}]: {e}")
+
+            self.log(f"  🌐 GitHub [{label}]: {len(results)} 条")
+            self._rate_limit(2)
+
+        self.log(f"  ✅ GitHub 总计: {len(results)} 条仓库")
         return results
 
-    # ─── 9. 从任务队列抓取（自主学习生成的定向任务）───────────
+    # ─── 3. OpenAlex（开放学术索引）─────────────────────────────
+    def crawl_paperswithcode(self) -> List[Dict]:
+        """OpenAlex API 搜索自主系统/元认知相关论文（开源，无需 Key）"""
+        results = []
+        queries = [
+            ("cognitive architecture autonomous agent", "认知架构"),
+            ("self-improving AI system", "自改进系统"),
+            ("metacognition artificial intelligence", "元认知AI"),
+            ("LLM agent reasoning", "LLM智能体"),
+            ("curiosity driven learning agent", "好奇驱动"),
+            # 能力/技能方向
+            ("prompt engineering techniques", "提示工程"),
+            ("tool use AI agent", "工具使用"),
+            ("AI alignment safety", "AI对齐"),
+            ("retrieval augmented generation", "RAG"),
+            ("reinforcement learning from human feedback", "RLHF"),
+        ]
+        for q, label in queries:
+            url = (f"https://api.openalex.org/works"
+                   f"?search={requests.utils.quote(q)}"
+                   f"&sort=cited_by_count:desc"
+                   f"&per_page=10"
+                   f"&select=id,title,abstract_inverted_index,authorships,doi,publication_date,cited_by_count")
+            body = self._fetch(url, timeout=15)
+            if not body:
+                self._rate_limit(2)
+                continue
+
+            try:
+                data = json.loads(body)
+                for work in data.get("results", [])[:10]:
+                    title = (work.get("title") or "")[:200]
+                    doi = work.get("doi") or work.get("id", "")
+                    link = doi if doi.startswith("http") else f"https://doi.org/{doi}" if doi else url
+
+                    if not self._is_new(title):
+                        continue
+
+                    # OpenAlex 用 inverted index 存摘要
+                    abstract_idx = work.get("abstract_inverted_index")
+                    abstract = ""
+                    if abstract_idx:
+                        word_positions = []
+                        for word, positions in abstract_idx.items():
+                            for pos in positions:
+                                word_positions.append((pos, word))
+                        word_positions.sort()
+                        abstract = " ".join(w for _, w in word_positions)[:400]
+
+                    results.append({
+                        "title": title,
+                        "content": abstract or "OpenAlex 学术论文",
+                        "source": "OpenAlex",
+                        "importance": min(0.9, 0.5 + (work.get("cited_by_count", 0) or 0) / 100),
+                        "link": link,
+                        "keywords": [label, "学术论文"],
+                    })
+            except (json.JSONDecodeError, KeyError) as e:
+                self.log(f"  ⚠️ OpenAlex 解析失败 [{q}]: {e}")
+
+            self.log(f"  📝 OpenAlex [{label}]: {len(results)} 条")
+            self._rate_limit(2.5)
+
+        self.log(f"  ✅ OpenAlex 总计: {len(results)} 条论文")
+        return results
+
+    # ─── 4. Hacker News (Algolia API) ────────────────────────────
+    def crawl_hackernews(self) -> List[Dict]:
+        """通过 Algolia API 搜索 HN 上 AI Agent 相关讨论"""
+        results = []
+        queries = [
+            "AI agent", "autonomous agent", "self-improving AI",
+            "meta-cognition", "LLM agent",
+            "prompt engineering", "RAG", "AI tool use",
+        ]
+        for q in queries:
+            url = (f"https://hn.algolia.com/api/v1/search"
+                   f"?tags=story&query={requests.utils.quote(q)}"
+                   f"&hitsPerPage=10")
+            body = self._fetch(url, timeout=15)
+            if not body:
+                self._rate_limit(2.5)
+                continue
+
+            try:
+                data = json.loads(body)
+                for hit in data.get("hits", [])[:10]:
+                    title = hit.get("title", "")
+                    link = hit.get("url") or hit.get("story_url") or \
+                           f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}"
+                    if not title:
+                        continue
+                    if not self._is_new(title):
+                        continue
+                    points = hit.get("points", 0) or 0
+                    results.append({
+                        "title": title,
+                        "content": hit.get("story_text", "") or f"Hacker News 讨论: {q}",
+                        "source": "Hacker News",
+                        "importance": min(0.9, 0.5 + points / 200),
+                        "link": link,
+                        "keywords": [q],
+                    })
+            except json.JSONDecodeError:
+                pass
+
+            self._rate_limit(2.5)
+
+        self.log(f"  ✅ Hacker News 总计: {len(results)} 条")
+        return results
+
+    # ─── 5. 定向任务队列 ────────────────────────────────────────
     def crawl_task_queue(self) -> List[Dict]:
-        """读取自主学习任务队列，逐任务原子处理"""
+        """读取自主学习任务队列，逐任务处理（保持不变）"""
         task_file = self.data_dir / "crawler_tasks.json"
         if not task_file.exists():
             return []
@@ -322,56 +377,302 @@ class AIKnowledgeCrawler:
             return []
 
         limit = min(5, len(tasks))
-        self.log(f"🎯 读取自主学习任务队列: 共{len(tasks)}个, 本次处理{limit}个")
+        self.log(f"🎯 自主学习任务队列: 共{len(tasks)}个, 本次处理{limit}个")
 
         results = []
         for _ in range(limit):
-            # 重新读取最新队列
             with open(task_file, "r", encoding="utf-8") as f:
                 current = json.load(f)
             if not current:
                 break
 
-            task = current.pop(0)  # 取出第一个任务
+            task = current.pop(0)
             query = task["query"]
             domain = task.get("domain", "知识学习")
             self.log(f"   📌 定向抓取: [{domain}] {query}")
 
             try:
-                quoted = urllib.parse.quote(query)
-                body = self._try_source(
-                    f"https://api.github.com/search/repositories?q={quoted}&sort=stars&per_page=3",
-                    timeout=8)
+                body = self._fetch(
+                    f"https://api.github.com/search/repositories"
+                    f"?q={requests.utils.quote(query)}&sort=stars&per_page=3",
+                    timeout=15)
                 if body:
                     data = json.loads(body)
                     for repo in data.get("items", [])[:3]:
+                        link = repo["html_url"]
+                        full_name = repo["full_name"]
+                        if not self._is_new(full_name):
+                            continue
                         results.append({
-                            "title": f"[{domain}] {repo['full_name']} - {(repo.get('description') or '')[:80]}",
+                            "title": f"[{domain}] {full_name}",
                             "content": (repo.get("description") or f"{query}相关项目")[:400],
                             "source": f"定向爬虫/{domain}",
                             "importance": min(1.0, repo.get("stargazers_count", 0) / 5000 + 0.5),
-                            "link": repo["html_url"],
+                            "link": link,
                             "keywords": [domain, query],
                         })
-                # 处理成功，将剩余队列写回文件
+
                 if current:
                     with open(task_file, "w", encoding="utf-8") as f:
                         json.dump(current, f, ensure_ascii=False, indent=2)
                 else:
                     task_file.unlink()
                     self.log("🎉 所有定向任务已完成！")
-                time.sleep(1.5)
+                self._rate_limit(2)
             except Exception as e:
                 self.log(f"   ⚠️ 定向抓取失败 [{query}]: {e}")
-                # 失败的任务放回队列头部，下次重试
                 current.insert(0, task)
                 with open(task_file, "w", encoding="utf-8") as f:
                     json.dump(current, f, ensure_ascii=False, indent=2)
-                break  # 停止后续任务
+                break
 
         if results:
             self.log(f"✅ 定向抓取: 获取 {len(results)} 条知识")
         return results
+
+    # ─── 5. Stack Overflow ──────────────────────────────────────────
+    def crawl_stackoverflow(self) -> List[Dict]:
+        """Stack Exchange API 搜索 AI/ML 技术问答"""
+        results = []
+        tags = [
+            "machine-learning", "deep-learning", "artificial-intelligence",
+            "nlp", "large-language-model", "autonomous-agents",
+            "langchain", "prompt-engineering", "rag",
+        ]
+        for tag in tags:
+            url = (f"https://api.stackexchange.com/2.3/questions"
+                   f"?tagged={tag}&pagesize=5&order=desc&sort=votes"
+                   f"&site=stackoverflow&filter=withbody")
+            body = self._fetch(url, timeout=15)
+            if not body:
+                self._rate_limit(2)
+                continue
+            try:
+                data = json.loads(body)
+                for q in data.get("items", [])[:5]:
+                    title = q.get("title", "")
+                    if not title or not self._is_new(title):
+                        continue
+                    link = q.get("link", "")
+                    answer_count = q.get("answer_count", 0)
+                    score = q.get("score", 0)
+                    content = q.get("body", "")[:400]
+                    content = re.sub(r'<[^>]+>', '', content).strip()[:400]
+                    results.append({
+                        "title": title,
+                        "content": content or f"Stack Overflow ({tag} 标签)",
+                        "source": "Stack Overflow",
+                        "importance": min(0.9, 0.4 + score / 50 + answer_count / 20),
+                        "link": link,
+                        "keywords": [tag, "技术问答"],
+                    })
+            except (json.JSONDecodeError, KeyError) as e:
+                self.log(f"  ⚠️ Stack Overflow 解析失败 [{tag}]: {e}")
+            self._rate_limit(2)
+        self.log(f"  ✅ Stack Overflow 总计: {len(results)} 条")
+        return results
+
+    # ─── 6. CrossRef（学术论文元数据）──────────────────────────────
+    def crawl_crossref(self) -> List[Dict]:
+        """CrossRef API 搜索 AI 相关学术论文"""
+        results = []
+        queries = [
+            "autonomous agent artificial intelligence",
+            "self-improving AI",
+            "cognitive architecture metacognition",
+            "large language model reasoning",
+            "retrieval augmented generation",
+        ]
+        for q in queries:
+            url = (f"https://api.crossref.org/works"
+                   f"?query={requests.utils.quote(q)}"
+                   f"&rows=10&select=DOI,title,abstract,author,container-title")
+            body = self._fetch(url, timeout=15)
+            if not body:
+                self._rate_limit(2)
+                continue
+            try:
+                data = json.loads(body)
+                for item in data.get("message", {}).get("items", []):
+                    title_list = item.get("title", [])
+                    title = title_list[0] if title_list else ""
+                    if not title or not self._is_new(title):
+                        continue
+                    doi = item.get("DOI", "")
+                    link = f"https://doi.org/{doi}" if doi else ""
+                    abstract = item.get("abstract", "")[:400] if item.get("abstract") else ""
+                    abstract = re.sub(r'<[^>]+>', '', abstract).strip()[:400]
+                    journal = item.get("container-title", [])
+                    journal = journal[0] if journal else "学术期刊"
+                    results.append({
+                        "title": title,
+                        "content": abstract or f"CrossRef: {journal}",
+                        "source": "CrossRef",
+                        "importance": 0.8,
+                        "link": link or title,
+                        "keywords": [q.split()[0], "学术论文"],
+                    })
+            except (json.JSONDecodeError, KeyError) as e:
+                self.log(f"  ⚠️ CrossRef 解析失败 [{q}]: {e}")
+            self._rate_limit(2)
+        self.log(f"  ✅ CrossRef 总计: {len(results)} 条")
+        return results
+
+    # ─── 7. Substack ─────────────────────────────────────────────
+    def crawl_substack(self) -> List[Dict]:
+        """Substack API 爬取 AI 相关 newsletter 文章"""
+        results = []
+        pubs = [
+            ("https://thealgorithmicbridge.com", "The Algorithmic Bridge"),
+            ("https://www.oneusefulthing.org", "One Useful Thing"),
+            ("https://lastweekin.ai", "Last Week in AI"),
+            ("https://www.digitalnative.tech", "Digital Native"),
+            ("https://magazine.sebastianraschka.com", "Ahead of AI"),
+        ]
+        for pub_url, pub_name in pubs:
+            try:
+                r = _http.get(f"{pub_url}/api/v1/archive", timeout=10)
+                if r.status_code != 200:
+                    continue
+                items = r.json()
+                if not isinstance(items, list):
+                    continue
+                for post in items[:10]:
+                    title = post.get("title", "")
+                    if not title or not self._is_new(title):
+                        continue
+                    desc = post.get("description") or post.get("subtitle") or ""
+                    body = post.get("truncated_body_text", "")[:300]
+                    content = (desc + " " + body).strip()[:400]
+                    link = post.get("canonical_url") or f"{pub_url}/p/{post.get('slug', '')}"
+                    results.append({
+                        "title": title,
+                        "content": content or f"Substack: {pub_name}",
+                        "source": f"Substack/{pub_name}",
+                        "importance": 0.8,
+                        "link": link,
+                        "keywords": [pub_name, "newsletter"],
+                    })
+            except Exception:
+                continue
+        self.log(f"  ✅ Substack 总计: {len(results)} 条")
+        return results
+
+    # ─── 8. Towards Data Science（RSS Feed）────────────────────────
+    def crawl_tds(self) -> List[Dict]:
+        """Towards Data Science RSS Feed — Medium 上最高质量的 AI 技术博客"""
+        results = []
+        tds_url = "https://towardsdatascience.com/feed"
+        body = self._fetch(tds_url, timeout=20)
+        if not body:
+            self.log("  ⚠️ TDS RSS 不可用")
+            return results
+
+        try:
+            soup = BeautifulSoup(body, "xml" if "lxml" in str(type(body)) else "html.parser")
+            items = soup.find_all("item") if soup.find("item") else []
+            if not items:
+                # 退回到正则+RSS 标签解析
+                items = re.findall(r'<item>(.*?)</item>', body, re.DOTALL)
+                items = [BeautifulSoup(e, "html.parser") for e in items]
+
+            for entry in items[:20]:
+                title = entry.find("title")
+                title = (title.get_text(strip=True) if title else "")[:200]
+                if not title or not self._is_new(title):
+                    continue
+
+                desc = entry.find("description")
+                content = (desc.get_text(strip=True) if desc else "")[:400]
+                content = re.sub(r'<[^>]+>', '', content).strip()[:400]
+
+                link = entry.find("link")
+                url = link.get_text(strip=True) if link else ""
+
+                creator = entry.find("dc:creator")
+                author = creator.get_text(strip=True) if creator else ""
+
+                cats = entry.find_all("category")
+                keywords = []
+                for c in cats:
+                    kw = c.get_text(strip=True)
+                    if kw and len(kw) < 50:
+                        keywords.append(kw)
+
+                results.append({
+                    "title": title,
+                    "content": content or f"Towards Data Science: {author}",
+                    "source": f"Towards Data Science",
+                    "importance": 0.8,
+                    "link": url,
+                    "keywords": keywords[:5] if keywords else ["数据科学", "AI实践"],
+                })
+        except Exception as e:
+            self.log(f"  ⚠️ TDS 解析失败: {e}")
+
+        self.log(f"  ✅ Towards Data Science 总计: {len(results)} 条")
+        return results
+
+    # ─── 相关性过滤 ────────────────────────────────────────────
+    def _is_relevant(self, item: Dict) -> bool:
+        if not item.get("content"):
+            return False
+
+        text = (item.get("title") or "") + " " + (item.get("content") or "")
+        text_lower = text.lower()
+
+        matched_groups = []
+        for group, keywords in self.RELEVANCE_GROUPS.items():
+            if any(kw in text_lower for kw in keywords):
+                matched_groups.append(group)
+
+        src = item.get("source", "")
+        trust = self.DEFAULT_TRUST
+        for known_src, t in self.SOURCE_TRUST.items():
+            if known_src in src:
+                trust = t
+                break
+
+        # 最高信任源（arXiv/GitHub）：搜索带领域限定（cat:cs.AI/topic标签），直接信任
+        if trust >= 0.9:
+            return True
+
+        # 高信任源（OpenAlex/定向爬虫）：需要至少匹配一个关键词组
+        if trust >= 0.7:
+            return len(matched_groups) >= 1
+
+        # 中信任源（Hacker News）：匹配到至少一个关键词组才保留
+        if trust >= 0.4:
+            return len(matched_groups) >= 1
+
+        return False
+
+    # ─── 自动分类 ────────────────────────────────────────────────
+    CATEGORY_MAP = [
+        (["元认知", "自主", "self-improv", "self-modif", "meta-cognit",
+          "metacognit", "cognitive architecture", "curiosity", "self-aware",
+          "autonomous agent"],
+         "认知架构"),
+        (["artificial intelligence", "machine learning", "deep learning",
+          "neural network", "nlp", "llm", "transformer", "gpt", "diffusion",
+          "reinforcement learning", "foundation model", "attention mechanism",
+          "人工智能", "机器学习", "深度学习", "大语言模型"],
+         "人工智能"),
+        (["python", "algorithm", "data structure", "programming", "coding",
+          "software architecture", "system design",
+          "算法", "数据结构", "软件架构", "系统设计", "编程"],
+         "工程实现"),
+    ]
+
+    def _assign_category(self, item: Dict) -> str:
+        text = (item.get("title") or "") + " " + (item.get("content") or "")
+        text_lower = text.lower()
+
+        for keywords, cat in self.CATEGORY_MAP:
+            for kw in keywords:
+                if kw in text_lower:
+                    return cat
+        return "人工智能"
 
     # ─── 保存到知识库 ──────────────────────────────────────────
     def save_knowledge(self, items: List[Dict]):
@@ -381,11 +682,31 @@ class AIKnowledgeCrawler:
         try:
             from knowledge_base import KnowledgeBase
             kb = KnowledgeBase()
-            count = 0
+
+            total = len(items)
+            discarded_by_src = {}
+
+            filtered = []
             for item in items:
+                if self._is_relevant(item):
+                    filtered.append(item)
+                else:
+                    src = item.get("source", "未知")
+                    discarded_by_src[src] = discarded_by_src.get(src, 0) + 1
+
+            if discarded_by_src:
+                detail = ", ".join(f"{s}: {n}" for s, n in sorted(discarded_by_src.items()))
+                self.log(f"🗑️ 丢弃 {total - len(filtered)}/{total} 条 ({detail})")
+
+            if not filtered:
+                self.log("📭 过滤后无有效知识")
+                return
+
+            count = 0
+            for item in filtered:
                 entry = {
                     "topic": item["title"],
-                    "category": "人工智能",
+                    "category": self._assign_category(item),
                     "content": item["content"],
                     "source": item["source"],
                     "keywords": item.get("keywords", ["AI"]),
@@ -395,65 +716,62 @@ class AIKnowledgeCrawler:
                 }
                 kb.learn_from_experience(entry)
                 count += 1
-            self.log(f"✅ 保存 {count} 条知识到知识库")
+            self.log(f"✅ 保存 {count} 条知识 (过滤前{total}条)")
         except Exception as e:
             self.log(f"❌ 保存知识失败: {e}")
 
     # ─── 执行完整爬取 ──────────────────────────────────────────
     def crawl_all(self):
-        """执行一次完整爬取"""
         self.session_count += 1
-        self.log(f"🚀 [第{self.session_count}次] 开始爬取全球AI资料")
+        self.log(f"🚀 [第{self.session_count}次] 开始爬取")
         print("=" * 60)
 
         all_items = []
 
-        self.log("🌐 正在爬取 GitHub 热门AI项目...")
-        all_items.extend(self.crawl_github())
-
-        self.log("📄 正在爬取 arXiv 最新论文...")
+        self.log("📄 正在爬取 arXiv 论文...")
         all_items.extend(self.crawl_arxiv())
 
-        self.log("📰 正在爬取 Hacker News 技术热议...")
+        self.log("🌐 正在爬取 GitHub 仓库...")
+        all_items.extend(self.crawl_github())
+
+        self.log("📚 正在爬取 OpenAlex 学术论文...")
+        all_items.extend(self.crawl_paperswithcode())
+
+        self.log("📰 正在爬取 Hacker News...")
         all_items.extend(self.crawl_hackernews())
 
-        self.log("📚 正在爬取 Wikipedia AI条目...")
-        all_items.extend(self.crawl_wikipedia())
+        self.log("📋 正在爬取 Stack Overflow...")
+        all_items.extend(self.crawl_stackoverflow())
 
-        self.log("💬 正在爬取 Reddit AI讨论...")
-        all_items.extend(self.crawl_reddit())
+        self.log("📇 正在爬取 CrossRef 学术论文...")
+        all_items.extend(self.crawl_crossref())
 
-        # 国内源
-        self.log("🇨🇳 正在爬取 百度百科 AI词条...")
-        all_items.extend(self.crawl_baike())
+        self.log("📬 正在爬取 Substack AI 文章...")
+        all_items.extend(self.crawl_substack())
 
-        self.log("🇨🇳 正在爬取 B站 AI教学视频...")
-        all_items.extend(self.crawl_bilibili())
+        self.log("📝 正在爬取 Towards Data Science...")
+        all_items.extend(self.crawl_tds())
 
-        self.log("🇨🇳 正在爬取 百度热搜 科技资讯...")
-        all_items.extend(self.crawl_baidu_news())
-
-        # 定向任务（自主学习生成的缺口补充）
-        self.log("🎯 正在执行自主学习定向任务...")
+        self.log("🎯 正在执行定向任务...")
         all_items.extend(self.crawl_task_queue())
 
-        # 去重
+        # 去重（标题前缀）
         seen = set()
         unique = []
         for item in all_items:
-            key = item["title"][:50]
+            key = item["title"][:60]
             if key not in seen:
                 seen.add(key)
                 unique.append(item)
 
-        self.log(f"\n📊 本次爬取汇总:")
+        self.log(f"\n📊 汇总:")
         sources = {}
         for item in unique:
             src = item["source"]
             sources[src] = sources.get(src, 0) + 1
         for src, cnt in sorted(sources.items()):
             self.log(f"   {src}: {cnt} 条")
-        self.log(f"  共计: {len(unique)} 条 (去重后)")
+        self.log(f"   共计: {len(unique)} 条 (去重后)")
 
         self.save_knowledge(unique)
         self.last_results = unique
@@ -463,8 +781,8 @@ class AIKnowledgeCrawler:
     # ─── 调度器 ────────────────────────────────────────────────
     def run_scheduler(self):
         schedule.every(2).hours.at(":00").do(self.crawl_all)
-        self.log("⏰ 调度器已启动，每2小时整点执行爬取")
-        self.crawl_all()  # 立即执行一次
+        self.log("⏰ 调度器已启动，每2小时整点执行")
+        self.crawl_all()
         while self.is_running:
             schedule.run_pending()
             time.sleep(60)
@@ -476,34 +794,39 @@ class AIKnowledgeCrawler:
         self.is_running = True
         self.crawl_thread = threading.Thread(target=self.run_scheduler, daemon=True)
         self.crawl_thread.start()
-        self.log("✅ AI知识爬虫启动成功 (真实数据版)")
+        self.log("✅ 爬虫启动成功 (精爬版)")
 
     def stop(self):
         self.log("🛑 正在停止爬虫...")
         self.is_running = False
         if self.crawl_thread:
             self.crawl_thread.join(timeout=10)
+        self._flush_log()
         self.log("✅ 爬虫已停止")
 
     def get_status(self) -> Dict:
         log_file = self.data_dir / "ai_knowledge_crawler.log"
         recent = []
         if log_file.exists():
-            with open(log_file, "r", encoding="utf-8") as f:
-                lines = f.readlines()[-15:]
-                recent = [l.strip() for l in lines if l.strip()]
+            try:
+                with open(log_file, "r", encoding="utf-8") as f:
+                    lines = f.readlines()[-15:]
+                    recent = [l.strip() for l in lines if l.strip()]
+            except Exception:
+                pass
         return {
             "running": self.is_running,
             "sessions": self.session_count,
-            "sources": ["GitHub", "arXiv", "Hacker News", "Wikipedia", "Reddit", "百度百科", "B站", "百度热搜"],
+            "sources": ["arXiv", "GitHub", "OpenAlex", "Hacker News", "Stack Overflow", "CrossRef", "Substack", "TDS"],
+            "seen_urls": len(self.seen_urls),
             "recent_logs": recent,
         }
 
 
 def main():
-    print("🤖 AI知识自动爬虫 (真实数据版)")
+    print("🤖 AI知识自动爬虫 (精爬版)")
     print("=" * 60)
-    print("数据源: GitHub Trending | arXiv论文 | Hacker News | Wikipedia | Reddit | 百度百科 | B站 | 百度热搜")
+    print("数据源: arXiv | GitHub | OpenAlex | Stack Overflow | CrossRef | Substack | TDS | Hacker News")
     print("调度: 每2小时整点执行\n")
 
     crawler = AIKnowledgeCrawler()

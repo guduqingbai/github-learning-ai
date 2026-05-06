@@ -19,6 +19,11 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Callable
 
+from antibody_library import AntibodyLibrary
+from cycle_diary import CycleDiary
+from circuit_breaker import CircuitBreaker, CircuitState
+from self_memory import SelfMemory
+
 
 class DaemonHookEvent(str, Enum):
     """守护进程 Tick 生命周期事件"""
@@ -138,6 +143,27 @@ class ThinkingDaemon:
         self.total_heal_successes = 0
         self.cycle_durations: List[float] = []
 
+        # ---- 文件锁（防止多实例） ----
+        self._lock_fd: Optional[int] = None
+        self._lock_path = self.data_dir / "thinking.lock"
+
+        # ---- 抗体库（可组合自愈单元） ----
+        self._antibody_library = AntibodyLibrary()
+
+        # ---- 周期日记（事件记录） ----
+        self._diary = CycleDiary(self.data_dir)
+
+        # ---- 星期八的自我记忆 ----
+        self._self_memory = SelfMemory(self.data_dir)
+
+        # ---- 熔断器 ----
+        self._circuit_breaker = CircuitBreaker(
+            data_dir=self.data_dir,
+            failure_threshold=3,
+            cooldown_seconds=120,
+            half_open_max_calls=1,
+        )
+
         # ---- StopHook 系统 ----
         self._stop_hooks: List[StopHook] = []
         self._suppression = SuppressionPipeline()
@@ -168,9 +194,13 @@ class ThinkingDaemon:
     # ---- 生命周期 ----
 
     def start(self):
-        """启动守护进程"""
+        """启动守护进程（文件锁防多实例）"""
         if self.is_running:
             self._log("已在运行中")
+            return False
+
+        # 文件锁：防止多个守护进程同时运行
+        if not self._acquire_lock():
             return False
 
         self.is_running = True
@@ -179,12 +209,56 @@ class ThinkingDaemon:
         self._log("自主思考守护进程已启动")
         return True
 
+    def _acquire_lock(self) -> bool:
+        """获取文件锁，防止多实例。返回 True=成功获取锁"""
+        self.data_dir.mkdir(exist_ok=True)
+        try:
+            # Windows 文件锁
+            import msvcrt
+            self._lock_fd = os.open(str(self._lock_path),
+                                    os.O_CREAT | os.O_RDWR | os.O_TRUNC)
+            msvcrt.locking(self._lock_fd, msvcrt.LK_NBLCK, 1)
+            return True
+        except ImportError:
+            try:
+                # Unix 文件锁
+                import fcntl
+                self._lock_fd = os.open(str(self._lock_path),
+                                        os.O_CREAT | os.O_RDWR)
+                fcntl.flock(self._lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                return True
+            except ImportError:
+                self._log("  警告: 无法获取文件锁（不支持的平台），跳过防多实例检查")
+                return True
+        except (BlockingIOError, PermissionError, OSError):
+            print("❌ 星期八已在运行中（另一个守护进程持有文件锁）")
+            self._log("另一个守护进程正在运行，拒绝启动")
+            if self._lock_fd is not None:
+                os.close(self._lock_fd)
+                self._lock_fd = None
+            return False
+
+    def _release_lock(self):
+        """释放文件锁"""
+        if self._lock_fd is not None:
+            try:
+                os.close(self._lock_fd)
+            except Exception:
+                pass
+            self._lock_fd = None
+        try:
+            if self._lock_path.exists():
+                self._lock_path.unlink()
+        except Exception:
+            pass
+
     def stop(self):
         """停止守护进程"""
         if not self.is_running:
             return
         self.is_running = False
         self._save_state()
+        self._release_lock()
         self._log("自主思考守护进程已停止")
 
     # ---- Tick Hook 系统 ----
@@ -295,6 +369,14 @@ class ThinkingDaemon:
             cooldown=1800.0,  # 最少间隔 30min
             gate_check=lambda d: self._gate_claude_memory_sync(d),
             run=lambda d: self._run_claude_memory_sync(d),
+        ))
+        # ---- H6: 知识爬虫 ----
+        self.register_stop_hook(StopHook(
+            name="knowledge_crawler",
+            priority=50,
+            cooldown=7200.0,  # 最少间隔 2h
+            gate_check=lambda d: self._gate_knowledge_crawler(d),
+            run=lambda d: self._run_knowledge_crawler(d),
         ))
 
     @staticmethod
@@ -562,6 +644,29 @@ class ThinkingDaemon:
         except Exception as e:
             daemon._log(f"  🧠 Claude记忆同步异常: {e}")
 
+    @staticmethod
+    def _gate_knowledge_crawler(daemon) -> bool:
+        """知识爬虫门控：特征开关"""
+        from system_state_manager import SystemStateManager
+        try:
+            sm = SystemStateManager()
+            ffm = sm.get_feature_flag_manager()
+            if not ffm.is_enabled("network_crawler"):
+                return False
+        except Exception:
+            pass
+        return True
+
+    @staticmethod
+    def _run_knowledge_crawler(daemon):
+        """执行知识爬取（后台线程）"""
+        try:
+            from ai_knowledge_crawler import AIKnowledgeCrawler
+            crawler = AIKnowledgeCrawler()
+            crawler.crawl_all()
+        except Exception as e:
+            daemon._log(f"  🕷️ 知识爬虫异常: {e}")
+
     # ---- 核心循环 ----
 
     def _daemon_loop(self):
@@ -623,7 +728,7 @@ class ThinkingDaemon:
             loop_active = self.is_running
             if loop_active:
                 import platform
-                lock_file = self.data_dir / "daemon.lock"
+                lock_file = self._lock_path
                 if lock_file.exists():
                     try:
                         pid = int(lock_file.read_text().strip())
@@ -673,6 +778,13 @@ class ThinkingDaemon:
         """执行一轮完整的思考→行动循环"""
         self._log(f"开始第 {self.cycle_count + 1} 轮思考循环")
 
+        # 熔断器检查：整个思考循环是否允许运行
+        if not self._circuit_breaker.call("cycle:thinking"):
+            state = self._circuit_breaker.state("cycle:thinking").value
+            self._log(f"  思考循环被熔断器阻断 (state={state})，跳过本轮")
+            self._diary.record("cycle_skipped", f"熔断器 {state}")
+            return
+
         # 1. 延迟导入（避免循环依赖）
         if self._thinking_agent is None:
             from self_thinking_agent import SelfThinkingAgent
@@ -681,82 +793,178 @@ class ThinkingDaemon:
         if self._modification_engine is None:
             from self_modification_engine import SelfModificationEngine
             self._modification_engine = SelfModificationEngine()
+            self._modification_engine.configure_sub_gates(
+                allow_bare_except_fix=True,
+                allow_docstring_add=True,
+                allow_high_risk_mod=True,
+                require_human_approval=False,
+            )
 
-        # 2. 运行思考循环
-        insights = self._thinking_agent.run_thinking_cycle(depth=self.thinking_depth)
+        try:
+            # 2. 运行思考循环
+            insights = self._thinking_agent.run_thinking_cycle(depth=self.thinking_depth)
 
-        if not insights:
-            self._log("本轮没有新的洞察")
-            return
+            if not insights:
+                self._log("本轮没有新的洞察")
+                self._self_memory.record_experience(self.cycle_count + 1, {
+                    "summary": f"第 {self.cycle_count + 1} 轮：没有新洞察",
+                    "emotion": "平静",
+                    "importance": 0.2,
+                    "lesson": "不是每轮都会有新发现",
+                    "wonder": "也许我应该看看哪些问题已经被我重复扫描了？",
+                    "surprised": False,
+                })
+                self._circuit_breaker.on_success("cycle:thinking")
+                return
 
-        self._log(f"生成了 {len(insights)} 个洞察")
+            self._log(f"生成了 {len(insights)} 个洞察")
 
-        # 3. 尝试将洞察转化为自我修改
-        heals_applied = self._apply_heals(insights)
+            # 3. 记录洞察到日记
+            for ins in insights:
+                self._diary.record("insight", ins.get("summary", "")[:120],
+                                   {"importance": ins.get("importance", 0),
+                                    "topic": ins.get("topic", "")})
 
-        if heals_applied > 0:
-            self._log(f"应用了 {heals_applied} 个自我修复")
+            # 4. 尝试将洞察转化为自我修改
+            heals_applied = self._apply_heals(insights)
+
+            if heals_applied > 0:
+                self._log(f"应用了 {heals_applied} 个自我修复")
+                self._diary.record("heal", f"应用了 {heals_applied} 个修复")
+            else:
+                self._diary.record("heal", "本轮无修复应用")
+
+            # 5. 记录"我"的经历
+            top_insight = insights[0] if insights else {}
+            has_failures = self.total_heal_attempts > 0 and self.total_heal_successes == 0
+            emotion = "挫败" if has_failures else "满足" if heals_applied > 0 else "平静"
+            self._self_memory.record_experience(self.cycle_count + 1, {
+                "summary": top_insight.get("summary", f"第 {self.cycle_count + 1} 轮思考循环"),
+                "emotion": emotion,
+                "importance": 0.3 + (0.3 if heals_applied > 0 else 0) + (0.2 if has_failures else 0),
+                "lesson": f"本轮尝试了 {self.total_heal_attempts} 次修复，成功 {self.total_heal_successes} 次"
+                         if self.total_heal_attempts > 0 else "本轮主要是观察和分析，没有执行修复",
+                "wonder": f"为什么修复总是不成功？" if has_failures else "接下来还能发现什么新的东西？",
+                "surprised": has_failures,
+            })
+
+            self._circuit_breaker.on_success("cycle:thinking")
+        except Exception as e:
+            self._log(f"思考循环异常: {e}")
+            self._circuit_breaker.on_failure("cycle:thinking")
+            self._diary.record("cycle_error", str(e)[:120])
+            raise
 
     def _apply_heals(self, insights: list) -> int:
-        """根据洞察尝试自我修复（heal_threshold 过滤 + error_kind 分类日志 + 统计）"""
+        """根据洞察尝试自我修复（抗体库驱动 + heal_threshold 过滤 + 统计）"""
         applied = 0
 
         for insight in insights:
-            # heal_threshold 过滤：低于阈值的跳过
             importance = insight.get("importance", 0.0)
             if importance < self.heal_threshold:
-                self._log(f"  跳过修复: 重要性 {importance} < 阈值 {self.heal_threshold}")
+                topic_hint = insight.get("topic", insight.get("summary", ""))[:60]
+                self._log(f"  跳过修复: 重要性 {importance} < 阈值 {self.heal_threshold} ({topic_hint})")
                 continue
 
             findings = insight.get("findings", [])
             summary = insight.get("summary", "")
             topic = insight.get("topic", "")
 
-            # 寻找可修复的代码问题
-            for finding in findings:
-                if "文档缺失" in finding or "模块文档缺失" in finding:
-                    filepath = self._extract_file_from_topic(topic)
-                    if filepath:
-                        result = self._modification_engine.add_module_docstring(filepath)
-                        self.total_heal_attempts += 1
-                        if result.get("success"):
-                            applied += 1
-                            self.total_heal_successes += 1
-                            self._log(f"✅ 已修复: {filepath} 添加模块文档")
-                        else:
-                            ek = result.get("error_kind", "unknown")
-                            self._log(f"❌ 修复失败 [{ek}]: {filepath} - {result.get('error', '')}")
-
-                # 安全网：匹配 self_heal insight 的 "修复 X/Y 项" 格式
-                if "修复" in finding and "项" in finding:
-                    proposal = insight.get("modification_proposal", {})
-                    if proposal.get("auto_applied"):
-                        fixes = proposal.get("fixes", [])
-                        for fix in fixes:
-                            if fix.get("success"):
-                                applied += 1
-                                self.total_heal_attempts += 1
-                                self.total_heal_successes += 1
-                                self._log(f"✅ 确认修复 [{fix['type']}]: {fix['file']}")
-                            elif not fix.get("success"):
-                                self.total_heal_attempts += 1
-                                self._log(f"❌ 已知修复失败 [{fix['type']}]: {fix['file']}")
-
-            # 检查 summary 中是否有可修复的问题
-            if "裸 except" in summary or "bare except" in summary:
-                filepath = self._extract_file_from_topic(topic)
-                if filepath:
-                    result = self._modification_engine.fix_bare_excepts(filepath)
+            # ── 判断是否已有探索阶段的修复结果 ──
+            proposal = insight.get("modification_proposal", {})
+            has_exploration_fixes = any("修复" in f and "项" in f for f in findings)
+            if has_exploration_fixes and proposal.get("fixes"):
+                fixes = proposal.get("fixes", [])
+                any_success = any(f.get("success") for f in fixes)
+                for fix in fixes:
                     self.total_heal_attempts += 1
-                    if result.get("success"):
+                    if fix.get("success"):
                         applied += 1
                         self.total_heal_successes += 1
-                        self._log(f"✅ 已修复: {filepath} 修复裸 except")
+                        self._log(f"✅ 确认修复 [{fix['type']}]: {fix['file']}")
+                        self._crystallize_fix(fix["type"], fix.get("file", ""))
                     else:
-                        ek = result.get("error_kind", "unknown")
-                        self._log(f"❌ 修复失败 [{ek}]: {filepath} - {result.get('error', '')}")
+                        self._log(f"❌ 已知修复失败 [{fix['type']}]: {fix['file']}")
+                if any_success:
+                    continue  # 有成功的，跳过抗体
+                # 全部失败 → 抗体还有策略可以试
+                self._log(f"  ⬆️ 探索阶段全部失败，交给抗体尝试其他策略")
+
+            # ── 抗体匹配：用抗体库替换硬编码 if-else ──
+            matched = self._antibody_library.match(findings, summary)
+            if not matched:
+                continue
+
+            for antibody in matched:
+                cb_key = f"antibody:{antibody.name}"
+
+                # 熔断器检查
+                if not self._circuit_breaker.call(cb_key):
+                    cb_state = self._circuit_breaker.state(cb_key).value
+                    self._log(f"  抗体 [{antibody.name}] 被熔断器阻断 (state={cb_state})")
+                    continue
+
+                result = antibody.apply(self._modification_engine, insight)
+                self.total_heal_attempts += 1
+
+                if result.get("success"):
+                    applied += 1
+                    self.total_heal_successes += 1
+                    file_hint = self._extract_file_from_topic(topic) or "unknown"
+                    self._log(f"✅ 抗体 [{antibody.name}] 策略 [{result.get('strategy','?')}]: {file_hint}")
+                    self._crystallize_fix(antibody.name, file_hint)
+                    self._circuit_breaker.on_success(cb_key)
+                    # 记录到 Buglog
+                    self._antibody_library.buglog.record_success(
+                        file_hint, antibody.name,
+                        result.get("strategy", "unknown"),
+                        detail=topic,
+                    )
+
+                elif result.get("error_kind") == "deferred":
+                    # 暂缓：不重要，以后再说
+                    file_hint = self._extract_file_from_topic(topic) or "unknown"
+                    self._log(f"⏸️  抗体 [{antibody.name}] 暂缓: {file_hint} (重要性 {importance})")
+                    self._antibody_library.add_deferred(
+                        file_hint, antibody.name, importance,
+                        reason=result.get("error", ""),
+                    )
+                    self._circuit_breaker.on_success(cb_key)  # 暂缓不算失败
+
+                elif result.get("escalated"):
+                    # 策略升级：失败了但还有策略可试
+                    ek = result.get("error_kind", "unknown")
+                    strat = result.get("strategy", "?")
+                    next_s = result.get("next_strategy", 0)
+                    left = result.get("strategies_left", 0)
+                    self._log(f"⬆️  抗体 [{antibody.name}] 策略 [{strat}] 失败 [{ek}] → 升级到策略 {next_s+1} (剩余 {left} 个)")
+                    self._circuit_breaker.on_failure(cb_key)
+
+                else:
+                    # 普通失败
+                    ek = result.get("error_kind", "unknown")
+                    strat = result.get("strategy", "?")
+                    self._log(f"❌ 抗体 [{antibody.name}] 策略 [{strat}] 失败 [{ek}]: {result.get('error', '')}")
+                    self._circuit_breaker.on_failure(cb_key)
+
+            # 持久化抗体经验
+            self._antibody_library.save_experience()
 
         return applied
+
+    def _crystallize_fix(self, fix_type: str, filepath: str):
+        """将成功的修复结晶为可复用技能"""
+        if not self._modification_engine:
+            return
+        try:
+            if hasattr(self._modification_engine, "crystallize_skill"):
+                self._modification_engine.crystallize_skill(
+                    name=fix_type, fix_type=fix_type,
+                    filepath=filepath,
+                    change_summary=f"{fix_type} on {filepath}",
+                )
+        except Exception:
+            pass
 
     # ---- 查询接口 ----
 
@@ -784,6 +992,10 @@ class ThinkingDaemon:
             "current_strategy": current_strategy,
             "modification_stats": self._modification_engine.get_modification_stats()
             if self._modification_engine else {},
+            "antibodies": self._antibody_library.get_statistics(),
+            "diary": self._diary.summary(),
+            "circuit_breakers": self._circuit_breaker.get_all_info(),
+            "self_memory": self._self_memory.get_state_summary(),
         }
 
     def update_config(self, **kwargs):
@@ -853,13 +1065,17 @@ class ThinkingDaemon:
         """从洞察 topic 提取文件名"""
         if not topic:
             return None
-        # topic 格式如 "xxx 模块分析" 或 "xxx vs yyy"
-        for suffix in [" 模块分析", " 相似度分析"]:
+        # topic 格式如 "xxx 模块分析", "xxx vs yyy", "xxx 自我修复"
+        for suffix in [" 模块分析", " 相似度分析", " 自我修复"]:
             if suffix in topic:
                 name = topic.replace(suffix, "")
-                py = Path(f"{name}.py")
-                if py.exists():
-                    return str(py)
+                # 逗号分隔的多文件 → 取第一个有实体的
+                for part in name.split(","):
+                    part = part.strip()
+                    py = Path(f"{part}.py") if not part.endswith(".py") else Path(part)
+                    if py.exists():
+                        return str(py)
+                return None
         return None
 
 

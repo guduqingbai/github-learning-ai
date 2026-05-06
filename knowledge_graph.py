@@ -37,6 +37,8 @@ class KnowledgeGraph:
         self._entities: Dict[str, GraphEntity] = {}
         self._relations: List[Relation] = []
         self._file_path = Path("data") / "knowledge_graph.json"
+        self._batch_mode: bool = False
+        self._pending_save: bool = False
         self._load()
 
     # ── 实体操作 ────────────────────────────────────
@@ -282,39 +284,44 @@ class KnowledgeGraph:
         return paths
 
     def merge_from_knowledge_base(self, kb_data: List[Dict[str, Any]]):
-        """从 KnowledgeBase 导入已有知识条目为概念实体"""
-        for item in kb_data:
-            topic = item.get("topic", "")
-            if not topic:
-                continue
-            existing = self.find_entity(topic)
-            if existing:
-                continue
-            eid = self.add_entity(topic, "concept", {
-                "category": item.get("category", ""),
-                "source": item.get("source", ""),
-                "keywords": item.get("keywords", []),
-            })
-            # 分类关系
-            category = item.get("category", "")
-            cat_entity = self.find_entity(category)
-            if not cat_entity:
-                cat_id = self.add_entity(category, "concept",
-                                         {"category": "meta"})
-            else:
-                cat_id = cat_entity.id
-            self.add_relation(eid, cat_id, "belongs_to")
-
-            # 关键词关系
-            keywords = item.get("keywords", [])
-            for kw in keywords[:5]:
-                kw_entity = self.find_entity(kw)
-                if not kw_entity:
-                    kw_id = self.add_entity(kw, "concept",
-                                            {"keyword": True})
+        """从 KnowledgeBase 导入已有知识条目为概念实体（批量写入，仅末尾一次保存）"""
+        self._batch_mode = True
+        self._pending_save = False
+        try:
+            for item in kb_data:
+                topic = item.get("topic", "")
+                if not topic:
+                    continue
+                existing = self.find_entity(topic)
+                if existing:
+                    continue
+                eid = self.add_entity(topic, "concept", {
+                    "category": item.get("category", ""),
+                    "source": item.get("source", ""),
+                    "keywords": item.get("keywords", []),
+                })
+                # 分类关系
+                category = item.get("category", "")
+                cat_entity = self.find_entity(category)
+                if not cat_entity:
+                    cat_id = self.add_entity(category, "concept",
+                                             {"category": "meta"})
                 else:
-                    kw_id = kw_entity.id
-                self.add_relation(eid, kw_id, "related_to", 0.5)
+                    cat_id = cat_entity.id
+                self.add_relation(eid, cat_id, "belongs_to")
+
+                # 关键词关系
+                keywords = item.get("keywords", [])
+                for kw in keywords[:5]:
+                    kw_entity = self.find_entity(kw)
+                    if not kw_entity:
+                        kw_id = self.add_entity(kw, "concept",
+                                                {"keyword": True})
+                    else:
+                        kw_id = kw_entity.id
+                    self.add_relation(eid, kw_id, "related_to", 0.5)
+        finally:
+            self.flush()
 
     def get_statistics(self) -> Dict[str, Any]:
         """图统计"""
@@ -341,6 +348,9 @@ class KnowledgeGraph:
     # ── 持久化 ────────────────────────────────────────
 
     def _save(self):
+        if self._batch_mode:
+            self._pending_save = True
+            return
         try:
             data = {
                 "entities": {eid: {
@@ -360,6 +370,14 @@ class KnowledgeGraph:
                 encoding="utf-8")
         except Exception as e:
             print(f"⚠️  知识图保存失败: {e}")
+
+    def flush(self):
+        """批处理模式下强制写入磁盘并退出批处理模式"""
+        if self._pending_save:
+            self._pending_save = False
+            self._batch_mode = False
+            self._save()
+        self._batch_mode = False
 
     def _load(self):
         try:

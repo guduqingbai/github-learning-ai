@@ -5,8 +5,10 @@
 """
 
 import os
+import json
 import time
 import ast
+import hashlib
 from datetime import datetime
 from pathlib import Path
 from utils import measure_performance
@@ -20,6 +22,8 @@ class SelfLearningSystem:
         print("🎯 初始化自我学习系统")
         self.state_manager = SystemStateManager()
         self.data_dir = Path("data")
+        self._seen_issues_file = self.data_dir / "seen_issues.json"
+        self._seen_fingerprints = self._load_seen_issues()
         self._init_system()
         print("✅ 自我学习系统初始化完成")
 
@@ -139,11 +143,12 @@ class SelfLearningSystem:
         return len(vulnerabilities)
 
     def analyze_code_quality(self):
-        """分析代码质量"""
+        """分析代码质量（已去重：仅报告新出现的问题）"""
         print("📊 正在分析代码质量...")
 
-        issues_count = 0
+        new_issues_count = 0
         files_scanned = 0
+        new_fingerprints = set()
 
         for file in Path(".").glob("*.py"):
             if file.name == __file__ or "adaptive_ai_projects" in str(file):
@@ -153,30 +158,64 @@ class SelfLearningSystem:
 
             try:
                 tree = ast.parse(file.read_text(encoding="utf-8"))
-                issues = []
 
                 for node in ast.walk(tree):
                     # 检查裸except
                     if isinstance(node, ast.ExceptHandler) and node.type is None:
-                        issues.append("bare_except")
+                        fp = self._issue_fingerprint(str(file), "bare_except", node.lineno)
+                        if fp in self._seen_fingerprints:
+                            continue
+                        new_fingerprints.add(fp)
+                        new_issues_count += 1
 
                     # 检查缺少文档字符串
                     if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not SelfLearningSystem.has_docstring(node):
-                        issues.append("missing_docstring")
+                        fp = self._issue_fingerprint(str(file), "missing_docstring", node.lineno)
+                        if fp in self._seen_fingerprints:
+                            continue
+                        new_fingerprints.add(fp)
+                        new_issues_count += 1
 
-                    # 检查缺少类型提示
+                    # 检查缺少类型提示（按函数+参数名定位）
                     if isinstance(node, ast.FunctionDef):
                         for arg in node.args.args:
                             if not arg.annotation:
-                                issues.append("no_type_hints")
-
-                issues_count += len(issues)
+                                fp = self._issue_fingerprint(str(file), "no_type_hints", node.lineno, arg.arg)
+                                if fp in self._seen_fingerprints:
+                                    continue
+                                new_fingerprints.add(fp)
+                                new_issues_count += 1
 
             except Exception:
                 continue
 
-        print(f"📈 代码质量分析: 扫描 {files_scanned} 个文件，发现 {issues_count} 个问题")
-        return issues_count
+        # 持久化新增指纹
+        if new_fingerprints:
+            self._seen_fingerprints.update(new_fingerprints)
+            self._save_seen_issues()
+
+        print(f"📈 代码质量分析: 扫描 {files_scanned} 个文件，发现 {new_issues_count} 个新问题")
+        return new_issues_count
+
+    def _issue_fingerprint(self, file: str, issue_type: str, *identifiers) -> str:
+        """生成问题指纹: 相同文件+类型+位置视为同一个问题"""
+        raw = f"{file}:{issue_type}:" + ":".join(str(i) for i in identifiers)
+        return hashlib.md5(raw.encode()).hexdigest()
+
+    def _load_seen_issues(self) -> set:
+        """加载已见过的问题指纹"""
+        if self._seen_issues_file.exists():
+            try:
+                with open(self._seen_issues_file, encoding="utf-8") as f:
+                    return set(json.load(f))
+            except (json.JSONDecodeError, OSError):
+                pass
+        return set()
+
+    def _save_seen_issues(self):
+        """持久化已见过的问题指纹"""
+        with open(self._seen_issues_file, "w", encoding="utf-8") as f:
+            json.dump(list(self._seen_fingerprints), f)
 
     @measure_performance
     def analyze_learning_progress(self):

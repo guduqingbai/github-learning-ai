@@ -634,6 +634,58 @@ class SelfModificationEngine:
                                    reason=f"添加模块文档: {content[:50]}",
                                    mod_type="docstring")
 
+    def fix_missing_docstrings(self, filepath: str) -> Dict[str, Any]:
+        """为文件中所有缺少文档字符串的函数/类添加模板 docstring"""
+        full_path = Path(filepath)
+        if not full_path.exists():
+            return {"success": False, "error": "文件不存在",
+                    "error_kind": ModErrorKind.FILE_NOT_FOUND}
+
+        code = full_path.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return {"success": False, "error": "语法错误",
+                    "error_kind": ModErrorKind.PRE_VALIDATE_FAILED}
+
+        lines = code.split("\n")
+        missing = []
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                if not ast.get_docstring(node):
+                    missing.append(node)
+
+        if not missing:
+            return {"success": False, "error": "没有缺少文档字符串的函数或类",
+                    "error_kind": ModErrorKind.CODE_MISMATCH}
+
+        # 从下往上插入（避免行偏移）
+        missing.sort(key=lambda n: n.lineno, reverse=True)
+        fixed_names = []
+        for node in missing:
+            first_stmt = node.body[0]
+            if first_stmt.lineno == node.lineno:
+                # 一行内的函数/类（如 def foo(): pass），跳过
+                continue
+            body_line = lines[first_stmt.lineno - 1]
+            m = re.match(r"^\s*", body_line)
+            indent = m.group() if m else "    "
+            doc = f'"""{node.name}"""'
+            lines.insert(first_stmt.lineno - 1, indent + doc)
+            fixed_names.append(node.name)
+
+        if not fixed_names:
+            return {"success": False, "error": "没有可插入的位置（全部为一行内定义）",
+                    "error_kind": ModErrorKind.CODE_MISMATCH}
+
+        new_code = "\n".join(lines)
+        names = ", ".join(fixed_names[:5])
+        if len(fixed_names) > 5:
+            names += f" 等 {len(fixed_names)} 个"
+        return self.apply_code_fix(filepath, code, new_code,
+                                   reason=f"添加文档: {names}",
+                                   mod_type="docstring")
+
     def remove_unused_import(self, filepath: str, import_name: str) -> Dict[str, Any]:
         """移除未使用的 import"""
         full_path = Path(filepath)
@@ -712,11 +764,11 @@ class SelfModificationEngine:
     # ---- 内部方法 ----
 
     def _create_backup(self, filepath: Path) -> Optional[Path]:
-        """创建文件备份"""
+        """创建文件备份（文件名不含路径，用哈希避免冲突）"""
         try:
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-            safe_name = str(filepath).replace("\\", "_").replace("/", "_").replace(":", "_")
-            backup = self.backup_dir / f"{safe_name}_bak_{ts}"
+            path_hash = hashlib.md5(str(filepath.resolve()).encode()).hexdigest()[:8]
+            backup = self.backup_dir / f"{filepath.name}_{path_hash}_bak_{ts}"
             shutil.copy2(filepath, backup)
             return backup
         except Exception:
@@ -828,6 +880,55 @@ class SelfModificationEngine:
             return count
         except Exception:
             return 0
+
+    # ── 技能结晶（Phoenix Immortal SkillCrystallizer 启发）──
+
+    def crystallize_skill(self, name: str, fix_type: str,
+                          filepath: str, change_summary: str = ""):
+        """将成功的修复模式结晶为可复用技能"""
+        skills_file = self.data_dir / "crystallized_skills.json"
+        skills = []
+        if skills_file.exists():
+            try:
+                skills = json.loads(skills_file.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, Exception):
+                skills = []
+
+        # 去重：相同 fix_type + 文件视为同一技能，递增使用次数
+        found = False
+        for skill in skills:
+            if skill["fix_type"] == fix_type and skill["filepath"] == filepath:
+                skill["use_count"] += 1
+                skill["last_used"] = datetime.now().isoformat()
+                found = True
+                break
+
+        if not found:
+            skills.append({
+                "name": name,
+                "fix_type": fix_type,
+                "filepath": filepath,
+                "change_summary": change_summary,
+                "crystallized_at": datetime.now().isoformat(),
+                "use_count": 1,
+                "last_used": datetime.now().isoformat(),
+            })
+
+        try:
+            skills_file.write_text(
+                json.dumps(skills, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception:
+            pass
+
+    def get_crystallized_skills(self) -> List[Dict]:
+        """获取所有结晶技能"""
+        skills_file = self.data_dir / "crystallized_skills.json"
+        if not skills_file.exists():
+            return []
+        try:
+            return json.loads(skills_file.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, Exception):
+            return []
 
 
 def main():

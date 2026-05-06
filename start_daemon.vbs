@@ -3,25 +3,27 @@
 ' 使用 `taskkill /F /IM pythonw.exe` 停止所有后台进程。
 ' 由 Windows 计划任务调用，保证持久化运行
 
-Dim shell, pythonw, scriptPath, flagFile
+Dim fso, shell, scriptDir, pythonw, scriptPath, flagFile
+Set fso = CreateObject("Scripting.FileSystemObject")
 Set shell = CreateObject("WScript.Shell")
 
-' Python 路径
-pythonw = "C:\Users\吴文豪\AppData\Local\Programs\Python\Python312\pythonw.exe"
+' 脚本所在目录作为项目根目录
+scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
 
-' 守护进程脚本路径
-scriptPath = "C:\Users\吴文豪\claude-code-projects\github-learning\thinking_daemon.py"
+' Python 路径（假设 pythonw 在 PATH 中，或者与项目同盘）
+pythonw = "pythonw"
+
+' 守护进程脚本路径（相对于脚本目录）
+scriptPath = scriptDir & "\thinking_daemon.py"
 
 ' 运行标志文件（防重复启动）
-flagFile = "C:\Users\吴文豪\claude-code-projects\github-learning\daemon_running.flag"
+flagFile = scriptDir & "\data\daemon_running.flag"
 
 ' 检查是否已经在运行
-Dim fso, flagExists
-Set fso = CreateObject("Scripting.FileSystemObject")
+Dim flagExists
 flagExists = fso.FileExists(flagFile)
 
 If flagExists Then
-    ' 检查进程是否存在
     Dim processList, isRunning
     isRunning = False
     processList = shell.Exec("tasklist /FI ""IMAGENAME eq pythonw.exe"" /NH").StdOut.ReadAll
