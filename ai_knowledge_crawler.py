@@ -63,6 +63,7 @@ class AIKnowledgeCrawler:
     }
 
     def __init__(self):
+        """__init__"""
         self.is_running = False
         self.crawl_thread = None
         self.data_dir = Path("data")
@@ -86,6 +87,7 @@ class AIKnowledgeCrawler:
 
     # ─── 日志 ────────────────────────────────────────────────────
     def log(self, msg):
+        """log"""
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         line = f"[{ts}] {msg}"
         print(line)
@@ -94,6 +96,7 @@ class AIKnowledgeCrawler:
             self._flush_log()
 
     def _flush_log(self):
+        """_flush_log"""
         if not self._log_buffer:
             return
         log_file = self.data_dir / "ai_knowledge_crawler.log"
@@ -608,6 +611,7 @@ class AIKnowledgeCrawler:
 
     # ─── 相关性过滤 ────────────────────────────────────────────
     def _is_relevant(self, item: Dict) -> bool:
+        """_is_relevant"""
         if not item.get("content"):
             return False
 
@@ -658,6 +662,7 @@ class AIKnowledgeCrawler:
     ]
 
     def _assign_category(self, item: Dict) -> str:
+        """_assign_category"""
         text = (item.get("title") or "") + " " + (item.get("content") or "")
         text_lower = text.lower()
 
@@ -669,6 +674,7 @@ class AIKnowledgeCrawler:
 
     # ─── 保存到知识库 ──────────────────────────────────────────
     def save_knowledge(self, items: List[Dict]):
+        """save_knowledge"""
         if not items:
             self.log("📭 没有新知识需要保存")
             return
@@ -715,6 +721,7 @@ class AIKnowledgeCrawler:
 
     # ─── 执行完整爬取 ──────────────────────────────────────────
     def crawl_all(self):
+        """crawl_all"""
         self.session_count += 1
         self.log(f"🚀 [第{self.session_count}次] 开始爬取")
         print("=" * 60)
@@ -773,6 +780,7 @@ class AIKnowledgeCrawler:
 
     # ─── 调度器 ────────────────────────────────────────────────
     def run_scheduler(self):
+        """run_scheduler"""
         schedule.every(2).hours.at(":00").do(self.crawl_all)
         self.log("⏰ 调度器已启动，每2小时整点执行")
         self.crawl_all()
@@ -781,6 +789,7 @@ class AIKnowledgeCrawler:
             time.sleep(60)
 
     def start(self):
+        """start"""
         if self.is_running:
             self.log("⚠️ 爬虫已在运行")
             return
@@ -790,6 +799,7 @@ class AIKnowledgeCrawler:
         self.log("✅ 爬虫启动成功 (精爬版)")
 
     def stop(self):
+        """stop"""
         self.log("🛑 正在停止爬虫...")
         self.is_running = False
         if self.crawl_thread:
@@ -798,6 +808,7 @@ class AIKnowledgeCrawler:
         self.log("✅ 爬虫已停止")
 
     def get_status(self) -> Dict:
+        """get_status"""
         log_file = self.data_dir / "ai_knowledge_crawler.log"
         recent = []
         if log_file.exists():
@@ -817,6 +828,7 @@ class AIKnowledgeCrawler:
 
 
 def main():
+    """main"""
     print("🤖 AI知识自动爬虫 (精爬版)")
     print("=" * 60)
     print("数据源: arXiv | GitHub | OpenAlex | Stack Overflow | CrossRef | Substack | TDS | Hacker News")

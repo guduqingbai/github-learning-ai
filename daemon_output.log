@@ -1,697 +1,83 @@
 ✅ 宪法完整性校验通过
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: auto_consolidation
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: memory_extraction
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: health_check
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: research_scheduler
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: claude_memory_sync
-[2026-05-06 15:16:54] [思考守护进程] 注册 StopHook: knowledge_crawler
-[2026-05-06 15:16:54] [思考守护进程] 加载状态: 已运行 193 轮
-[2026-05-06 15:16:54] [思考守护进程] 自主思考守护进程初始化完成
-[2026-05-06 15:16:54] [思考守护进程] 守护线程开始运行 (KAIROS Tick 模式)
-[2026-05-06 15:16:54] [思考守护进程] 自主思考守护进程已启动
-[2026-05-06 15:16:54] [思考守护进程] 开始第 194 轮思考循环
-🧠 星期八自主思考守护进程已启动 (PID: 39200)
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: auto_consolidation
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: memory_extraction
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: health_check
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: research_scheduler
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: claude_memory_sync
+[2026-05-06 18:50:46] [思考守护进程] 注册 StopHook: knowledge_crawler
+[2026-05-06 18:50:46] [思考守护进程] 加载状态: 已运行 204 轮
+[2026-05-06 18:50:46] [思考守护进程] 自主思考守护进程初始化完成
+[2026-05-06 18:50:46] [思考守护进程] 守护线程开始运行 (KAIROS Tick 模式)
+[2026-05-06 18:50:46] [思考守护进程] 自主思考守护进程已启动
+🧠 星期八自主思考守护进程已启动 (PID: 30340)
    循环间隔: 1800s
    日志: data\thinking_daemon.log
+[2026-05-06 18:50:46] [思考守护进程] 开始第 205 轮思考循环
 ✅ 已加载 2111 个知识条目 (KG后端)
 📊 知识类别: 14 个
 🎯 知识主题: 2111 个
 
 ============================================================
-🧠 自我思考循环启动 [15:16:54]
+🧠 自我思考循环启动 [18:50:47]
 ============================================================
-⏱️  _load_state: 8.7ms
-⏱️  get_state: 8.7ms
+⏱️  _load_state: 368μs
+⏱️  get_state: 408μs
   🔌 注册钩子: directed_crawl_on_scan → post_scan
   🔌 注册钩子: llm_on_scan → post_scan
   🔌 注册钩子: llm_on_questions → post_scan
   🔌 注册钩子: llm_on_reflect → post_reflect
   🔌 注册钩子: llm_on_cycle_end → cycle_end
   🤖 LLM 思考增强已注册 (POST_SCAN/POST_REFLECT/CYCLE_END)
-⏱️  _load_state: 1.5ms
-⏱️  get_state: 1.5ms
-⏱️  _load_state: 1.1ms
-⏱️  get_state: 1.1ms
-⏱️  _load_state: 1.1ms
-⏱️  get_state: 1.1ms
-⏱️  _load_state: 9.9ms
-⏱️  get_state: 10.0ms
-⏱️  _load_state: 1.2ms
-⏱️  get_state: 1.2ms
-⏱️  _load_state: 8.6ms
-⏱️  get_state: 8.7ms
+⏱️  _load_state: 472μs
+⏱️  get_state: 520μs
+⏱️  _load_state: 320μs
+⏱️  get_state: 344μs
+⏱️  _load_state: 296μs
+⏱️  get_state: 317μs
 ⏱️  _load_state: 1.3ms
-⏱️  get_state: 1.4ms
-⏱️  _load_state: 23.9ms
-⏱️  get_state: 24.0ms
-⏱️  _load_state: 8.6ms
-⏱️  get_state: 8.6ms
-⏱️  get_state: 7μs
-⏱️  get_global_state: 57.7ms
+⏱️  get_state: 1.3ms
+⏱️  _load_state: 322μs
+⏱️  get_state: 345μs
+⏱️  _load_state: 363μs
+⏱️  get_state: 384μs
+⏱️  _load_state: 296μs
+⏱️  get_state: 315μs
+⏱️  _load_state: 31.8ms
+⏱️  get_state: 31.8ms
+⏱️  _load_state: 10.5ms
+⏱️  get_state: 10.5ms
+⏱️  get_state: 9μs
+⏱️  get_global_state: 46.1ms
 🎯 初始化自我学习系统
 ✅ 自我学习系统初始化完成
 🔍 正在检查系统漏洞...
-⏱️  get_state: 15μs
+⏱️  get_state: 18μs
 ⏱️  _save_state: 1.7ms
 ⏱️  update_state: 1.7ms
 ✅ 系统安全检查通过
 📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
+📈 代码质量分析: 扫描 63 个文件，发现 82 个新问题
 
   ────────────────────────────────────────
   📖 学习新知识 (5/2111):
-  📄LLM Powered Autonomous Agents
-     概念: autonomous agent
-  📄Memary: Open-Source Longterm Memory for Autonomous Agents
-     概念: autonomous agent
-  📄Show HN: Nous – Open-Source Agent Framework with Autonomous,
-     概念: autonomous agent
-  📄Agent GPT – Assemble, configure, and deploy autonomous AI Ag
-     概念: autonomous agent
-  📄Autonomous Agents and Agent Simulations
-     概念: autonomous agent
+  📄AlbumFill: Album-Guided Reasoning and Retrieval for Personal
+     概念: cs.CV, cs.IR, ti
+  📄SpecKV: Adaptive Speculative Decoding with Compression-Aware
+     概念: cs.LG, cs.AI, cs.CL
+  📄Open-Closed-Open Triality Beyond Matrix Models
+     概念: hep-th, math-ph, ti
+  📄de Sitter Vacua & pUniverses
+     概念: hep-th, cond-mat.str-el, hep-ph
+  📄MolmoAct2: Action Reasoning Models for Real-world Deployment
+     概念: cs.RO, ti
   ────────────────────────────────────────
 
   ────────────────────────────────────────
   📊 自我评估
   代码质量: 0 个问题 (stable)
   文档覆盖率: 0.0% | 类型标注: 0.0%
-  知识: 2939/2111 已学 (139.2%)
-  修改成功率: 20.0%
-  ────────────────────────────────────────
-  🎯 当前 1 个活跃目标
-  📋 能力差距 > 阈值 (10 项), 触发能力审计
-
-📋 执行思考技能: 能力差距审计
-   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
-⏱️  get_state: 11μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 72μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 12μs
-⏱️  _save_state: 941μs
-⏱️  update_state: 962μs
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
-  📋 能力差距审计完成: 2 项发现
-  🔗 延续 3 个已有思考线程
-     [d3] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 架构测试 | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci
-  📏 深度优先: 已有 3 个活跃线程，减少新问题
-  💡 学习触发了 7 个新问题
-  🧠 本地深度思考: 18 个好奇心问题
-  💡 本地深度思考: 12 条洞察
-  📖 叙事摘要: 星期八思考报告 (2026-05-06 15:17)...
-  💭 内在思考: 5 条洞察
-  💭 内在思考产生了 3 个新问题
-  🔌 注册钩子: research_on_questions → post_questions
-  🔌 注册钩子: research_on_scan → post_scan
-  🔌 注册钩子: research_on_cycle_end → cycle_end
-  🔬 研究集成已注册 (POST_QUESTIONS/POST_SCAN/CYCLE_END)
-❓ 共 215 个好奇心问题
-  ⚖️ 行动平衡: self_heal 替换 #2
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: knowledge_gap — 已探索 3 层，继续深挖
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ⚡ 技能结晶: cda9ef2b
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: 能力深度: 架构测试 — 已探索 4 层，继续深挖
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ⚡ 技能结晶: cda9ef2b
-
-  ──────────────────────────────
-  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, ai_knowledge_crawl
-  📖 相关经验:
-[相关经验]
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] a
-  ⚡ 技能结晶: 3ceaf408
-⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
-
-  🎯 策略切换: 无 → 深度挖掘
-     原因: 质量良好 (0.82)
-     质量评分: 0.819
-[2026-05-06 15:17:43] [思考守护进程] 配置更新: max_interval = 1200
-[2026-05-06 15:17:43] [思考守护进程] 配置更新: min_interval = 180
-  ⚙️ 策略影响 daemon 参数:
-    max_interval: 1800 → 1200
-    min_interval: 60 → 180
-[2026-05-06 15:17:43] [思考守护进程] 生成了 3 个洞察
-[2026-05-06 15:17:43] [思考守护进程] ❌ 已知修复失败 [add_docstring]: ai_knowledge_crawler.py
-[2026-05-06 15:17:43] [思考守护进程] ❌ 已知修复失败 [add_docstring]: antibody_library.py
-[2026-05-06 15:17:43] [思考守护进程] ❌ 已知修复失败 [add_docstring]: capability_registry.py
-[2026-05-06 15:17:43] [思考守护进程] 第 194 轮完成 (49s) | 连续失败: 0
-[2026-05-06 15:17:43] [思考守护进程]   📚 研究调度: 生成 3 个新任务 (DevOps与运维, 工程)
-[2026-05-06 15:17:43] [思考守护进程]   StopHook [research_scheduler] 完成
-[2026-05-06 15:17:43] [思考守护进程]   🧠 Claude记忆同步: system_status_20260506_151743 (2111 条目, new_data)
-[2026-05-06 15:17:43] [思考守护进程]   StopHook [claude_memory_sync] 完成
-⏱️  get_state: 16μs
-⏱️  get_state: 4μs
-⏱️  get_state: 3μs
-⏱️  get_state: 4μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_global_state: 122μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 31μs
-⏱️  _save_state: 4.4ms
-⏱️  update_state: 4.4ms
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
-[2026-05-06 15:17:44] [思考守护进程]   StopHook [health_check] 完成
-[2026-05-06 15:17:45] 🚀 [第1次] 开始爬取
-============================================================
-[2026-05-06 15:17:45] 📄 正在爬取 arXiv 论文...
-[2026-05-06 15:17:49]   📄 arXiv [ti:autonomous+agent+AND+cat:cs.AI]: 10 条
-[2026-05-06 15:17:54]   📄 arXiv [ti:self-improving+AND+cat:cs.AI]: 20 条
-[2026-05-06 15:17:58]   📄 arXiv [ti:metacognition+AND+cat:cs.AI]: 29 条
-[2026-05-06 15:18:02]   📄 arXiv [ti:cognitive+architecture+AND+cat:cs.AI]: 38 条
-[2026-05-06 15:18:07]   📄 arXiv [ti:large+language+model+agent]: 46 条
-[2026-05-06 15:18:12]   📄 arXiv [ti:tool+use+AND+cat:cs.AI]: 49 条
-[2026-05-06 15:18:16]   📄 arXiv [ti:retrieval+augmented+AND+cat:cs.AI]: 57 条
-[2026-05-06 15:18:30] ⚠️ 请求失败: http://export.arxiv.org/api/query?search_query=ti:agent+framework+AND+cat:cs.AI& → HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=ti:agent+framework+AND+cat:cs.AI&start=0&max_results=10&sortBy=submittedDate&sortOrder=descending (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
-[2026-05-06 15:18:36]   📄 arXiv [ti:prompt+engineering+AND+cat:cs.AI]: 64 条
-[2026-05-06 15:18:42]   📄 arXiv [ti:reinforcement+learning+from+human+feedback+AND+]: 67 条
-[2026-05-06 15:18:46]   ✅ arXiv 总计: 67 条论文
-[2026-05-06 15:18:46] 🌐 正在爬取 GitHub 仓库...
-[2026-05-06 15:18:48]   🌐 GitHub [autonomous-agents]: 15 条
-[2026-05-06 15:18:51]   🌐 GitHub [self-improving-ai]: 30 条
-[2026-05-06 15:18:54]   🌐 GitHub [cognitive-architecture]: 45 条
-[2026-05-06 15:18:57]   🌐 GitHub [ai-agents]: 60 条
-[2026-05-06 15:18:59]   🌐 GitHub [meta-learning]: 75 条
-[2026-05-06 15:19:02]   🌐 GitHub [self-improving]: 89 条
-[2026-05-06 15:19:05]   🌐 GitHub [metacognition]: 104 条
-[2026-05-06 15:19:08]   🌐 GitHub [langchain]: 117 条
-[2026-05-06 15:19:11]   🌐 GitHub [rag]: 126 条
-[2026-05-06 15:19:13]   🌐 GitHub [embeddings]: 139 条
-[2026-05-06 15:19:16] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Aai-agent&sort=stars&per_pag → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Aai-agent&sort=stars&per_page=15
-[2026-05-06 15:19:18] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Afunction-calling&sort=stars → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Afunction-calling&sort=stars&per_page=15
-[2026-05-06 15:19:20] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Alarge-language-model&sort=s → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Alarge-language-model&sort=stars&per_page=15
-[2026-05-06 15:19:22] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Aprompt-engineering&sort=sta → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Aprompt-engineering&sort=stars&per_page=15
-[2026-05-06 15:19:24] ⚠️ 请求失败: https://api.github.com/search/repositories?q=topic%3Avector-database&sort=stars& → 403 Client Error: rate limit exceeded for url: https://api.github.com/search/repositories?q=topic%3Avector-database&sort=stars&per_page=15
-[2026-05-06 15:19:26]   ✅ GitHub 总计: 139 条仓库
-[2026-05-06 15:19:26] 📚 正在爬取 OpenAlex 学术论文...
-[2026-05-06 15:19:28]   📝 OpenAlex [认知架构]: 10 条
-[2026-05-06 15:19:32]   📝 OpenAlex [自改进系统]: 19 条
-[2026-05-06 15:19:36]   📝 OpenAlex [元认知AI]: 28 条
-[2026-05-06 15:19:39]   📝 OpenAlex [LLM智能体]: 38 条
-[2026-05-06 15:19:43]   📝 OpenAlex [好奇驱动]: 46 条
-[2026-05-06 15:19:47]   📝 OpenAlex [提示工程]: 53 条
-[2026-05-06 15:19:51]   📝 OpenAlex [工具使用]: 58 条
-[2026-05-06 15:19:54]   📝 OpenAlex [AI对齐]: 66 条
-[2026-05-06 15:19:58]   📝 OpenAlex [RAG]: 73 条
-[2026-05-06 15:20:02]   📝 OpenAlex [RLHF]: 81 条
-[2026-05-06 15:20:04]   ✅ OpenAlex 总计: 81 条论文
-[2026-05-06 15:20:04] 📰 正在爬取 Hacker News...
-[2026-05-06 15:20:31]   ✅ Hacker News 总计: 79 条
-[2026-05-06 15:20:31] 📋 正在爬取 Stack Overflow...
-[2026-05-06 15:20:55]   ✅ Stack Overflow 总计: 30 条
-[2026-05-06 15:20:55] 📇 正在爬取 CrossRef 学术论文...
-[2026-05-06 15:21:37]   ✅ CrossRef 总计: 44 条
-[2026-05-06 15:21:37] 📬 正在爬取 Substack AI 文章...
-[2026-05-06 15:21:49]   ✅ Substack 总计: 31 条
-[2026-05-06 15:21:49] 📝 正在爬取 Towards Data Science...
-[2026-05-06 15:21:52]   ✅ Towards Data Science 总计: 20 条
-[2026-05-06 15:21:52] 🎯 正在执行定向任务...
-[2026-05-06 15:21:52] 🎯 自主学习任务队列: 共3个, 本次处理3个
-[2026-05-06 15:21:52]    📌 定向抓取: [工程] 工程 前沿研究
-[2026-05-06 15:21:57]    📌 定向抓取: [DevOps与运维] DevOps与运维 前沿研究
-[2026-05-06 15:22:00]    📌 定向抓取: [元认知] 元认知 思考循环 突破策略
-[2026-05-06 15:22:00] 🎉 所有定向任务已完成！
-[2026-05-06 15:22:02] ✅ 定向抓取: 获取 3 条知识
-[2026-05-06 15:22:02] 
-📊 汇总:
-[2026-05-06 15:22:02]    CrossRef: 44 条
-[2026-05-06 15:22:02]    GitHub: 139 条
-[2026-05-06 15:22:02]    Hacker News: 79 条
-[2026-05-06 15:22:02]    OpenAlex: 81 条
-[2026-05-06 15:22:02]    Stack Overflow: 30 条
-[2026-05-06 15:22:02]    Substack/Ahead of AI: 10 条
-[2026-05-06 15:22:02]    Substack/Digital Native: 10 条
-[2026-05-06 15:22:02]    Substack/Last Week in AI: 1 条
-[2026-05-06 15:22:02]    Substack/One Useful Thing: 10 条
-[2026-05-06 15:22:02]    Towards Data Science: 20 条
-[2026-05-06 15:22:02]    arXiv: 67 条
-[2026-05-06 15:22:02]    定向爬虫/工程: 3 条
-[2026-05-06 15:22:02]    共计: 494 条 (去重后)
-[2026-05-06 15:22:02] 🗑️ 丢弃 127/494 条 (CrossRef: 10, Hacker News: 24, OpenAlex: 48, Stack Overflow: 14, Substack/Ahead of AI: 1, Substack/Digital Native: 10, Substack/Last Week in AI: 1, Substack/One Useful Thing: 6, Towards Data Science: 12, 定向爬虫/工程: 1)
-✅ 成功学习新知识: Safety and accuracy follow different scaling laws in clinical large language models
-✅ 成功学习新知识: OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories
-✅ 成功学习新知识: Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours
-✅ 成功学习新知识: SymptomAI: Towards a Conversational AI Agent for Everyday Symptom Assessment
-✅ 成功学习新知识: Physics-Grounded Multi-Agent Architecture for Traceable, Risk-Aware Human-AI Decision Support in Manufacturing
-✅ 成功学习新知识: An Agent-Oriented Pluggable Experience-RAG Skill for Experience-Driven Retrieval Strategy Orchestration
-✅ 成功学习新知识: From Intent to Execution: Composing Agentic Workflows with Agent Recommendation
-✅ 成功学习新知识: MOSAIC-Bench: Measuring Compositional Vulnerability Induction in Coding Agents
-✅ 成功学习新知识: A Benchmark for Interactive World Models with a Unified Action Generation Framework
-✅ 成功学习新知识: Contextual Multi-Objective Optimization: Rethinking Objectives in Frontier AI Systems
-✅ 成功学习新知识: Self-Improvement for Fast, High-Quality Plan Generation
-✅ 成功学习新知识: Programming with Data: Test-Driven Data Engineering for Self-Improving LLMs from Raw Corpora
-✅ 成功学习新知识: Learning to Evolve: A Self-Improving Framework for Multi-Agent Systems via Textual Parameter Graph Optimization
-✅ 成功学习新知识: Self-Improving Tabular Language Models via Iterative Group Alignment
-✅ 成功学习新知识: Beyond Meta-Reasoning: Metacognitive Consolidation for Self-Improving LLM Reasoning
-✅ 成功学习新知识: Improving LLM Code Reasoning via Semantic Equivalence Self-Play with Formal Verification
-✅ 成功学习新知识: Dr. RTL: Autonomous Agentic RTL Optimization through Tool-Grounded Self-Improvement
-✅ 成功学习新知识: TSUBASA: Improving Long-Horizon Personalization via Evolving Memory and Self-Learning with Context Distillation
-✅ 成功学习新知识: Reasoning Graphs: Self-Improving, Deterministic RAG through Evidence-Centric Feedback
-✅ 成功学习新知识: ConsistRM: Improving Generative Reward Models via Consistency-Aware Self-Training
-✅ 成功学习新知识: The Compliance Trap: How Structural Constraints Degrade Frontier AI Metacognition Under Adversarial Pressure
-✅ 成功学习新知识: Before You Interpret the Profile: Validity Scaling for LLM Metacognitive Self-Report
-✅ 成功学习新知识: MEDLEY-BENCH: Scale Buys Evaluation but Not Control in AI Metacognition
-✅ 成功学习新知识: MIRROR: A Hierarchical Benchmark for Metacognitive Calibration in Large Language Models
-✅ 成功学习新知识: Self-Monitoring Benefits from Structural Integration: Lessons from Metacognition in Continuous-Time Multi-Timescale Agents
-✅ 成功学习新知识: PyVRP$^+$: LLM-Driven Metacognitive Heuristic Evolution for Hybrid Genetic Search in Vehicle Routing Problems
-✅ 成功学习新知识: PRISM-MCTS: Learning from Reasoning Trajectories with Metacognitive Reflection
-✅ 成功学习新知识: Measuring the metacognition of AI
-✅ 成功学习新知识: Beyond the Steeper Curve: AI-Mediated Metacognitive Decoupling and the Limits of the Dunning-Kruger Metaphor
-✅ 成功学习新知识: TabSurv: Adapting Modern Tabular Neural Networks to Survival Analysis
-✅ 成功学习新知识: Towards Open World Sound Event Detection
-✅ 成功学习新知识: Magic-Informed Quantum Architecture Search
-✅ 成功学习新知识: Spatiotemporal Convolutions on EEG signal -- A Representation Learning Perspective on Efficient and Explainable EEG Classification with Convolutional Neural Nets
-✅ 成功学习新知识: Mechanical Conscience: A Mathematical Framework for Dependability of Machine Intelligenc
-✅ 成功学习新知识: TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains
-✅ 成功学习新知识: Say the Mission, Execute the Swarm: Agent-Enhanced LLM Reasoning in the Web-of-Drones
-✅ 成功学习新知识: Rethinking the Rank Threshold for LoRA Fine-Tuning
-✅ 成功学习新知识: MEMTIER: Tiered Memory Architecture and Retrieval Bottleneck Analysis for Long-Running Autonomous AI Agents
-✅ 成功学习新知识: FTPrimitiveBench: A Benchmark Suite For Logical Computation Under Hardware-Motivated and Biased Noise Models
-✅ 成功学习新知识: Catastrophe-dispersion models in random and varying environments across generations
-✅ 成功学习新知识: Audio-Visual Intelligence in Large Foundation Models
-✅ 成功学习新知识: UniCorrn: Unified Correspondence Transformer Across 2D and 3D
-✅ 成功学习新知识: Jordan Frame in Supergravity and Cosmology
-✅ 成功学习新知识: Large Language Models are Universal Reasoners for Visual Generation
-✅ 成功学习新知识: Model order reduction for parametrized variational inequalities: application to crowd motion
-✅ 成功学习新知识: Large-Scale High-Quality 3D Gaussian Head Reconstruction from Multi-View Captures
-✅ 成功学习新知识: Label-Efficient School Detection from Aerial Imagery via Weakly Supervised Pretraining and Fine-Tuning
-✅ 成功学习新知识: EvoLM: Self-Evolving Language Models through Co-Evolved Discriminative Rubrics
-✅ 成功学习新知识: Correct Is Not Enough: Training Reasoning Planners with Executor-Grounded Rewards
-✅ 成功学习新知识: Rethinking Reasoning-Intensive Retrieval: Evaluating and Advancing Retrievers in Agentic Search Systems
-✅ 成功学习新知识: Domain-Adaptive Dense Retrieval for Brazilian Legal Search
-✅ 成功学习新知识: Feature-Augmented Transformers for Robust AI-Text Detection Across Domains and Generators
-✅ 成功学习新知识: Deco: Extending Personal Physical Objects into Pervasive AI Companion through a Dual-Embodiment Framework
-✅ 成功学习新知识: Reproducing Complex Set-Compositional Information Retrieval
-✅ 成功学习新知识: Enhancing Visual Question Answering with Multimodal LLMs via Chain-of-Question Guided Retrieval-Augmented Generation
-✅ 成功学习新知识: SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification
-✅ 成功学习新知识: Disentangling Shared and Task-Specific Representations from Multi-Modal Clinical Data
-✅ 成功学习新知识: Inconsistent Databases and Argumentation Frameworks with Collective Attacks
-✅ 成功学习新知识: UnAC: Adaptive Visual Prompting with Abstraction and Stepwise Checking for Complex Multimodal Reasoning
-✅ 成功学习新知识: PHALAR: Phasors for Learned Musical Audio Representations
-✅ 成功学习新知识: Steer Like the LLM: Activation Steering that Mimics Prompting
-✅ 成功学习新知识: AI Advocate: Educational Path to Transform Squads to the Future
-✅ 成功学习新知识: A Workflow-Oriented Framework for Asynchronous Human-AI Collaboration in Hybrid and Compute-Intensive HPC Environments
-✅ 成功学习新知识: Tailored Prompts, Targeted Protection: Vulnerability-Specific LLM Analysis for Smart Contracts
-✅ 成功学习新知识: Sequential vs. Simultaneous Entanglement Swapping under Optimal Link-Layer Control
-✅ 成功学习新知识: A Closed-Form Adaptive-Landmark Kernel for Certified Point-Cloud and Graph Classification
-✅ 成功学习新知识: Localic Relations with Open Cones
-✅ 成功学习新知识: Significant-Gravitas/AutoGPT
-✅ 成功学习新知识: ruvnet/ruflo
-✅ 成功学习新知识: e2b-dev/awesome-ai-agents
-✅ 成功学习新知识: Fosowl/agenticSeek
-✅ 成功学习新知识: TransformerOptimus/SuperAGI
-✅ 成功学习新知识: vxcontrol/pentagi
-✅ 成功学习新知识: cft0808/edict
-✅ 成功学习新知识: aden-hive/hive
-✅ 成功学习新知识: Upsonic/Upsonic
-✅ 成功学习新知识: YaoApp/yao
-✅ 成功学习新知识: RayVentura/ShortGPT
-✅ 成功学习新知识: aiwaves-cn/agents
-✅ 成功学习新知识: strands-agents/sdk-python
-✅ 成功学习新知识: GetBindu/Bindu
-✅ 成功学习新知识: campfirein/byterover-cli
-✅ 成功学习新知识: WecoAI/aideml
-✅ 成功学习新知识: WecoAI/awesome-autoresearch
-✅ 成功学习新知识: ReflexioAI/reflexio
-✅ 成功学习新知识: BennettSchwartz/membrane
-✅ 成功学习新知识: longyunfeigu/learn-hermes-agent
-✅ 成功学习新知识: agents-squads/squads-cli
-✅ 成功学习新知识: ReflexioAI/claude-smart
-✅ 成功学习新知识: haoran-ni/ralph-loop-optimizer
-✅ 成功学习新知识: sliamh11/Deus
-✅ 成功学习新知识: aliaihub/awesome-hermes-usecases
-✅ 成功学习新知识: unimaginative-artist/SOMA
-✅ 成功学习新知识: TenchiNeko/standalone-orchestrator
-✅ 成功学习新知识: E-mmanuelM/brandcrew
-✅ 成功学习新知识: hibbault/aide
-✅ 成功学习新知识: LunjunZhang/E-SPL
-✅ 成功学习新知识: topoteretes/cognee
-✅ 成功学习新知识: CaviraOSS/OpenMemory
-✅ 成功学习新知识: Bitterbot-AI/bitterbot-desktop
-✅ 成功学习新知识: varun29ankuS/shodh-memory
-✅ 成功学习新知识: dcostenco/prism-coder
-✅ 成功学习新知识: tao-hpu/cognitive-workspace
-✅ 成功学习新知识: bsorrentino/LangGraph-Swift
-✅ 成功学习新知识: nambok/mentedb
-✅ 成功学习新知识: mmethodz/dreamgraph
-✅ 成功学习新知识: cmekik/pyClarion
-✅ 成功学习新知识: youngbryan97/aura
-✅ 成功学习新知识: amanhij/Zikkaron
-✅ 成功学习新知识: cram2/pycram
-✅ 成功学习新知识: augmentedmike/miniclaw-os
-✅ 成功学习新知识: MushroomFleet/LLM-Base-Prompts
-✅ 成功学习新知识: affaan-m/everything-claude-code
-✅ 成功学习新知识: langchain-ai/langchain
-✅ 成功学习新知识: NousResearch/hermes-agent
-✅ 成功学习新知识: firecrawl/firecrawl
-✅ 成功学习新知识: google-gemini/gemini-cli
-✅ 成功学习新知识: browser-use/browser-use
-✅ 成功学习新知识: infiniflow/ragflow
-✅ 成功学习新知识: dair-ai/Prompt-Engineering-Guide
-✅ 成功学习新知识: thedotmack/claude-mem
-✅ 成功学习新知识: daytonaio/daytona
-✅ 成功学习新知识: bytedance/deer-flow
-✅ 成功学习新知识: microsoft/ai-agents-for-beginners
-✅ 成功学习新知识: Mintplex-Labs/anything-llm
-✅ 成功学习新知识: ComposioHQ/awesome-claude-skills
-✅ 成功学习新知识: code-yeongyu/oh-my-openagent
-✅ 成功学习新知识: jindongwang/transferlearning
-✅ 成功学习新知识: automl/auto-sklearn
-✅ 成功学习新知识: aiming-lab/MetaClaw
-✅ 成功学习新知识: learnables/learn2learn
-✅ 成功学习新知识: MaximeVandegar/Papers-in-100-Lines-of-Code
-✅ 成功学习新知识: floodsung/Meta-Learning-Papers
-✅ 成功学习新知识: tristandeleu/pytorch-meta
-✅ 成功学习新知识: tata1661/FSL-Mate
-✅ 成功学习新知识: sicara/easy-few-shot-learning
-✅ 成功学习新知识: oscarknagg/few-shot
-✅ 成功学习新知识: floodsung/LearningToCompare_FSL
-✅ 成功学习新知识: RL-VIG/LibFewShot
-✅ 成功学习新知识: Duan-JM/awesome-papers-fewshot
-✅ 成功学习新知识: guan-yuan/Awesome-AutoML-and-Lightweight-Models
-✅ 成功学习新知识: google-research/meta-dataset
-✅ 成功学习新知识: letta-ai/letta
-✅ 成功学习新知识: MervinPraison/PraisonAI
-✅ 成功学习新知识: chrisworsey55/atlas-gic
-✅ 成功学习新知识: future-agi/future-agi
-✅ 成功学习新知识: adolfousier/opencrabs
-✅ 成功学习新知识: ArchishmanSengupta/autovoiceevals
-✅ 成功学习新知识: TheMattBerman/seo-kit
-✅ 成功学习新知识: Aryia-Behroziuan/References
-✅ 成功学习新知识: FareedKhan-dev/training-ai-agents
-✅ 成功学习新知识: IncomeStreamSurfer/paperclip-surfers
-✅ 成功学习新知识: 28naem-del/mnemosyne
-✅ 成功学习新知识: zhang677/AccelOpt
-✅ 成功学习新知识: vuics/h9y
-✅ 成功学习新知识: RagavRida/mmcp
-✅ 成功学习新知识: jtoy/replicantlife
-✅ 成功学习新知识: pkargupta/idea_catalyst
-✅ 成功学习新知识: IdeoaLabs/Open-Sable
-✅ 成功学习新知识: PPetermeier/HumanAIColaborationFramework
-✅ 成功学习新知识: agenticracy/agenticracy-skill
-✅ 成功学习新知识: MohamedAlezabi/Reverse-Prompting-Protocol
-✅ 成功学习新知识: NielOk/LLaDA_TTC
-✅ 成功学习新知识: MetaCrux/Meta-Cognition-OS
-✅ 成功学习新知识: sudhir-acharya/MetaCognitionEngine
-✅ 成功学习新知识: leonh316/metaCogGPT
-✅ 成功学习新知识: HillaryDanan/prism
-✅ 成功学习新知识: jobb0389/ip-protection
-✅ 成功学习新知识: christaashok/metacognition-llms
-✅ 成功学习新知识: harshitha-8/multimodal-self-evaluating-agents
-✅ 成功学习新知识: Alvoradozerouno/EIRA-Consciousness-Metrics
-✅ 成功学习新知识: microsoft/markitdown
-✅ 成功学习新知识: FlowiseAI/Flowise
-✅ 成功学习新知识: BerriAI/litellm
-✅ 成功学习新知识: chatchat-space/Langchain-Chatchat
-✅ 成功学习新知识: reworkd/AgentGPT
-✅ 成功学习新知识: langchain-ai/langgraph
-✅ 成功学习新知识: huggingface/agents-course
-✅ 成功学习新知识: NirDiamant/RAG_Techniques
-✅ 成功学习新知识: langfuse/langfuse
-✅ 成功学习新知识: mlflow/mlflow
-✅ 成功学习新知识: langchain-ai/deepagents
-✅ 成功学习新知识: NirDiamant/GenAI_Agents
-✅ 成功学习新知识: 1Panel-dev/MaxKB
-✅ 成功学习新知识: langgenius/dify
-✅ 成功学习新知识: open-webui/open-webui
-✅ 成功学习新知识: Shubhamsaboo/awesome-llm-apps
-✅ 成功学习新知识: PaddlePaddle/PaddleOCR
-✅ 成功学习新知识: pathwaycom/llm-app
-✅ 成功学习新知识: mem0ai/mem0
-✅ 成功学习新知识: run-llama/llama_index
-✅ 成功学习新知识: jeecgboot/JeecgBoot
-✅ 成功学习新知识: milvus-io/milvus
-✅ 成功学习新知识: supabase/supabase
-✅ 成功学习新知识: Tencent/WeKnora
-✅ 成功学习新知识: neuml/txtai
-✅ 成功学习新知识: Embedding/Chinese-Word-Vectors
-✅ 成功学习新知识: h2oai/h2ogpt
-✅ 成功学习新知识: langchain4j/langchain4j
-✅ 成功学习新知识: FlagOpen/FlagEmbedding
-✅ 成功学习新知识: apache/seatunnel
-✅ 成功学习新知识: InsForge/InsForge
-✅ 成功学习新知识: postgresml/postgresml
-✅ 成功学习新知识: lance-format/lance
-✅ 成功学习新知识: KevinMusgrave/pytorch-metric-learning
-✅ 成功学习新知识: Eventual-Inc/Daft
-✅ 成功学习新知识: Reinforcement Learning: A Survey
-✅ 成功学习新知识: Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI
-✅ 成功学习新知识: Simple statistical gradient-following algorithms for connectionist reinforcement learning
-✅ 成功学习新知识: Review of deep learning: concepts, CNN architectures, challenges, applications, future directions
-✅ 成功学习新知识: Astrocytes: biology and pathology
-✅ 成功学习新知识: Systematic review of research on artificial intelligence applications in higher education – where are the educators?
-✅ 成功学习新知识: Machine Learning Interpretability: A Survey on Methods and Metrics
-✅ 成功学习新知识: The Science of Mind Wandering: Empirically Navigating the Stream of Consciousness
-✅ 成功学习新知识: Cognitive load theory, educational research, and instructional design: some food for thought
-✅ 成功学习新知识: A Review of Artificial Intelligence (AI) in Education from 2010 to 2020
-✅ 成功学习新知识: Evolution and Revolution in Artificial Intelligence in Education
-✅ 成功学习新知识: Performance of ChatGPT on USMLE: Potential for AI-assisted medical education using large language models
-✅ 成功学习新知识: Revolutionizing healthcare: the role of artificial intelligence in clinical practice
-✅ 成功学习新知识: ChatGPT Utility in Healthcare Education, Research, and Practice: Systematic Review on the Promising Perspectives and Valid Concerns
-✅ 成功学习新知识: A Survey on Evaluation of Large Language Models
-✅ 成功学习新知识: GPT-4 Technical Report
-✅ 成功学习新知识: How Does ChatGPT Perform on the United States Medical Licensing Examination (USMLE)? The Implications of Large Language Models for Medical Education and Knowledge Assessment
-✅ 成功学习新知识: Social cognition and the brain: A meta‐analysis
-✅ 成功学习新知识: Sparks of Artificial General Intelligence: Early experiments with GPT-4
-✅ 成功学习新知识: Flamingo: a Visual Language Model for Few-Shot Learning
-✅ 成功学习新知识: A SWOT analysis of ChatGPT: Implications for educational practice and research
-✅ 成功学习新知识: Whatever next? Predictive brains, situated agents, and the future of cognitive science
-✅ 成功学习新知识: ChatGPT for good? On opportunities and challenges of large language models for education
-✅ 成功学习新知识: Heuristic Decision Making
-✅ 成功学习新知识: How artificial intelligence will change the future of marketing
-✅ 成功学习新知识: Brave new world: service robots in the frontline
-✅ 成功学习新知识: Nano based drug delivery systems: recent developments and future prospects
-✅ 成功学习新知识: Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy
-✅ 成功学习新知识: Large language models encode clinical knowledge
-✅ 成功学习新知识: Molecular Docking: Shifting Paradigms in Drug Discovery
-✅ 成功学习新知识: SciPy 1.0: fundamental algorithms for scientific computing in Python
-✅ 成功学习新知识: Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks
-✅ 成功学习新知识: A survey of transfer learning
-✅ 成功学习新知识: An AI agent published a hit piece on me
-✅ 成功学习新知识: OpenCode – Open source AI coding agent
-✅ 成功学习新知识: AI agent opens a PR write a blogpost to shames the maintainer who closes it
-✅ 成功学习新知识: Opus 4.5 is not the normal AI agent experience that I have had thus far
-✅ 成功学习新知识: An AI agent deleted our production database. The agent's confession is below
-✅ 成功学习新知识: An AI agent published a hit piece on me – more things have happened
-✅ 成功学习新知识: Windows 11 adds AI agent that runs in background with access to personal folders
-✅ 成功学习新知识: Ex-GitHub CEO launches a new developer platform for AI agents
-✅ 成功学习新知识: Exploiting the most prominent AI agent benchmarks
-✅ 成功学习新知识: A generalist AI agent for 3D virtual environments
-✅ 成功学习新知识: The current hype around autonomous agents, and what actually works in production
-✅ 成功学习新知识: LLM Powered Autonomous Agents
-✅ 成功学习新知识: Memary: Open-Source Longterm Memory for Autonomous Agents
-✅ 成功学习新知识: Show HN: Nous – Open-Source Agent Framework with Autonomous, SWE Agents, WebUI
-✅ 成功学习新知识: Agent GPT – Assemble, configure, and deploy autonomous AI Agents in the browser
-✅ 成功学习新知识: Autonomous Agents and Agent Simulations
-✅ 成功学习新知识: Bitcoin-using Autonomous Agents
-✅ 成功学习新知识: Show HN: Hephaestus – Autonomous Multi-Agent Orchestration Framework
-✅ 成功学习新知识: WebArena: A realistic web environment for building autonomous agents
-✅ 成功学习新知识: Process Manager for Autonomous AI Agents
-✅ 成功学习新知识: A deep dive into self-improving AI and the Darwin-Gödel Machine
-✅ 成功学习新知识: We aren't close to creating a rapidly self-improving AI
-✅ 成功学习新知识: Launch HN: Leaping (YC W25) – Self-Improving Voice AI
-✅ 成功学习新知识: Google’s AI-Building AI Is a Step Toward Self-Improving AI
-✅ 成功学习新知识: Ask HN: Lisp Macros for Self-Improving AI?
-✅ 成功学习新知识: How TRM Labs Scaled Security with Self-Improving AI Vulnerability Agents
-✅ 成功学习新知识: Recursively self improving AI might not work without these functions
-✅ 成功学习新知识: DeepSeek and Tsinghua Developing Self-Improving AI Models
-✅ 成功学习新知识: Meta releases HyperAgents: self-improving AI
-✅ 成功学习新知识: Hermes Agent: The self-improving AI agent
-✅ 成功学习新知识: ChatGPT has no inner monologue or meta-cognition
-✅ 成功学习新知识: Mastering Metacognition: The What, Why, and How
-✅ 成功学习新知识: How to control the metacognition process of programming?
-✅ 成功学习新知识: Metacognition: A Critical Leadership and Career Skill
-✅ 成功学习新知识: Evidence Points To Conscious 'Metacognition' In Some Nonhuman Animals
-✅ 成功学习新知识: Metacognition: How to Think about Thinking
-✅ 成功学习新知识: Anthropic's Claude 3 Test Responses Prompt Metacognition
-✅ 成功学习新知识: Meta-meta-cognition: reflecting on mind-mapping my thinking habits
-✅ 成功学习新知识: State Stream Transformer (SST) and Metacognition
-✅ 成功学习新知识: Using metacognition to get a model upgrade
-✅ 成功学习新知识: The unreasonable effectiveness of an LLM agent loop with tool use
-✅ 成功学习新知识: Claws are now a new layer on top of LLM agents
-✅ 成功学习新知识: Two things LLM coding agents are still bad at
-✅ 成功学习新知识: On Sleeper Agent LLMs
-✅ 成功学习新知识: LLM Agents Are Simply Graph – Tutorial for Dummies
-✅ 成功学习新知识: Cultural Evolution of Cooperation Among LLM Agents
-✅ 成功学习新知识: Show HN: LlamaGym – fine-tune LLM agents with online reinforcement learning
-✅ 成功学习新知识: My experience creating software with LLM coding agents – Part 2 (Tips)
-✅ 成功学习新知识: Salesforce study finds LLM agents flunk CRM and confidentiality tests
-✅ 成功学习新知识: LLM based agents as Dungeon Masters
-✅ 成功学习新知识: Show HN: FastGraphRAG – Better RAG using good old PageRank
-✅ 成功学习新知识: Ask HN: How are you doing RAG locally?
-✅ 成功学习新知识: Ask HN: What AI tools you use often?
-✅ 成功学习新知识: Excalidraw's AI Tool – useful and underrated
-✅ 成功学习新知识: Ask HN: What is the most useful AI tool you use outside of Cursor/ChatGPT?
-✅ 成功学习新知识: What is the role of the bias in neural networks?
-✅ 成功学习新知识: What is the difference between a generative and a discriminative algorithm?
-✅ 成功学习新知识: Epoch vs Iteration when training neural networks
-✅ 成功学习新知识: What is the difference between &#39;SAME&#39; and &#39;VALID&#39; padding in tf.nn.max_pool of tensorflow?
-✅ 成功学习新知识: What is the difference between supervised learning and unsupervised learning?
-✅ 成功学习新知识: How does the Google &quot;Did you mean?&quot; Algorithm work?
-✅ 成功学习新知识: How to compute the similarity between two text documents?
-✅ 成功学习新知识: How to determine the language of a piece of text?
-✅ 成功学习新知识: Differences between Langchain &amp; LlamaIndex
-✅ 成功学习新知识: How to create a langchain doc from an str?
-✅ 成功学习新知识: Difference between Instruction Tuning vs Non Instruction Tuning Large Language Models
-✅ 成功学习新知识: How to persist LangChain conversation memory (save and load)?
-✅ 成功学习新知识: import langchain =&gt; Error : TypeError: issubclass() arg 1 must be a class
-✅ 成功学习新知识: What is the difference between OpenAI and ChatOpenAI in LangChain?
-✅ 成功学习新知识: Improve the RAG chatbot result
-✅ 成功学习新知识: Is there a way in MCP to stream a LLM response chunk by chunk back to the client?
-✅ 成功学习新知识: The Multipurpose Autonomous Agent Project: Experiential Learning for Engineering Assistive Artificial Intelligence
-✅ 成功学习新知识: Constraints Enabled Autonomous Agent Marketplace: Discovery and Matchmaking
-✅ 成功学习新知识: Autonomous Agent Models of Stock Markets
-✅ 成功学习新知识: Autonomous Agent Contracts for Adaptive Supply Chains
-✅ 成功学习新知识: Decentralized Autonomous Organizations and Multi-agent Systems for Artificial Intelligence Applications and Data Analysis
-✅ 成功学习新知识: Multi-Agent System for Autonomous Table Football: A Winning Strategy
-✅ 成功学习新知识: Autonomous agent based on reinforcement learning and adaptive shadowed network
-✅ 成功学习新知识: Trading Agent Competition with Autonomous Economic Agents
-✅ 成功学习新知识: Naming the Unnamable: Socionics or the Sociological Turn of/to Distributed Artificial Intelligence
-✅ 成功学习新知识: Cross-paradigm analysis of autonomous agent architecture
-✅ 成功学习新知识: Self-Improving Agentic AI through Bayesian Meta-Learning
-✅ 成功学习新知识: Military AI as a Convergent Goal of Self-Improving AI
-✅ 成功学习新知识: Liquid Adaptive AI: A Theoretical Framework for Continuously Self-Improving Artificial Intelligence
-✅ 成功学习新知识: Fostering a Self-Improving AI Ecosystem Through Calibrated Circular Mutual Evaluation
-✅ 成功学习新知识: Liquid AI: An Architectural Framework for Continuously Self-Improving Artificial Intelligence
-✅ 成功学习新知识: A Self-Improving Experiential AI Model a Path to Continual Learning
-✅ 成功学习新知识: Metacognition: The cognitive and affective architecture of self-directed learning
-✅ 成功学习新知识: Setting the Stage Metacognition and Cognitive Therapy
-✅ 成功学习新知识: Metacognition in Alzheimer’s Disease
-✅ 成功学习新知识: Metacognition
-✅ 成功学习新知识: From Social Cognition to Metacognition
-✅ 成功学习新知识: An Evaluativist Proposal: Cognitive Control and Metacognition
-✅ 成功学习新知识: Quantifying Human Metacognition for the Neurosciences
-✅ 成功学习新知识: Metacognition and Cognitive Neuropsychology
-✅ 成功学习新知识: Metacognition and Confidence in Value-Based Choice
-✅ 成功学习新知识: Use large language model to enhance reasoning of another large language model through reward updated GRPO
-✅ 成功学习新知识: Condensed Reasoning Prompting: Efficient Strategies, Evaluations, and Trade Offs in Large Language Model Reasoning
-✅ 成功学习新知识: Training a Reasoning Large Language Model for Improving Power Flow Convergence
-✅ 成功学习新知识: Crash Root-Cause Identification via Trace-Rewarded Causation-Chain Reasoning Large Language Model
-✅ 成功学习新知识: Meta-of-Thought: Reasoning About Reasoning in Large Language Models
-✅ 成功学习新知识: Automated Theorem Provers Help Improve Large Language Model Reasoning
-✅ 成功学习新知识: Hebbian Inertia and Massless Reasoning: Comparative Cognitive Architecture in Human and Large Language Model Systems
-✅ 成功学习新知识: Extending large language model capabilities beyond reasoning
-✅ 成功学习新知识: A Comparative Study of Retrieval-Augmented Generation, Graph Retrieval-Augmented Generation, and Fine-Tuned Large Language Models for Fire Engineering Knowledge Retrieval
-✅ 成功学习新知识: Sign of the future: GPT-5.5 
-✅ 成功学习新知识: A Guide to Which AI to Use in the Agentic Era
-✅ 成功学习新知识: Management as AI superpower
-✅ 成功学习新知识: Three Years from GPT-3 to Gemini 3
-✅ 成功学习新知识: My Workflow for Understanding LLM Architectures
-✅ 成功学习新知识: Components of A Coding Agent
-✅ 成功学习新知识: A Visual Guide to Attention Variants in Modern LLMs
-✅ 成功学习新知识: A Dream of Spring for Open-Weight LLMs: 10 Architectures from Jan-Feb 2026
-✅ 成功学习新知识: Categories of Inference-Time Scaling for Improved LLM Reasoning
-✅ 成功学习新知识: The State Of LLMs 2025: Progress, Problems, and Predictions
-✅ 成功学习新知识: LLM Research Papers: The 2025 List (July to December)
-✅ 成功学习新知识: Beyond Standard LLMs
-✅ 成功学习新知识: Understanding the 4 Main Approaches to LLM Evaluation (From Scratch)
-✅ 成功学习新知识: Surviving High Uncertainty in Logistics with MARL
-✅ 成功学习新知识: Single Agent vs Multi-Agent: When to Build a Multi-Agent System
-✅ 成功学习新知识: How a 2021 Quantization Algorithm Quietly Outperforms Its 2026 Successor
-✅ 成功学习新知识: Ghost: A Database for Our Times?
-✅ 成功学习新知识: Why Powerful Machine Learning Is Deceptively Easy
-✅ 成功学习新知识: A Gentle Introduction to Stochastic Programming
-✅ 成功学习新知识: How to Study the Monotonicity and Stability of Variables in a Scoring Model using Python
-✅ 成功学习新知识: Why AI Engineers Are Moving Beyond LangChain to Native Agent Architectures
-✅ 成功学习新知识: [工程] IAAR-Shanghai/Awesome-AI-Memory
-✅ 成功学习新知识: [工程] joe2hpimn/ai-blog
-[2026-05-06 15:22:40] ✅ 保存 367 条知识 (过滤前494条)
-[2026-05-06 15:22:40] ✅ [第1次] 爬取完成
-
-[2026-05-06 15:22:40] [思考守护进程]   StopHook [knowledge_crawler] 完成
-[2026-05-06 15:37:44] [思考守护进程] 开始第 195 轮思考循环
-
-============================================================
-🧠 自我思考循环启动 [15:37:44]
-============================================================
-⏱️  get_state: 9μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 58μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 11μs
-⏱️  _save_state: 820μs
-⏱️  update_state: 839μs
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
-  📚 发现「工程」仅 1 条，自动发起研究LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.6s): 未知错误: timed out
-LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.6s): 未知错误: timed out
-
-    → 已添加研究问题: 工程
-  📚 发现「DevOps与运维」仅 1 条，自动发起研究
-    → 已添加研究问题: DevOps与运维
-
-  ────────────────────────────────────────
-  📖 学习新知识 (5/2111):
-  📄Bitcoin-using Autonomous Agents
-     概念: autonomous agent
-  📄Show HN: Hephaestus – Autonomous Multi-Agent Orchestration F
-     概念: autonomous agent
-  📄WebArena: A realistic web environment for building autonomou
-     概念: autonomous agent
-  📄The unreasonable effectiveness of an LLM agent loop with too
-     概念: LLM agent
-  📄Claws are now a new layer on top of LLM agents
-     概念: LLM agent
-  ────────────────────────────────────────
-
-  ────────────────────────────────────────
-  📊 自我评估
-  代码质量: 0 个问题 (stable)
-  文档覆盖率: 0.0% | 类型标注: 0.0%
-  知识: 2944/2111 已学 (139.5%)
-  修改成功率: 20.0%
+  知识: 2999/2111 已学 (142.1%)
+  修改成功率: 25.0%
   ────────────────────────────────────────
   🎯 当前 1 个活跃目标
   📋 能力差距 > 阈值 (10 项), 触发能力审计
@@ -699,319 +85,25 @@ LLM 调用彻底失败 (91.6s): 未知错误: timed out
 📋 执行思考技能: 能力差距审计
    描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
 ⏱️  get_state: 15μs
-⏱️  get_state: 4μs
 ⏱️  get_state: 3μs
 ⏱️  get_state: 3μs
-⏱️  get_state: 3μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
 ⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 84μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_state: 2μs
+⏱️  get_global_state: 120μs
 🎯 初始化自我学习系统
 ✅ 自我学习系统初始化完成
 🔍 正在检查系统漏洞...
-⏱️  get_state: 12μs
-⏱️  _save_state: 881μs
-⏱️  update_state: 898μs
+⏱️  get_state: 21μs
+⏱️  _save_state: 1.6ms
+⏱️  update_state: 1.7ms
 ✅ 系统安全检查通过
 📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
+📈 代码质量分析: 扫描 63 个文件，发现 0 个新问题
   📋 能力差距审计完成: 2 项发现
-
-  ────────────────────────────────────────
-  🔍 反思审计 (6 项)
-  🔧 待验证修复: ai_knowledge_crawler.py,antibody_library.py,capabi
-  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
-  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
-  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
-  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
-  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
-  ────────────────────────────────────────
   🔗 延续 3 个已有思考线程
-     [d3] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci | [d4] 能力深度: 能力深度: 架构测试
-LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.6s): 未知错误: timed out
-LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.6s): 未知错误: timed out
-  📏 深度优先: 已有 3 个活跃线程，减少新问题
-  💡 学习触发了 7 个新问题
-  🧠 本地深度思考: 18 个好奇心问题
-  💡 本地深度思考: 12 条洞察
-  📖 叙事摘要: 星期八思考报告 (2026-05-06 15:41)...
-  💭 内在思考: 5 条洞察
-  💭 内在思考产生了 3 个新问题
-❓ 共 71 个好奇心问题
-  ⚖️ 行动平衡: self_heal 替换 #2
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: knowledge_gap — 已探索 3 层，继续深挖
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ✅ [deep_learning] 能力深度: knowledge_gap (相似度 0.92)
-  ⚡ 技能结晶: cda9ef2b
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-examples - Dozens of m — 已探索
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.99)
-  ✅ [deep_learning] 能力深度: 能力深度: 能力深度: [数据结构与算法] cirosantilli/x86-bare-metal-exam (相似度 0.99)
-  ✅ [deep
-  ⚡ 技能结晶: 6b50be4d
-
-  ──────────────────────────────
-  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, ai_knowledge_crawl
-  📖 相关经验:
-[相关经验]
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] a
-  ⚡ 技能结晶: 3ceaf408
-⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
-[2026-05-06 15:41:29] [思考守护进程] 生成了 3 个洞察
-[2026-05-06 15:41:29] [思考守护进程] ❌ 已知修复失败 [add_docstring]: ai_knowledge_crawler.py
-[2026-05-06 15:41:29] [思考守护进程] ❌ 已知修复失败 [add_docstring]: antibody_library.py
-[2026-05-06 15:41:29] [思考守护进程] ❌ 已知修复失败 [add_docstring]: capability_registry.py
-[2026-05-06 15:41:29] [思考守护进程] 第 195 轮完成 (225s) | 连续失败: 0
-[2026-05-06 16:01:29] [思考守护进程] 开始第 196 轮思考循环
-
-============================================================
-🧠 自我思考循环启动 [16:01:29]
-============================================================
-⏱️  get_state: 9μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 61μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 10μs
-⏱️  _save_state: 753μs
-⏱️  update_state: 768μs
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
-
-  ────────────────────────────────────────
-  📖 学习新知识 (5/2111):
-  📄Two things LLM coding agents are still bad at
-     概念: LLM agent
-  📄On Sleeper Agent LLMs
-     概念: LLM agent
-  📄LLM Agents Are Simply Graph – Tutorial for Dummies
-     概念: LLM agent
-  📄Cultural Evolution of Cooperation Among LLM Agents
-     概念: LLM agent
-  📄Show HN: LlamaGym – fine-tune LLM agents with online reinfor
-     概念: LLM agent
-  ────────────────────────────────────────
-
-  ────────────────────────────────────────
-  📊 自我评估
-  代码质量: 0 个问题 (stable)
-  文档覆盖率: 0.0% | 类型标注: 0.0%
-  知识: 2949/2111 已学 (139.7%)
-  修改成功率: 20.0%
-  ────────────────────────────────────────
-  🎯 当前 1 个活跃目标
-  📋 能力差距 > 阈值 (10 项), 触发能力审计
-
-📋 执行思考技能: 能力差距审计
-   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
-⏱️  get_state: 11μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 69μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 11μs
-⏱️  _save_state: 879μs
-⏱️  update_state: 897μs
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1288 个问题
-  📋 能力差距审计完成: 2 项发现
-
-  ────────────────────────────────────────
-  🔍 反思审计 (6 项)
-  🔧 待验证修复: ai_knowledge_crawler.py,antibody_library.py,capabi
-  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
-  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
-  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
-  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
-  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
-  ────────────────────────────────────────
-  🔗 延续 3 个已有思考线程
-     [d4] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 架构测试 | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci
-LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.5s): 未知错误: timed out
-LLM 调用异常 (尝试 1): 未知错误: timed out
-LLM 调用异常 (尝试 2): 未知错误: timed out
-LLM 调用异常 (尝试 3): 未知错误: timed out
-LLM 调用彻底失败 (91.6s): 未知错误: timed out
-  📏 深度优先: 已有 3 个活跃线程，减少新问题
-  💡 学习触发了 6 个新问题
-  🧠 本地深度思考: 18 个好奇心问题
-  💡 本地深度思考: 12 条洞察
-  📖 叙事摘要: 星期八思考报告 (2026-05-06 16:05)...
-  💭 内在思考: 5 条洞察
-  💭 内在思考产生了 3 个新问题
-❓ 共 70 个好奇心问题
-  ⚖️ 行动平衡: self_heal 替换 #2
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: 能力深度: knowledge_gap — 已探索 4 层，继续深挖
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.96)
-  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.96)
-  ✅ [deep_learning] 能力深度: 能力深度: knowledge_gap (相似度 0.96)
-  ⚡ 技能结晶: cda9ef2b
-
-  ──────────────────────────────
-  ❓ 继续挖深: 能力深度: 能力深度: 架构测试 — 已探索 4 层，继续深挖
-  📖 相关经验:
-[相关经验]
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ✅ [deep_learning] 能力深度: 能力深度: 架构测试 (相似度 0.95)
-  ⚡ 技能结晶: cda9ef2b
-
-  ──────────────────────────────
-  ❓ 函数缺少文档: ai_knowledge_crawler.py:main, ai_knowledge_crawler.py:__init__, ai_knowledge_crawl
-  📖 相关经验:
-[相关经验]
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] ai_knowledge_crawler.py,antibody_library.py,capability_regis (相似度 0.89)
-  ✅ [self_heal] a
-  ⚡ 技能结晶: 3ceaf408
-⚠️  思考日志保存失败: Extra data: line 116269 column 2 (char 3402850)
-[2026-05-06 16:05:16] [思考守护进程] 生成了 3 个洞察
-[2026-05-06 16:05:16] [思考守护进程] ❌ 已知修复失败 [add_docstring]: ai_knowledge_crawler.py
-[2026-05-06 16:05:16] [思考守护进程] ❌ 已知修复失败 [add_docstring]: antibody_library.py
-[2026-05-06 16:05:16] [思考守护进程] ❌ 已知修复失败 [add_docstring]: capability_registry.py
-[2026-05-06 16:05:16] [思考守护进程] 第 196 轮完成 (227s) | 连续失败: 0
-[2026-05-06 16:05:16] [思考守护进程]   📚 研究调度: 生成 3 个新任务 (DevOps与运维, 工程)
-[2026-05-06 16:05:16] [思考守护进程]   StopHook [research_scheduler] 完成
-[2026-05-06 16:05:16] [思考守护进程]   🧠 Claude记忆同步: system_status_20260506_160516 (2111 条目, new_data)
-[2026-05-06 16:05:16] [思考守护进程]   StopHook [claude_memory_sync] 完成
-[2026-05-06 16:25:17] [思考守护进程] 开始第 197 轮思考循环
-
-============================================================
-🧠 自我思考循环启动 [16:25:17]
-============================================================
-⏱️  _load_state: 340μs
-⏱️  get_state: 393μs
-⏱️  _load_state: 235μs
-⏱️  get_state: 263μs
-⏱️  _load_state: 175μs
-⏱️  get_state: 188μs
-⏱️  _load_state: 527μs
-⏱️  get_state: 651μs
-⏱️  _load_state: 143μs
-⏱️  get_state: 157μs
-⏱️  _load_state: 171μs
-⏱️  get_state: 200μs
-⏱️  _load_state: 136μs
-⏱️  get_state: 146μs
-⏱️  _load_state: 19.1ms
-⏱️  get_state: 22.7ms
-⏱️  _load_state: 5.8ms
-⏱️  get_state: 5.9ms
-⏱️  _load_state: 240μs
-⏱️  get_state: 261μs
-⏱️  get_global_state: 30.9ms
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 11μs
-⏱️  _save_state: 752μs
-⏱️  update_state: 766μs
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1289 个问题
-
-  ────────────────────────────────────────
-  📖 学习新知识 (5/2111):
-  📄My experience creating software with LLM coding agents – Par
-     概念: LLM agent
-  📄Salesforce study finds LLM agents flunk CRM and confidential
-     概念: LLM agent
-  📄LLM based agents as Dungeon Masters
-     概念: LLM agent
-  📄Show HN: FastGraphRAG – Better RAG using good old PageRank
-     概念: RAG
-  📄Ask HN: How are you doing RAG locally?
-     概念: RAG
-  ────────────────────────────────────────
-
-  ────────────────────────────────────────
-  📊 自我评估
-  代码质量: 0 个问题 (stable)
-  文档覆盖率: 0.0% | 类型标注: 0.0%
-  知识: 2954/2111 已学 (139.9%)
-  修改成功率: 20.0%
-  ────────────────────────────────────────
-  🎯 当前 1 个活跃目标
-  📋 能力差距 > 阈值 (10 项), 触发能力审计
-
-📋 执行思考技能: 能力差距审计
-   描述: 对比能力清单与爬取的外部能力参考，发现缺失能力并评估可行性
-⏱️  get_state: 11μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_state: 2μs
-⏱️  get_state: 1μs
-⏱️  get_state: 1μs
-⏱️  get_global_state: 75μs
-🎯 初始化自我学习系统
-✅ 自我学习系统初始化完成
-🔍 正在检查系统漏洞...
-⏱️  get_state: 14μs
-⏱️  _save_state: 1.2ms
-⏱️  update_state: 1.2ms
-✅ 系统安全检查通过
-📊 正在分析代码质量...
-📈 代码质量分析: 扫描 63 个文件，发现 1289 个问题
-  📋 能力差距审计完成: 2 项发现
-
-  ────────────────────────────────────────
-  🔍 反思审计 (6 项)
-  🔧 待验证修复: ai_knowledge_crawler.py,antibody_library.py,capabi
-  🔁 重复失败: 'ai_knowledge_crawler.py,conten' 用 'self_heal' 已失败 15 次 (AttributeError)
-  🔁 重复失败: 'fix_x' 用 'self_heal' 已失败 3 次 (syntax_error)
-  🔁 重复失败: 'test_problem' 用 'read_file' 已失败 3 次 (not_found)
-  ✅ 行为反馈: '架构测试' 成功 2/2 次 (100%) — 可继续深入
-  ✅ 行为反馈: 'knowledge_gap' 成功 6/6 次 (100%) — 可继续深入
-  ────────────────────────────────────────
-  🔗 延续 3 个已有思考线程
-     [d4] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci | [d4] 能力深度: 能力深度: 架构测试
+     [d3] 能力深度: 能力深度: knowledge_gap | [d4] 能力深度: 能力深度: 架构测试 | [d4] 能力深度: 能力深度: 能力深度: [数据结构与算法] ci

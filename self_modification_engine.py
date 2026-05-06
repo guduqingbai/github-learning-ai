@@ -80,6 +80,7 @@ class ModSubGates:
     """独立子开关，控制每种修改类型的启用/禁用"""
     allow_bare_except_fix: bool = True
     allow_docstring_add: bool = True
+    allow_type_hints_add: bool = True
     allow_unused_import_remove: bool = True
     allow_code_style_fix: bool = True
     allow_new_mod_creation: bool = True
@@ -272,6 +273,7 @@ class GateChain:
         type_checks = {
             "bare_except": (sub.allow_bare_except_fix, "修复裸 except 已禁用"),
             "docstring": (sub.allow_docstring_add, "添加文档字符串已禁用"),
+            "type_hints": (sub.allow_type_hints_add, "添加类型提示已禁用"),
             "unused_import": (sub.allow_unused_import_remove, "移除未使用 import 已禁用"),
             "code_style": (sub.allow_code_style_fix, "代码风格修复已禁用"),
             "new_mod": (sub.allow_new_mod_creation, "新建 mod 已禁用"),
@@ -685,6 +687,69 @@ class SelfModificationEngine:
         return self.apply_code_fix(filepath, code, new_code,
                                    reason=f"添加文档: {names}",
                                    mod_type="docstring")
+
+    def fix_missing_return_types(self, filepath: str) -> Dict[str, Any]:
+        """为函数添加 -> None 返回类型（仅限明确不返回值的函数）"""
+        full_path = Path(filepath)
+        if not full_path.exists():
+            return {"success": False, "error": "文件不存在",
+                    "error_kind": ModErrorKind.FILE_NOT_FOUND}
+
+        code = full_path.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(code)
+        except SyntaxError:
+            return {"success": False, "error": "语法错误",
+                    "error_kind": ModErrorKind.PRE_VALIDATE_FAILED}
+
+        lines = code.split("\n")
+        to_fix = []
+
+        for node in ast.walk(tree):
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            if node.returns is not None:
+                continue  # 已有返回类型
+
+            # 检查是否返回值：遍历函数体找 return value
+            has_value_return = False
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Return) and sub.value is not None:
+                    has_value_return = True
+                    break
+                if isinstance(sub, ast.Yield):
+                    has_value_return = True
+                    break
+
+            if not has_value_return:
+                # 函数签名的最后一行是 body 的前一行
+                sig_end_line = node.body[0].lineno - 1  # 1-indexed
+                to_fix.append((sig_end_line, node.name))
+
+        if not to_fix:
+            return {"success": False, "error": "没有找到可添加返回类型的函数",
+                    "error_kind": ModErrorKind.CODE_MISMATCH}
+
+        # 从下往上修改（避免行偏移）
+        to_fix.sort(key=lambda x: x[0], reverse=True)
+        fixed_names = []
+        for sig_line, name in to_fix:
+            line = lines[sig_line - 1]
+            if line.strip() and line.rstrip().endswith(":"):
+                lines[sig_line - 1] = line.rstrip()[:-1] + " -> None:"
+                fixed_names.append(name)
+
+        if not fixed_names:
+            return {"success": False, "error": "没有可修改的函数签名",
+                    "error_kind": ModErrorKind.CODE_MISMATCH}
+
+        new_code = "\n".join(lines)
+        names = ", ".join(fixed_names[:5])
+        if len(fixed_names) > 5:
+            names += f" 等 {len(fixed_names)} 个"
+        return self.apply_code_fix(filepath, code, new_code,
+                                   reason=f"添加返回类型: {names}",
+                                   mod_type="type_hints")
 
     def remove_unused_import(self, filepath: str, import_name: str) -> Dict[str, Any]:
         """移除未使用的 import"""

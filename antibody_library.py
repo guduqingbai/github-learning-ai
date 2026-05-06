@@ -376,6 +376,16 @@ class AntibodyLibrary:
             ],
             target_extractor=_extract_file_from_insight,
         ))
+        self.register(Antibody(
+            name="add_return_types",
+            description="为函数添加 -> None 返回类型",
+            triggers=[("finding", "类型提示"), ("finding", "缺少类型提示")],
+            strategies=[
+                FixStrategy("engine_fix_return_types", "使用引擎添加返回类型",
+                            lambda e, t: e.fix_missing_return_types(t)),
+            ],
+            target_extractor=_extract_file_from_insight,
+        ))
 
     # ── 持久化 ──
 

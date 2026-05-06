@@ -8,3 +8,5 @@
 [2026-05-06T08:19:36.028Z] [INFO] Dashboard server listening on port 18791
 [2026-05-06T10:00:00.029Z] [INFO] Executing task: Full anatomy rescan
 [2026-05-06T10:00:00.595Z] [INFO] Task Full anatomy rescan completed in 565ms
+[2026-05-06T10:37:31.243Z] [INFO] Cron manifest changed — restart daemon to apply
+[2026-05-06T10:37:31.254Z] [INFO] Config changed — hot-reload not fully implemented yet

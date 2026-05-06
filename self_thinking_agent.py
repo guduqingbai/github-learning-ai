@@ -3496,6 +3496,8 @@ class SelfThinkingAgent:
             issue_keywords.append("裸 except")
         if "文档" in q.question or "docstring" in q.question.lower():
             issue_keywords.append("文档缺失")
+        if "类型" in q.question or "type hint" in q.question.lower():
+            issue_keywords.append("类型提示")
         findings = [base_finding] + issue_keywords
 
         return {

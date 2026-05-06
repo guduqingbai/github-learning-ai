@@ -796,6 +796,7 @@ class ThinkingDaemon:
             self._modification_engine.configure_sub_gates(
                 allow_bare_except_fix=True,
                 allow_docstring_add=True,
+                allow_type_hints_add=True,
                 allow_high_risk_mod=True,
                 require_human_approval=False,
             )
