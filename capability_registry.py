@@ -38,6 +38,7 @@ class CapabilityRegistry:
     """
 
     def __init__(self):
+        """__init__"""
         self.data_dir = Path("data")
         self.data_dir.mkdir(exist_ok=True)
 
