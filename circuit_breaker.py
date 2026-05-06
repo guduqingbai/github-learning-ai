@@ -13,6 +13,7 @@ from typing import Dict, Any, Optional, List
 
 
 class CircuitState(str, Enum):
+    """CircuitState"""
     CLOSED = "closed"         # 正常
     OPEN = "open"             # 熔断中，快速拒绝
     HALF_OPEN = "half_open"   # 半开，试探性允许
@@ -28,6 +29,7 @@ class CircuitBreaker:
         cooldown_seconds: int = 120,
         half_open_max_calls: int = 1,
     ):
+        """__init__"""
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self._state_file = self.data_dir / "circuit_breaker.json"
@@ -65,6 +67,7 @@ class CircuitBreaker:
     # ── 持久化 ──
 
     def _load(self):
+        """_load"""
         if self._state_file.exists():
             try:
                 data = json.loads(self._state_file.read_text(encoding="utf-8"))
@@ -81,6 +84,7 @@ class CircuitBreaker:
                 self._breakers = {}
 
     def _save(self):
+        """_save"""
         try:
             self.data_dir.mkdir(parents=True, exist_ok=True)
             self._state_file.write_text(
@@ -93,6 +97,7 @@ class CircuitBreaker:
     # ── 核心接口 ──
 
     def _get(self, key: str) -> dict:
+        """_get"""
         if key not in self._breakers:
             self._breakers[key] = {
                 "state": CircuitState.CLOSED.value,
@@ -205,6 +210,7 @@ class CircuitBreaker:
         return [self.get_info(k) for k in sorted(self._breakers.keys())]
 
     def get_summary(self) -> str:
+        """get_summary"""
         lines = ["⚡ 熔断器状态:"]
         for info in self.get_all_info():
             icon = {"closed": "✅", "open": "🔴", "half_open": "⚠️"}.get(info["state"], "❓")
