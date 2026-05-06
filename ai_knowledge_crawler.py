@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 
-"""ai_knowledge_crawler 模块"""
-
-
-
-"""ai_knowledge_crawler 模块"""
-
-
 """
 🤖 AI知识自动爬虫 - 精爬版
 专注 4 个高质量源：arXiv API + GitHub Topics + Papers With Code + Hacker News
